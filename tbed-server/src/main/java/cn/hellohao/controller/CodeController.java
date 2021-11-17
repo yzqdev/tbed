@@ -1,7 +1,7 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.pojo.Code;
-import cn.hellohao.pojo.Msg;
+import cn.hellohao.entity.Code;
+import cn.hellohao.entity.Msg;
 import cn.hellohao.service.CodeService;
 import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSONArray;

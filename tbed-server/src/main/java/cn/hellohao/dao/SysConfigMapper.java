@@ -1,6 +1,6 @@
 package cn.hellohao.dao;
 
-import cn.hellohao.pojo.SysConfig;
+import cn.hellohao.entity.SysConfig;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

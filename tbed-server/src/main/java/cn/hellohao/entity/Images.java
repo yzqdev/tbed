@@ -1,18 +1,43 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
 public class Images {
     // 默认的时间字符串格式
 
     //id, imgname, imgurl, userid
     private Integer id;
+    /**
+     * imgname
+     */
     private String imgname;
+    /**
+     * imgurl
+     */
     private String imgurl;
     private Integer userid;
+    /**
+     * 大小
+     */
     private String sizes;
+    /**
+     * 不正常的
+     */
     private String abnormal;
+    /**
+     * 源
+     */
     private Integer source;
+    /**
+     * imgtype
+     */
     private Integer imgtype;
-    private String updatetime;
+
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+    /**
+     * 用户名
+     */
     private String username;
     private Integer storageType;
     private String starttime;
@@ -44,7 +69,7 @@ public class Images {
         this.imgurl = imgurl;
         this.sizes = sizes;
         this.abnormal = abnormal;
-        this.updatetime = updatetime;
+        this.updateTime = updatetime;
         this.username = username;
         this.md5key = md5key;
         this.imguid = imguid;
@@ -63,7 +88,7 @@ public class Images {
         this.abnormal = abnormal;
         this.source = source;
         this.imgtype = imgtype;
-        this.updatetime = updatetime;
+        this.updateTime = updatetime;
         this.username = username;
         this.storageType = storageType;
         this.starttime = starttime;
@@ -152,12 +177,12 @@ public class Images {
         this.imgtype = imgtype;
     }
 
-    public String getUpdatetime() {
-        return updatetime;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getUsername() {

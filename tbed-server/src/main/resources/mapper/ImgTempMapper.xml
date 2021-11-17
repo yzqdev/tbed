@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.hellohao.dao.ImgTempMapper">
 
-    <resultMap id="BaseResultMap" type="cn.hellohao.pojo.ImgTemp">
+    <resultMap id="BaseResultMap" type="cn.hellohao.entity.ImgTemp">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="imguid" column="imguid" jdbcType="VARCHAR"/>
             <result property="deltime" column="deltime" jdbcType="VARCHAR"/>
@@ -26,7 +26,7 @@
     </update>
 
 <!--    根据日期查询要删除的图片-->
-    <select id="selectDelImgUidList" parameterType="string" resultType="cn.hellohao.pojo.Images">
+    <select id="selectDelImgUidList" parameterType="string" resultType="cn.hellohao.entity.Images">
         SELECT
         imgdata.imguid,
         imgdata.source,
@@ -42,7 +42,7 @@
         WHERE imgdata.imguid =#{imguid}
     </delete>
 
-    <insert id="insertImgExp" parameterType="cn.hellohao.pojo.ImgTemp" >
+    <insert id="insertImgExp" parameterType="cn.hellohao.entity.ImgTemp" >
         insert into `imgtemp` (id,imguid,`deltime`)
         values (null,#{imguid},#{deltime})
     </insert>

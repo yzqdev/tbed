@@ -1,6 +1,6 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.pojo.Msg;
+import cn.hellohao.entity.Msg;
 import cn.hellohao.service.impl.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

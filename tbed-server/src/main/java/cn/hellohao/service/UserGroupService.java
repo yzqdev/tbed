@@ -1,6 +1,6 @@
 package cn.hellohao.service;
 
-import cn.hellohao.pojo.UserGroup;
+import cn.hellohao.entity.UserGroup;
 import org.springframework.stereotype.Service;
 
 /**

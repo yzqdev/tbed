@@ -4,7 +4,7 @@
 
 
     <!-- 查询对象存储key-->
-    <select id="selectKeys" parameterType="integer" resultType="cn.hellohao.pojo.Keys">
+    <select id="selectKeys" parameterType="integer" resultType="cn.hellohao.entity.Keys">
         SELECT
             *
         FROM
@@ -13,12 +13,12 @@
             id = #{id}
     </select>
     <!-- 查询添加的所有对象存储-->
-    <select id="getStorageName"  resultType="cn.hellohao.pojo.Keys">
+    <select id="getStorageName"  resultType="cn.hellohao.entity.Keys">
         select id,keyname,storageType from `keys`
     </select>
 
     <!-- 查询对象存储有多少种-->
-    <select id="getStorage"  resultType="cn.hellohao.pojo.Keys">
+    <select id="getStorage"  resultType="cn.hellohao.entity.Keys">
         SELECT id,storageType,
                CASE WHEN storageType=1 THEN '网易云'
                     WHEN storageType=2 THEN '阿里云'
@@ -35,14 +35,14 @@
     </select>
 
     <!-- 查询对象存储key-->
-    <select id="getKeys" parameterType="integer" resultType="cn.hellohao.pojo.Keys">
+    <select id="getKeys" parameterType="integer" resultType="cn.hellohao.entity.Keys">
         SELECT
             *
         FROM
             `keys`
     </select>
 
-    <update id="updateKey" parameterType="cn.hellohao.pojo.Keys">
+    <update id="updateKey" parameterType="cn.hellohao.entity.Keys">
         UPDATE `keys`
         SET AccessKey = #{AccessKey},
         AccessSecret = #{AccessSecret},

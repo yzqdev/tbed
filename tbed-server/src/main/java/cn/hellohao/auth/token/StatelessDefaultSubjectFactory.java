@@ -11,6 +11,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
  */
 public class StatelessDefaultSubjectFactory extends DefaultWebSecurityManager {
     //不创建Session
+    @Override
     public Subject createSubject(SubjectContext context){
         context.setSessionCreationEnabled(false);
         return super.createSubject(context);

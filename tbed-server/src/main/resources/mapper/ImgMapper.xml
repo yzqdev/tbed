@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.ImgMapper">
 
     <!-- 查询-->
-    <select id="selectimg" parameterType="cn.hellohao.pojo.Images" resultType="cn.hellohao.pojo.Images">
+    <select id="selectimg" parameterType="cn.hellohao.entity.Images" resultType="cn.hellohao.entity.Images">
         SELECT
         a.id,
         a.imgname,
@@ -67,7 +67,7 @@
         DELETE FROM imgdata WHERE imguid = #{imguid}
     </delete>
 
-    <select id="selectByPrimaryKey" parameterType="integer" resultType="cn.hellohao.pojo.Images">
+    <select id="selectByPrimaryKey" parameterType="integer" resultType="cn.hellohao.entity.Images">
         select * from imgdata where id = #{id}
     </select>
 
@@ -80,7 +80,7 @@
     </select>
 
     <!-- 根据图片名字标记IP -->
-    <update id="setImg" parameterType="cn.hellohao.pojo.Images">
+    <update id="setImg" parameterType="cn.hellohao.entity.Images">
          UPDATE imgdata
              <set>
                  <if test="abnormal!=null">
@@ -102,7 +102,7 @@
         DELETE FROM imgdata WHERE id = #{id}
     </delete>
 
-    <select id="gettimeimg" parameterType="string" resultType="cn.hellohao.pojo.Images">
+    <select id="gettimeimg" parameterType="string" resultType="cn.hellohao.entity.Images">
         SELECT * from  imgdata WHERE  updatetime>=#{time}
     </select>
 <!--查询指定用户总内存-->
@@ -119,16 +119,16 @@
         select count(id) from imgdata where md5key=#{md5key} and userid = #{userid}
     </select>
 
-    <select id="selectImgUrlByMD5" parameterType="string" resultType="cn.hellohao.pojo.Images">
+    <select id="selectImgUrlByMD5" parameterType="string" resultType="cn.hellohao.entity.Images">
         select imgname,imgurl from imgdata where md5key = #{md5key}
     </select>
 
     <!--    查询当前用户的近20条数据-->
-    <select id="RecentlyUploaded" parameterType="integer" resultType="cn.hellohao.pojo.Images">
+    <select id="RecentlyUploaded" parameterType="integer" resultType="cn.hellohao.entity.Images">
         select * from imgdata where userid = #{userid}  ORDER BY updatetime DESC LIMIT 20
     </select>
 
-    <select id="RecentlyUser" resultType="cn.hellohao.pojo.User">
+    <select id="RecentlyUser" resultType="cn.hellohao.entity.User">
         select count(i.id) as counts ,i.userid,u.username from imgdata i
          LEFT JOIN `user` u on i.userid = u.id
         where i.userid not in (0)
@@ -146,7 +146,7 @@
     </select>
 
 
-    <select id="countByM" parameterType="cn.hellohao.pojo.Images"  resultType="cn.hellohao.pojo.Images">
+    <select id="countByM" parameterType="cn.hellohao.entity.Images" resultType="cn.hellohao.entity.Images">
         SELECT
         count(id) countNum,
         MONTH(updatetime) monthNum
@@ -163,7 +163,7 @@
 
     </select>
 
-    <select id="selectImgUrlByImgUID" parameterType="string" resultType="cn.hellohao.pojo.Images">
+    <select id="selectImgUrlByImgUID" parameterType="string" resultType="cn.hellohao.entity.Images">
         select * from imgdata where imguid = #{imguid}
     </select>
 

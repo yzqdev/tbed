@@ -1,12 +1,12 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.pojo.Msg;
+import cn.hellohao.entity.Msg;
 import cn.hellohao.utils.Print;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.hellohao.dao.KeysMapper;
-import cn.hellohao.pojo.Keys;
+import cn.hellohao.entity.Keys;
 import cn.hellohao.service.KeysService;
 
 import java.util.List;

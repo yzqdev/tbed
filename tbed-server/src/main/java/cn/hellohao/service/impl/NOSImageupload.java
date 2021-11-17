@@ -1,26 +1,18 @@
 package cn.hellohao.service.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.*;
 
-import cn.hellohao.exception.StorageSourceInitException;
-import cn.hellohao.pojo.ReturnImage;
-import cn.hellohao.pojo.UploadConfig;
+import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
-import com.netease.cloud.services.nos.model.NOSObjectSummary;
 import com.netease.cloud.services.nos.model.ObjectListing;
-import com.netease.cloud.services.nos.model.ObjectMetadata;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.netease.cloud.auth.BasicCredentials;
 import com.netease.cloud.auth.Credentials;
 import com.netease.cloud.services.nos.NosClient;
-import com.netease.cloud.services.nos.model.Bucket;
-import com.netease.cloud.services.nos.transfer.TransferManager;
 
-import cn.hellohao.pojo.Keys;
+import cn.hellohao.entity.Keys;
 
 @Service
 public class NOSImageupload {

@@ -17,7 +17,8 @@ import './my-theme/index.less';
 import '@/assets/css/font.less';
 import './assets/css/style.css'
 import md5 from "js-md5";
-
+import Storage from 'vue-ls';
+Vue.use(Storage)
 
 Vue.config.productionTip = false
 

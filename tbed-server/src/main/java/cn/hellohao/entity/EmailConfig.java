@@ -1,10 +1,28 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
+/**
+ * 邮件配置
+ *
+ * @author yanni
+ * @date 2021/11/17
+ */
+@TableName("email_config")
 public class EmailConfig {
     private Integer id ;
     private String emails;
-    private String emailkey;
-    private String emailurl;
+    /**
+     * 电子邮件的关键
+     */
+    private String emailKey;
+    /**
+     * 电子邮件网址
+     */
+    private String emailUrl;
+    /**
+     * 端口
+     */
     private String port;
     private String emailname;
     private Integer using ;
@@ -12,11 +30,11 @@ public class EmailConfig {
     public EmailConfig() {
     }
 
-    public EmailConfig(Integer id, String emails, String emailkey, String emailurl, String port, String emailname, Integer using) {
+    public EmailConfig(Integer id, String emails, String emailKey, String emailUrl, String port, String emailname, Integer using) {
         this.id = id;
         this.emails = emails;
-        this.emailkey = emailkey;
-        this.emailurl = emailurl;
+        this.emailKey = emailKey;
+        this.emailUrl = emailUrl;
         this.port = port;
         this.emailname = emailname;
         this.using = using;
@@ -38,20 +56,20 @@ public class EmailConfig {
         this.emails = emails;
     }
 
-    public String getEmailkey() {
-        return emailkey;
+    public String getEmailKey() {
+        return emailKey;
     }
 
-    public void setEmailkey(String emailkey) {
-        this.emailkey = emailkey;
+    public void setEmailKey(String emailKey) {
+        this.emailKey = emailKey;
     }
 
-    public String getEmailurl() {
-        return emailurl;
+    public String getEmailUrl() {
+        return emailUrl;
     }
 
-    public void setEmailurl(String emailurl) {
-        this.emailurl = emailurl;
+    public void setEmailUrl(String emailUrl) {
+        this.emailUrl = emailUrl;
     }
 
     public String getPort() {

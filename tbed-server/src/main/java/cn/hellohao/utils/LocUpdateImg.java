@@ -1,16 +1,11 @@
 package cn.hellohao.utils;
 
-import cn.hellohao.pojo.Keys;
-import cn.hellohao.pojo.ReturnImage;
-import cn.hellohao.pojo.UploadConfig;
+import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.service.impl.KeysServiceImpl;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class LocUpdateImg {
     public static boolean deleteLOCImg(String imagename){

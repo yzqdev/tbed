@@ -1,7 +1,7 @@
 package cn.hellohao.controller;
 
 import cn.hellohao.auth.token.JWTUtil;
-import cn.hellohao.pojo.*;
+import cn.hellohao.entity.*;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
@@ -76,7 +76,7 @@ public class IndexController {
         jsonObject.put("favicon",config.getWebfavicons());
         jsonObject.put("baidu",config.getBaidu());
         jsonObject.put("links",config.getLinks());
-        jsonObject.put("aboutinfo",config.getAboutinfo());
+        jsonObject.put("aboutinfo",config.getAboutInfo());
         jsonObject.put("logo",config.getLogo());
         jsonObject.put("api",updateConfig.getApi());
         jsonObject.put("register",sysConfig.getRegister());

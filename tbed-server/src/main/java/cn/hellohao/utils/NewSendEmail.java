@@ -1,8 +1,8 @@
 package cn.hellohao.utils;
 
-import cn.hellohao.pojo.Config;
-import cn.hellohao.pojo.EmailConfig;
-import cn.hellohao.pojo.Msg;
+import cn.hellohao.entity.Config;
+import cn.hellohao.entity.EmailConfig;
+import cn.hellohao.entity.Msg;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
 import com.mitchellbosecke.pebble.PebbleEngine;
@@ -28,10 +28,10 @@ public class NewSendEmail {
         props.put("mail.debug",  "false");
         props.put("mail.smtp.timeout", "20000");
         props.put("mail.smtp.port", emailConfig.getPort());//465  25
-        props.put("mail.smtp.host", emailConfig.getEmailurl());
+        props.put("mail.smtp.host", emailConfig.getEmailUrl());
         // 配置一次即可，可以配置为静态方法
 //        OhMyEmail.config(OhMyEmail.SMTP_QQ(false), "xxxx@qq.com", "your@password");
-        OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailkey());
+        OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailKey());
 
         String webname=config.getWebname();
         String domain = config.getDomain();
@@ -70,8 +70,8 @@ public class NewSendEmail {
             props.put("mail.debug",  "false");
             props.put("mail.smtp.timeout", "20000");
             props.put("mail.smtp.port", emailConfig.getPort());//465  25
-            props.put("mail.smtp.host", emailConfig.getEmailurl());
-            OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailkey());
+            props.put("mail.smtp.host", emailConfig.getEmailUrl());
+            OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailKey());
             String webname="Hellohao图像托管程序";
             OhMyEmail.subject("Hellohao图像托管程序邮箱配置测试")
                     .from(webname)
@@ -99,10 +99,10 @@ public class NewSendEmail {
         props.put("mail.debug",  "false");
         props.put("mail.smtp.timeout", "20000");
         props.put("mail.smtp.port", emailConfig.getPort());//465  25
-        props.put("mail.smtp.host", emailConfig.getEmailurl());
+        props.put("mail.smtp.host", emailConfig.getEmailUrl());
         // 配置一次即可，可以配置为静态方法
 //        OhMyEmail.config(OhMyEmail.SMTP_QQ(false), "xxxx@qq.com", "your@password");
-        OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailkey());
+        OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailKey());
         String webname=config.getWebname();
         String domain = config.getDomain();
         String new_pass = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,10);

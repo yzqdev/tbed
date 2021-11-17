@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.hellohao.pojo.User;
+import cn.hellohao.entity.User;
 import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
@@ -33,11 +33,9 @@ import com.netease.cloud.services.nos.model.CannedAccessControlList;
 import com.netease.cloud.services.nos.transfer.TransferManager;
 
 import cn.hellohao.dao.ImgMapper;
-import cn.hellohao.pojo.Images;
-import cn.hellohao.pojo.Keys;
+import cn.hellohao.entity.Images;
+import cn.hellohao.entity.Keys;
 import cn.hellohao.service.ImgService;
-
-import javax.annotation.Resource;
 
 @Service
 public class ImgServiceImpl implements ImgService {

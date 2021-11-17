@@ -1,7 +1,7 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.pojo.Group;
-import cn.hellohao.pojo.Msg;
+import cn.hellohao.entity.Group;
+import cn.hellohao.entity.Msg;
 import cn.hellohao.service.GroupService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -66,7 +66,7 @@ public class GroupController {
     public Msg addisgroup(@RequestParam(value = "data", defaultValue = "") String data) {
         JSONObject jsonObject = JSONObject.parseObject(data);
         Group group = new Group();
-        group.setGroupname(jsonObject.getString("groupname"));
+        group.setGroupName(jsonObject.getString("groupname"));
         group.setKeyid(jsonObject.getInteger("keyid"));
         group.setUsertype(jsonObject.getInteger("usertype"));
         group.setCompress(jsonObject.getBoolean("compress")?1:0);
@@ -81,10 +81,10 @@ public class GroupController {
         Group group = new Group();
         group.setId(jsonObject.getInteger("id"));
         if(jsonObject.getInteger("id")==1){
-            group.setGroupname("默认群组");
+            group.setGroupName("默认群组");
             group.setUsertype(0);
         }else{
-            group.setGroupname(jsonObject.getString("groupname"));
+            group.setGroupName(jsonObject.getString("groupname"));
             group.setUsertype(jsonObject.getInteger("usertype"));
         }
         group.setKeyid(jsonObject.getInteger("keyid"));

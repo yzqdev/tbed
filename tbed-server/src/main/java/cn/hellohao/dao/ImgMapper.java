@@ -2,11 +2,11 @@ package cn.hellohao.dao;
 
 import java.util.List;
 
-import cn.hellohao.pojo.User;
+import cn.hellohao.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import cn.hellohao.pojo.Images;
+import cn.hellohao.entity.Images;
 
 @Mapper
 public interface ImgMapper {

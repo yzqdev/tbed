@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.pojo.Keys;
-import cn.hellohao.pojo.ReturnImage;
+import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;

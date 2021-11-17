@@ -1,11 +1,8 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.pojo.Keys;
-import cn.hellohao.pojo.ReturnImage;
-import cn.hellohao.pojo.UploadConfig;
+import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
-import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.model.ObjectMetadata;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -17,13 +14,9 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class KODOImageupload {

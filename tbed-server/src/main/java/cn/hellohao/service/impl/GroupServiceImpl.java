@@ -3,9 +3,9 @@ package cn.hellohao.service.impl;
 import cn.hellohao.dao.GroupMapper;
 import cn.hellohao.dao.UserMapper;
 import cn.hellohao.exception.CodeException;
-import cn.hellohao.pojo.Group;
-import cn.hellohao.pojo.Msg;
-import cn.hellohao.pojo.User;
+import cn.hellohao.entity.Group;
+import cn.hellohao.entity.Msg;
+import cn.hellohao.entity.User;
 import cn.hellohao.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +69,7 @@ public class GroupServiceImpl implements GroupService {
             List<User> userList = userMapper.getuserlistforgroupid(id);
             for (User user : userList) {
                 User u = new User();
-                u.setGroupid(1);
+                u.setGroupId(1);
                 u.setUid(user.getUid());
                 userMapper.change(u);
             }

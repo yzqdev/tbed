@@ -1,7 +1,7 @@
 package cn.hellohao.auth.filter;
 
 import cn.hellohao.auth.token.JWTUtil;
-import cn.hellohao.pojo.User;
+import cn.hellohao.entity.User;
 import cn.hellohao.service.impl.UserServiceImpl;
 import cn.hellohao.utils.SpringContextHolder;
 import cn.hutool.crypto.SecureUtil;

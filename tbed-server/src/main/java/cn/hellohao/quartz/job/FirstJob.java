@@ -1,7 +1,7 @@
 package cn.hellohao.quartz.job;
 
-import cn.hellohao.pojo.Images;
-import cn.hellohao.pojo.Keys;
+import cn.hellohao.entity.Images;
+import cn.hellohao.entity.Keys;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.KeysService;
 import cn.hellohao.service.impl.*;

@@ -1,7 +1,7 @@
 package cn.hellohao.service;
 
-import cn.hellohao.pojo.Images;
-import cn.hellohao.pojo.ImgTemp;
+import cn.hellohao.entity.Images;
+import cn.hellohao.entity.ImgTemp;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

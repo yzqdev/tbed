@@ -1,6 +1,6 @@
 package cn.hellohao.dao;
 
-import cn.hellohao.pojo.UploadConfig;
+import cn.hellohao.entity.UploadConfig;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

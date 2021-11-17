@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.hellohao.dao.SysConfigMapper">
 
-    <select id="getstate" resultType="cn.hellohao.pojo.SysConfig">
+    <select id="getstate" resultType="cn.hellohao.entity.SysConfig">
         select * from sysconfig where id = 1
     </select>
 
-    <update id="setstate" parameterType="cn.hellohao.pojo.SysConfig">
+    <update id="setstate" parameterType="cn.hellohao.entity.SysConfig">
         UPDATE sysconfig
         <set>
             <if test="register != null">

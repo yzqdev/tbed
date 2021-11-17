@@ -1,4 +1,4 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
 /**
  * @author Hellohao
@@ -7,7 +7,7 @@ package cn.hellohao.pojo;
  */
 public class Group {
     private Integer id;
-    private String groupname;
+    private String groupName;
     private Integer keyid;
     private Integer usertype;
     private Integer compress;
@@ -18,9 +18,9 @@ public class Group {
     public Group() {
     }
 
-    public Group(Integer id, String groupname, Integer keyid, Integer usertype, Integer compress, Integer storageType, String keyname) {
+    public Group(Integer id, String groupName, Integer keyid, Integer usertype, Integer compress, Integer storageType, String keyname) {
         this.id = id;
-        this.groupname = groupname;
+        this.groupName = groupName;
         this.keyid = keyid;
         this.usertype = usertype;
         this.compress = compress;
@@ -36,12 +36,12 @@ public class Group {
         this.id = id;
     }
 
-    public String getGroupname() {
-        return groupname;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroupname(String groupname) {
-        this.groupname = groupname;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public Integer getKeyid() {

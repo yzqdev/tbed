@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.CodeMapper;
-import cn.hellohao.pojo.Code;
+import cn.hellohao.entity.Code;
 import cn.hellohao.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

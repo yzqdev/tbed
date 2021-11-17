@@ -1,6 +1,6 @@
 package cn.hellohao.dao;
 
-import cn.hellohao.pojo.Group;
+import cn.hellohao.entity.Group;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

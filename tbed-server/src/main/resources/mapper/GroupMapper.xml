@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.GroupMapper">
 
 
-<!--    <select id="grouplist" resultType="cn.hellohao.pojo.Group">-->
+<!--    <select id="grouplist" resultType="cn.hellohao.entity.Group">-->
 <!--        SELECT-->
 <!--        *-->
 <!--        FROM-->
@@ -11,7 +11,7 @@
 <!--    </select>-->
 
 
-    <select id="grouplist" resultType="cn.hellohao.pojo.Group" parameterType="integer">
+    <select id="grouplist" resultType="cn.hellohao.entity.Group" parameterType="integer">
         SELECT
         g.id,g.groupname,g.keyid,g.usertype,g.compress,k.storageType,k.keyname
         FROM
@@ -24,7 +24,7 @@
     </select>
 
 
-    <select id="idgrouplist" parameterType="integer" resultType="cn.hellohao.pojo.Group">
+    <select id="idgrouplist" parameterType="integer" resultType="cn.hellohao.entity.Group">
         SELECT
             *
         FROM
@@ -32,7 +32,7 @@
         where id = #{id}
     </select>
 
-    <insert id="addgroup" parameterType="cn.hellohao.pojo.Group">
+    <insert id="addgroup" parameterType="cn.hellohao.entity.Group">
         insert into `group` (id,groupname,keyid) values (null,#{groupname},#{keyid})
     </insert>
 
@@ -48,11 +48,11 @@
         delete from `group` where id=#{id}
     </delete>
 
-    <update id="setgroup" parameterType="cn.hellohao.pojo.Group">
+    <update id="setgroup" parameterType="cn.hellohao.entity.Group">
         UPDATE `group` SET groupname=#{groupname},keyid=#{keyid} where id = #{id};
     </update>
 
-    <select id="getGroupFroUserType" parameterType="integer" resultType="cn.hellohao.pojo.Group">
+    <select id="getGroupFroUserType" parameterType="integer" resultType="cn.hellohao.entity.Group">
         SELECT
             *
         FROM

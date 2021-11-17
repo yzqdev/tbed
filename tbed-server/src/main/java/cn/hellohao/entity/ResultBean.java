@@ -1,5 +1,11 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
+/**
+ * 结果
+ *
+ * @author yanni
+ * @date 2021/11/17
+ */
 public class ResultBean {
     private int code;
     private String msg;

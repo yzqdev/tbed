@@ -3,7 +3,7 @@ package cn.hellohao.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import cn.hellohao.pojo.Keys;
+import cn.hellohao.entity.Keys;
 
 import java.util.List;
 

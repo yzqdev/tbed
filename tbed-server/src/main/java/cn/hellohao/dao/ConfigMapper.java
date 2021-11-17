@@ -1,8 +1,7 @@
 package cn.hellohao.dao;
 
-import cn.hellohao.pojo.Config;
+import cn.hellohao.entity.Config;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Service;
 
 @Mapper
 public interface ConfigMapper {

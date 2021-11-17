@@ -1,4 +1,4 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
 import java.io.File;
 

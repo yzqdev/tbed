@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.ImgAndAlbumMapper">
 
 
-    <select id="selectImgAndAlbum" parameterType="string" resultType="cn.hellohao.pojo.ImgAndAlbum">
+    <select id="selectImgAndAlbum" parameterType="string" resultType="cn.hellohao.entity.ImgAndAlbum">
         SELECT
         *
         FROM
@@ -15,7 +15,7 @@
         </where>
     </select>
 
-    <select id="getAlbumForImgname" resultType="cn.hellohao.pojo.ImgAndAlbum" parameterType="string">
+    <select id="getAlbumForImgname" resultType="cn.hellohao.entity.ImgAndAlbum" parameterType="string">
         SELECT
         *
         FROM
@@ -27,7 +27,7 @@
         </where>
     </select>
 
-    <insert id="addImgAndAlbum" parameterType="cn.hellohao.pojo.ImgAndAlbum">
+    <insert id="addImgAndAlbum" parameterType="cn.hellohao.entity.ImgAndAlbum">
         insert into `imgandalbum` (imgname,albumkey,notes) values (#{imgname},#{albumkey},#{notes})
     </insert>
 
@@ -39,7 +39,7 @@
         delete from imgandalbum where albumkey=#{albumkey}
     </delete>
 
-    <select id="selectImgForAlbumkey" parameterType="string" resultType="cn.hellohao.pojo.Images">
+    <select id="selectImgForAlbumkey" parameterType="string" resultType="cn.hellohao.entity.Images">
 
         select * from imgdata a
                           LEFT JOIN imgandalbum b  on a.imgurl = b.imgname

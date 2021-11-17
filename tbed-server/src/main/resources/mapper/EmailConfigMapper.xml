@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.hellohao.dao.EmailConfigMapper">
 
-    <select id="getemail" resultType="cn.hellohao.pojo.EmailConfig">
+    <select id="getemail" resultType="cn.hellohao.entity.EmailConfig">
         select * from emailconfig where id = 1
     </select>
 
-    <update id="updateemail" parameterType="cn.hellohao.pojo.EmailConfig">
+    <update id="updateemail" parameterType="cn.hellohao.entity.EmailConfig">
         UPDATE emailconfig
         <set>
             <if test="emails != null">

@@ -95,6 +95,7 @@
 <script>
 
 import {request} from "@/network/request";
+import locStorage from "@/assets/js/utils/locStorage";
 
 export default {
 
@@ -129,7 +130,7 @@ export default {
     noticeChange(){
       this.$store.state.noticePopup = false;
       if(this.noticeSwitch){
-        this.$locStorage.set("ISINFORMATION","ZSZXMSG_KG",(3*60*24));
+         locStorage.set("ISINFORMATION","ZSZXMSG_KG",(3*60*24));
       }else{
         localStorage.removeItem('ISINFORMATION');
       }

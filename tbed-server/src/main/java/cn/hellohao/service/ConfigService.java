@@ -1,6 +1,6 @@
 package cn.hellohao.service;
 
-import cn.hellohao.pojo.Config;
+import cn.hellohao.entity.Config;
 import org.springframework.stereotype.Service;
 
 @Service

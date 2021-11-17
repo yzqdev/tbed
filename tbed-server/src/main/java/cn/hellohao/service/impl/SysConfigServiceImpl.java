@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.SysConfigMapper;
-import cn.hellohao.pojo.SysConfig;
+import cn.hellohao.entity.SysConfig;
 import cn.hellohao.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

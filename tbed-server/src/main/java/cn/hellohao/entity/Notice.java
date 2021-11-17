@@ -1,4 +1,4 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
 public class Notice {
     private Integer id;

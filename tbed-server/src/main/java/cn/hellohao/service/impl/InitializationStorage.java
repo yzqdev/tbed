@@ -2,7 +2,7 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.dao.KeysMapper;
-import cn.hellohao.pojo.Keys;
+import cn.hellohao.entity.Keys;
 import cn.hellohao.utils.Print;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

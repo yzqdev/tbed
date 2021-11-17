@@ -117,8 +117,8 @@ export default {
       retrieveCodeURL:null,
       userToken:null,
       formInline: {
-        email: '',
-        password: '',
+        email: '1826814987@qq.com',
+        password: '123456',
         verifyCode:''
       },
       retrieveData:{

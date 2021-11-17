@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.auth.token.JWTUtil;
 import cn.hellohao.config.SysName;
-import cn.hellohao.pojo.*;
+import cn.hellohao.entity.*;
 import cn.hellohao.service.*;
 import cn.hellohao.utils.*;
 import cn.hutool.core.util.HexUtil;
@@ -101,9 +101,9 @@ public class UserController {
             String birthder = df.format(new Date());// new Date()为获取当前系统时间
             user.setLevel(1);
             user.setUid(uid);
-            user.setBirthder(birthder);
-            user.setMemory(updateConfig.getUsermemory());
-            user.setGroupid(1);
+            user.setBirthday(birthder);
+            user.setMemory(updateConfig.getUserStorage());
+            user.setGroupId(1);
             user.setEmail(email);
             user.setUsername(username);
             user.setPassword(password);

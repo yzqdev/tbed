@@ -1,6 +1,6 @@
 package cn.hellohao.auth.shiro;
 
-import cn.hellohao.pojo.User;
+import cn.hellohao.entity.User;
 import cn.hellohao.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;

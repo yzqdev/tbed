@@ -1,18 +1,13 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.pojo.Keys;
-import cn.hellohao.pojo.ReturnImage;
-import cn.hellohao.pojo.UploadConfig;
+import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
 import com.UpYun;
-import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.ObjectMetadata;
-import com.upyun.UpException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 @Service

@@ -5,19 +5,16 @@ import cn.hellohao.dao.ConfigMapper;
 import cn.hellohao.dao.ImgAndAlbumMapper;
 import cn.hellohao.dao.ImgMapper;
 import cn.hellohao.exception.CodeException;
-import cn.hellohao.pojo.Album;
-import cn.hellohao.pojo.Images;
-import cn.hellohao.pojo.ImgAndAlbum;
-import cn.hellohao.pojo.Msg;
+import cn.hellohao.entity.Album;
+import cn.hellohao.entity.Images;
+import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.AlbumService;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Hellohao

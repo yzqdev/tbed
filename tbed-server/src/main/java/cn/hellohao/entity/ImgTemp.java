@@ -1,23 +1,24 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
 /**
  * By Hellohao
+ *
  * @TableName ImgTemp
  */
 public class ImgTemp {
     /**
-     * 
+     *
      */
     private Integer id;
 
     /**
-     * 
+     *
      */
     private String imguid;
 
 
     /**
-     * 
+     *
      */
     private String deltime;
 

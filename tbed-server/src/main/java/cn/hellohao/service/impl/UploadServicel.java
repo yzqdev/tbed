@@ -1,12 +1,10 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.*;
-import cn.hellohao.pojo.*;
+import cn.hellohao.entity.*;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.SysConfigService;
 import cn.hellohao.utils.*;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -166,11 +164,11 @@ public class UploadServicel {
                 Long imgsize = returnImage.getImgSize();
                 String imgname = returnImage.getImgname();
                 img.setImgurl(imgurl);
-                img.setUpdatetime(df.format(new Date()));
+                img.setUpdateTime(df.format(new Date()));
                 img.setSource(key.getId());
                 img.setUserid(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());
-                if(uploadConfig.getUrltype()==2){
+                if(uploadConfig.getUrlType()==2){
                     img.setImgname(imgname);
                 }else{
                     img.setImgname(SetText.getSubString(imgname, key.getRequestAddress() + "/", ""));
@@ -184,6 +182,7 @@ public class UploadServicel {
                 }else{
                     img.setImgtype(0);
                 }
+
                 img.setAbnormal(userip);
                 img.setMd5key(md5key);
                 img.setImguid(imguid);
@@ -277,7 +276,7 @@ public class UploadServicel {
                     return msg;
                 }
                 group = GetCurrentSource.GetSource(null);
-                memory = Long.valueOf(uploadConfig.getVisitormemory());//单位 B 游客设置总量
+                memory = Long.valueOf(uploadConfig.getVisitorStorage());//单位 B 游客设置总量
                 TotleMemory = Long.valueOf(uploadConfig.getFilesizetourists());//单位 B  游客单文件大小
                 UsedTotleMemory = imgMapper.getusermemory(0)==null?0L : imgMapper.getusermemory(0);//单位 B
             } else {
@@ -293,7 +292,7 @@ public class UploadServicel {
                 TotleMemory = Long.valueOf(uploadConfig.getFilesizeuser());//单位 B
                 UsedTotleMemory = imgMapper.getusermemory(user.getId())==null?0L:imgMapper.getusermemory(user.getId());//单位 B
             }
-            if (uploadConfig.getUrltype() == 2) {
+            if (uploadConfig.getUrlType() == 2) {
                 updatePath = dateFormat.format(new Date());
             }
             msg.setCode("300");

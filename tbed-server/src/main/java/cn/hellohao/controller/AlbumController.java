@@ -1,7 +1,7 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.pojo.*;
-import cn.hellohao.pojo.vo.PageResultBean;
+import cn.hellohao.entity.*;
+import cn.hellohao.entity.vo.PageResultBean;
 import cn.hellohao.service.ImgAndAlbumService;
 import cn.hellohao.service.UserService;
 import cn.hellohao.service.impl.AlbumServiceImpl;
@@ -139,8 +139,8 @@ public class AlbumController {
             String uuid = "TOALBUM"+ UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,5)+"N";
             SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Album album = new Album();
-            album.setAlbumtitle(albumtitle);
-            album.setCreatedate(df.format(new Date()));
+            album.setAlbumTitle(albumtitle);
+            album.setCreateDate(df.format(new Date()));
             album.setPassword(password);
             album.setAlbumkey(uuid);
             if(u==null){
@@ -244,7 +244,7 @@ public class AlbumController {
                     msg.setInfo("画廊密码错误");
                 }
             }
-            json.put("titlename",a.getAlbumtitle());
+            json.put("titlename",a.getAlbumTitle());
             msg.setData(json);
         }
         return msg;

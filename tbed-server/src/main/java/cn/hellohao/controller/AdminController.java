@@ -1,8 +1,8 @@
 package cn.hellohao.controller;
 
 import cn.hellohao.config.SysName;
-import cn.hellohao.pojo.*;
-import cn.hellohao.pojo.vo.PageResultBean;
+import cn.hellohao.entity.*;
+import cn.hellohao.entity.vo.PageResultBean;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
@@ -101,7 +101,7 @@ public class AdminController {
             jsonObject.put("ViolationImgTotal", imgreview.getCount()); //admin 非法图片
             jsonObject.put("ViolationSwitch", isImgreviewOK==null?0:isImgreviewOK.getId()); //admin 非法图片开关
             jsonObject.put("VisitorUpload", uploadConfig.getIsupdate());//是否禁用了游客上传
-            jsonObject.put("VisitorMemory", SetFiles.readableFileSize(Long.valueOf(uploadConfig.getVisitormemory())));//访客共大小
+            jsonObject.put("VisitorMemory", SetFiles.readableFileSize(Long.valueOf(uploadConfig.getVisitorStorage())));//访客共大小
             if(uploadConfig.getIsupdate()!=1){
                 jsonObject.put("VisitorUpload", 0);//是否禁用了游客上传
                 jsonObject.put("VisitorProportion",100.00);//游客用量%占比
@@ -109,13 +109,13 @@ public class AdminController {
             }else{
                 Long temp = imgService.getusermemory(0)==null?0:imgService.getusermemory(0);
                 jsonObject.put("UsedMemory", (temp == null ? 0 : SetFiles.readableFileSize(temp)));//访客已用大小
-                if(Long.valueOf(uploadConfig.getVisitormemory())==0){
+                if(Long.valueOf(uploadConfig.getVisitorStorage())==0){
                     jsonObject.put("VisitorProportion",100.00);//游客用量%占比
-                }else if(Long.valueOf(uploadConfig.getVisitormemory())==-1){
+                }else if(Long.valueOf(uploadConfig.getVisitorStorage())==-1){
                     jsonObject.put("VisitorProportion",0);//游客用量%占比
                     jsonObject.put("VisitorMemory", "无限");//访客共大小
                 }else{
-                    double sum = Double.valueOf(uploadConfig.getVisitormemory());
+                    double sum = Double.valueOf(uploadConfig.getVisitorStorage());
                     Double aDouble = Double.valueOf(String.format("%.2f", ((double) temp / sum) * 100));
                     if(aDouble>=999){
                         jsonObject.put("VisitorProportion",999);//游客用量%占比

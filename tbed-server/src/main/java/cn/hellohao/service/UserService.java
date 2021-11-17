@@ -1,8 +1,7 @@
 package cn.hellohao.service;
 
-import cn.hellohao.pojo.Images;
-import cn.hellohao.pojo.User;
-import org.apache.ibatis.annotations.Param;
+import cn.hellohao.entity.Images;
+import cn.hellohao.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

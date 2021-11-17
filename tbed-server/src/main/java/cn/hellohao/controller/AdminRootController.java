@@ -1,10 +1,9 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.pojo.*;
+import cn.hellohao.entity.*;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -13,16 +12,12 @@ import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +86,7 @@ public class AdminRootController {
             user.setId(id);
             user.setEmail(email);
             user.setMemory(Long.toString(memory*1024*1024));
-            user.setGroupid(groupid);
+            user.setGroupId(groupid);
             if(userInfo.getLevel()==1){
                 user.setIsok(isok==1?1:-1);
             }
@@ -265,8 +260,8 @@ public class AdminRootController {
             UploadConfig uploadConfig = uploadConfigService.getUpdateConfig();
             Config config = configService.getSourceype();
             SysConfig sysConfig = sysConfigService.getstate();
-            uploadConfig.setUsermemory(Long.toString(Long.valueOf(uploadConfig.getUsermemory())/1024/1024));
-            uploadConfig.setVisitormemory(Long.toString(Long.valueOf(uploadConfig.getVisitormemory())/1024/1024));
+            uploadConfig.setUserStorage(Long.toString(Long.valueOf(uploadConfig.getUserStorage())/1024/1024));
+            uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())/1024/1024));
             uploadConfig.setFilesizetourists(Long.toString(Long.valueOf(uploadConfig.getFilesizetourists())/1024/1024));
             uploadConfig.setFilesizeuser(Long.toString(Long.valueOf(uploadConfig.getFilesizeuser())/1024/1024));
             jsonObject.put("uploadConfig",uploadConfig);
@@ -289,9 +284,9 @@ public class AdminRootController {
         try {
             JSONObject jsonObject = JSONObject.parseObject(data);
             UploadConfig uploadConfig = JSON.toJavaObject((JSON) jsonObject.get("uploadConfig"),UploadConfig.class);
-            String vm =  uploadConfig.getVisitormemory();
+            String vm =  uploadConfig.getVisitorStorage();
             if((Long.valueOf(vm)<-1) || Long.valueOf(vm) > 104857600 || Long.valueOf(uploadConfig.getFilesizetourists())<0 || Long.valueOf(uploadConfig.getFilesizetourists()) > 5120
-                    || Long.valueOf(uploadConfig.getUsermemory())<0 || Long.valueOf(uploadConfig.getUsermemory())>1048576
+                    || Long.valueOf(uploadConfig.getUserStorage())<0 || Long.valueOf(uploadConfig.getUserStorage())>1048576
                     || Long.valueOf(uploadConfig.getFilesizeuser())<0 || Long.valueOf(uploadConfig.getFilesizeuser())>5120 ){
                 msg.setInfo("你输入的值不正确");
                 msg.setCode("500");
@@ -300,12 +295,12 @@ public class AdminRootController {
             Config config = JSON.toJavaObject((JSON) jsonObject.get("config"),Config.class);
             SysConfig sysConfig = JSON.toJavaObject((JSON) jsonObject.get("sysConfig"),SysConfig.class);
             if(Integer.valueOf(vm)==-1){
-                uploadConfig.setVisitormemory("-1");
+                uploadConfig.setVisitorStorage("-1");
             }else{
-                uploadConfig.setVisitormemory(Long.toString(Long.valueOf(uploadConfig.getVisitormemory())*1024*1024));
+                uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())*1024*1024));
             }
             uploadConfig.setFilesizetourists(Long.toString(Long.valueOf(uploadConfig.getFilesizetourists())*1024*1024));
-            uploadConfig.setUsermemory(Long.toString(Long.valueOf(uploadConfig.getUsermemory())*1024*1024));
+            uploadConfig.setUserStorage(Long.toString(Long.valueOf(uploadConfig.getUserStorage())*1024*1024));
             uploadConfig.setFilesizeuser(Long.toString(Long.valueOf(uploadConfig.getFilesizeuser())*1024*1024));
             uploadConfigService.setUpdateConfig(uploadConfig);
             configService.setSourceype(config);
@@ -349,10 +344,10 @@ public class AdminRootController {
         try {
             JSONObject jsonObj = JSONObject.parseObject(data);
             EmailConfig emailConfig = JSON.toJavaObject(jsonObj,EmailConfig.class);
-            if(null==emailConfig.getId() || null==emailConfig.getEmailname()  || null==emailConfig.getEmailurl() || null==emailConfig.getEmails()
-                    || null==emailConfig.getEmailkey()  || null==emailConfig.getPort() || null==emailConfig.getUsing()
-                    || emailConfig.getEmailname().equals("")  || emailConfig.getEmailurl().equals("")  || emailConfig.getEmails().equals("")
-                    || emailConfig.getEmailkey().equals("")   || emailConfig.getPort().equals("")){
+            if(null==emailConfig.getId() || null==emailConfig.getEmailname()  || null==emailConfig.getEmailUrl() || null==emailConfig.getEmails()
+                    || null==emailConfig.getEmailKey()  || null==emailConfig.getPort() || null==emailConfig.getUsing()
+                    || emailConfig.getEmailname().equals("")  || emailConfig.getEmailUrl().equals("")  || emailConfig.getEmails().equals("")
+                    || emailConfig.getEmailKey().equals("")   || emailConfig.getPort().equals("")){
                 msg.setCode("110400");
                 msg.setInfo("各参数不能为空");
                 return msg;
@@ -374,7 +369,7 @@ public class AdminRootController {
         JSONObject jsonObj = JSONObject.parseObject(data);
         String tomail = jsonObj.getString("tomail");
         EmailConfig emailConfig = JSON.toJavaObject(jsonObj,EmailConfig.class);
-        if(null==emailConfig.getEmails() || null==emailConfig.getEmailkey() || null==emailConfig.getEmailurl()
+        if(null==emailConfig.getEmails() || null==emailConfig.getEmailKey() || null==emailConfig.getEmailUrl()
                 || null==emailConfig.getPort()  || null==emailConfig.getEmailname() || null==tomail){
 //        if(jsonObj.size()==0){
             msg.setCode("110400");

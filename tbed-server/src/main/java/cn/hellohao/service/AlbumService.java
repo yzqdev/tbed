@@ -1,8 +1,7 @@
 package cn.hellohao.service;
 
-import cn.hellohao.pojo.Album;
+import cn.hellohao.entity.Album;
 import com.alibaba.fastjson.JSONArray;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.ImgreviewMapper;
-import cn.hellohao.pojo.Imgreview;
+import cn.hellohao.entity.Imgreview;
 import cn.hellohao.service.ImgreviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package cn.hellohao.pojo;
+package cn.hellohao.entity;
 
 /**
  * @author Hellohao
@@ -6,20 +6,38 @@ package cn.hellohao.pojo;
  * @date 2019-12-18 22:13
  */
 public class Album {
+    /**
+     * albumkey
+     */
     private String  albumkey;
-    private String albumtitle;
-    private String createdate;
+    /**
+     * 专辑名称
+     */
+    private String albumTitle;
+    /**
+     * 创建日期
+     */
+    private String createDate;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 用户标识
+     */
     private Integer userid;
+    /**
+     * 用户名
+     */
     private String username;
 
     public Album() {
     }
 
-    public Album(String albumkey, String albumtitle, String createdate, String password, Integer userid, String username) {
+    public Album(String albumkey, String albumTitle, String createDate, String password, Integer userid, String username) {
         this.albumkey = albumkey;
-        this.albumtitle = albumtitle;
-        this.createdate = createdate;
+        this.albumTitle = albumTitle;
+        this.createDate = createDate;
         this.password = password;
         this.userid = userid;
         this.username = username;
@@ -33,20 +51,20 @@ public class Album {
         this.albumkey = albumkey;
     }
 
-    public String getAlbumtitle() {
-        return albumtitle;
+    public String getAlbumTitle() {
+        return albumTitle;
     }
 
-    public void setAlbumtitle(String albumtitle) {
-        this.albumtitle = albumtitle;
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
     }
 
-    public String getCreatedate() {
-        return createdate;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setCreatedate(String createdate) {
-        this.createdate = createdate;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public String getPassword() {

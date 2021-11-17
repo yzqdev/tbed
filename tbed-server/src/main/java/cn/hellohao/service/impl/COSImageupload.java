@@ -1,14 +1,8 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.pojo.Keys;
-import cn.hellohao.pojo.ReturnImage;
-import cn.hellohao.pojo.UploadConfig;
+import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
-import com.netease.cloud.auth.BasicCredentials;
-import com.netease.cloud.auth.Credentials;
-import com.netease.cloud.services.nos.NosClient;
-import com.netease.cloud.services.nos.model.ObjectMetadata;
-import com.netease.cloud.services.nos.transfer.TransferManager;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -18,10 +12,8 @@ import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.*;
 
 @Service

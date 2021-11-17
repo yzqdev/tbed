@@ -1,9 +1,8 @@
 package cn.hellohao.utils;
 
 import cn.hellohao.exception.StorageSourceInitException;
-import cn.hellohao.pojo.ReturnImage;
+import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.service.impl.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Map;

@@ -1,8 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.ConfigMapper;
-import cn.hellohao.pojo.Config;
-import cn.hellohao.pojo.Images;
+import cn.hellohao.entity.Config;
 import cn.hellohao.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

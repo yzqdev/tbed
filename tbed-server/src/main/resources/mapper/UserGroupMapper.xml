@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.UserGroupMapper">
 
 
-    <select id="useridgetusergroup" parameterType="integer" resultType="cn.hellohao.pojo.UserGroup">
+    <select id="useridgetusergroup" parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
         SELECT
         *
         FROM
@@ -14,7 +14,7 @@
         </if>
     </select>
 
-    <select id="idgetusergroup"  parameterType="integer" resultType="cn.hellohao.pojo.UserGroup">
+    <select id="idgetusergroup"  parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
         SELECT
         *
         FROM
@@ -23,11 +23,11 @@
 
     </select>
 
-    <insert id="addusergroup" parameterType="cn.hellohao.pojo.UserGroup">
+    <insert id="addusergroup" parameterType="cn.hellohao.entity.UserGroup">
         insert into `usergroup` (id,userid,groupid) values (null,#{userid},#{groupid})
     </insert>
 
-    <update id="updateusergroup" parameterType="cn.hellohao.pojo.UserGroup">
+    <update id="updateusergroup" parameterType="cn.hellohao.entity.UserGroup">
         UPDATE `usergroup` SET  groupid = #{groupid} where userid = #{userid}
     </update>
 

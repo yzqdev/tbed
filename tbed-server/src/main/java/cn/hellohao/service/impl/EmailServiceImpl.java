@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.EmailConfigMapper;
-import cn.hellohao.pojo.EmailConfig;
+import cn.hellohao.entity.EmailConfig;
 import cn.hellohao.service.EmailConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

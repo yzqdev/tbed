@@ -1,6 +1,6 @@
 package cn.hellohao.service;
 
-import cn.hellohao.pojo.Imgreview;
+import cn.hellohao.entity.Imgreview;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,7 +1,7 @@
 package cn.hellohao.service;
 
-import cn.hellohao.pojo.Group;
-import cn.hellohao.pojo.Msg;
+import cn.hellohao.entity.Group;
+import cn.hellohao.entity.Msg;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

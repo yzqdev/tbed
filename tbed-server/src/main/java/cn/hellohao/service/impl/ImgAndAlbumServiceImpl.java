@@ -1,8 +1,8 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.ImgAndAlbumMapper;
-import cn.hellohao.pojo.Images;
-import cn.hellohao.pojo.ImgAndAlbum;
+import cn.hellohao.entity.Images;
+import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.ImgAndAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

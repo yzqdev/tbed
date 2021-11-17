@@ -1,11 +1,7 @@
 package cn.hellohao.utils;
 
-import cn.hellohao.dao.UserMapper;
-import cn.hellohao.pojo.Group;
-import cn.hellohao.pojo.User;
-import cn.hellohao.pojo.UserGroup;
-import cn.hellohao.service.GroupService;
-import cn.hellohao.service.UserGroupService;
+import cn.hellohao.entity.Group;
+import cn.hellohao.entity.User;
 import cn.hellohao.service.impl.GroupServiceImpl;
 import cn.hellohao.service.impl.UserGroupServiceImpl;
 import cn.hellohao.service.impl.UserServiceImpl;
@@ -60,9 +56,9 @@ public class GetCurrentSource {
             }
         }else{
             //用户
-            if(user.getGroupid()!=1){
+            if(user.getGroupId()!=1){
                 //说明自定义过的优先
-                group = groupService.idgrouplist(user.getGroupid());
+                group = groupService.idgrouplist(user.getGroupId());
             }else{
                 //默认的，用的是group主键为1的  但是还需要看看用户组有没有设置，比如管理员 用户
                 if(user.getLevel()>1){

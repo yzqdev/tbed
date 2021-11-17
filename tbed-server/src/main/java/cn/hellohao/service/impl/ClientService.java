@@ -1,20 +1,14 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.*;
-import cn.hellohao.pojo.*;
-import cn.hellohao.pojo.vo.PageResultBean;
+import cn.hellohao.entity.*;
 import cn.hellohao.service.ImgAndAlbumService;
 import cn.hellohao.service.SysConfigService;
 import cn.hellohao.utils.*;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.contentcensor.AipContentCensor;
 import com.baidu.aip.contentcensor.EImgType;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import net.coobird.thumbnailator.filters.Watermark;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -176,11 +170,11 @@ public class ClientService {
                 Long imgsize = returnImage.getImgSize();
                 String imgname = returnImage.getImgname();
                 img.setImgurl(imgurl);
-                img.setUpdatetime(df.format(new Date()));
+                img.setUpdateTime(df.format(new Date()));
                 img.setSource(key.getId());
                 img.setUserid(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());
-                if (uploadConfig.getUrltype() == 2) {
+                if (uploadConfig.getUrlType() == 2) {
                     img.setImgname(imgname);
                 } else {
                     img.setImgname(SetText.getSubString(imgname, key.getRequestAddress() + "/", ""));
@@ -239,7 +233,7 @@ public class ClientService {
                     return msg;
                 }
                 group = GetCurrentSource.GetSource(null);
-                memory = Long.valueOf(uploadConfig.getVisitormemory());//单位 B 游客设置总量
+                memory = Long.valueOf(uploadConfig.getVisitorStorage());//单位 B 游客设置总量
                 TotleMemory = Long.valueOf(uploadConfig.getFilesizetourists());//单位 B  游客单文件大小
                 UsedTotleMemory = imgMapper.getusermemory(0)==null?0L : imgMapper.getusermemory(0);//单位 B
             } else {
@@ -256,7 +250,7 @@ public class ClientService {
                 UsedTotleMemory = imgMapper.getusermemory(user.getId())==null?0L:imgMapper.getusermemory(user.getId());//单位 B
             }
             //判断上传的图片目录结构类型
-            if (uploadConfig.getUrltype() == 2) {
+            if (uploadConfig.getUrlType() == 2) {
                 updatePath = dateFormat.format(new Date());
             }
             msg.setCode("300");
