@@ -1,5 +1,6 @@
 package cn.hellohao.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -9,6 +10,7 @@ import java.io.Serializable;
  */
 public class Msg implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 5196249482551119279L;
 
     //返回码

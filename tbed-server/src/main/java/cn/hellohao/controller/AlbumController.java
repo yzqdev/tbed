@@ -152,7 +152,7 @@ public class AlbumController {
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject img = jsonArray.getJSONObject(i);
                 ImgAndAlbum imgAndAlbum = new ImgAndAlbum();
-                imgAndAlbum.setImgname(img.getString("imgurl"));
+                imgAndAlbum.setImgName(img.getString("imgurl"));
                 imgAndAlbum.setAlbumkey(uuid);
                 imgAndAlbum.setNotes(img.getString("notes"));
                 albumServiceImpl.addAlbumForImgAndAlbumMapper(imgAndAlbum);

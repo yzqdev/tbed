@@ -1,10 +1,13 @@
 package cn.hellohao.entity;
 
+import lombok.ToString;
+
 /**
  * @author Hellohao
  * @version 1.0
  * @date 2019-08-11 14:09
  */
+@ToString
 public class Code {
     private Integer id;
     private String value;

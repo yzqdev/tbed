@@ -1,6 +1,8 @@
 package cn.hellohao.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * 配置
@@ -9,6 +11,7 @@ import lombok.Data;
  * @date 2021/11/17
  */
 @Data
+@AllArgsConstructor
 public class Config {
     private Integer id;
     private Integer sourcekey;

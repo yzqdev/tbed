@@ -84,7 +84,7 @@ public class UploadServicel {
             }
 
             //判断可用容量
-            sourceKeyId = group.getKeyid();
+            sourceKeyId = group.getKeyId();
             Keys key = keysMapper.selectKeys(sourceKeyId);
             Long tmp = (memory == -1 ? -2 : UsedTotleMemory);
             if (tmp >= memory) {
@@ -126,9 +126,9 @@ public class UploadServicel {
                 imaOBJ.setUserid(u==null?0:u.getId());
                 if(imgMapper.md5Count(imaOBJ)>0){
                     Images images = imgMapper.selectImgUrlByMD5(md5key);
-                    jsonObject.put("url", images.getImgurl());
+                    jsonObject.put("url", images.getImgUrl());
                     jsonObject.put("name",file.getName());
-                    jsonObject.put("imguid",images.getImguid());
+                    jsonObject.put("imguid",images.getImgUid());
 //                    jsonObject.put("shortLink",images.getShortlink());
                     msg.setData(jsonObject);
                     return msg;
@@ -163,36 +163,36 @@ public class UploadServicel {
                 String imgurl = returnImage.getImgurl();
                 Long imgsize = returnImage.getImgSize();
                 String imgname = returnImage.getImgname();
-                img.setImgurl(imgurl);
+                img.setImgUrl(imgurl);
                 img.setUpdateTime(df.format(new Date()));
                 img.setSource(key.getId());
                 img.setUserid(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());
                 if(uploadConfig.getUrlType()==2){
-                    img.setImgname(imgname);
+                    img.setImgName(imgname);
                 }else{
-                    img.setImgname(SetText.getSubString(imgname, key.getRequestAddress() + "/", ""));
+                    img.setImgName(SetText.getSubString(imgname, key.getRequestAddress() + "/", ""));
                 }
                 if(setday == 1 || setday == 3 || setday == 7 || setday == 30){
-                    img.setImgtype(1);
+                    img.setImgType(1);
                     ImgTemp imgDataExp = new ImgTemp();
                     imgDataExp.setDeltime(plusDay(setday));
                     imgDataExp.setImguid(imguid);
                     imgTempService.insertImgExp(imgDataExp);
                 }else{
-                    img.setImgtype(0);
+                    img.setImgType(0);
                 }
 
                 img.setAbnormal(userip);
                 img.setMd5key(md5key);
-                img.setImguid(imguid);
+                img.setImgUid(imguid);
                 img.setFormat(fileMiME.getData().toString());
                 userMapper.insertimg(img);
                 long etime = System.currentTimeMillis();
                 Print.Normal("上传图片所用总时长：" + String.valueOf(etime - stime) + "ms");
-                jsonObject.put("url", img.getImgurl());
+                jsonObject.put("url", img.getImgUrl());
                 jsonObject.put("name", imgname);
-                jsonObject.put("imguid",img.getImguid());
+                jsonObject.put("imguid",img.getImgUid());
 //                jsonObject.put("shortLink", img.getShortlink());
                 new Thread(()->{LegalImageCheck(img);}).start();
             }else{
@@ -325,8 +325,8 @@ public class UploadServicel {
                 AipContentCensor client = new AipContentCensor(imgreview.getAppId(), imgreview.getApiKey(), imgreview.getSecretKey());
                 client.setConnectionTimeoutInMillis(5000);
                 client.setSocketTimeoutInMillis(30000);
-                org.json.JSONObject res = client.imageCensorUserDefined(images.getImgurl(), EImgType.FILE, null);
-                res = client.imageCensorUserDefined(images.getImgurl(), EImgType.URL, null);
+                org.json.JSONObject res = client.imageCensorUserDefined(images.getImgUrl(), EImgType.FILE, null);
+                res = client.imageCensorUserDefined(images.getImgUrl(), EImgType.URL, null);
                 System.err.println("返回的鉴黄json:"+res.toString());
                 com.alibaba.fastjson.JSONArray jsonArray = JSON.parseArray("[" + res.toString() + "]");
                 for (Object o : jsonArray) {
@@ -339,7 +339,7 @@ public class UploadServicel {
                                 com.alibaba.fastjson.JSONObject imgdata = (com.alibaba.fastjson.JSONObject) datum;
                                 if (imgdata.getInteger("type") == 1) {
                                     Images img = new Images();
-                                    img.setImgname(images.getImgname());
+                                    img.setImgName(images.getImgName());
                                     img.setViolation("1[1]");
                                     imgMapper.setImg(img);
                                     Imgreview imgv = new Imgreview();

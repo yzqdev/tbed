@@ -1,18 +1,28 @@
 package cn.hellohao.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 图片
+ *
+ * @author yanni
+ * @date 2021/11/17
+ */
+@Data
+@NoArgsConstructor
 public class Images {
     // 默认的时间字符串格式
 
-    //id, imgname, imgurl, userid
     private Integer id;
     /**
      * imgname
      */
-    private String imgname;
+    private String imgName;
     /**
      * imgurl
      */
-    private String imgurl;
+    private String imgUrl;
     private Integer userid;
     /**
      * 大小
@@ -29,7 +39,7 @@ public class Images {
     /**
      * imgtype
      */
-    private Integer imgtype;
+    private Integer imgType;
 
     /**
      * 更新时间
@@ -39,68 +49,78 @@ public class Images {
      * 用户名
      */
     private String username;
+    /**
+     * 存储类型
+     */
     private Integer storageType;
-    private String starttime;
-    private String stoptime;
+    /**
+     * 开始时间
+     */
+    private String startTime;
+    /**
+     * 停止时间
+     */
+    private String stopTime;
     private String explains;
+    /**
+     * md5key
+     */
     private String md5key;
     private String notes;
     private String useridlist;
-    private String imguid;
+    private String imgUid;
     private String format;
     private String about;
     private Integer great;
     private String violation;
-    private String albumtitle;
+    private String albumTitle;
     //@Length(min = 0, max = 10, message = "画廊密码不能超过10个字符")
     private String password;
-    private Integer selecttype;
+    private Integer selectType;
     private Long countNum;
     private Integer monthNum;
     private String yyyy;
     private String[] classifuidlist; //类别uid集合
     private String classificationuid; //类别uid集合
 
-    public Images() {
-        super();
-    }
 
-    public Images(String imgurl, String sizes, String abnormal, String updatetime, String username, String md5key, String imguid) {
-        this.imgurl = imgurl;
+
+    public Images(String imgUrl, String sizes, String abnormal, String updatetime, String username, String md5key, String imgUid) {
+        this.imgUrl = imgUrl;
         this.sizes = sizes;
         this.abnormal = abnormal;
         this.updateTime = updatetime;
         this.username = username;
         this.md5key = md5key;
-        this.imguid = imguid;
+        this.imgUid = imgUid;
     }
 
-    public Images(Integer id, String imgname, String imgurl, Integer userid, String sizes, String abnormal, Integer source,
-                  Integer imgtype, String updatetime, String username, Integer storageType, String starttime, String stoptime,
-                  String explains, String md5key, String notes, String useridlist, String imguid, String albumtitle,
-                  String password, Integer selecttype,Long countNum,Integer monthNum,String yyyy,
-                  String format,String about,Integer great,String[] classifuidlist,String classificationuid,String violation) {
+    public Images(Integer id, String imgName, String imgUrl, Integer userid, String sizes, String abnormal, Integer source,
+                  Integer imgType, String updatetime, String username, Integer storageType, String startTime, String stopTime,
+                  String explains, String md5key, String notes, String useridlist, String imgUid, String albumTitle,
+                  String password, Integer selectType, Long countNum, Integer monthNum, String yyyy,
+                  String format, String about, Integer great, String[] classifuidlist, String classificationuid, String violation) {
         this.id = id;
-        this.imgname = imgname;
-        this.imgurl = imgurl;
+        this.imgName = imgName;
+        this.imgUrl = imgUrl;
         this.userid = userid;
         this.sizes = sizes;
         this.abnormal = abnormal;
         this.source = source;
-        this.imgtype = imgtype;
+        this.imgType = imgType;
         this.updateTime = updatetime;
         this.username = username;
         this.storageType = storageType;
-        this.starttime = starttime;
-        this.stoptime = stoptime;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
         this.explains = explains;
         this.md5key = md5key;
         this.notes = notes;
         this.useridlist = useridlist;
-        this.imguid = imguid;
-        this.albumtitle = albumtitle;
+        this.imgUid = imgUid;
+        this.albumTitle = albumTitle;
         this.password = password;
-        this.selecttype = selecttype;
+        this.selectType = selectType;
         this.countNum = countNum;
         this.monthNum = monthNum;
         this.yyyy = yyyy;
@@ -113,246 +133,6 @@ public class Images {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getImgname() {
-        return imgname;
-    }
-
-    public void setImgname(String imgname) {
-        this.imgname = imgname;
-    }
-
-    public String getImgurl() {
-        return imgurl;
-    }
-
-    public void setImgurl(String imgurl) {
-        this.imgurl = imgurl;
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
-
-    public String getSizes() {
-        return sizes;
-    }
-
-    public void setSizes(String sizes) {
-        this.sizes = sizes;
-    }
-
-    public String getAbnormal() {
-        return abnormal;
-    }
-
-    public void setAbnormal(String abnormal) {
-        this.abnormal = abnormal;
-    }
-
-    public Integer getSource() {
-        return source;
-    }
-
-    public void setSource(Integer source) {
-        this.source = source;
-    }
-
-    public Integer getImgtype() {
-        return imgtype;
-    }
-
-    public void setImgtype(Integer imgtype) {
-        this.imgtype = imgtype;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Integer getStorageType() {
-        return storageType;
-    }
-
-    public void setStorageType(Integer storageType) {
-        this.storageType = storageType;
-    }
-
-    public String getStarttime() {
-        return starttime;
-    }
-
-    public void setStarttime(String starttime) {
-        this.starttime = starttime;
-    }
-
-    public String getStoptime() {
-        return stoptime;
-    }
-
-    public void setStoptime(String stoptime) {
-        this.stoptime = stoptime;
-    }
-
-    public String getExplains() {
-        return explains;
-    }
-
-    public void setExplains(String explains) {
-        this.explains = explains;
-    }
-
-    public String getMd5key() {
-        return md5key;
-    }
-
-    public void setMd5key(String md5key) {
-        this.md5key = md5key;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public String getUseridlist() {
-        return useridlist;
-    }
-
-    public void setUseridlist(String useridlist) {
-        this.useridlist = useridlist;
-    }
-
-    public String getImguid() {
-        return imguid;
-    }
-
-    public void setImguid(String imguid) {
-        this.imguid = imguid;
-    }
-
-
-    public String getAlbumtitle() {
-        return albumtitle;
-    }
-
-    public void setAlbumtitle(String albumtitle) {
-        this.albumtitle = albumtitle;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getSelecttype() {
-        return selecttype;
-    }
-
-    public void setSelecttype(Integer selecttype) {
-        this.selecttype = selecttype;
-    }
-
-    public Long getCountNum() {
-        return countNum;
-    }
-
-    public void setCountNum(Long countNum) {
-        this.countNum = countNum;
-    }
-
-    public Integer getMonthNum() {
-        return monthNum;
-    }
-
-    public void setMonthNum(Integer monthNum) {
-        this.monthNum = monthNum;
-    }
-
-    public String getYyyy() {
-        return yyyy;
-    }
-
-    public void setYyyy(String yyyy) {
-        this.yyyy = yyyy;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
-    public String getAbout() {
-        return about;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
-    }
-
-    public Integer getGreat() {
-        return great;
-    }
-
-    public void setGreat(Integer great) {
-        this.great = great;
-    }
-
-    public String[] getClassifuidlist() {
-        return classifuidlist;
-    }
-
-    public void setClassifuidlist(String[] classifuidlist ) {
-        this.classifuidlist = classifuidlist;
-    }
-
-    public String getClassificationuid() {
-        return classificationuid;
-    }
-
-    public void setClassificationuid(String classificationuid) {
-        this.classificationuid = classificationuid;
-    }
-
-    public String getViolation() {
-        return violation;
-    }
-
-    public void setViolation(String violation) {
-        this.violation = violation;
-    }
 }
 	
 		

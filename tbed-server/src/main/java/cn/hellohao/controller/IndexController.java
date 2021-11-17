@@ -261,7 +261,7 @@ public class IndexController {
             }
         }
         Integer keyid = image.getSource();
-        String imgname = image.getImgname();
+        String imgname = image.getImgName();
         Keys key = keysService.selectKeys(keyid);
         //删除图片
         boolean isDele = false;
@@ -288,7 +288,7 @@ public class IndexController {
         if(isDele){
             try {
                 imgAndAlbumService.deleteImgAndAlbum(imgname);
-                imgTempService.delImgAndExp(image.getImguid());
+                imgTempService.delImgAndExp(image.getImgUid());
                 imgService.deleimg(image.getId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -299,7 +299,7 @@ public class IndexController {
             msg.setInfo("删除成功");
         }else{
             imgAndAlbumService.deleteImgAndAlbum(imgname);
-            imgTempService.delImgAndExp(image.getImguid());
+            imgTempService.delImgAndExp(image.getImgUid());
             imgService.deleimg(image.getId());
             msg.setInfo("图片记录已删除，但是图片源删除失败");
             msg.setCode("500");

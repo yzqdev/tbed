@@ -1,10 +1,13 @@
 package cn.hellohao.entity;
 
+import lombok.ToString;
+
 /**
  * @author Hellohao
  * @version 1.0
  * @date 2019-12-18 22:13
  */
+@ToString
 public class Album {
     /**
      * albumkey

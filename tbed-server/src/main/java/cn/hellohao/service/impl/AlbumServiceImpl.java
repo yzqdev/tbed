@@ -38,7 +38,7 @@ public class AlbumServiceImpl implements AlbumService {
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < array.size(); i++) {
             Images images = new Images();
-            images.setImguid(array.getString(i));
+            images.setImgUid(array.getString(i));
             jsonArray.add(imgMapper.selectimg(images).get(0));
         }
         return jsonArray;

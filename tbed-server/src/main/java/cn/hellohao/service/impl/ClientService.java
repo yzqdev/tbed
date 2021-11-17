@@ -98,7 +98,7 @@ public class ClientService {
             if (!msg1.getCode().equals("300")) {
                 return msg1;
             }
-            sourceKeyId = group.getKeyid();
+            sourceKeyId = group.getKeyId();
             Keys key = keysMapper.selectKeys(sourceKeyId);
             Long tmp = (memory == -1 ? -2 : UsedTotleMemory);
             if (tmp >= memory) {
@@ -148,7 +148,7 @@ public class ClientService {
                 imaOBJ.setUserid(u.getId());
                 if (imgMapper.md5Count(imaOBJ) > 0) {
                     Images images = imgMapper.selectImgUrlByMD5(md5key);
-                    jsonObject.put("url", images.getImgurl());
+                    jsonObject.put("url", images.getImgUrl());
                     jsonObject.put("name", file.getName());
                     jsonObject.put("size", images.getSizes());
                     msg.setData(jsonObject);
@@ -169,25 +169,25 @@ public class ClientService {
                 String imgurl = returnImage.getImgurl();
                 Long imgsize = returnImage.getImgSize();
                 String imgname = returnImage.getImgname();
-                img.setImgurl(imgurl);
+                img.setImgUrl(imgurl);
                 img.setUpdateTime(df.format(new Date()));
                 img.setSource(key.getId());
                 img.setUserid(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());
                 if (uploadConfig.getUrlType() == 2) {
-                    img.setImgname(imgname);
+                    img.setImgName(imgname);
                 } else {
-                    img.setImgname(SetText.getSubString(imgname, key.getRequestAddress() + "/", ""));
+                    img.setImgName(SetText.getSubString(imgname, key.getRequestAddress() + "/", ""));
                 }
-                img.setImgtype(setday > 0 ? 1 : 0);
+                img.setImgType(setday > 0 ? 1 : 0);
                 img.setAbnormal(userip);
                 img.setMd5key(md5key);
-                img.setImguid(imguid);
+                img.setImgUid(imguid);
                 img.setFormat(fileMiME.getData().toString());
                 userMapper.insertimg(img);
                 long etime = System.currentTimeMillis();
                 Print.Normal("上传图片所用总时长：" + String.valueOf(etime - stime) + "ms");
-                jsonObject.put("url", img.getImgurl());
+                jsonObject.put("url", img.getImgUrl());
                 jsonObject.put("name", imgname);
                 jsonObject.put("size", img.getSizes());
                 //启动鉴黄线程
@@ -281,8 +281,8 @@ public class ClientService {
                 AipContentCensor client = new AipContentCensor(imgreview.getAppId(), imgreview.getApiKey(), imgreview.getSecretKey());
                 client.setConnectionTimeoutInMillis(5000);
                 client.setSocketTimeoutInMillis(30000);
-                org.json.JSONObject res = client.imageCensorUserDefined(images.getImgurl(), EImgType.FILE, null);
-                res = client.imageCensorUserDefined(images.getImgurl(), EImgType.URL, null);
+                org.json.JSONObject res = client.imageCensorUserDefined(images.getImgUrl(), EImgType.FILE, null);
+                res = client.imageCensorUserDefined(images.getImgUrl(), EImgType.URL, null);
                 com.alibaba.fastjson.JSONArray jsonArray = JSON.parseArray("[" + res.toString() + "]");
                 for (Object o : jsonArray) {
                     JSONObject jsonObject = (JSONObject) o;
@@ -294,8 +294,9 @@ public class ClientService {
                                 JSONObject imgdata = (JSONObject) datum;
                                 if (imgdata.getInteger("type") == 1) {
                                     Images img = new Images();
-                                    img.setImgname(images.getImgname());
-                                    img.setViolation("1[1]");//数字是鉴别平台的主键ID，括号是非法的类型，参考上面的注释
+                                    img.setImgName(images.getImgName());
+                                    //数字是鉴别平台的主键ID，括号是非法的类型，参考上面的注释
+                                    img.setViolation("1[1]");
                                     imgMapper.setImg(img);
                                     Imgreview imgv = new Imgreview();
                                     imgv.setId(1);

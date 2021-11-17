@@ -309,9 +309,9 @@ public class AdminController {
         }
         img.setUsername(username);
         img.setSource(source);
-        img.setSelecttype(selecttype);
-        img.setStarttime(starttime);
-        img.setStoptime(stoptime);
+        img.setSelectType(selecttype);
+        img.setStartTime(starttime);
+        img.setStopTime(stoptime);
         if(classifuids!=null){
             String[] calssif = classifuids.split(",");
             img.setClassifuidlist(calssif);
@@ -439,7 +439,7 @@ public class AdminController {
             Integer imgid = images.getInteger(i);
             Images image = imgService.selectByPrimaryKey(imgid);
             Integer keyid = image.getSource();
-            String imgname = image.getImgname();
+            String imgname = image.getImgName();
             Keys key = keysService.selectKeys(keyid);
 
             if(!subject.hasRole("admin")){
@@ -473,7 +473,7 @@ public class AdminController {
             }
             if(isDele){
                 try {
-                    imgTempService.delImgAndExp(image.getImguid());
+                    imgTempService.delImgAndExp(image.getImgUid());
                     imgService.deleimg(imgid);
                     imgAndAlbumService.deleteImgAndAlbum(imgname);
                 } catch (Exception e) {
@@ -484,7 +484,7 @@ public class AdminController {
                 }
                 msg.setInfo("删除成功");
             }else{
-                imgTempService.delImgAndExp(image.getImguid());
+                imgTempService.delImgAndExp(image.getImgUid());
                 imgService.deleimg(imgid);
                 imgAndAlbumService.deleteImgAndAlbum(imgname);
                 msg.setInfo("图片记录已删除，但是图片源删除失败");

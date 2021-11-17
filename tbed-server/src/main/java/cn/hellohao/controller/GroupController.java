@@ -67,7 +67,7 @@ public class GroupController {
         JSONObject jsonObject = JSONObject.parseObject(data);
         Group group = new Group();
         group.setGroupName(jsonObject.getString("groupname"));
-        group.setKeyid(jsonObject.getInteger("keyid"));
+        group.setKeyId(jsonObject.getInteger("keyid"));
         group.setUsertype(jsonObject.getInteger("usertype"));
         group.setCompress(jsonObject.getBoolean("compress")?1:0);
         Msg msg = groupService.addgroup(group);
@@ -87,7 +87,7 @@ public class GroupController {
             group.setGroupName(jsonObject.getString("groupname"));
             group.setUsertype(jsonObject.getInteger("usertype"));
         }
-        group.setKeyid(jsonObject.getInteger("keyid"));
+        group.setKeyId(jsonObject.getInteger("keyid"));
         group.setCompress(jsonObject.getBoolean("compress")?1:0);
         Msg msg = groupService.setgroup(group);
         return msg;
