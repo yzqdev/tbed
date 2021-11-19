@@ -92,12 +92,10 @@ export default {
                 content: '<p>您确认删除该图像吗</p>',
                 onOk: () => {
                     this.$Spin.show();
-                    var param={
-                        imguid:file.response.data.imguid
-                    }
+
                     request(
-                        "/deleImagesByUid",
-                        param).then(res => {
+                        "/deleImagesByUid/"+file.response.data.imguid,
+                         ).then(res => {
                         this.$Spin.hide();
                         if(res.status==200){
                             if(res.data.code=='200'){
@@ -250,9 +248,8 @@ export default {
         },
         //获取选中的画廊图片信息
         getAlbumImgList(){
-            var param={
-                imguidlist:this.selectIndex
-            }
+            var param= this.selectIndex
+
             request(
                 "/getAlbumImgList",
                 param).then(res => {

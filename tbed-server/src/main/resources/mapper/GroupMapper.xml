@@ -13,12 +13,12 @@
 
     <select id="grouplist" resultType="cn.hellohao.entity.Group" parameterType="integer">
         SELECT
-        g.id,g.groupname,g.keyid,g.usertype,g.compress,k.storageType,k.keyname
+        g.id,g.group_name,g.key_id,g.user_type,g.compress,k.storage_type,k.key_name
         FROM
-        `group` as g LEFT JOIN `keys` as k on g.keyid = k.id
+        `group` as g LEFT JOIN `keys` as k on g.key_id = k.id
         where 1=1
         <if test="usertype!=null">
-            and g.usertype=#{usertype}
+            and g.user_type=#{usertype}
         </if>
 
     </select>
@@ -33,7 +33,7 @@
     </select>
 
     <insert id="addgroup" parameterType="cn.hellohao.entity.Group">
-        insert into `group` (id,groupname,keyid) values (null,#{groupname},#{keyid})
+        insert into `group` (id,group_name,key_id) values (null,#{groupname},#{keyid})
     </insert>
 
     <select id="GetCountFroUserType" parameterType="integer" resultType="integer">
@@ -41,7 +41,7 @@
             count(id)
         FROM
             `group`
-        where usertype = #{usertype}
+        where user_type = #{usertype}
     </select>
 
     <delete id="delegroup" parameterType="integer">
@@ -49,7 +49,7 @@
     </delete>
 
     <update id="setgroup" parameterType="cn.hellohao.entity.Group">
-        UPDATE `group` SET groupname=#{groupname},keyid=#{keyid} where id = #{id};
+        UPDATE `group` SET group_name=#{groupname},key_id=#{keyid} where id = #{id};
     </update>
 
     <select id="getGroupFroUserType" parameterType="integer" resultType="cn.hellohao.entity.Group">
@@ -57,7 +57,7 @@
             *
         FROM
             `group`
-        where usertype = #{usertype}
+        where user_type = #{usertype}
     </select>
 
 </mapper>

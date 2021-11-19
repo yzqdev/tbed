@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -87,10 +88,11 @@ public class IndexController {
 
     @PostMapping(value = "/upload")//upimg new
     @ResponseBody
-    public Msg upimg(HttpServletRequest request,HttpSession httpSession
-            , @RequestParam(value = "file", required = false) MultipartFile multipartFile,Integer day,
+    public Msg upimg(
+              @RequestParam(value = "file", required = false) MultipartFile multipartFile,Integer day,
                      @RequestParam(value = "classifications", defaultValue = "" ) String classifications) {
         final JSONArray jsonArray = new JSONArray();
+        HttpServletRequest request=RequestHelper.getRequest();
         if(!classifications.equals("")){
             String[] calssif = classifications.split(",");
             for (int i = 0; i < calssif.length; i++) {
@@ -103,19 +105,19 @@ public class IndexController {
     //根据网络图片url上传
     @PostMapping(value = "/uploadForUrl") //new
     @ResponseBody
-    public Msg upurlimg(HttpServletRequest request,@RequestParam(value = "data", defaultValue = "") String data) {
-        JSONObject jsonObj = JSONObject.parseObject(data);
+    public Msg upurlimg(@RequestBody Map<String,Object> data) {
+
         final JSONArray jsonArray = new JSONArray();
-        Integer setday = jsonObj.getInteger("day");
-        String imgUrl = jsonObj.getString("imgUrl");
-        String selectTreeListStr = jsonObj.getString("classifications");
+        Integer setday = (Integer) data.get("day");
+        String imgUrl = (String) data.get("imgUrl");
+        String selectTreeListStr = (String) data.get("classifications");
         if(null != selectTreeListStr){
             String[] calssif = selectTreeListStr.split(",");
             for (int i = 0; i < calssif.length; i++) {
                 jsonArray.add(calssif[i]);
             }
         }
-        return uploadServicel.uploadForLoc(request,null,setday,imgUrl,jsonArray);
+        return uploadServicel.uploadForLoc(RequestHelper.getRequest(),null,setday,imgUrl,jsonArray);
     }
 
     @RequestMapping(value = "/getUploadInfo")//new
@@ -244,17 +246,16 @@ public class IndexController {
     }
 
     //删除图像
-    @PostMapping("/deleImagesByUid") //new
+    @PostMapping("/deleImagesByUid/{imgUid}") //new
     @ResponseBody
-    public Msg deleImagesByUid(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg deleImagesByUid( @PathVariable("imgUid") String imgUid) {
         Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        String imguid = jsonObj.getString("imguid");
-        Images image = imgService.selectImgUrlByImgUID(imguid);
+
+        Images image = imgService.selectImgUrlByImgUID(imgUid);
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
         if(null!=user){
-            if(user.getId()!=image.getUserid()){
+            if(!user.getId().equals(image.getUserId())){
                 msg.setInfo("删除失败，该图片不允许你执行操作");
                 msg.setCode("100403");
                 return msg;

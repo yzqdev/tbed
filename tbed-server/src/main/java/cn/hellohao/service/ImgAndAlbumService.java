@@ -2,6 +2,7 @@ package cn.hellohao.service;
 
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.ImgAndAlbum;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +13,12 @@ import java.util.List;
  * @date 2019-12-18 22:29
  */
 @Service
-public interface ImgAndAlbumService {
-    Integer addImgAndAlbum(ImgAndAlbum imgAndAlbum);
+public interface ImgAndAlbumService extends IService<ImgAndAlbum> {
 
-    List<ImgAndAlbum> getAlbumForImgname(String imgname);
 
     Integer deleteImgAndAlbum(String imgname);
 
-    Integer deleteImgAndAlbumForKey(String albumkey);
+
 
     List<Images> selectImgForAlbumkey(String albumkey);
 }

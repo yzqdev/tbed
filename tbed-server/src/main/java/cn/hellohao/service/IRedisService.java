@@ -1,8 +1,10 @@
 package cn.hellohao.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.Map;
 
-public interface IRedisService {
+public interface IRedisService   {
 
     // 加入元素
     void setValue(String key, Map<String, Object> value);

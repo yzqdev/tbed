@@ -7,6 +7,7 @@ import cn.hellohao.entity.Images;
 import cn.hellohao.entity.User;
 import cn.hellohao.service.UserService;
 import cn.hellohao.utils.Print;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -37,11 +38,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUsers(user);
     }
 
-    @Override
-    public Integer insertimg(Images img) {
-        // TODO Auto-generated method stub
-        return userMapper.insertimg(img);
-    }
 
     @Override
     public Integer change(User user) {

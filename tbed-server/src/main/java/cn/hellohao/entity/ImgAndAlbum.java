@@ -17,7 +17,7 @@ public class ImgAndAlbum {
      * img的名字
      */
     private String imgName;
-    private String albumkey;
+    private String albumKey;
     private String notes;
 
 

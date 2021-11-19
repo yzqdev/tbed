@@ -54,9 +54,9 @@ export default {
         return false;
       }
       var param = {
-        albumtitle:this.albumtitle,
+        albumTitle:this.albumtitle,
         password:this.password,
-        albumlist:this.albumlist
+        albumList:this.albumlist
       }
       console.log("====="+JSON.stringify(param))
       request(

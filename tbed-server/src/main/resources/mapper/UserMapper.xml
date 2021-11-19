@@ -103,11 +103,7 @@
         WHERE uid = #{uid}
     </select>
 
-    <!-- 插入图片信息 -->
-    <insert id="insertimg" parameterType="cn.hellohao.entity.Images">
-        INSERT INTO img_data (id, imgname, imgurl, userid, updatetime,sizes,abnormal,source,imgtype,md5key,imguid,format,about,violation)
-        VALUES (NULL, #{imgname}, #{imgurl}, #{userid}, #{updatetime},#{sizes},#{abnormal},#{source},#{imgtype},#{md5key},#{imguid},#{format},#{about},null)
-    </insert>
+
 
     <!-- 修改资料 -->
     <update id="change" parameterType="cn.hellohao.entity.User">

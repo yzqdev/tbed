@@ -15,13 +15,13 @@ import java.util.List;
  */
 @Mapper
 public interface ImgAndAlbumMapper extends BaseMapper<ImgAndAlbum> {
-    Integer addImgAndAlbum(ImgAndAlbum imgAndAlbum);
+
 
     List<ImgAndAlbum> getAlbumForImgname(@Param("imgname") String imgname);
 
-    Integer deleteImgAndAlbum(@Param("imgname") String imgname);
 
-    Integer deleteImgAndAlbumForKey(@Param("albumkey") String albumkey);
 
-    List<Images> selectImgForAlbumkey(@Param("albumkey") String albumkey);
+
+
+    List<Images> selectImgForAlbumkey(@Param("albumKey") String albumKey);
 }

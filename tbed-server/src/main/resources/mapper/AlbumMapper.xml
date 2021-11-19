@@ -3,62 +3,57 @@
 <mapper namespace="cn.hellohao.dao.AlbumMapper">
 
 
-    <select id="selectAlbum" parameterType="cn.hellohao.entity.Album" resultType="cn.hellohao.entity.Album">
+    <select id="selectAlbum" parameterType="cn.hellohao.entity.dto.AlbumDto" resultType="cn.hellohao.entity.Album">
         SELECT
         *
         FROM
         `album`
         <where>
-            <if test="albumkey != null">
-                `albumkey` = #{albumkey}
+            <if test="albumKey != null">
+                `album_key` = #{albumKey}
             </if>
-            <if test="userid != null">
-                `userid` = #{userid}
+            <if test="userId != null">
+                `user_id` = #{userId}
             </if>
         </where>
     </select>
 
 
-    <insert id="addAlbum" parameterType="cn.hellohao.entity.Album">
-        insert into `album` (albumkey,albumtitle,createdate,`password`,userid)
-        values (#{albumkey},#{albumtitle},#{createdate},#{password},#{userid})
-    </insert>
 
-    <delete id="deleteAlbum" parameterType="string">
-        delete from album where albumkey=#{albumkey}
-    </delete>
 
-    <select id="selectAlbumURLList" parameterType="cn.hellohao.entity.Album" resultType="cn.hellohao.entity.Album">
+
+
+    <select id="selectAlbumURLList" parameterType="cn.hellohao.entity.dto.AlbumDto" resultType="cn.hellohao.entity.Album">
         SELECT
-        a.albumkey,
-        a.albumtitle,
-        a.createdate,
+        a.album_key,
+        a.album_title,
+        a.create_date,
         a.`password`,
-        a.userid,
+        a.user_id,
         u.username
-        FROM `album` a LEFT JOIN user u on a.userid = u.id
+        FROM `album` a LEFT JOIN user u on a.user_id = u.id
         <where>
-            <if test="albumkey != null">
-                `albumkey` like '%${albumkey}%'
+            <if test="albumKey != null">
+                `album_key` like '%${albumKey}%'
             </if>
             <if test="username != null">
                 `username` like '%${username}%'
             </if>
-            <if test="userid != null">
-                a.userid = #{userid}
+            <if test="userId != null">
+                a.user_id = #{userId}
             </if>
         </where>
-        order by a.createdate
+        order by a.create_date
     </select>
 
     <select id="selectAlbumCount" parameterType="integer" resultType="integer">
         SELECT
-        count(albumkey)
+        count(album_key)
         FROM
         `album`
         <where>
-            <if test="userid != null">
-                `userid` = #{userid}
+            <if test="userId != null">
+                `user_id` = #{userId}
             </if>
         </where>
     </select>

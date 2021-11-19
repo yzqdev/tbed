@@ -4,6 +4,8 @@ import cn.hellohao.dao.ImgAndAlbumMapper;
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.ImgAndAlbumService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,28 +17,19 @@ import java.util.List;
  * @date 2019/12/19 15:40
  */
 @Service
-public class ImgAndAlbumServiceImpl implements ImgAndAlbumService {
+public class ImgAndAlbumServiceImpl extends ServiceImpl<ImgAndAlbumMapper,ImgAndAlbum> implements ImgAndAlbumService {
     @Autowired
     ImgAndAlbumMapper imgAndAlbumMapper;
-    @Override
-    public Integer addImgAndAlbum(ImgAndAlbum imgAndAlbum) {
-        return imgAndAlbumMapper.addImgAndAlbum(imgAndAlbum);
-    }
 
-    @Override
-    public List<ImgAndAlbum> getAlbumForImgname(String imgname) {
-        return imgAndAlbumMapper.getAlbumForImgname(imgname);
-    }
+
+
 
     @Override
     public Integer deleteImgAndAlbum(String imgname) {
-        return imgAndAlbumMapper.deleteImgAndAlbum(imgname);
+        return imgAndAlbumMapper.delete(new LambdaQueryWrapper<ImgAndAlbum>().eq(ImgAndAlbum::getImgName,imgname));
     }
 
-    @Override
-    public Integer deleteImgAndAlbumForKey(String albumkey) {
-        return imgAndAlbumMapper.deleteImgAndAlbumForKey(albumkey);
-    }
+
 
     @Override
     public List<Images> selectImgForAlbumkey(String albumkey) {

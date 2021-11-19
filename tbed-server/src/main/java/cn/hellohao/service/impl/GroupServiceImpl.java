@@ -7,6 +7,7 @@ import cn.hellohao.entity.Group;
 import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.User;
 import cn.hellohao.service.GroupService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ import java.util.List;
  * @date 2019/8/19 16:30
  */
 @Service
-public class GroupServiceImpl implements GroupService {
+public class GroupServiceImpl extends ServiceImpl<GroupMapper,Group> implements GroupService {
     @Autowired
     private GroupMapper groupMapper;
     @Autowired

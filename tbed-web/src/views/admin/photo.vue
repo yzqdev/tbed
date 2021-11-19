@@ -19,7 +19,7 @@
         </FormItem>
         <FormItem label="用户名">
           <Input v-model="searchtext" placeholder="填写用户名">
-            <Select v-model="searchtype" slot="prepend" style="width: 100px">
+            <Select v-model="searchType" slot="prepend" style="width: 100px">
               <Option value="1">包含</Option>
               <Option value="0">排除</Option>
             </Select>
@@ -65,12 +65,12 @@
            <Row class="animate__animated animate__fadeIn animate__delay-1.5s">
             <Col flex="1" v-for="(item,index) in imglist" :key="index">
               <div class="imgdivstyle"  :class="[viewType==1?'divimgstyle-max':'divimgstyle-min']">
-                <span class="formatTag">{{item.imgurl.substr(item.imgurl.lastIndexOf("\.")+1)}}</span>
-                <img :class="[viewType==1?'imgstyle-max':'imgstyle-min']"  class="imgstyle" style="cursor:pointer;" :src="item.imgurl+''"   >
+                <span class="formatTag">{{item.imgUrl.substr(item.imgUrl.lastIndexOf("\.")+1)}}</span>
+                <img :class="[viewType==1?'imgstyle-max':'imgstyle-min']"  class="imgstyle" style="cursor:pointer;" :src="item.imgUrl+''"   >
 <!--                <img :class="[viewType==1?'imgstyle-max':'imgstyle-min']"  class="imgstyle" style="cursor:pointer;" :src="'666'"  onerror="this.src='http://tc.hellohao.cn/img/img404.jpg'" >-->
                 <div class="img-tool-cover" :style="{bottom:toolBottom+ 'px'}">
                   <Icon style="cursor:pointer;" @click.native="selectImgs(item)" :type="selectIndex.indexOf(item.id)>-1?'ios-checkmark-circle':'ios-checkmark-circle-outline'" :class="{'icostylecolor' : selectIndex.indexOf(item.id)>-1}"  class="icostyle"  title="选择" ></Icon>
-                  <Icon style="cursor:pointer;" type="md-link icostyle cobyOrderSn"   title="链接" data-clipboard-action="copy" :data-clipboard-text="item.imgurl" @click.native="copy" />
+                  <Icon style="cursor:pointer;" type="md-link icostyle cobyOrderSn"   title="链接" data-clipboard-action="copy" :data-clipboard-text="item.imgUrl" @click.native="copy" />
                   <Icon style="cursor:pointer;" type="md-trash icostyle" @click.native="delImg(item.id,index)"  title="删除" ></Icon>
                   <Icon style="cursor:pointer;" :color="item.violation==null?'':'rgb(228 102 70)'" type="md-information-circle icostyle" @click.native="imgInfo(item)" title="信息"></Icon>
                 </div>
@@ -107,7 +107,7 @@
             </FormItem>
             <FormItem >
               <Input v-model="searchtext" placeholder="填写用户名">
-                <Select v-model="searchtype" slot="prepend" style="width: 100px">
+                <Select v-model="searchType" slot="prepend" style="width: 100px">
                   <Option value="1">包含</Option>
                   <Option value="0">排除</Option>
                 </Select>
@@ -140,7 +140,7 @@
           </div>
           <p style="color: rgb(228 102 70);font-size: 12px; font-weight: 200;position: absolute; bottom: 10px; display: block; left: 0; width: 100%;z-index: 1;" align="center" v-show="isViolation.isControl">{{isViolation.info}}</p>
           <div class="QRCodestyle">
-            <vue-qr  :text="imgage?imgage.imgurl?imgage.imgurl:'未获取到文件信息':'未获取到文件信息'" :size="160"></vue-qr>
+            <vue-qr  :text="imgage?imgage.imgUrl?imgage.imgUrl:'未获取到文件信息':'未获取到文件信息'" :size="160"></vue-qr>
           </div>
         </TabPane>
       </Tabs>

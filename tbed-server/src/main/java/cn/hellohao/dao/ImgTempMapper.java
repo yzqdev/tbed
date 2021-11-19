@@ -15,7 +15,7 @@ import java.util.List;
 public interface ImgTempMapper extends BaseMapper<ImgTemp> {
 
     List<Images> selectDelImgUidList(@Param("datatime") String datatime);
-    Integer delImgAndExp(@Param("imguid") String imguid);
+    Integer delImgAndExp(@Param("imgUid") String imgUid);
     Integer insertImgExp(ImgTemp imgDataExp);
 
 }

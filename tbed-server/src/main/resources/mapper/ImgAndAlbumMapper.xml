@@ -27,24 +27,18 @@
         </where>
     </select>
 
-    <insert id="addImgAndAlbum" parameterType="cn.hellohao.entity.ImgAndAlbum">
-        insert into `imgandalbum` (imgname,albumkey,notes) values (#{imgname},#{albumkey},#{notes})
-    </insert>
 
-    <delete id="deleteImgAndAlbum" parameterType="string">
-        delete from imgandalbum where imgname=#{imgname}
-    </delete>
 
-    <delete id="deleteImgAndAlbumForKey" parameterType="string">
-        delete from imgandalbum where albumkey=#{albumkey}
-    </delete>
+
+
+
 
     <select id="selectImgForAlbumkey" parameterType="string" resultType="cn.hellohao.entity.Images">
 
-        select * from img_data a
-                          LEFT JOIN imgandalbum b  on a.imgurl = b.imgname
-                          LEFT JOIN album c on b.albumkey = c.albumkey
-        where b.albumkey = #{albumkey}
+        select * from img_data
+                          LEFT JOIN img_and_album    on img_data.img_url = img_and_album.img_name
+                          LEFT JOIN album   on img_and_album.album_key = album.album_key
+        where img_and_album.album_key = #{albumKey}
 
     </select>
 

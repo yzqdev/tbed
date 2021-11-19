@@ -2,13 +2,14 @@ package cn.hellohao.controller;
 
 import cn.hellohao.config.SysName;
 import cn.hellohao.entity.*;
+import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.PageResultBean;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -68,7 +69,7 @@ public class AdminController {
 
     @PostMapping(value = "/overviewData") //new
     @ResponseBody
-    public Msg overviewData(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg overviewData( ) {
         Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
@@ -170,7 +171,7 @@ public class AdminController {
 
     @PostMapping("/getRecently")//new
     @ResponseBody
-    public Msg getRecently(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg getRecently( ) {
         Msg msg = new Msg();
         final JSONObject jsonObject = new JSONObject();
         try {
@@ -195,7 +196,7 @@ public class AdminController {
 
     @PostMapping("/getYyyy")//new
     @ResponseBody
-    public Msg getYyyy(@RequestParam(value = "data", defaultValue = "") String data){
+    public Msg getYyyy( ){
         final Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
         User u = (User) subject.getPrincipal();
@@ -208,9 +209,9 @@ public class AdminController {
 
     @PostMapping("/getChart")//new
     @ResponseBody
-    public Msg getChart(@RequestParam(value = "data", defaultValue = "") String data){
+    public Msg getChart(@RequestBody JSONObject data){
         Msg msg = new Msg();
-        JSONObject jsonObject = JSONObject.parseObject(data);
+        JSONObject jsonObject = JSONObject.parseObject(String.valueOf(data));
         String yyyy = jsonObject.getString("yyyy");
         Integer type = jsonObject.getInteger("type");
 
@@ -220,18 +221,18 @@ public class AdminController {
         if(u.getLevel()>1){
             if(type==2){
                 Images images = new Images();
-                images.setYyyy(yyyy);
+                //images.setYyyy(yyyy);
                 list = imgService.countByM(images);
             }else{
                 Images images = new Images();
-                images.setYyyy(yyyy);
-                images.setUserid(u.getId());
+                //images.setYyyy(yyyy);
+                images.setUserId(u.getId());
                 list = imgService.countByM(images);
             }
         }else{
             Images images = new Images();
-            images.setYyyy(yyyy);
-            images.setUserid(u.getId());
+            //images.setYyyy(yyyy);
+            images.setUserId(u.getId());
             list = imgService.countByM(images);
         }
         JSONArray json = JSONArray.parseArray("[{\"id\":1,\"monthNum\":\"一月\",\"countNum\":0},{\"id\":2,\"monthNum\":\"二月\",\"countNum\":0},{\"id\":3,\"monthNum\":\"三月\",\"countNum\":0},{\"id\":4,\"monthNum\":\"四月\",\"countNum\":0},{\"id\":5,\"monthNum\":\"五月\",\"countNum\":0},{\"id\":6,\"monthNum\":\"六月\",\"countNum\":0},{\"id\":7,\"monthNum\":\"七月\",\"countNum\":0},{\"id\":8,\"monthNum\":\"八月\",\"countNum\":0},{\"id\":9,\"monthNum\":\"九月\",\"countNum\":0},{\"id\":10,\"monthNum\":\"十月\",\"countNum\":0},{\"id\":11,\"monthNum\":\"十一月\",\"countNum\":0},{\"id\":12,\"monthNum\":\"十二月\",\"countNum\":0}]");
@@ -239,7 +240,7 @@ public class AdminController {
         for (int j = 0; j < list.size(); j++) {
             for (int i = 0; i < json.size(); i++) {
                 JSONObject jobj = json.getJSONObject(i);
-                if(jobj.getInteger("id")==list.get(j).getMonthNum()){
+                if(jobj.getInteger("id").equals(list.get(j).getMonthNum())){
                     jobj.put("monthNum",getChinaes(list.get(j).getMonthNum()));
                     jobj.put("countNum",list.get(j).getCountNum());
                 }
@@ -269,25 +270,17 @@ public class AdminController {
 
     @PostMapping(value = "/selectPhoto")//new
     @ResponseBody
-    public Msg selectPhoto(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg selectPhoto(@RequestBody ImgSearchDto img ) {
         Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        Integer pageNum = jsonObj.getInteger("pageNum");
-        Integer pageSize = jsonObj.getInteger("pageSize");
-        String username = jsonObj.getString("username");
-        Integer source = jsonObj.getInteger("source");
-        String starttime = jsonObj.getString("starttime");
-        String stoptime = jsonObj.getString("stoptime");
-        Integer selecttype = jsonObj.getInteger("selecttype");
-        String classifuids = jsonObj.getString("classifuids");
-        boolean violation = jsonObj.getBoolean("violation");
+
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(starttime!=null){
+        if(img.getStartTime()!=null){
             try {
-                Date date1 = format.parse(starttime);
-                Date date2 = format.parse(stoptime==null?format.format(new Date()):stoptime);
+                Date date1 = format.parse(img.getStartTime());
+                Date date2 = format.parse(img.getStopTime()==null?format.format(new Date()):img.getStopTime());
                 int compareTo = date1.compareTo(date2);
                 System.out.println(compareTo);
                 if(compareTo==1){
@@ -302,26 +295,23 @@ public class AdminController {
                 return msg;
             }
         }
-        Images img = new Images();
-        PageHelper.startPage(pageNum, pageSize);
-        if(violation){
-            img.setViolation("true");
+
+
+        if(img.getViolation()){
+            img.setViolation(true);
         }
-        img.setUsername(username);
-        img.setSource(source);
-        img.setSelectType(selecttype);
-        img.setStartTime(starttime);
-        img.setStopTime(stoptime);
-        if(classifuids!=null){
-            String[] calssif = classifuids.split(",");
-            img.setClassifuidlist(calssif);
-        }
+
+        //if(img.getClassifulids()!=null){
+        //    String[] calssif = img.getClassifulids().split(",");
+        //    img.setClassifulids(calssif);
+        //}
         if(subject.hasRole("admin")){
-            img.setUserid(null);
+            img.setUserId(null);
         }else{
             //普通用户
-            img.setUserid(user.getId());
+            img.setUserId(user.getId());
         }
+        Page<Images> page= new Page<>(img.getPageNum(), img.getPageSize());
         List<Images> images = imgService.selectimg(img);
         PageInfo<Images> rolePageInfo = new PageInfo<>(images);
         PageResultBean<Images> pageResultBean = new PageResultBean<>(rolePageInfo.getTotal(), rolePageInfo.getList());
@@ -418,10 +408,9 @@ public class AdminController {
 
     @PostMapping("/deleImages") //new
     @ResponseBody
-    public Msg deleImages(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg deleImages(@RequestBody String[] images) {
         Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        JSONArray images = jsonObj.getJSONArray("images");
+
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
 
@@ -430,20 +419,20 @@ public class AdminController {
             msg.setInfo("当前用户信息不存在");
             return msg;
         }
-        if(images.size()==0){
+        if(images.length==0){
             msg.setCode("404");
             msg.setInfo("为获取到图像信息");
             return msg;
         }
-        for (int i = 0; i < images.size(); i++) {
-            Integer imgid = images.getInteger(i);
+        for (int i = 0; i < images.length; i++) {
+            Integer imgid = Integer.valueOf(images[i]);
             Images image = imgService.selectByPrimaryKey(imgid);
             Integer keyid = image.getSource();
             String imgname = image.getImgName();
             Keys key = keysService.selectKeys(keyid);
 
             if(!subject.hasRole("admin")){
-                if(image.getUserid()!=user.getId()){
+                if(!image.getUserId().equals(user.getId())){
                     break;
                 }
             }

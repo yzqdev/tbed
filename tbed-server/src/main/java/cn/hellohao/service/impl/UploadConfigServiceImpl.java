@@ -3,11 +3,12 @@ package cn.hellohao.service.impl;
 import cn.hellohao.dao.UploadConfigMapper;
 import cn.hellohao.entity.UploadConfig;
 import cn.hellohao.service.UploadConfigService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UploadConfigServiceImpl implements UploadConfigService {
+public class UploadConfigServiceImpl extends ServiceImpl<UploadConfigMapper,UploadConfig> implements UploadConfigService {
     @Autowired
     private UploadConfigMapper uploadConfigMapper;
 

@@ -2,6 +2,7 @@ package cn.hellohao.service;
 
 import cn.hellohao.entity.Group;
 import cn.hellohao.entity.Msg;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2019/8/19 16:29
  */
 @Service
-public interface GroupService {
+public interface GroupService extends IService<Group> {
     List<Group> grouplist(Integer usertype);
     Group idgrouplist(Integer id);
     Msg addgroup(Group group);

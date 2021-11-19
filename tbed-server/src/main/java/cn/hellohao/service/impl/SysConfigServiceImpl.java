@@ -3,6 +3,7 @@ package cn.hellohao.service.impl;
 import cn.hellohao.dao.SysConfigMapper;
 import cn.hellohao.entity.SysConfig;
 import cn.hellohao.service.SysConfigService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @date 2019/8/15 13:48
  */
 @Service
-public class SysConfigServiceImpl implements SysConfigService {
+public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper,SysConfig> implements SysConfigService {
     @Autowired
     private SysConfigMapper sysConfigMapper;
     @Override

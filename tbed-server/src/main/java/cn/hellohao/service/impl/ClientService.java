@@ -145,7 +145,7 @@ public class ClientService {
             if(Integer.valueOf(sysConfigService.getstate().getCheckduplicate())==1) {
                 Images imaOBJ = new Images();
                 imaOBJ.setMd5key(md5key);
-                imaOBJ.setUserid(u.getId());
+                imaOBJ.setUserId(u.getId());
                 if (imgMapper.md5Count(imaOBJ) > 0) {
                     Images images = imgMapper.selectImgUrlByMD5(md5key);
                     jsonObject.put("url", images.getImgUrl());
@@ -172,7 +172,7 @@ public class ClientService {
                 img.setImgUrl(imgurl);
                 img.setUpdateTime(df.format(new Date()));
                 img.setSource(key.getId());
-                img.setUserid(u == null ? 0 : u.getId());
+                img.setUserId(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());
                 if (uploadConfig.getUrlType() == 2) {
                     img.setImgName(imgname);
@@ -184,7 +184,7 @@ public class ClientService {
                 img.setMd5key(md5key);
                 img.setImgUid(imguid);
                 img.setFormat(fileMiME.getData().toString());
-                userMapper.insertimg(img);
+                imgMapper.insert(img);
                 long etime = System.currentTimeMillis();
                 Print.Normal("上传图片所用总时长：" + String.valueOf(etime - stime) + "ms");
                 jsonObject.put("url", img.getImgUrl());

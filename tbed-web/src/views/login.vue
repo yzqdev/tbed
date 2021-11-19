@@ -9,17 +9,17 @@
               <span style="font-size: large; font-weight: bold;">Login</span>
             </Header>
             <Content>
-            <Form ref="formInline" :model="formInline" :rules="ruleInline" inline @submit.native.prevent>
+            <Form ref="formInline" :model="formInline" :rules="ruleInline" inline  >
               <FormItem prop="email" style="display: inline-block;width: 80%;">
                 <Input prefix="md-mail" :maxlength="100" size="large" v-model="formInline.email" placeholder="User Email" style="width: 100%;height: 40px;" />
               </FormItem>
               <FormItem prop="password" style="display: inline-block;width: 80%;">
-                <Input prefix="md-lock" :maxlength="200" @keyup.enter.native="handleSubmit('formInline')" size="large" type="password" password  v-model="formInline.password" placeholder="User Password" style="width: 100%;height: 40px;" />
+                <Input prefix="md-lock" :maxlength="200" @keyup.enter="handleSubmit('formInline')" size="large" type="password" password  v-model="formInline.password" placeholder="User Password" style="width: 100%;height: 40px;" />
               </FormItem>
               <FormItem style="display: inline-block;width: 80%;">
               <Row>
                 <Col span="16">
-                  <Input prefix="md-barcode" :maxlength="10" :rules="ruleInline" @keyup.enter.native="handleSubmit('formInline')" v-model="formInline.verifyCode" size="large"   style="width: 100%;height: 40px;" />
+                  <Input prefix="md-barcode" :maxlength="10" :rules="ruleInline" @keyup.enter="handleSubmit('formInline')" v-model="formInline.verifyCode" size="large"   style="width: 100%;height: 40px;" />
                 </Col>
                 <Col span="4" offset="1">
                   <img @click="reloadCode(1)" :src="verifyCodeURL" />
@@ -32,7 +32,7 @@
                     <Icon type="ios-arrow-back"></Icon>
                     注册
                   </Button>
-                  <Button type="primary" @click.native="handleSubmit('formInline')" @keyup.enter.native="handleSubmit('formInline')">
+                  <Button type="primary" @click ="handleSubmit('formInline')" @keyup.enter="handleSubmit('formInline')">
                     登录
                     <Icon type="ios-arrow-forward"></Icon>
                   </Button>
@@ -167,7 +167,7 @@ export default {
             return false;
           }
 
-          console.log(JSON.stringify(this.formInline));
+          console.log(this.formInline);
           // var params = {
           //   data: this.formInline
           // };

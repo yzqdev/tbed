@@ -2,12 +2,13 @@ package cn.hellohao.service;
 
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.User;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public interface UserService {
+public interface UserService extends IService<User> {
     //注册
     Integer register(User user);
 
@@ -17,8 +18,7 @@ public interface UserService {
     //获取用户信息
     User getUsers(User user);
 
-    //插入图片
-    Integer insertimg(Images img);
+
 
     //修改资料
     Integer change(User user);

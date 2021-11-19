@@ -2,6 +2,7 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.entity.Msg;
 import cn.hellohao.utils.Print;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import cn.hellohao.service.KeysService;
 import java.util.List;
 
 @Service
-public class KeysServiceImpl implements KeysService {
+public class KeysServiceImpl extends ServiceImpl<KeysMapper,Keys> implements KeysService {
 
     @Autowired
     private KeysMapper keysMapper;

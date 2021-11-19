@@ -75,7 +75,6 @@ axios.defaults.withCredentials = true;
 axios.defaults.timeout = 60000;
 axios.defaults.method = 'POST';
 axios.defaults.headers = {
-  'Content-Type': 'application/x-www-form-urlencoded',
   'usersOrigin':md5(window.location.protocol+'//'+window.location.host)
 }
 //注册拦截器

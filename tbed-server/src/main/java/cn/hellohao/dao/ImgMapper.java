@@ -3,6 +3,7 @@ package cn.hellohao.dao;
 import java.util.List;
 
 import cn.hellohao.entity.User;
+import cn.hellohao.entity.dto.ImgSearchDto;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,11 +13,11 @@ import cn.hellohao.entity.Images;
 @Mapper
 public interface ImgMapper extends BaseMapper<Images> {
 
-    List<Images> selectimg(Images images);
+    List<Images> selectimg(ImgSearchDto imgSearchDto);
 
-    Integer countimg(@Param("userid") Integer userid);
 
-    Integer deleimg(@Param("id") Integer id);
+
+
 
     Integer deleimgForImgUid(@Param("imguid") String imguid);
 
@@ -43,10 +44,9 @@ public interface ImgMapper extends BaseMapper<Images> {
 
     List<User> RecentlyUser();
 
-    List<String> getyyyy(@Param("userid") Integer userid);
+    List<String> getyyyy(@Param("userId") Integer userId);
 
     List<Images> countByM(Images images);
 
-    Images selectImgUrlByImgUID(@Param("imguid") String imguid);
 
 }

@@ -1,10 +1,11 @@
 package cn.hellohao.service;
 
 import cn.hellohao.entity.EmailConfig;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface EmailConfigService {
+public interface EmailConfigService extends IService<EmailConfig> {
     EmailConfig getemail();
     Integer updateemail(EmailConfig emailConfig);
 }

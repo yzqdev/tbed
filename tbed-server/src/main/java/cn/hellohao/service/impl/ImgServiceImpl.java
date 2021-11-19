@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hellohao.entity.User;
+import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -37,22 +40,23 @@ import cn.hellohao.entity.Images;
 import cn.hellohao.entity.Keys;
 import cn.hellohao.service.ImgService;
 
+import javax.annotation.Resource;
+
 @Service
-public class ImgServiceImpl implements ImgService {
-    @Autowired
-    //@Resource
+public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements ImgService {
+     @Resource
     private ImgMapper imgMapper;
 
     @Override
-    public List<Images> selectimg(Images images) {
+    public List<Images> selectimg(ImgSearchDto imgSearchDto) {
         // TODO Auto-generated method stub
-        return imgMapper.selectimg(images);
+        return imgMapper.selectimg(imgSearchDto);
     }
 
     @Override
     public Integer deleimg(Integer id) {
-        // TODO Auto-generated method stub
-        return imgMapper.deleimg(id);
+
+        return  imgMapper.deleteById(id);
     }
 
     @Override
@@ -133,6 +137,7 @@ public class ImgServiceImpl implements ImgService {
         try {
             bucketManager.delete(key.getBucketname(), fileName);
         } catch (QiniuException ex) {
+
             //如果遇到异常，说明删除失败
             System.err.println(ex.code());
             System.err.println(ex.response.toString());
@@ -173,13 +178,14 @@ public class ImgServiceImpl implements ImgService {
     @Override
     public Integer counts(Integer userid) {
         // TODO Auto-generated method stub
-        return imgMapper.counts(userid);
+        return Math.toIntExact(imgMapper.selectCount(new LambdaQueryWrapper<Images>().eq(Images::getUserId, userid)));
+        //return imgMapper.counts(userid);
     }
 
     @Override
     public Integer countimg(Integer userid) {
-        // TODO Auto-generated method stub
-        return imgMapper.countimg(userid);
+      return Math.toIntExact(imgMapper.selectCount(new LambdaQueryWrapper<Images>().eq(Images::getUserId, userid)));
+        //return imgMapper.countimg(userid);
     }
 
     @Override
@@ -233,7 +239,7 @@ public class ImgServiceImpl implements ImgService {
     }
 
 
-    public List<String> getyyyy(Integer userid){
+    @Override public List<String> getyyyy(Integer userid){
         return imgMapper.getyyyy(userid);
     }
 
@@ -244,7 +250,8 @@ public class ImgServiceImpl implements ImgService {
 
     @Override
     public Images selectImgUrlByImgUID(String imguid) {
-        return imgMapper.selectImgUrlByImgUID(imguid);
+       return imgMapper.selectOne(new LambdaQueryWrapper<Images>().eq(Images::getImgUid,imguid));
+
     }
 
 }

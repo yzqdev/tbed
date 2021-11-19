@@ -1,6 +1,7 @@
 package cn.hellohao.service;
 
 import cn.hellohao.entity.Code;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @date 2019-08-11 14:20
  */
 @Service
-public interface CodeService {
+public interface CodeService extends IService<Code> {
     //查询扩容码
     List<Code> selectCode(String value);
     Code selectCodekey(String code);

@@ -23,13 +23,13 @@ export default {
             imglist: [],
             pageNum:1,
             pageSize:20,
-            selecttype:2,
+            selectType:2,
             type:'picture',
             selectIndex:[],
             selectImgUrl:[],
             bucketname:null,
             bucketlist:[],
-            searchtype:'1',//查询的文本类型
+            searchType:'1',//查询的文本类型
             searchtext:null,//查询的文本
             searchbucket:'',
             searchStartDate:null,
@@ -53,11 +53,11 @@ export default {
             var paramJson={};
             paramJson.pageNum=this.pageNum;
             paramJson.pageSize=this.pageSize;
-            paramJson.selecttype = this.searchtype;
+            paramJson.selectType = this.searchType;
             paramJson.username = this.searchtext;
             paramJson.source=this.searchbucket;
-            paramJson.starttime=this.searchStartDate==''?null:this.searchStartDate;
-            paramJson.stoptime=this.searchStopDate==''?null:this.searchStopDate;
+            paramJson.startTime=this.searchStartDate==''?null:this.searchStartDate;
+            paramJson.stopTime=this.searchStopDate==''?null:this.searchStopDate;
             paramJson.violation = this.violation;
 
             request(
@@ -100,10 +100,10 @@ export default {
                 this.selectIndex.splice(this.selectIndex.indexOf(item.id),1);
             }
 
-            if(this.selectImgUrl.indexOf(item.imgurl) == -1){
-                this.selectImgUrl.push(item.imgurl);
+            if(this.selectImgUrl.indexOf(item.imgUrl) == -1){
+                this.selectImgUrl.push(item.imgUrl);
             }else{
-                this.selectImgUrl.splice(this.selectImgUrl.indexOf(item.imgurl),1);
+                this.selectImgUrl.splice(this.selectImgUrl.indexOf(item.imgUrl),1);
             }
 
         },
@@ -112,7 +112,7 @@ export default {
             this.selectImgUrl = [];
             for (let i = 0; i < this.imglist.length; i++) {
                 this.selectIndex.push(this.imglist[i].id);
-                this.selectImgUrl.push(this.imglist[i].imgurl);
+                this.selectImgUrl.push(this.imglist[i].imgUrl);
             }
             this.$Message.success("已选中"+this.selectIndex.length+"张图像");
         },
@@ -208,7 +208,7 @@ export default {
         },
         deleteImages(id,index){
             this.$Spin.show();
-            var paramJson={};
+
             if(id==null){
                 if(this.selectIndex.length==0){
                     this.$Message.warning("所选数据丢失，不可操作");
@@ -218,7 +218,7 @@ export default {
                 this.selectIndex=[];
                 this.selectIndex.push(id);
             }
-            paramJson.images=this.selectIndex;
+           let paramJson =this.selectIndex;
             request(
                 "/admin/deleImages",
                 paramJson).then(res => {

@@ -3,11 +3,11 @@
 <mapper namespace="cn.hellohao.dao.ImgMapper">
 
     <!-- 查询-->
-    <select id="selectimg" parameterType="cn.hellohao.entity.Images" resultType="cn.hellohao.entity.Images">
+    <select id="selectimg" parameterType="cn.hellohao.entity.dto.ImgSearchDto" resultType="cn.hellohao.entity.Images">
         SELECT
         a.id,
         a.img_name,
-        a.imgurl,
+        a.img_url,
         b.username,
         a.update_time,
         a.sizes,
@@ -21,47 +21,42 @@
         a.about,
         a.violation
         FROM
-        img_data a
-        LEFT JOIN user b ON a.userid = b.id
-        where
-        1=1
+        tbed.img_data a
+        LEFT JOIN tbed.user b ON a.user_id = b.id
+         <where>
         <if test="source != null">
             and
             a.source = #{source}
         </if>
-        <if test="starttime != null">
+        <if test="startTime != null">
             and
-            a.update_time &gt;= #{starttime}
+            a.update_time &gt;= #{startTime}
         </if>
-        <if test="stoptime != null">
+        <if test="stopTime != null">
             and
-            a.update_time &lt;= #{stoptime}
+            a.update_time &lt;= #{stopTime}
         </if>
 
-        <if test="userid != null">
+        <if test="userId != null">
             <choose>
-                <when test="selecttype != null">
+                <when test="selectType != null">
                     and
-                    a.user_id not in (#{userid})
+                    a.user_id not in (#{userId})
                 </when>
                 <otherwise>
                     and
-                    a.user_id = #{userid}
+                    a.user_id = #{userId}
                 </otherwise>
             </choose>
         </if>
-
+    </where>
 
         order by a.id desc
     </select>
     <!-- 此用户下总数 -->
-    <select id="countimg" parameterType="integer" resultType="integer">
-        select count(*) from img_data where userid = #{userid}
-    </select>
 
-    <delete id="deleimg" parameterType="integer">
-        DELETE FROM img_data WHERE id=#{id}
-    </delete>
+
+
 
     <delete id="deleimgForImgUid" parameterType="string">
         DELETE FROM img_data WHERE img_uid = #{imguid}
@@ -129,19 +124,19 @@
     </select>
 
     <select id="RecentlyUser" resultType="cn.hellohao.entity.User">
-        select count(i.id) as counts ,i.userid,u.username from img_data i
-         LEFT JOIN `user` u on i.userid = u.id
-        where i.userid not in (0)
-        GROUP BY i.userid ORDER BY counts DESC LIMIT 20
+        select count(i.id) as counts ,i.user_id,u.username from img_data i
+         LEFT JOIN `user` u on i.user_id = u.id
+        where i.user_id not in (0)
+        GROUP BY i.user_id ORDER BY counts DESC LIMIT 20
     </select>
 
 
 
     <select id="getyyyy" parameterType="integer" resultType="string">
-        SELECT DISTINCT  YEAR(updatetime) yyyy FROM `img_data` where
-        IFNULL(updatetime,'')
-        <if test="userid != null">
-            and userid = #{userid}
+        SELECT DISTINCT  YEAR(update_time) yyyy FROM `img_data` where
+        IFNULL(update_time,'')
+        <if test="userId != null">
+            and user_id = #{userId}
         </if>
     </select>
 
@@ -149,23 +144,20 @@
     <select id="countByM" parameterType="cn.hellohao.entity.Images" resultType="cn.hellohao.entity.Images">
         SELECT
         count(id) countNum,
-        MONTH(updatetime) monthNum
+        MONTH(update_time) monthNum
         FROM
         img_data
-        where YEAR(updatetime)=#{yyyy}
-        <if test="userid != null">
-            and userid = #{userid}
+        where YEAR(update_time)=#{yyyy}
+        <if test="userId != null">
+            and user_id = #{userId}
         </if>
         GROUP BY
-        MONTH(updatetime)
+        MONTH(update_time)
         ORDER BY
-        MONTH(updatetime) ASC
+        MONTH(update_time) ASC
 
     </select>
 
-    <select id="selectImgUrlByImgUID" parameterType="string" resultType="cn.hellohao.entity.Images">
-        select * from img_data where imguid = #{imguid}
-    </select>
 
 
 </mapper>

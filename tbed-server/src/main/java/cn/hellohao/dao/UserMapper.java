@@ -20,8 +20,7 @@ public interface UserMapper extends BaseMapper<User> {
     //获取用户信息
     User getUsers(User user);
 
-    //插入图片
-    Integer insertimg(Images img);
+
 
     //修改资料
     Integer change(User user);

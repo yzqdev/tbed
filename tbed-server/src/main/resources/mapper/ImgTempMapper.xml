@@ -39,7 +39,7 @@
 <!--    此sql会同时删除img_data 和 imgtemp两个表的数据 -->
     <delete id="delImgAndExp" parameterType="string">
         DELETE imgtemp,img_data FROM imgtemp LEFT JOIN img_data ON imgtemp.img_uid = img_data.img_uid
-        WHERE img_data.img_uid =#{img_uid}
+        WHERE img_data.img_uid =#{imgUid}
     </delete>
 
     <insert id="insertImgExp" parameterType="cn.hellohao.entity.ImgTemp" >

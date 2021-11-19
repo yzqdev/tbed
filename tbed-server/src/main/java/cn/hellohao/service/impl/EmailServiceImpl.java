@@ -3,11 +3,12 @@ package cn.hellohao.service.impl;
 import cn.hellohao.dao.EmailConfigMapper;
 import cn.hellohao.entity.EmailConfig;
 import cn.hellohao.service.EmailConfigService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmailServiceImpl implements EmailConfigService {
+public class EmailServiceImpl extends ServiceImpl<EmailConfigMapper,EmailConfig> implements EmailConfigService {
     @Autowired
     EmailConfigMapper emailConfigMapper;
     @Override

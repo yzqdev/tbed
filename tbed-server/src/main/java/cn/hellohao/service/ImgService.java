@@ -6,11 +6,13 @@ import java.util.List;
 import cn.hellohao.entity.User;
 
 import cn.hellohao.entity.Images;
+import cn.hellohao.entity.dto.ImgSearchDto;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface ImgService {
-    List<Images> selectimg(Images images);
+public interface ImgService extends IService<Images> {
+    List<Images> selectimg(ImgSearchDto imgSearchDto);
 
     Integer deleimg(Integer id);
 
