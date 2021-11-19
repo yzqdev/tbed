@@ -7,7 +7,7 @@
     </select>
 
     <update id="setSourceype" parameterType="cn.hellohao.entity.Config">
-        UPDATE config
+        UPDATE tbed.config
         <set>
             <if test="sourcekey != null">
                 sourcekey = #{sourcekey},
@@ -45,9 +45,7 @@
             <if test="background2 != null">
                 `background2` = #{background2},
             </if>
-            <if test="sett != null">
-                `sett` = #{sett},
-            </if>
+
             <if test="webms != null">
                 `webms` = #{webms},
             </if>
@@ -57,17 +55,15 @@
             <if test="webfavicons != null">
                 `webfavicons` = #{webfavicons},
             </if>
-            <if test="theme != null">
-                `theme` = #{theme},
-            </if>
+
             <if test="websubtitle != null">
                 websubtitle = #{websubtitle},
             </if>
             <if test="logo != null">
                 logo = #{logo},
             </if>
-            <if test="aboutinfo != null">
-                aboutinfo = #{aboutinfo},
+            <if test="aboutInfo != null">
+                about_info = #{aboutInfo},
             </if>
 
 

@@ -7,7 +7,7 @@
     </select>
 
     <update id="setUpdateConfig" parameterType="cn.hellohao.entity.UploadConfig">
-        UPDATE  upload_config
+        UPDATE  tbed.upload_config
         <set>
             <if test="filesizetourists != null">
                 `filesizetourists` = #{filesizetourists},
@@ -24,8 +24,8 @@
             <if test="suffix != null">
                 `suffix` = #{suffix},
             </if>
-            <if test="urltype != null">
-                `urltype` = #{urltype},
+            <if test="urlType != null">
+                `url_type` = #{urlType},
             </if>
             <if test="isupdate != null">
                 `isupdate` = #{isupdate},
@@ -33,11 +33,11 @@
             <if test="api != null">
                 `api` = #{api},
             </if>
-            <if test="visitormemory != null">
-                `visitormemory` = #{visitormemory},
+            <if test="visitorStorage != null">
+                `visitor_storage` = #{visitorStorage},
             </if>
-            <if test="usermemory != null">
-                `usermemory` = #{usermemory},
+            <if test="userStorage != null">
+                `user_storage` = #{userStorage},
             </if>
             <if test="blacklist != null">
                 `blacklist` = #{blacklist}

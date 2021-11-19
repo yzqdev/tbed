@@ -245,7 +245,7 @@ export default {
     },
     sendDeleCodes(e){
       this.loading = true;
-      var paramJson={};
+      var paramJson=[];
       if(e==null){
         if(this.codeIdList.length==0){
           this.$Message.warning("所选数据丢失，不可操作");
@@ -255,7 +255,7 @@ export default {
         this.codeIdList=[];
         this.codeIdList.push(e);
       }
-      paramJson.arr=this.codeIdList;
+      paramJson =this.codeIdList;
       request(
           "/admin/root/deleteCodes",
           paramJson).then(res => {

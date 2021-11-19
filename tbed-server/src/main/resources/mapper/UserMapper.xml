@@ -179,7 +179,7 @@
         isok,
         ceil((memory/1024/1024)) as memory,
         group_id,
-        (select group_name from tbed.`siteGroup` where id = group_id) as group_name
+        (select group_name from tbed.site_group where id = group_id) as group_name
         FROM
         tbed.user
          <where>

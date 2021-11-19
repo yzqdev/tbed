@@ -54,7 +54,7 @@ public class Images {
     /**
      * 存储类型
      */
-    private Integer storageType;
+    //private Integer storageType;
     /**
      * 开始时间
      */
@@ -69,7 +69,6 @@ public class Images {
      */
     private String md5key;
     private String notes;
-    private String useridlist;
     private String imgUid;
     private String format;
     private String about;

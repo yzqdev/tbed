@@ -1,6 +1,7 @@
 package cn.hellohao.controller;
 
 import cn.hellohao.entity.*;
+import cn.hellohao.entity.dto.ConfigDto;
 import cn.hellohao.entity.dto.UserSearchDto;
 import cn.hellohao.entity.dto.UserUpdateDto;
 import cn.hellohao.service.*;
@@ -51,7 +52,7 @@ public class AdminRootController {
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userService.getuserlist(queryText);
         PageInfo<User> rolePageInfo = new PageInfo<>(users);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("count", rolePageInfo.getTotal());
         map.put("users", rolePageInfo.getList());
         return map;
@@ -277,11 +278,11 @@ public class AdminRootController {
 
     @PostMapping("/updateConfig")//new
     @ResponseBody
-    public Msg updateConfig(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg updateConfig(@RequestBody ConfigDto configDto) {
         Msg msg = new Msg();
         try {
-            JSONObject jsonObject = JSONObject.parseObject(data);
-            UploadConfig uploadConfig = JSON.toJavaObject((JSON) jsonObject.get("uploadConfig"),UploadConfig.class);
+
+            UploadConfig uploadConfig = configDto.getUploadConfig();
             String vm =  uploadConfig.getVisitorStorage();
             if((Long.valueOf(vm)<-1) || Long.valueOf(vm) > 104857600 || Long.valueOf(uploadConfig.getFilesizetourists())<0 || Long.valueOf(uploadConfig.getFilesizetourists()) > 5120
                     || Long.valueOf(uploadConfig.getUserStorage())<0 || Long.valueOf(uploadConfig.getUserStorage())>1048576
@@ -290,8 +291,8 @@ public class AdminRootController {
                 msg.setCode("500");
                 return  msg;
             }
-            Config config = JSON.toJavaObject((JSON) jsonObject.get("config"),Config.class);
-            SysConfig sysConfig = JSON.toJavaObject((JSON) jsonObject.get("sysConfig"),SysConfig.class);
+            Config config =configDto.getConfig();
+            SysConfig sysConfig = configDto.getSysConfig();
             if(Integer.valueOf(vm)==-1){
                 uploadConfig.setVisitorStorage("-1");
             }else{

@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hellohao.entity.User;
+import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -42,8 +44,8 @@ import cn.hellohao.service.ImgService;
 import javax.annotation.Resource;
 
 @Service
-public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements ImgService {
-     @Resource
+public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements ImgService {
+    @Resource
     private ImgMapper imgMapper;
 
     @Override
@@ -55,7 +57,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
     @Override
     public Integer deleimg(Integer id) {
 
-        return  imgMapper.deleteById(id);
+        return imgMapper.deleteById(id);
     }
 
     @Override
@@ -66,6 +68,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
     public Images selectByPrimaryKey(Integer id) {
         return imgMapper.selectByPrimaryKey(id);
     }
+
     //删除对象存储的图片文件
     public void delect(Keys key, String fileName) {
         // 初始化
@@ -92,6 +95,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
             nosClient.deleteObject(tname, fileName);
         }
     }
+
     public void delectOSS(Keys key, String fileName) {
         String endpoint = key.getEndpoint();
         String accessKeyId = key.getAccessKey();
@@ -102,6 +106,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
         ossClient.deleteObject(bucketName, objectName);
         ossClient.shutdown();
     }
+
     //删除USS对象存储的图片文件
     public void delectUSS(Keys key, String fileName) {
         UpYun upyun = new UpYun(key.getBucketName(), key.getAccessKey(), key.getAccessSecret());
@@ -124,13 +129,20 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
             e.printStackTrace();
         }
     }
+
     public void delectKODO(Keys key, String fileName) {
         Configuration cfg;
-        if(key.getEndpoint().equals("1")){cfg = new Configuration(Zone.zone0());}
-        else if(key.getEndpoint().equals("2")){cfg = new Configuration(Zone.zone1());}
-        else if(key.getEndpoint().equals("3")){cfg = new Configuration(Zone.zone2());}
-        else if(key.getEndpoint().equals("4")){cfg = new Configuration(Zone.zoneNa0());}
-        else{cfg = new Configuration(Zone.zoneAs0());}
+        if (key.getEndpoint().equals("1")) {
+            cfg = new Configuration(Zone.zone0());
+        } else if (key.getEndpoint().equals("2")) {
+            cfg = new Configuration(Zone.zone1());
+        } else if (key.getEndpoint().equals("3")) {
+            cfg = new Configuration(Zone.zone2());
+        } else if (key.getEndpoint().equals("4")) {
+            cfg = new Configuration(Zone.zoneNa0());
+        } else {
+            cfg = new Configuration(Zone.zoneAs0());
+        }
         Auth auth = Auth.create(key.getAccessKey(), key.getAccessSecret());
         BucketManager bucketManager = new BucketManager(auth, cfg);
         try {
@@ -142,30 +154,32 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
             System.err.println(ex.response.toString());
         }
     }
+
     //删除COS对象存储的图片文件
     public void delectCOS(Keys key, String fileName) {
         COSCredentials cred = new BasicCOSCredentials(key.getAccessKey(), key.getAccessSecret());
         Region region = new Region(key.getEndpoint());
         ClientConfig clientConfig = new ClientConfig(region);
-        COSClient cosClient= new COSClient(cred, clientConfig);
+        COSClient cosClient = new COSClient(cred, clientConfig);
         try {
             String bucketName = key.getBucketName();
             String userkey = fileName;
-             cosClient.deleteObject(key.getBucketName(), userkey);
+            cosClient.deleteObject(key.getBucketName(), userkey);
         } catch (CosServiceException serverException) {
             serverException.printStackTrace();
         } catch (CosClientException clientException) {
             clientException.printStackTrace();
         }
     }
+
     public void delectFTP(Keys key, String fileName) {
         FTPClient ftp = new FTPClient();
         String[] host = key.getEndpoint().split("\\:");
         String h = host[0];
         Integer p = Integer.parseInt(host[1]);
         try {
-            if(!ftp.isConnected()){
-                ftp.connect(h,p);
+            if (!ftp.isConnected()) {
+                ftp.connect(h, p);
             }
             ftp.login(key.getAccessKey(), key.getAccessSecret());
             ftp.deleteFile(fileName);
@@ -174,16 +188,17 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
             Print.warning("删除FTP存储的图片失败");
         }
     }
+
     @Override
     public Integer counts(Integer userid) {
         // TODO Auto-generated method stub
-        return Math.toIntExact(imgMapper.selectCount(new LambdaQueryWrapper<Images>().eq(Images::getUserId, userid)));
-        //return imgMapper.counts(userid);
+
+         return imgMapper.counts(userid);
     }
 
     @Override
     public Integer countimg(Integer userid) {
-      return Math.toIntExact(imgMapper.selectCount(new LambdaQueryWrapper<Images>().eq(Images::getUserId, userid)));
+        return Math.toIntExact(imgMapper.selectCount(new LambdaQueryWrapper<Images>().eq(Images::getUserId, userid)));
         //return imgMapper.countimg(userid);
     }
 
@@ -229,7 +244,8 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
 
     @Override
     public List<Images> RecentlyUploaded(Integer userid) {
-        return imgMapper.RecentlyUploaded(userid);
+
+         return imgMapper.RecentlyUploaded(userid);
     }
 
     @Override
@@ -238,18 +254,19 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
     }
 
 
-    @Override public List<String> getyyyy(Integer userid){
+    @Override
+    public List<String> getyyyy(Integer userid) {
         return imgMapper.getyyyy(userid);
     }
 
     @Override
-    public List<Images> countByM(Images images) {
+    public List<Images> countByM(HomeImgDto images) {
         return imgMapper.countByM(images);
     }
 
     @Override
     public Images selectImgUrlByImgUID(String imguid) {
-       return imgMapper.selectOne(new LambdaQueryWrapper<Images>().eq(Images::getImgUid,imguid));
+        return imgMapper.selectOne(new LambdaQueryWrapper<Images>().eq(Images::getImgUid, imguid));
 
     }
 

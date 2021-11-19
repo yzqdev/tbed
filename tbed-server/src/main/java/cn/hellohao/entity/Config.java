@@ -22,6 +22,7 @@ public class Config {
     private String links;
     private String notice;
     private String baidu;
+    private String backtype;
     private String domain;
     private String background1;
     private String background2;

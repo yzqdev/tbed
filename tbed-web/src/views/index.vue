@@ -12,7 +12,7 @@
       <Header :style="{position: 'fixed', width: '100%',zIndex:'1',padding:'0 10px',height: '64px',background: '#fff',boxShadow:'0 1px 6px 0 rgba(32, 33, 36, 0.28)'}" class="animate__animated animate__fadeInDownBig"  >
         <Menu mode="horizontal" style="height: 64px;" theme="light"  :active-name="$route.params.activeName">
           <div class="layout-logo" style="height: 100%;">
-            <img :src="$store.state.metaInfo.logo==null?hellohaologo:$store.state.metaInfo.logo" style="width: 135px;height: 100%;margin-left: 35px;" />
+            <img :src="$store.state.metaInfo.logo==null?hellohaologo:$store.state.metaInfo.logo" style=" height: 100%;margin-left: 35px;" />
           </div>
           <div class="layout-nav">
             <template v-if="screenWidth<=568">

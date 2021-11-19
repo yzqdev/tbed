@@ -206,7 +206,7 @@
                             <div style="height: 290px;width: 100%;padding: 8px;overflow: auto">
                               <List>
                                 <ListItem v-for="(img,index) in Recently.RecentlyUploaded" :key="index">
-                                  <ListItemMeta :avatar="img.imgurl" :title="img.updatetime"  />
+                                  <ListItemMeta :avatar="img.imgUrl" :title="img.updateTime"  />
                                 </ListItem>
                               </List>
                             </div>
@@ -408,7 +408,7 @@ export default {
     getChart(){
       var param={
         type:this.chartType,
-        yyyy:this.yyyy
+        year:this.yyyy
       }
       request(
           "/admin/getChart",
@@ -455,12 +455,10 @@ export default {
         this.isloading = false;
         return false;
       }
-      var params ={
-        code:this.SpaceCode
-      };
+
       request(
-          "/admin/SpaceExpansion",
-          params).then(res => {
+          "/admin/SpaceExpansion/"+this.SpaceCode,
+           ).then(res => {
         if(res.status==200) {
           var json = res.data;
           this.isloading = false;
@@ -469,6 +467,7 @@ export default {
               title: '扩容成功',
               desc: json.info
             });
+            this.SpaceMSG=false
             this.getDatas();
           } else {
             this.$Notice.error({

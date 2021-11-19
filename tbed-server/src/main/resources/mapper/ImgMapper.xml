@@ -67,11 +67,13 @@
     </select>
 
     <select id="counts" resultType="integer">
-        select count(*) from img_data where 1=1
-        <if test="userid != null">
-            user_id=#{userid}
+        select count(*) from tbed.img_data
 
-        </if>
+            <where>
+        <if test="userId != null">
+            user_id=#{userId}
+
+        </if></where>
     </select>
 
     <!-- 根据图片名字标记IP -->
@@ -107,25 +109,25 @@
 
     <!--  获取指定对象存储的已用空间 -->
     <select id="getsourcememory" parameterType="integer" resultType="long">
-        SELECT sum(sizes) as sizes FROM `img_data` where source = #{source}
+        SELECT sum(sizes) as sizes FROM tbed.img_data where source = #{source}
     </select>
 
     <select id="md5Count" resultType="integer">
-        select count(id) from img_data where md5key=#{md5key} and user_id = #{userid}
+        select count(id) from tbed.img_data where md5key=#{md5key} and user_id = #{userid}
     </select>
 
     <select id="selectImgUrlByMD5" parameterType="string" resultType="cn.hellohao.entity.Images">
-        select imgname,imgurl from img_data where md5key = #{md5key}
+        select img_name,img_url from tbed.img_data where md5key = #{md5key}
     </select>
 
     <!--    查询当前用户的近20条数据-->
     <select id="RecentlyUploaded" parameterType="integer" resultType="cn.hellohao.entity.Images">
-        select * from img_data where userid = #{userid}  ORDER BY updatetime DESC LIMIT 20
+        select * from tbed.img_data where user_id = #{userId}  ORDER BY update_time DESC LIMIT 20
     </select>
 
     <select id="RecentlyUser" resultType="cn.hellohao.entity.User">
-        select count(i.id) as counts ,i.user_id,u.username from img_data i
-         LEFT JOIN `user` u on i.user_id = u.id
+        select count(i.id) as counts ,i.user_id,u.username from tbed.img_data i
+         LEFT JOIN tbed.user u on i.user_id = u.id
         where i.user_id not in (0)
         GROUP BY i.user_id ORDER BY counts DESC LIMIT 20
     </select>
@@ -141,13 +143,13 @@
     </select>
 
 
-    <select id="countByM" parameterType="cn.hellohao.entity.Images" resultType="cn.hellohao.entity.Images">
+    <select id="countByM" parameterType="cn.hellohao.entity.dto.HomeImgDto" resultType="cn.hellohao.entity.Images">
         SELECT
         count(id) countNum,
         MONTH(update_time) monthNum
         FROM
         tbed.img_data
-        where YEAR(update_time)=#{yyyy}
+        where YEAR(update_time)=#{year}
         <if test="userId != null">
             and user_id = #{userId}
         </if>

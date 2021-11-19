@@ -2,6 +2,7 @@ package cn.hellohao.controller;
 
 import cn.hellohao.config.SysName;
 import cn.hellohao.entity.*;
+import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.PageResultBean;
 import cn.hellohao.service.*;
@@ -132,11 +133,11 @@ public class AdminController {
     }
 
 
-    @PostMapping(value = "/SpaceExpansion")//new
+    @PostMapping(value = "/SpaceExpansion/{code}")//new
     @ResponseBody
-    public Msg SpaceExpansion(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg SpaceExpansion(@PathVariable("code") String codeStr) {
         final Msg msg = new Msg();
-        final JSONObject jsonObject = JSONObject.parseObject(data);
+
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
         user =  userService.getUsers(user);
@@ -151,7 +152,7 @@ public class AdminController {
             return msg;
         }else{
             long sizes = 0;
-            Code code = codeService.selectCodekey(jsonObject.getString("code"));
+            Code code = codeService.selectCodekey(codeStr);
             if(null==code){
                 msg.setCode("100404");
                 msg.setInfo("扩容码不存在,请重新填写");
@@ -162,7 +163,7 @@ public class AdminController {
             User newMemoryUser = new User();
             newMemoryUser.setMemory(sizes);
             newMemoryUser.setId(user.getId());
-            userService.usersetmemory(newMemoryUser,jsonObject.getString("code"));
+            userService.usersetmemory(newMemoryUser,codeStr);
             msg.setInfo("你已成功扩容"+SetFiles.readableFileSize(sizes));
             return msg;
         }
@@ -212,7 +213,7 @@ public class AdminController {
     public Msg getChart(@RequestBody JSONObject data){
         Msg msg = new Msg();
         JSONObject jsonObject = JSONObject.parseObject(String.valueOf(data));
-        String yyyy = jsonObject.getString("yyyy");
+        String yyyy = jsonObject.getString("year");
         Integer type = jsonObject.getInteger("type");
 
         Subject subject = SecurityUtils.getSubject();
@@ -220,20 +221,23 @@ public class AdminController {
         List<Images> list =null;
         if(u.getLevel()>1){
             if(type==2){
-                Images images = new Images();
+                 HomeImgDto homeImgDto=new HomeImgDto();
+                 homeImgDto.setYear(yyyy);
                 //images.setYyyy(yyyy);
-                list = imgService.countByM(images);
+                list = imgService.countByM(homeImgDto);
             }else{
-                Images images = new Images();
-                //images.setYyyy(yyyy);
-                images.setUserId(u.getId());
-                list = imgService.countByM(images);
+                HomeImgDto homeImgDto=new HomeImgDto();
+                homeImgDto.setYear(yyyy);
+
+               homeImgDto.setUserId(u.getId());
+                list = imgService.countByM(homeImgDto);
             }
         }else{
-            Images images = new Images();
-            //images.setYyyy(yyyy);
-            images.setUserId(u.getId());
-            list = imgService.countByM(images);
+           HomeImgDto homeImgDto=new HomeImgDto();
+           homeImgDto.setYear(yyyy);
+
+           homeImgDto.setUserId(u.getId());
+            list = imgService.countByM(homeImgDto);
         }
         JSONArray json = JSONArray.parseArray("[{\"id\":1,\"monthNum\":\"一月\",\"countNum\":0},{\"id\":2,\"monthNum\":\"二月\",\"countNum\":0},{\"id\":3,\"monthNum\":\"三月\",\"countNum\":0},{\"id\":4,\"monthNum\":\"四月\",\"countNum\":0},{\"id\":5,\"monthNum\":\"五月\",\"countNum\":0},{\"id\":6,\"monthNum\":\"六月\",\"countNum\":0},{\"id\":7,\"monthNum\":\"七月\",\"countNum\":0},{\"id\":8,\"monthNum\":\"八月\",\"countNum\":0},{\"id\":9,\"monthNum\":\"九月\",\"countNum\":0},{\"id\":10,\"monthNum\":\"十月\",\"countNum\":0},{\"id\":11,\"monthNum\":\"十一月\",\"countNum\":0},{\"id\":12,\"monthNum\":\"十二月\",\"countNum\":0}]");
         JSONArray jsonArray = new JSONArray();
