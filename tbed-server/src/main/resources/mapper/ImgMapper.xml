@@ -6,22 +6,22 @@
     <select id="selectimg" parameterType="cn.hellohao.entity.Images" resultType="cn.hellohao.entity.Images">
         SELECT
         a.id,
-        a.imgname,
+        a.img_name,
         a.imgurl,
         b.username,
-        a.updatetime,
+        a.update_time,
         a.sizes,
         a.abnormal,
         a.source,
-        a.imgtype,
+        a.img_type,
         a.explains,
         a.md5key,
-        a.imguid,
+        a.img_uid,
         a.format,
         a.about,
         a.violation
         FROM
-        imgdata a
+        img_data a
         LEFT JOIN user b ON a.userid = b.id
         where
         1=1
@@ -31,22 +31,22 @@
         </if>
         <if test="starttime != null">
             and
-            a.updatetime &gt;= #{starttime}
+            a.update_time &gt;= #{starttime}
         </if>
         <if test="stoptime != null">
             and
-            a.updatetime &lt;= #{stoptime}
+            a.update_time &lt;= #{stoptime}
         </if>
 
         <if test="userid != null">
             <choose>
                 <when test="selecttype != null">
                     and
-                    a.userid not in (#{userid})
+                    a.user_id not in (#{userid})
                 </when>
                 <otherwise>
                     and
-                    a.userid = #{userid}
+                    a.user_id = #{userid}
                 </otherwise>
             </choose>
         </if>
@@ -56,32 +56,32 @@
     </select>
     <!-- 此用户下总数 -->
     <select id="countimg" parameterType="integer" resultType="integer">
-        select count(*) from imgdata where userid = #{userid}
+        select count(*) from img_data where userid = #{userid}
     </select>
 
     <delete id="deleimg" parameterType="integer">
-        DELETE FROM imgdata WHERE id=#{id}
+        DELETE FROM img_data WHERE id=#{id}
     </delete>
 
     <delete id="deleimgForImgUid" parameterType="string">
-        DELETE FROM imgdata WHERE imguid = #{imguid}
+        DELETE FROM img_data WHERE img_uid = #{imguid}
     </delete>
 
     <select id="selectByPrimaryKey" parameterType="integer" resultType="cn.hellohao.entity.Images">
-        select * from imgdata where id = #{id}
+        select * from img_data where id = #{id}
     </select>
 
     <select id="counts" resultType="integer">
-        select count(*) from imgdata where 1=1
+        select count(*) from img_data where 1=1
         <if test="userid != null">
-            userid=#{userid}
+            user_id=#{userid}
 
         </if>
     </select>
 
     <!-- 根据图片名字标记IP -->
     <update id="setImg" parameterType="cn.hellohao.entity.Images">
-         UPDATE imgdata
+         UPDATE img_data
              <set>
                  <if test="abnormal!=null">
                      abnormal=#{abnormal}
@@ -90,46 +90,46 @@
                      explains=#{explains}
                  </if>
              </set>
-              where imgname=#{imgname}
+              where img_name=#{imgname}
     </update>
     <!-- 非法图片删除他  根据名称-->
     <delete id="deleimgname" parameterType="string">
-        DELETE FROM imgdata WHERE imgname=#{imgname}
+        DELETE FROM img_data WHERE img_name=#{imgname}
     </delete>
 
 <!--    批量删除-->
     <delete id="deleall" parameterType="integer">
-        DELETE FROM imgdata WHERE id = #{id}
+        DELETE FROM img_data WHERE id = #{id}
     </delete>
 
     <select id="gettimeimg" parameterType="string" resultType="cn.hellohao.entity.Images">
-        SELECT * from  imgdata WHERE  updatetime>=#{time}
+        SELECT * from  img_data WHERE  update_time>=#{time}
     </select>
 <!--查询指定用户总内存-->
     <select id="getusermemory" parameterType="integer" resultType="long">
-        SELECT sum(sizes) as sizes FROM `imgdata` where userid = #{userid}
+        SELECT sum(sizes) as sizes FROM `img_data` where user_id = #{userid}
     </select>
 
     <!--  获取指定对象存储的已用空间 -->
     <select id="getsourcememory" parameterType="integer" resultType="long">
-        SELECT sum(sizes) as sizes FROM `imgdata` where source = #{source}
+        SELECT sum(sizes) as sizes FROM `img_data` where source = #{source}
     </select>
 
     <select id="md5Count" resultType="integer">
-        select count(id) from imgdata where md5key=#{md5key} and userid = #{userid}
+        select count(id) from img_data where md5key=#{md5key} and user_id = #{userid}
     </select>
 
     <select id="selectImgUrlByMD5" parameterType="string" resultType="cn.hellohao.entity.Images">
-        select imgname,imgurl from imgdata where md5key = #{md5key}
+        select imgname,imgurl from img_data where md5key = #{md5key}
     </select>
 
     <!--    查询当前用户的近20条数据-->
     <select id="RecentlyUploaded" parameterType="integer" resultType="cn.hellohao.entity.Images">
-        select * from imgdata where userid = #{userid}  ORDER BY updatetime DESC LIMIT 20
+        select * from img_data where userid = #{userid}  ORDER BY updatetime DESC LIMIT 20
     </select>
 
     <select id="RecentlyUser" resultType="cn.hellohao.entity.User">
-        select count(i.id) as counts ,i.userid,u.username from imgdata i
+        select count(i.id) as counts ,i.userid,u.username from img_data i
          LEFT JOIN `user` u on i.userid = u.id
         where i.userid not in (0)
         GROUP BY i.userid ORDER BY counts DESC LIMIT 20
@@ -138,7 +138,7 @@
 
 
     <select id="getyyyy" parameterType="integer" resultType="string">
-        SELECT DISTINCT  YEAR(updatetime) yyyy FROM `imgdata` where
+        SELECT DISTINCT  YEAR(updatetime) yyyy FROM `img_data` where
         IFNULL(updatetime,'')
         <if test="userid != null">
             and userid = #{userid}
@@ -151,7 +151,7 @@
         count(id) countNum,
         MONTH(updatetime) monthNum
         FROM
-        imgdata
+        img_data
         where YEAR(updatetime)=#{yyyy}
         <if test="userid != null">
             and userid = #{userid}
@@ -164,7 +164,7 @@
     </select>
 
     <select id="selectImgUrlByImgUID" parameterType="string" resultType="cn.hellohao.entity.Images">
-        select * from imgdata where imguid = #{imguid}
+        select * from img_data where imguid = #{imguid}
     </select>
 
 

@@ -166,9 +166,9 @@ public class ClientService {
             Images img = new Images();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             if (returnImage.getCode().equals("200")) {
-                String imgurl = returnImage.getImgurl();
+                String imgurl = returnImage.getImgUrl();
                 Long imgsize = returnImage.getImgSize();
-                String imgname = returnImage.getImgname();
+                String imgname = returnImage.getImgName();
                 img.setImgUrl(imgurl);
                 img.setUpdateTime(df.format(new Date()));
                 img.setSource(key.getId());

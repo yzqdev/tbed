@@ -29,8 +29,8 @@ public class OSSImageupload {
                 file = entry.getValue();
                 System.out.println("待上传的图片："+username + "/" + ShortUID + "." + entry.getKey());
                 ossClient.putObject(key.getBucketname(), username + "/" + ShortUID + "." + entry.getKey(),file);
-                returnImage.setImgname(username + "/" + ShortUID + "." + entry.getKey());//entry.getValue().getOriginalFilename()
-                returnImage.setImgurl(key.getRequestAddress() + "/" + username + "/" + ShortUID + "." + entry.getKey());
+                returnImage.setImgName(username + "/" + ShortUID + "." + entry.getKey());//entry.getValue().getOriginalFilename()
+                returnImage.setImgUrl(key.getRequestAddress() + "/" + username + "/" + ShortUID + "." + entry.getKey());
                 returnImage.setImgSize(file.length());
                 returnImage.setCode("200");
             }

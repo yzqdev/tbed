@@ -3,13 +3,14 @@ package cn.hellohao.dao;
 import java.util.List;
 
 import cn.hellohao.entity.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import cn.hellohao.entity.Images;
 
 @Mapper
-public interface ImgMapper {
+public interface ImgMapper extends BaseMapper<Images> {
 
     List<Images> selectimg(Images images);
 

@@ -34,8 +34,8 @@ public class COSImageupload {
                     String userkey =username + "/" + ShortUID + "." + entry.getKey();
                     PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, userkey, file);
                     PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-                    returnImage.setImgname(userkey);
-                    returnImage.setImgurl(key.getRequestAddress() + "/" + userkey);
+                    returnImage.setImgName(userkey);
+                    returnImage.setImgUrl(key.getRequestAddress() + "/" + userkey);
                     returnImage.setImgSize(entry.getValue().length());
                     returnImage.setCode("200");
                 } catch (CosServiceException serverException) {

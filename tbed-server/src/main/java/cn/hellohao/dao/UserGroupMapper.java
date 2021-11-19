@@ -1,6 +1,7 @@
 package cn.hellohao.dao;
 
 import cn.hellohao.entity.UserGroup;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
  * @date 2019/8/20 13:45
  */
 @Mapper
-public interface UserGroupMapper {
+public interface UserGroupMapper extends BaseMapper<UserGroup> {
     UserGroup useridgetusergroup(@Param("userid") Integer userid);
     UserGroup idgetusergroup(@Param("id") Integer id);
     Integer addusergroup(UserGroup userGroup);

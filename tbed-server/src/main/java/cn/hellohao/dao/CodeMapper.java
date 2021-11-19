@@ -1,13 +1,14 @@
 package cn.hellohao.dao;
 
 import cn.hellohao.entity.Code;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
-public interface CodeMapper {
+public interface CodeMapper extends BaseMapper<Code> {
     //查询扩容码
     List<Code> selectCode(@Param("code") String code);
     Code selectCodekey(@Param("code") String code);

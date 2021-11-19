@@ -3,11 +3,11 @@
 <mapper namespace="cn.hellohao.dao.UploadConfigMapper">
 
     <select id="getUpdateConfig" resultType="cn.hellohao.entity.UploadConfig">
-        select * from uploadconfig where id = 1
+        select * from  upload_config where id = 1
     </select>
 
     <update id="setUpdateConfig" parameterType="cn.hellohao.entity.UploadConfig">
-        UPDATE uploadconfig
+        UPDATE  upload_config
         <set>
             <if test="filesizetourists != null">
                 `filesizetourists` = #{filesizetourists},

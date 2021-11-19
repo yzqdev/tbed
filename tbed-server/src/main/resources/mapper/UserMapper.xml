@@ -4,8 +4,8 @@
 
     <!-- 用户注册 -->
     <insert id="register" parameterType="cn.hellohao.entity.User">
-        INSERT INTO user (id, username, PASSWORD, email, birthder, LEVEL,uid,isok,memory,groupid)
-        VALUES (NULL, #{username}, #{password}, #{email}, #{birthder}, #{level},#{uid},#{isok},#{memory},#{groupid}   )
+        INSERT INTO user (id, username, PASSWORD, email, birthday, LEVEL,uid,isok,memory,group_id)
+        VALUES (NULL, #{username}, #{password}, #{email}, #{birthday}, #{level},#{uid},#{isok},#{memory},#{groupId}   )
     </insert>
     <!--  查询是否有username  -->
     <select id="countusername" parameterType="string" resultType="integer">
@@ -53,12 +53,12 @@
         username,
         email,
         password,
-        birthder,
+        birthday,
         LEVEL,
         uid,
         isok,
         memory,
-        groupid
+        group_id
         FROM user
         <where>
             <if test="id != null">
@@ -78,12 +78,12 @@
                username,
                email,
                password,
-               birthder,
+               birthday,
                LEVEL,
                uid,
                isok,
                memory,
-               groupid
+               group_id
         FROM user
         WHERE id = #{id}
     </select>
@@ -93,19 +93,19 @@
         username,
         email,
         password,
-        birthder,
+        birthday,
         LEVEL,
         uid,
         isok,
         memory,
-        groupid
+        group_id
         FROM user
         WHERE uid = #{uid}
     </select>
 
     <!-- 插入图片信息 -->
     <insert id="insertimg" parameterType="cn.hellohao.entity.Images">
-        INSERT INTO imgdata (id, imgname, imgurl, userid, updatetime,sizes,abnormal,source,imgtype,md5key,imguid,format,about,violation)
+        INSERT INTO img_data (id, imgname, imgurl, userid, updatetime,sizes,abnormal,source,imgtype,md5key,imguid,format,about,violation)
         VALUES (NULL, #{imgname}, #{imgurl}, #{userid}, #{updatetime},#{sizes},#{abnormal},#{source},#{imgtype},#{md5key},#{imguid},#{format},#{about},null)
     </insert>
 
@@ -126,8 +126,8 @@
             <if test="memory != null">
                 `memory` = #{memory},
             </if>
-            <if test="groupid != null">
-                `groupid` = #{groupid}
+            <if test="group_id != null">
+                `group_id` = #{groupId}
             </if>
         </set>
         where uid=#{uid}
@@ -148,8 +148,8 @@
             <if test="memory != null">
                 `memory` = #{memory},
             </if>
-            <if test="groupid != null">
-                `groupid` = #{groupid},
+            <if test="group_id != null">
+                `group_id` = #{group_id},
             </if>
             <if test="isok != null">
                 `isok` = #{isok},
@@ -177,13 +177,13 @@
         username,
         email,
         (select from_base64(password)) as password,
-        birthder,
+        birthday,
         LEVEL,
         uid,
         isok,
         ceil((memory/1024/1024)) as memory,
-        groupid,
-        (select groupname from `group` where id = groupid) as groupname
+        group_id,
+        (select groupname from `group` where id = group_id) as groupname
         FROM
         user
         where
@@ -194,7 +194,7 @@
             email
             ) LIKE '%${username}%'
         </if>
-        order by birthder desc
+        order by birthday desc
     </select>
 
     <!--刪除用戶-->
@@ -211,8 +211,8 @@
         UPDATE `user` set `memory`=#{memory} where id=#{id}
     </update>
 
-    <select id="getuserlistforgroupid" parameterType="integer" resultType="cn.hellohao.entity.User">
-        select * from user where groupid=#{groupid}
+    <select id="getuserlistforgroup_id" parameterType="integer" resultType="cn.hellohao.entity.User">
+        select * from user where group_id=#{group_id}
     </select>
 
 </mapper>

@@ -10,6 +10,7 @@ import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.auth.token.JWTUtil;
 import cn.hellohao.config.SysName;
 import cn.hellohao.entity.*;
+import cn.hellohao.entity.dto.UserLoginDto;
 import cn.hellohao.service.*;
 import cn.hellohao.utils.*;
 import cn.hutool.core.util.HexUtil;
@@ -111,11 +112,9 @@ public class UserController {
             Integer type = 0;
             if(emailConfig.getUsing()==1){
                 user.setIsok(0);
-                Thread thread = new Thread() {
-                    public void run() {
-                        Integer a = NewSendEmail.sendEmail(emailConfig,user.getUsername(), uid, user.getEmail(),config);
-                    }
-                };
+                Thread thread = new Thread(() -> {
+                    Integer a = NewSendEmail.sendEmail(emailConfig,user.getUsername(), uid, user.getEmail(),config);
+                });
                 thread.start();
                 msg.setInfo("注册成功,请注意查收邮箱尽快激活账户");
             }else{
@@ -132,13 +131,13 @@ public class UserController {
 
     @PostMapping("/login")//new
     @ResponseBody
-    public Msg login(HttpServletRequest request,@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg login(@RequestBody UserLoginDto userLoginDto) {
         Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        String email = jsonObj.getString("email");
-        String password = Base64Encryption.encryptBASE64(jsonObj.getString("password").getBytes());
-        String verifyCode = jsonObj.getString("verifyCode");
-        String userIP = GetIPS.getIpAddr(request);
+
+        String email = userLoginDto.getEmail();
+        String password = Base64Encryption.encryptBASE64(userLoginDto.getPassword().getBytes());
+        String verifyCode = userLoginDto.getVerifyCode();
+        String userIP = GetIPS.getIpAddr(RequestHelper.getRequest());
         Object redis_VerifyCode = iRedisService.getValue(userIP+"_hellohao_verifyCode");
         if(null==redis_VerifyCode){
             msg.setCode("4035");
@@ -277,11 +276,9 @@ public class UserController {
                         return msg;
                     }
                     Config config = configService.getSourceype();
-                    Thread thread = new Thread() {
-                        public void run() {
-                            Integer a = NewSendEmail.sendEmailFindPass(emailConfig,user.getUsername(), user.getUid(), user.getEmail(),config);//SendEmail.sendEmailT(message, user.getUsername(), user.getUid(), user.getEmail(),emailConfig,config);
-                        }
-                    };
+                    Thread thread = new Thread(() -> {
+                        Integer a = NewSendEmail.sendEmailFindPass(emailConfig,user.getUsername(), user.getUid(), user.getEmail(),config);//SendEmail.sendEmailT(message, user.getUsername(), user.getUid(), user.getEmail(),emailConfig,config);
+                    });
                     thread.start();
                     msg.setInfo("重置密码的验证链接已发送至该邮箱，请前往邮箱验证并重置密码。【若长时间未收到邮件，请检查垃圾箱】");
                 }else{

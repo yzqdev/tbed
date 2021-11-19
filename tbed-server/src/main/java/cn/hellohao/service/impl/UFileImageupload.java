@@ -27,8 +27,8 @@ public class UFileImageupload {
                 uFile.setContentMD5(UpYun.md5(file));
                 boolean result = uFile.writeFile(username + "/" + ShortUID + "." + entry.getKey(), file, true);
                 if(result){
-                    returnImage.setImgname(username + "/" + ShortUID + "." + entry.getKey());
-                    returnImage.setImgurl(key.getRequestAddress() + "/" +username + "/" + ShortUID + "." + entry.getKey());
+                    returnImage.setImgName(username + "/" + ShortUID + "." + entry.getKey());
+                    returnImage.setImgUrl(key.getRequestAddress() + "/" +username + "/" + ShortUID + "." + entry.getKey());
                     returnImage.setImgSize(entry.getValue().length());
                     returnImage.setCode("200");
                 }else{

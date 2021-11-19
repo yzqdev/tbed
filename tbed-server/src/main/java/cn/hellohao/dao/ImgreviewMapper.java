@@ -1,11 +1,12 @@
 package cn.hellohao.dao;
 
 import cn.hellohao.entity.Imgreview;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface ImgreviewMapper {
+public interface ImgreviewMapper extends BaseMapper<Imgreview> {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Imgreview record);

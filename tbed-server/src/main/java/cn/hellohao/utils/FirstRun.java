@@ -61,7 +61,7 @@ public class FirstRun implements InitializingBean {
             RunSqlScript.RunInsert(sql4);
             Print.Normal("Stage 3");
         }
-        Integer ret2 = RunSqlScript.RunSelectCount(judgeTable+"'imgdata' and column_name = 'explains'");
+        Integer ret2 = RunSqlScript.RunSelectCount(judgeTable+"'img_data' and column_name = 'explains'");
         if(ret2==0){
             RunSqlScript.RunInsert(sql6);
             Print.Normal("Stage 4");
@@ -71,7 +71,7 @@ public class FirstRun implements InitializingBean {
             RunSqlScript.RunInsert(sql7);
             Print.Normal("Stage 5");
         }
-        Integer ret4 = RunSqlScript.RunSelectCount(judgeTable+"'imgdata' and column_name = 'md5key'");
+        Integer ret4 = RunSqlScript.RunSelectCount(judgeTable+"'img_data' and column_name = 'md5key'");
         if(ret4==0){
             RunSqlScript.RunInsert(sql8);
             Print.Normal("Stage 6");
@@ -90,25 +90,25 @@ public class FirstRun implements InitializingBean {
 
         RunSqlScript.RunInsert(sql10);
 
-        //RunSqlScript.RunInsert("alter table imgdata drop index index_md5key_url");
+        //RunSqlScript.RunInsert("alter table img_data drop index index_md5key_url");
         RunSqlScript.RunInsert(inddx_md5key);
         RunSqlScript.RunInsert("UPDATE `keys` SET `Endpoint` = '0' WHERE `id` = 8");
         Print.Normal("Stage success");
     }
 
-    //检查表是否存在，后边加'imgdata' and column_name = 'explains'  检查字段是否存在
+    //检查表是否存在，后边加'img_data' and column_name = 'explains'  检查字段是否存在
     private String judgeTable = "select count(*) from information_schema.columns where table_name = ";
     //创建blacklist  2019-11-29
     private String sql1 = "select count(*) from information_schema.columns where table_name = 'uploadconfig' and column_name = 'blacklist'";
-    private String sql2 = "alter table uploadconfig add blacklist varchar(500);";
-    //创建imgandalbum和album  添加imgdata表字段explain 2019-12-20
+    private String sql2 = "alter table upload_config add blacklist varchar(500);";
+    //创建imgandalbum和album  添加img_data表字段explain 2019-12-20
     private String sql3 ="CREATE TABLE `imgandalbum`  (`imgname` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,`albumkey` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic";
     private String sql4 ="CREATE TABLE `album`  (`albumkey` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,`albumtitle` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,`createdate` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL, `password` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic";
-    private String sql6 = "alter table imgdata add explains varchar(5000)";
+    private String sql6 = "alter table img_data add explains varchar(5000)";
     //添加album表字段userid
     private String sql7 = "alter table album add userid int(10)";
-    //添加imgdata表字段md5key
-    private String sql8 = "alter table imgdata add md5key varchar(5000)";
+    //添加img_data表字段md5key
+    private String sql8 = "alter table img_data add md5key varchar(5000)";
     private String sql9 = "ALTER TABLE config ADD theme int(4) DEFAULT '1' COMMENT '主题'  ";
 //修改字段长度
     private String sql10 = "alter table config modify column `explain` varchar(1000),modify column links varchar(1000),modify column notice varchar(1000),modify column baidu varchar(1000)";
@@ -116,11 +116,11 @@ public class FirstRun implements InitializingBean {
     //添加imgandalbum字段notes(添加画廊图片说明)
     private String sql11 = "alter table imgandalbum add notes varchar(1000) DEFAULT ' '";
 
-    private String inddx_md5key = "ALTER TABLE imgdata ADD INDEX index_md5key_url ( md5key,imgurl)";
+    private String inddx_md5key = "ALTER TABLE img_data ADD INDEX index_md5key_url ( md5key,imgurl)";
     //                             create index yarn_app_result_i4 on yarn_app_result (flow_exec_id(100), another_column(50));
 
-    private String dynamic = "alter table imgdata row_format=dynamic";
-    private String compressed = "alter table imgdata row_format=compressed";
+    private String dynamic = "alter table img_data row_format=dynamic";
+    private String compressed = "alter table img_data row_format=compressed";
 
     private void clears(){
         File file1 = new File(File.separator+"HellohaoData"+File.separator+"hellohaotempimg");

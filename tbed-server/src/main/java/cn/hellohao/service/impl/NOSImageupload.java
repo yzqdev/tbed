@@ -27,8 +27,8 @@ public class NOSImageupload {
                 String ShortUID = SetText.getShortUuid();
                 file = entry.getValue();
                 nosClient.putObject(key.getBucketname(), username + "/" + ShortUID+ "." + entry.getKey(), file);
-                returnImage.setImgname(username + "/" + ShortUID+ "." + entry.getKey());
-                returnImage.setImgurl(key.getRequestAddress() + "/" + username + "/" + ShortUID + "." + entry.getKey());
+                returnImage.setImgName(username + "/" + ShortUID+ "." + entry.getKey());
+                returnImage.setImgUrl(key.getRequestAddress() + "/" + username + "/" + ShortUID + "." + entry.getKey());
                 returnImage.setImgSize(entry.getValue().length());
                 returnImage.setCode("200");
             }

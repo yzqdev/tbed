@@ -6,12 +6,12 @@
 
     <resultMap id="BaseResultMap" type="cn.hellohao.entity.ImgTemp">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="imguid" column="imguid" jdbcType="VARCHAR"/>
+            <result property="img_uid" column="img_uid" jdbcType="VARCHAR"/>
             <result property="deltime" column="deltime" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,imguid,deltime
+        id,img_uid,deltime
     </sql>
 <!--    点赞累计增加-->
     <update id="addGreatForImguid" >
@@ -22,29 +22,29 @@
             </if>
 
         </set>
-        where imguid=#{imguid}
+        where img_uid=#{img_uid}
     </update>
 
 <!--    根据日期查询要删除的图片-->
     <select id="selectDelImgUidList" parameterType="string" resultType="cn.hellohao.entity.Images">
         SELECT
-        imgdata.imguid,
-        imgdata.source,
-        imgdata.imgname
+        img_data.img_uid,
+        img_data.source,
+        img_data.img_name
         FROM
-            imgtemp LEFT JOIN imgdata on imgtemp.imguid = imgdata.imguid
-        where imgtemp.deltime &lt;=  STR_TO_DATE(#{datatime}, '%Y-%m-%d %H:%i:%s')
+            imgtemp LEFT JOIN img_data on imgtemp.img_uid = img_data.img_uid
+        where imgtemp.del_time &lt;=  STR_TO_DATE(#{datatime}, '%Y-%m-%d %H:%i:%s')
     </select>
 
-<!--    此sql会同时删除imgdata 和 imgtemp两个表的数据 -->
+<!--    此sql会同时删除img_data 和 imgtemp两个表的数据 -->
     <delete id="delImgAndExp" parameterType="string">
-        DELETE imgtemp,imgdata FROM imgtemp LEFT JOIN imgdata ON imgtemp.imguid = imgdata.imguid
-        WHERE imgdata.imguid =#{imguid}
+        DELETE imgtemp,img_data FROM imgtemp LEFT JOIN img_data ON imgtemp.img_uid = img_data.img_uid
+        WHERE img_data.img_uid =#{img_uid}
     </delete>
 
     <insert id="insertImgExp" parameterType="cn.hellohao.entity.ImgTemp" >
-        insert into `imgtemp` (id,imguid,`deltime`)
-        values (null,#{imguid},#{deltime})
+        insert into `imgtemp` (id,img_uid,`del_time`)
+        values (null,#{img_uid},#{deltime})
     </insert>
 
 

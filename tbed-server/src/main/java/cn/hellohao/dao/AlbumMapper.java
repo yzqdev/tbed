@@ -1,6 +1,7 @@
 package cn.hellohao.dao;
 
 import cn.hellohao.entity.Album;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2019-12-18 22:15
  */
 @Mapper
-public interface AlbumMapper {
+public interface AlbumMapper extends BaseMapper<Album> {
 
     Album selectAlbum(Album album);
 

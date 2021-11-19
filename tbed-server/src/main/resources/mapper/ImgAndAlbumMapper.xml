@@ -41,7 +41,7 @@
 
     <select id="selectImgForAlbumkey" parameterType="string" resultType="cn.hellohao.entity.Images">
 
-        select * from imgdata a
+        select * from img_data a
                           LEFT JOIN imgandalbum b  on a.imgurl = b.imgname
                           LEFT JOIN album c on b.albumkey = c.albumkey
         where b.albumkey = #{albumkey}

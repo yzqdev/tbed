@@ -1,8 +1,10 @@
 package cn.hellohao.entity;
 
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,10 +13,11 @@ import lombok.NoArgsConstructor;
  * @author yanni
  * @date 2021/11/17
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends Model<User> {
 
     private Integer id;
     //@NotBlank(message = "用户名不能为空")
