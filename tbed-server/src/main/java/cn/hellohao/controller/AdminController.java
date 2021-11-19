@@ -4,6 +4,7 @@ import cn.hellohao.config.SysName;
 import cn.hellohao.entity.*;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
+import cn.hellohao.entity.vo.ImageVo;
 import cn.hellohao.entity.vo.PageResultBean;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
@@ -218,7 +219,7 @@ public class AdminController {
 
         Subject subject = SecurityUtils.getSubject();
         User u = (User) subject.getPrincipal();
-        List<Images> list =null;
+        List<ImageVo> list =null;
         if(u.getLevel()>1){
             if(type==2){
                  HomeImgDto homeImgDto=new HomeImgDto();
@@ -240,13 +241,15 @@ public class AdminController {
             list = imgService.countByM(homeImgDto);
         }
         JSONArray json = JSONArray.parseArray("[{\"id\":1,\"monthNum\":\"一月\",\"countNum\":0},{\"id\":2,\"monthNum\":\"二月\",\"countNum\":0},{\"id\":3,\"monthNum\":\"三月\",\"countNum\":0},{\"id\":4,\"monthNum\":\"四月\",\"countNum\":0},{\"id\":5,\"monthNum\":\"五月\",\"countNum\":0},{\"id\":6,\"monthNum\":\"六月\",\"countNum\":0},{\"id\":7,\"monthNum\":\"七月\",\"countNum\":0},{\"id\":8,\"monthNum\":\"八月\",\"countNum\":0},{\"id\":9,\"monthNum\":\"九月\",\"countNum\":0},{\"id\":10,\"monthNum\":\"十月\",\"countNum\":0},{\"id\":11,\"monthNum\":\"十一月\",\"countNum\":0},{\"id\":12,\"monthNum\":\"十二月\",\"countNum\":0}]");
+        System.out.println(list);
+        System.out.println("这是啥");
         JSONArray jsonArray = new JSONArray();
-        for (int j = 0; j < list.size(); j++) {
+        for (ImageVo imageVo : list) {
             for (int i = 0; i < json.size(); i++) {
                 JSONObject jobj = json.getJSONObject(i);
-                if(jobj.getInteger("id").equals(list.get(j).getMonthNum())){
-                    jobj.put("monthNum",getChinaes(list.get(j).getMonthNum()));
-                    jobj.put("countNum",list.get(j).getCountNum());
+                if (jobj.getInteger("id").equals(imageVo.getMonthNum())) {
+                    jobj.put("monthNum", getChinaes(imageVo.getMonthNum()));
+                    jobj.put("countNum", imageVo.getCountNum());
                 }
             }
         }
@@ -348,13 +351,12 @@ public class AdminController {
 
     @PostMapping("/setUserInfo") //new
     @ResponseBody
-    public Msg setUserInfo(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg setUserInfo(@RequestBody Map<String,String> jsonObject) {
         Msg msg = new Msg();
         try {
-            JSONObject jsonObject = JSONObject.parseObject(data);
-            String username = jsonObject.getString("username");
-            String email = jsonObject.getString("email");
-            String password = jsonObject.getString("password");
+            String username = jsonObject.get("username");
+            String email = jsonObject.get("email");
+            String password = jsonObject.get("password");
             Subject subject = SecurityUtils.getSubject();
             User u = (User) subject.getPrincipal();
             User user = new User();

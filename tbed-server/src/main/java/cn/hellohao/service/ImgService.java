@@ -1,6 +1,7 @@
 package cn.hellohao.service;
 
 
+import java.awt.*;
 import java.util.List;
 
 import cn.hellohao.entity.User;
@@ -8,6 +9,7 @@ import cn.hellohao.entity.User;
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
+import cn.hellohao.entity.vo.ImageVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +47,9 @@ public interface ImgService extends IService<Images> {
 
     List<User> RecentlyUser();
 
-    List<String> getyyyy(Integer userid);
+    List<String> getyyyy(Integer useriVo);
 
-    List<Images> countByM(HomeImgDto images);
+    List<ImageVo> countByM(HomeImgDto images);
 
     Images selectImgUrlByImgUID( String imguid);
 

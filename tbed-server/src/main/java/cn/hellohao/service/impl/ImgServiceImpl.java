@@ -7,6 +7,7 @@ import java.util.List;
 import cn.hellohao.entity.User;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
+import cn.hellohao.entity.vo.ImageVo;
 import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
@@ -260,7 +261,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public List<Images> countByM(HomeImgDto images) {
+    public List<ImageVo> countByM(HomeImgDto images) {
         return imgMapper.countByM(images);
     }
 

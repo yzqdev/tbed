@@ -58,11 +58,7 @@ public class Images {
     /**
      * 开始时间
      */
-    private String startTime;
-    /**
-     * 停止时间
-     */
-    private String stopTime;
+
     private String explains;
     /**
      * md5key
@@ -72,14 +68,13 @@ public class Images {
     private String imgUid;
     private String format;
     private String about;
-    private Integer great;
+
     private String violation;
-    private String albumTitle;
+    //private String albumTitle;
     //@Length(min = 0, max = 10, message = "画廊密码不能超过10个字符")
-    private String password;
-    private Integer selectType;
-    private Long countNum;
-    private Integer monthNum;
+    //private String password;
+    //private Integer selectType;
+
     //private String yyyy;
     //private String[] classifuidlist; //类别uid集合
     //private String classificationuid; //类别uid集合

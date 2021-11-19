@@ -143,8 +143,9 @@
     </select>
 
 
-    <select id="countByM" parameterType="cn.hellohao.entity.dto.HomeImgDto" resultType="cn.hellohao.entity.Images">
+    <select id="countByM" parameterType="cn.hellohao.entity.dto.HomeImgDto" resultType="cn.hellohao.entity.vo.ImageVo">
         SELECT
+               *,
         count(id) countNum,
         MONTH(update_time) monthNum
         FROM

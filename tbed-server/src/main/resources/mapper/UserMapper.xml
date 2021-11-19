@@ -108,7 +108,7 @@
     <!-- 修改资料 -->
     <update id="change" parameterType="cn.hellohao.entity.User">
         <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE `user`
+        UPDATE tbed.user
         <set>
             <if test="email != null">
                 `email` = #{email},
@@ -122,7 +122,7 @@
             <if test="memory != null">
                 `memory` = #{memory},
             </if>
-            <if test="group_id != null">
+            <if test="groupId != null">
                 `group_id` = #{groupId}
             </if>
         </set>
