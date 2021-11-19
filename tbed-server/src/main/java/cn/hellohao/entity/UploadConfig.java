@@ -34,7 +34,7 @@ public class UploadConfig {
     /**
      * 用户存储
      */
-    private String userStorage;
+    private Long userStorage;
     /**
      * 黑名单
      */

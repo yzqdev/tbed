@@ -160,7 +160,7 @@ public class AdminController {
             Long userMemory = Long.valueOf(user.getMemory());
             sizes = Long.valueOf(code.getValue())+ userMemory;
             User newMemoryUser = new User();
-            newMemoryUser.setMemory(Long.toString(sizes));
+            newMemoryUser.setMemory(sizes);
             newMemoryUser.setId(user.getId());
             userService.usersetmemory(newMemoryUser,jsonObject.getString("code"));
             msg.setInfo("你已成功扩容"+SetFiles.readableFileSize(sizes));

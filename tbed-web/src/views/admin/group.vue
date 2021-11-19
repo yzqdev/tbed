@@ -30,16 +30,16 @@
       <br />
       <Form  @submit.native.prevent :label-width="70" >
         <FormItem label="群组名称">
-          <Input :disabled="(formItem.id==1 && urlType=='edit')" v-model="formItem.groupname"  placeholder="群组名称" maxlength="20"  size="large"></Input>
+          <Input :disabled="(formItem.id==1 && urlType=='edit')" v-model="formItem.groupName"  placeholder="群组名称" maxlength="20"  size="large"></Input>
         </FormItem>
         <FormItem label="存储源">
-          <Select v-model="formItem.keyid" filterable placeholder="存储源" size="large">
-            <Option v-for="item in bucketlist" :value="item.id" :key="item.id">{{ item.keyname }}</Option>
+          <Select v-model="formItem.keyId" filterable placeholder="存储源" size="large">
+            <Option v-for="item in bucketlist" :value="item.id" :key="item.id">{{ item.keyName }}</Option>
           </Select>
         </FormItem>
 
         <FormItem label="用户组">
-          <Select :disabled="(formItem.id==1 && urlType=='edit')" v-model="formItem.usertype" placeholder="用户组" size="large">
+          <Select :disabled="(formItem.id==1 && urlType=='edit')" v-model="formItem.userType" placeholder="用户组" size="large">
             <Option  value="0" >不指定</Option>
             <Option  value="1" >游客</Option>
             <Option  value="2" >用户</Option>
@@ -82,33 +82,33 @@ export default {
       total:0,
       formItem:{
         id:null,
-        groupname:null,
-        keyid:null,
-        usertype:"0",
-        compress:false
+        groupName:null,
+        keyId:null,
+        userType:"0",
+        compress:0
       },
       bucketlist:[],
       columns: [
         {
           title: '分组',
           minWidth:200,
-          key: 'groupname'
+          key: 'groupName'
         },
         {
           title: '存储策略',
           minWidth:200,
-          key: 'keyname'
+          key: 'keyName'
         },
         {
           title: '用户组',
           minWidth:200,
-          // key: 'usertype'
+          // key: 'userType'
           render: (h, params) => {
-            if(params.row.usertype==1){
+            if(params.row.userType==1){
               return h('span', {}, '游客');
-            }else if(params.row.usertype==2){
+            }else if(params.row.userType==2){
               return h('span', {}, '用户');
-            }else if(params.row.usertype==3){
+            }else if(params.row.userType==3){
               return h('span', {}, '管理员');
             }else{
               return h('span', {}, '未指定');
@@ -199,9 +199,9 @@ export default {
       //设置用户列表的删选窗口
       this.urlType='add';
       this.formItem.id = null;
-      this.formItem.groupname = null;
-      this.formItem.keyid = null;
-      this.formItem.usertype = "0";
+      this.formItem.groupName = null;
+      this.formItem.keyId = null;
+      this.formItem.userType = "0";
       this.formItem.compress = false;
       this.isAdd = true;
     },
@@ -209,10 +209,10 @@ export default {
       this.urlType='edit';
       this.isAdd = true;
       this.formItem.id = row.id;
-      this.formItem.groupname = row.groupname;
-      this.formItem.keyid = row.keyid;
-      this.formItem.usertype = row.usertype.toString();
-      this.formItem.compress = row.compress==1?true:false;
+      this.formItem.groupName = row.groupName;
+      this.formItem.keyId = row.keyId;
+      this.formItem.userType = row.userType.toString();
+      this.formItem.compress = row.compress ?true:false;
     },
     save(){
       if(this.urlType=='add'){
@@ -221,6 +221,7 @@ export default {
         this.urls = 'updateGroup';
       }
       //addGroup
+      this.formItem.compress=this.formItem.compress?1:0
       request(
           "/admin/root/"+this.urls,
           this.formItem).then(res => {

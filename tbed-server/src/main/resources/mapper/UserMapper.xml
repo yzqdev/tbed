@@ -130,7 +130,7 @@
     </update>
 
     <update id="changeUser" parameterType="cn.hellohao.entity.User">
-        UPDATE `user`
+        UPDATE tbed.user
         <set>
             <if test="email != null">
                 `email` = #{email},
@@ -144,8 +144,8 @@
             <if test="memory != null">
                 `memory` = #{memory},
             </if>
-            <if test="group_id != null">
-                `group_id` = #{group_id},
+            <if test="groupId != null">
+                `group_id` = #{groupId},
             </if>
             <if test="isok != null">
                 `isok` = #{isok},
@@ -179,17 +179,16 @@
         isok,
         ceil((memory/1024/1024)) as memory,
         group_id,
-        (select groupname from `group` where id = group_id) as groupname
+        (select group_name from tbed.`siteGroup` where id = group_id) as group_name
         FROM
-        user
-        where
-        1=1
+        tbed.user
+         <where>
         <if test="username != null">
             and CONCAT(
             username,
             email
             ) LIKE '%${username}%'
-        </if>
+        </if></where>
         order by birthday desc
     </select>
 

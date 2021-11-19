@@ -47,11 +47,11 @@ public class UFileImageupload {
     public static Integer Initialize(Keys k) {
         int ret = -1;
         if(k.getAccessSecret()!=null && k.getAccessKey()!=null
-                && k.getBucketname()!=null && k.getRequestAddress()!=null ) {
+                && k.getBucketName()!=null && k.getRequestAddress()!=null ) {
             if(!k.getAccessSecret().equals("") && !k.getAccessKey().equals("")
-                    && !k.getBucketname().equals("") && !k.getRequestAddress().equals("") ) {
+                    && !k.getBucketName().equals("") && !k.getRequestAddress().equals("") ) {
                 // 创建UpYun实例。
-                UpYun uFile = new UpYun(k.getBucketname(), k.getAccessKey(), k.getAccessSecret());
+                UpYun uFile = new UpYun(k.getBucketName(), k.getAccessKey(), k.getAccessSecret());
                 List<UpYun.FolderItem> items = null;
                 try {
                     items = uFile.readDir("/",null);

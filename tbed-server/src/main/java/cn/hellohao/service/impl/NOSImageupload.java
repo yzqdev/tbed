@@ -26,7 +26,7 @@ public class NOSImageupload {
             for (Map.Entry<String, File> entry : fileMap.entrySet()) {
                 String ShortUID = SetText.getShortUuid();
                 file = entry.getValue();
-                nosClient.putObject(key.getBucketname(), username + "/" + ShortUID+ "." + entry.getKey(), file);
+                nosClient.putObject(key.getBucketName(), username + "/" + ShortUID+ "." + entry.getKey(), file);
                 returnImage.setImgName(username + "/" + ShortUID+ "." + entry.getKey());
                 returnImage.setImgUrl(key.getRequestAddress() + "/" + username + "/" + ShortUID + "." + entry.getKey());
                 returnImage.setImgSize(entry.getValue().length());
@@ -45,16 +45,16 @@ public class NOSImageupload {
     public static Integer Initialize(Keys k) {
         int ret = -1;
         if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
-                && k.getBucketname()!=null && k.getRequestAddress()!=null ){
+                && k.getBucketName()!=null && k.getRequestAddress()!=null ){
             if(!k.getEndpoint().equals("") && !k.getAccessSecret().equals("") && !k.getEndpoint().equals("")
-                    && !k.getBucketname().equals("") && !k.getRequestAddress().equals("") ){
+                    && !k.getBucketName().equals("") && !k.getRequestAddress().equals("") ){
                 // 初始化
                 Credentials credentials = new BasicCredentials(k.getAccessKey(), k.getAccessSecret());
                 NosClient nosClient = new NosClient(credentials);
                 nosClient.setEndpoint(k.getEndpoint());
                 ObjectListing objectListing = null;
                 try {
-                    objectListing = nosClient.listObjects(k.getBucketname());
+                    objectListing = nosClient.listObjects(k.getBucketName());
                     ret = 1;
                     nosClient = nosClient;
                     key = k;
@@ -73,9 +73,9 @@ public class NOSImageupload {
         boolean b =true;
         try {
             //这种方法不能删除指定文件夹下的文件
-            boolean isExist = nosClient.doesObjectExist(key.getBucketname(), fileName, null);
+            boolean isExist = nosClient.doesObjectExist(key.getBucketName(), fileName, null);
             if (isExist) {
-                nosClient.deleteObject(key.getBucketname(), fileName);
+                nosClient.deleteObject(key.getBucketName(), fileName);
             }
         } catch (Exception e) {
             e.printStackTrace();

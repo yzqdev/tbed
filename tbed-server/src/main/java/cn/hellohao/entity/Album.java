@@ -15,7 +15,7 @@ public class Album {
     /**
      * albumkey
      */
-    private String  albumKey;
+    private String albumKey;
     /**
      * 专辑名称
      */
@@ -32,7 +32,7 @@ public class Album {
      * 用户标识
      */
     private Integer userId;
-
+    private String username;
 
 
     public Album() {

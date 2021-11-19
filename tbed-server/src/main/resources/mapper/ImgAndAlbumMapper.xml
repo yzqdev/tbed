@@ -35,9 +35,9 @@
 
     <select id="selectImgForAlbumkey" parameterType="string" resultType="cn.hellohao.entity.Images">
 
-        select * from img_data
-                          LEFT JOIN img_and_album    on img_data.img_url = img_and_album.img_name
-                          LEFT JOIN album   on img_and_album.album_key = album.album_key
+        select * from tbed.img_data
+                          LEFT JOIN tbed.img_and_album    on img_data.img_name = img_and_album.img_name
+                          LEFT JOIN tbed.album   on img_and_album.album_key = album.album_key
         where img_and_album.album_key = #{albumKey}
 
     </select>

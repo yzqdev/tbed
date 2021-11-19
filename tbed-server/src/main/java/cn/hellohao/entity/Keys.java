@@ -2,29 +2,29 @@ package cn.hellohao.entity;
 
 public class Keys {
     private Integer id;
-    private String AccessKey;
-    private String AccessSecret;
-    private String Endpoint;
-    private String Bucketname;
-    private String RequestAddress;
+    private String accessKey;
+    private String accessSecret;
+    private String endpoint;
+    private String bucketName;
+    private String requestAddress;
     private Integer storageType;
-    private String keyname;
+    private String keyName;
 
     public Keys() {
         super();
     }
 
-    public Keys(Integer id, String accessKey, String accessSecret, String endpoint, String bucketname,
-                String requestAddress, Integer storageType,String keyname) {
+    public Keys(Integer id, String accessKey, String accessSecret, String endpoint, String bucketName,
+                String requestAddress, Integer storageType,String keyName) {
         super();
         this.id = id;
-        this.AccessKey = accessKey;
-        this.AccessSecret = accessSecret;
-        this.Endpoint = endpoint;
-        this.Bucketname = bucketname;
-        this.RequestAddress = requestAddress;
+        this.accessKey = accessKey;
+        this.accessSecret = accessSecret;
+        this.endpoint = endpoint;
+        this.bucketName = bucketName;
+        this.requestAddress = requestAddress;
         this.storageType = storageType;
-        this.keyname = keyname;
+        this.keyName = keyName;
 
     }
 
@@ -37,43 +37,43 @@ public class Keys {
     }
 
     public String getAccessKey() {
-        return AccessKey;
+        return accessKey;
     }
 
     public void setAccessKey(String accessKey) {
-        AccessKey = accessKey;
+        this.accessKey = accessKey;
     }
 
     public String getAccessSecret() {
-        return AccessSecret;
+        return accessSecret;
     }
 
     public void setAccessSecret(String accessSecret) {
-        AccessSecret = accessSecret;
+        this.accessSecret = accessSecret;
     }
 
     public String getEndpoint() {
-        return Endpoint;
+        return endpoint;
     }
 
     public void setEndpoint(String endpoint) {
-        Endpoint = endpoint;
+        this.endpoint = endpoint;
     }
 
-    public String getBucketname() {
-        return Bucketname;
+    public String getBucketName() {
+        return bucketName;
     }
 
-    public void setBucketname(String bucketname) {
-        Bucketname = bucketname;
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
     }
 
     public String getRequestAddress() {
-        return RequestAddress;
+        return requestAddress;
     }
 
     public void setRequestAddress(String requestAddress) {
-        RequestAddress = requestAddress;
+        this.requestAddress = requestAddress;
     }
 
     public Integer getStorageType() {
@@ -84,11 +84,11 @@ public class Keys {
         this.storageType = storageType;
     }
 
-    public String getKeyname() {
-        return keyname;
+    public String getKeyName() {
+        return keyName;
     }
 
-    public void setKeyname(String keyname) {
-        this.keyname = keyname;
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
     }
 }

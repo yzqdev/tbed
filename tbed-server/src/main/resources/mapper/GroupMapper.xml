@@ -3,19 +3,19 @@
 <mapper namespace="cn.hellohao.dao.GroupMapper">
 
 
-<!--    <select id="grouplist" resultType="cn.hellohao.entity.Group">-->
+<!--    <select id="grouplist" resultType="cn.hellohao.entity.SiteGrouproup">-->
 <!--        SELECT-->
 <!--        *-->
 <!--        FROM-->
-<!--        `group`-->
+<!--        `siteGroup`-->
 <!--    </select>-->
 
 
-    <select id="grouplist" resultType="cn.hellohao.entity.Group" parameterType="integer">
+    <select id="grouplist" resultType="cn.hellohao.entity.SiteGroup" parameterType="integer">
         SELECT
         g.id,g.group_name,g.key_id,g.user_type,g.compress,k.storage_type,k.key_name
         FROM
-        `group` as g LEFT JOIN `keys` as k on g.key_id = k.id
+        tbed.site_group as g LEFT JOIN tbed.`keys` as k on g.key_id = k.id
         where 1=1
         <if test="usertype!=null">
             and g.user_type=#{usertype}
@@ -24,39 +24,39 @@
     </select>
 
 
-    <select id="idgrouplist" parameterType="integer" resultType="cn.hellohao.entity.Group">
+    <select id="idgrouplist" parameterType="integer" resultType="cn.hellohao.entity.SiteGroup">
         SELECT
             *
         FROM
-            `group`
+            tbed.site_group
         where id = #{id}
     </select>
 
-    <insert id="addgroup" parameterType="cn.hellohao.entity.Group">
-        insert into `group` (id,group_name,key_id) values (null,#{groupname},#{keyid})
+    <insert id="addgroup" parameterType="cn.hellohao.entity.SiteGroup">
+        insert into tbed.site_group (id,group_name,key_id) values (null,#{groupname},#{keyid})
     </insert>
 
     <select id="GetCountFroUserType" parameterType="integer" resultType="integer">
         SELECT
             count(id)
         FROM
-            `group`
+            tbed.site_group
         where user_type = #{usertype}
     </select>
 
     <delete id="delegroup" parameterType="integer">
-        delete from `group` where id=#{id}
+        delete from tbed.site_group where id=#{id}
     </delete>
 
-    <update id="setgroup" parameterType="cn.hellohao.entity.Group">
-        UPDATE `group` SET group_name=#{groupname},key_id=#{keyid} where id = #{id};
+    <update id="setgroup" parameterType="cn.hellohao.entity.SiteGroup">
+        UPDATE tbed.site_group SET group_name=#{groupname},key_id=#{keyid} where id = #{id};
     </update>
 
-    <select id="getGroupFroUserType" parameterType="integer" resultType="cn.hellohao.entity.Group">
+    <select id="getGroupFroUserType" parameterType="integer" resultType="cn.hellohao.entity.SiteGroup">
         SELECT
             *
         FROM
-            `group`
+            tbed.site_group
         where user_type = #{usertype}
     </select>
 

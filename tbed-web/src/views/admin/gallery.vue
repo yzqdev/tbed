@@ -11,7 +11,7 @@
               </template>
               <template slot-scope="{row,index}" slot="action" >
 <!--                <Icon type="md-settings tablebut"  @click="showsettingGroup(row,index)" />-->
-                <Icon type="md-trash tablebut" :value="index" @click="deleGallery(row.albumkey)" />
+                <Icon type="md-trash tablebut" :value="index" @click="deleGallery(row.albumKey)" />
                 <!--        <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>-->
                 <!--        <Button type="error" size="small" @click="remove(index)">Delete</Button>-->
               </template>
@@ -44,7 +44,7 @@ export default {
       pageSize:10,
       total:0,
       GalleryList:[],
-      albumkeyList:[],
+      albumKeyList:[],
       columns: [
         {
           type: 'selection',
@@ -54,20 +54,20 @@ export default {
         {
           title: '画廊标题',
           minWidth: 200,
-          key: 'albumtitle'
+          key: 'albumTitle'
         },
         {
           title: '画廊地址',
           minWidth: 300,
-          // key: 'albumkey',
+          // key: 'albumKey',
           render: (h, params) => {
             return h('a', {
               attrs: {
-                name: params.row.albumkey,
+                name: params.row.albumKey,
                 target:'_blank',
-                href: window.location.protocol+'//'+window.location.host+'/h/'+params.row.albumkey
+                href: window.location.protocol+'//'+window.location.host+'/h/'+params.row.albumKey
               }
-            }, window.location.protocol+'//'+window.location.host+'/h/'+params.row.albumkey);
+            }, window.location.protocol+'//'+window.location.host+'/h/'+params.row.albumKey);
           }
         },
         {
@@ -75,7 +75,7 @@ export default {
           tooltip:true,
           minWidth: 130,
           align: 'center',
-          key: 'createdate'
+          key: 'createDate'
         },
         {
           title: '创建人',
@@ -83,7 +83,7 @@ export default {
           align: 'center',
           // key: 'userid'
           render: (h, params) => {
-            if(params.row.userid==0){
+            if(params.row.userId==0){
               return h('span', {}, '访客');
             }else{
               return h('span', {}, params.row.username);
@@ -148,14 +148,14 @@ export default {
     selectGallery(selection){
       if(selection.length>0){
         for (let i = 0; i < selection.length; i++) {
-          this.albumkeyList.push(selection[i].albumkey);
+          this.albumKeyList.push(selection[i].albumKey);
         }
       }else{
-        this.albumkeyList = [];
+        this.albumKeyList = [];
       }
     },
     deleSelectGallery(){
-      if(this.albumkeyList.length==0){
+      if(this.albumKeyList.length==0){
         this.$Message.warning("请先选择要操作的数据");
         return;
       }
@@ -178,20 +178,20 @@ export default {
         onCancel: () => { }
       });
     },
-    sendDeleGallery(albumkey){
+    sendDeleGallery(albumKey){
       this.loading = true;
-      var paramJson={};
-      if(albumkey!=null && albumkey != ''){
+      var paramJson= [];
+      if(albumKey!=null && albumKey != ''){
         let arr = [];
-        arr.push(albumkey);
-        paramJson.albumkeyList = arr;
+        arr.push(albumKey);
+        paramJson  = arr;
       }else{
-        if(this.albumkeyList.length==0){
+        if(this.albumKeyList.length==0){
           this.loading = false;
           this.$Message.warning("请先选择要操作的数据");
           return false;
         }
-        paramJson.albumkeyList=this.albumkeyList;
+        paramJson=this.albumKeyList;
       }
       request(
           "/admin/deleGallery",

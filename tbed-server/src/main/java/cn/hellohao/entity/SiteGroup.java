@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Group {
+public class SiteGroup {
     private Integer id;
     private String groupName;
     private Integer keyId;
-    private Integer usertype;
+    private Integer userType;
     private Integer compress;
     private Integer storageType;
     private String keyName;

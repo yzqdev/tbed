@@ -30,7 +30,7 @@ public class COSImageupload {
                 String ShortUID = SetText.getShortUuid();
                 file = entry.getValue();
                 try {
-                    String bucketName = key.getBucketname();
+                    String bucketName = key.getBucketName();
                     String userkey =username + "/" + ShortUID + "." + entry.getKey();
                     PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, userkey, file);
                     PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
@@ -55,9 +55,9 @@ public class COSImageupload {
     public static Integer Initialize(Keys k) {
         int ret = -1;
         if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
-                && k.getBucketname()!=null && k.getRequestAddress()!=null ) {
+                && k.getBucketName()!=null && k.getRequestAddress()!=null ) {
             if (!k.getEndpoint().equals("") && !k.getAccessSecret().equals("") && !k.getEndpoint().equals("")
-                    && !k.getBucketname().equals("") && !k.getRequestAddress().equals("")) {
+                    && !k.getBucketName().equals("") && !k.getRequestAddress().equals("")) {
                 String secretId = k.getAccessKey();
                 String secretKey = k.getAccessSecret();
                 COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
@@ -65,7 +65,7 @@ public class COSImageupload {
                 ClientConfig clientConfig = new ClientConfig(region);
                 COSClient cosClient = new COSClient(cred, clientConfig);
                 ListObjectsRequest listObjectsRequest = new ListObjectsRequest();
-                listObjectsRequest.setBucketName(k.getBucketname());
+                listObjectsRequest.setBucketName(k.getBucketName());
                 listObjectsRequest.setDelimiter("/");
                 listObjectsRequest.setMaxKeys(1);
                 ObjectListing objectListing = null;
@@ -86,7 +86,7 @@ public class COSImageupload {
     public Boolean delCOS(Integer keyID, String fileName) {
         boolean b = true;
         try {
-            cosClient.deleteObject(key.getBucketname(), fileName);
+            cosClient.deleteObject(key.getBucketName(), fileName);
         } catch (Exception e) {
             e.printStackTrace();
             b = false;

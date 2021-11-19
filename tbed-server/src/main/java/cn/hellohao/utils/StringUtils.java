@@ -7,41 +7,41 @@ public class StringUtils {
     public static Boolean doNull(Integer sourcekey,Keys k) {
         if(sourcekey==1){
             if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
-                    && k.getBucketname()!=null && k.getRequestAddress()!=null ){
+                    && k.getBucketName()!=null && k.getRequestAddress()!=null ){
                 if(!k.getEndpoint().equals("") && !k.getAccessSecret().equals("") && !k.getEndpoint().equals("")
-                        && !k.getBucketname().equals("") && !k.getRequestAddress().equals("") ){
+                        && !k.getBucketName().equals("") && !k.getRequestAddress().equals("") ){
                     return true;
                 }
             }
         }else if(sourcekey==2){
             if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
-                    && k.getBucketname()!=null && k.getRequestAddress()!=null ) {
+                    && k.getBucketName()!=null && k.getRequestAddress()!=null ) {
                 if(!k.getEndpoint().equals("") && !k.getAccessSecret().equals("") && !k.getEndpoint().equals("")
-                        && !k.getBucketname().equals("") && !k.getRequestAddress().equals("") ) {
+                        && !k.getBucketName().equals("") && !k.getRequestAddress().equals("") ) {
                     return true;
                 }
             }
         }else if(sourcekey==3){
             if(k.getEndpoint()!=null && k.getAccessSecret()!=null
-                    && k.getBucketname()!=null && k.getRequestAddress()!=null ) {
+                    && k.getBucketName()!=null && k.getRequestAddress()!=null ) {
                 if(!k.getEndpoint().equals("") && !k.getAccessSecret().equals("")
-                        && !k.getBucketname().equals("") && !k.getRequestAddress().equals("") ) {
+                        && !k.getBucketName().equals("") && !k.getRequestAddress().equals("") ) {
                     return true;
                 }
             }
         }else if(sourcekey==4){
             if (k.getEndpoint() != null && k.getAccessSecret() != null && k.getEndpoint() != null
-                    && k.getBucketname() != null && k.getRequestAddress() != null) {
+                    && k.getBucketName() != null && k.getRequestAddress() != null) {
                 if (!k.getEndpoint().equals("") && !k.getAccessSecret() .equals("") && !k.getEndpoint() .equals("")
-                        && !k.getBucketname() .equals("") && !k.getRequestAddress().equals("")) {
+                        && !k.getBucketName() .equals("") && !k.getRequestAddress().equals("")) {
                     return true;
                 }
             }
         }else if(sourcekey==6){
             if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
-                    && k.getBucketname()!=null && k.getRequestAddress()!=null ) {
+                    && k.getBucketName()!=null && k.getRequestAddress()!=null ) {
                 if(!k.getEndpoint().equals("") && !k.getAccessSecret().equals("") && !k.getEndpoint().equals("")
-                        && !k.getBucketname().equals("") && !k.getRequestAddress().equals("") ) {
+                        && !k.getBucketName().equals("") && !k.getRequestAddress().equals("") ) {
                     return true;
                 }
             }

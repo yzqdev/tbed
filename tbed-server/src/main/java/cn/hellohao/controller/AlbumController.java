@@ -71,22 +71,22 @@ public class AlbumController {
 
     @PostMapping("/admin/deleGallery") //new 删除画廊
     @ResponseBody
-    public Msg deleGallery (@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg deleGallery (@RequestBody String[] albumkeyList) {
         Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
         try {
-            JSONObject jsonObject = JSONObject.parseObject(data);
-            JSONArray albumkeyList = jsonObject.getJSONArray("albumkeyList");
-            for (int i = 0; i < albumkeyList.size(); i++) {
-                if(subject.hasRole("admin")){
-                    albumServiceImpl.deleteAlbum(albumkeyList.getString(i));
-                }else{
-                    AlbumDto album=new AlbumDto();
-                    album.setAlbumKey(albumkeyList.getString(i));
+
+
+            for (String s : albumkeyList) {
+                if (subject.hasRole("admin")) {
+                    albumServiceImpl.deleteAlbum(s);
+                } else {
+                    AlbumDto album = new AlbumDto();
+                    album.setAlbumKey(s);
                     final Album alb = albumServiceImpl.selectAlbum(album);
-                    if(alb.getUserId().equals(user.getId())){
-                        albumServiceImpl.deleteAlbum(albumkeyList.getString(i));
+                    if (alb.getUserId().equals(user.getId())) {
+                        albumServiceImpl.deleteAlbum(s);
                     }
                 }
             }
@@ -152,7 +152,7 @@ public class AlbumController {
             for (int i = 0; i < albumList.size(); i++) {
                 Images img =albumList.get(i);
                 ImgAndAlbum imgAndAlbum = new ImgAndAlbum();
-                //imgAndAlbum.setImgName(img.getString("imgUrl"));
+                imgAndAlbum.setImgName(img.getImgName());
                 imgAndAlbum.setAlbumKey(uuid);
                 imgAndAlbum.setNotes(img.getNotes());
                 albumServiceImpl.addAlbumForImgAndAlbumMapper(imgAndAlbum);
@@ -219,9 +219,9 @@ public class AlbumController {
         if(null!=password){
             password = password.replace(" ", "");
         }
-       AlbumDto album=new AlbumDto();
-        album.setAlbumKey(albumkey);
-        Album a =  albumServiceImpl.selectAlbum(album);
+
+
+        Album a =  albumServiceImpl.selectAlbum(albumDto);
         if(a==null){
             msg.setCode("110404");
             msg.setInfo("画廊地址不存在");

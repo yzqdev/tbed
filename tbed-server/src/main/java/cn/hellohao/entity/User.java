@@ -41,7 +41,7 @@ public class User extends Model<User> {
     /**
      * 内存
      */
-    private  String memory;
+    private  Long memory;
     /**
      * 组id
      */
@@ -50,10 +50,10 @@ public class User extends Model<User> {
      * 组名称
      */
     private String groupName;
-    /**
-     * 用户照片数量
-     */
-    private Long counts;
+    ///**
+    // * 用户照片数量
+    // */
+    //private Long counts;
 
 
 }

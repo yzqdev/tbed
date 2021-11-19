@@ -1,6 +1,8 @@
 package cn.hellohao.controller;
 
 import cn.hellohao.entity.*;
+import cn.hellohao.entity.dto.UserSearchDto;
+import cn.hellohao.entity.dto.UserUpdateDto;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
@@ -13,10 +15,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,11 +44,10 @@ public class AdminRootController {
 
     @PostMapping(value = "/getUserList")//new
     @ResponseBody
-    public Map<String, Object> getUserList(@RequestParam(value = "data", defaultValue = "") String data) {
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        Integer pageNum = jsonObj.getInteger("pageNum");
-        Integer pageSize = jsonObj.getInteger("pageSize");
-        String queryText = jsonObj.getString("queryText");
+    public Map<String, Object> getUserList(@RequestBody UserSearchDto userSearchDto) {
+        Integer pageNum =userSearchDto.getPageNum();
+        Integer pageSize =userSearchDto.getPageSize();
+        String queryText = userSearchDto.getQueryText();
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userService.getuserlist(queryText);
         PageInfo<User> rolePageInfo = new PageInfo<>(users);
@@ -63,17 +61,17 @@ public class AdminRootController {
 
     @PostMapping(value = "/updateUserInfo")//new
     @ResponseBody
-    public Msg updateUserInfo(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg updateUserInfo(@RequestBody UserUpdateDto userUpdateDto) {
         final Msg msg = new Msg();
         try{
             Subject subject = SecurityUtils.getSubject();
             User u = (User) subject.getPrincipal();
-            JSONObject jsonObj = JSONObject.parseObject(data);
-            Integer id = jsonObj.getInteger("id");
-            String email = jsonObj.getString("email");
-            Long memory = jsonObj.getLong("memory");
-            Integer groupid = jsonObj.getInteger("groupid");
-            Integer isok = jsonObj.getInteger("isok");
+
+            Integer id = userUpdateDto.getId();
+            String email = userUpdateDto.getEmail();
+            Long memory = userUpdateDto.getMemory();
+            Integer groupid = userUpdateDto.getGroupId();
+            Integer isok =userUpdateDto.getIsok();
             if(memory<0 || memory>1048576L){
                 msg.setCode("500");
                 msg.setInfo("容量不得超过1048576");
@@ -85,7 +83,7 @@ public class AdminRootController {
             User userInfo = userService.getUsers(user2);
             user.setId(id);
             user.setEmail(email);
-            user.setMemory(Long.toString(memory*1024*1024));
+            user.setMemory( memory*1024*1024);
             user.setGroupId(groupid);
             if(userInfo.getLevel()==1){
                 user.setIsok(isok==1?1:-1);
@@ -229,10 +227,10 @@ public class AdminRootController {
         keys.setAccessKey(AccessKey);
         keys.setAccessSecret(AccessSecret);
         keys.setEndpoint(Endpoint);
-        keys.setBucketname(Bucketname);
+        keys.setBucketName(Bucketname);
         keys.setRequestAddress(RequestAddress);
         keys.setStorageType(storageType);
-        keys.setKeyname(keyname);
+        keys.setKeyName(keyname);
         Msg msg = keysService.updateKey(keys);
         return msg;
     }
@@ -260,7 +258,7 @@ public class AdminRootController {
             UploadConfig uploadConfig = uploadConfigService.getUpdateConfig();
             Config config = configService.getSourceype();
             SysConfig sysConfig = sysConfigService.getstate();
-            uploadConfig.setUserStorage(Long.toString(Long.valueOf(uploadConfig.getUserStorage())/1024/1024));
+            uploadConfig.setUserStorage(Long.valueOf(uploadConfig.getUserStorage())/1024/1024);
             uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())/1024/1024));
             uploadConfig.setFilesizetourists(Long.toString(Long.valueOf(uploadConfig.getFilesizetourists())/1024/1024));
             uploadConfig.setFilesizeuser(Long.toString(Long.valueOf(uploadConfig.getFilesizeuser())/1024/1024));
@@ -300,7 +298,7 @@ public class AdminRootController {
                 uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())*1024*1024));
             }
             uploadConfig.setFilesizetourists(Long.toString(Long.valueOf(uploadConfig.getFilesizetourists())*1024*1024));
-            uploadConfig.setUserStorage(Long.toString(Long.valueOf(uploadConfig.getUserStorage())*1024*1024));
+            uploadConfig.setUserStorage( Long.valueOf(uploadConfig.getUserStorage())*1024*1024);
             uploadConfig.setFilesizeuser(Long.toString(Long.valueOf(uploadConfig.getFilesizeuser())*1024*1024));
             uploadConfigService.setUpdateConfig(uploadConfig);
             configService.setSourceype(config);

@@ -46,13 +46,13 @@ public class USSImageupload {
     //初始化
     public static Integer Initialize(Keys k) {
         int ret = -1;
-        if(k.getStorageType()!=null && k.getAccessKey() != null && k.getAccessSecret() != null && k.getBucketname() != null
+        if(k.getStorageType()!=null && k.getAccessKey() != null && k.getAccessSecret() != null && k.getBucketName() != null
                 && k.getRequestAddress() !=null ) {
-            if(!k.getStorageType().equals("") && !k.getAccessKey().equals("") && !k.getAccessSecret().equals("") && !k.getBucketname().equals("")
+            if(!k.getStorageType().equals("") && !k.getAccessKey().equals("") && !k.getAccessSecret().equals("") && !k.getBucketName().equals("")
                     && !k.getRequestAddress().equals("") ) {
                 // 初始化
                 // 创建UpYun实例。
-                UpYun upyun = new UpYun(k.getBucketname(), k.getAccessKey(), k.getAccessSecret());
+                UpYun upyun = new UpYun(k.getBucketName(), k.getAccessKey(), k.getAccessSecret());
                 List<UpYun.FolderItem> items = null;
                 try {
                     items = upyun.readDir("/",null);

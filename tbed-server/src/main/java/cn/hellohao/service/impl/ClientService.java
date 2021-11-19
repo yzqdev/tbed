@@ -98,7 +98,7 @@ public class ClientService {
             if (!msg1.getCode().equals("300")) {
                 return msg1;
             }
-            sourceKeyId = group.getKeyId();
+            sourceKeyId = siteGroup.getKeyId();
             Keys key = keysMapper.selectKeys(sourceKeyId);
             Long tmp = (memory == -1 ? -2 : UsedTotleMemory);
             if (tmp >= memory) {
@@ -213,7 +213,7 @@ public class ClientService {
     }
 
 
-    public static Group group; //上传用户或游客的所属分组
+    public static SiteGroup siteGroup; //上传用户或游客的所属分组
     public static Long memory;//上传用户或者游客的分配容量 memory
     public static Long TotleMemory;//用户或者游客下可使用的总容量 //maxsize
     public static Long UsedTotleMemory;//用户或者游客已经用掉的总容量 //usermemory
@@ -232,7 +232,7 @@ public class ClientService {
                     msg.setInfo("系统已禁用游客上传");
                     return msg;
                 }
-                group = GetCurrentSource.GetSource(null);
+                siteGroup = GetCurrentSource.GetSource(null);
                 memory = Long.valueOf(uploadConfig.getVisitorStorage());//单位 B 游客设置总量
                 TotleMemory = Long.valueOf(uploadConfig.getFilesizetourists());//单位 B  游客单文件大小
                 UsedTotleMemory = imgMapper.getusermemory(0)==null?0L : imgMapper.getusermemory(0);//单位 B
@@ -244,7 +244,7 @@ public class ClientService {
                     return msg;
                 }
                 updatePath = user.getUsername();
-                group= GetCurrentSource.GetSource(user.getId());
+                siteGroup = GetCurrentSource.GetSource(user.getId());
                 memory = Long.valueOf(user.getMemory())*1024*1024;//单位 B
                 TotleMemory = Long.valueOf(uploadConfig.getFilesizeuser());//单位 B
                 UsedTotleMemory = imgMapper.getusermemory(user.getId())==null?0L:imgMapper.getusermemory(user.getId());//单位 B

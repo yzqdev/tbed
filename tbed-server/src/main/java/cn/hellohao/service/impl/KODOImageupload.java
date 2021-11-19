@@ -41,7 +41,7 @@ public class KODOImageupload {
         }
         UploadManager uploadManager = new UploadManager(cfg);
         Auth auth = Auth.create(key.getAccessKey(), key.getAccessSecret());
-        String upToken = auth.uploadToken(key.getBucketname(),null,7200,null);
+        String upToken = auth.uploadToken(key.getBucketName(),null,7200,null);
         File file = null;
         try {
             for (Map.Entry<String, File> entry : fileMap.entrySet()) {
@@ -74,9 +74,9 @@ public class KODOImageupload {
     public static Integer Initialize(Keys k) {
         int ret = -1;
         if (k.getEndpoint() != null && k.getAccessSecret() != null && k.getEndpoint() != null
-                && k.getBucketname() != null && k.getRequestAddress() != null) {
+                && k.getBucketName() != null && k.getRequestAddress() != null) {
             if (!k.getEndpoint().equals("") && !k.getAccessSecret() .equals("") && !k.getEndpoint() .equals("")
-                    && !k.getBucketname().equals("") && !k.getRequestAddress() .equals("")) {
+                    && !k.getBucketName().equals("") && !k.getRequestAddress() .equals("")) {
                 Configuration cfg;
                 if (k.getEndpoint().equals("1")) {
                     cfg = new Configuration(Zone.zone0());
@@ -91,11 +91,11 @@ public class KODOImageupload {
                 }
                 UploadManager uploadManager = new UploadManager(cfg);
                 Auth auth = Auth.create(k.getAccessKey(), k.getAccessSecret());
-                String upToken = auth.uploadToken(k.getBucketname(),null,7200,null);//auth.uploadToken(k.getBucketname());
+                String upToken = auth.uploadToken(k.getBucketName(),null,7200,null);//auth.uploadToken(k.getBucketname());
                 BucketManager bucketManager = new BucketManager(auth, cfg);
                 BucketManager.FileListIterator fileListIterator = null;
                 try {
-                    fileListIterator = bucketManager.createFileListIterator(k.getBucketname(), "", 1, "/");
+                    fileListIterator = bucketManager.createFileListIterator(k.getBucketName(), "", 1, "/");
                     FileInfo[] items = fileListIterator.next();
                     if(items!=null){
                         ret = 1;
@@ -114,7 +114,7 @@ public class KODOImageupload {
     public Boolean delKODO(Integer keyID, String fileName) {
         boolean b = true;
         try {
-            bucketManager.delete(key.getBucketname(), fileName);
+            bucketManager.delete(key.getBucketName(), fileName);
         } catch (Exception ex) {
             b = false;
         }

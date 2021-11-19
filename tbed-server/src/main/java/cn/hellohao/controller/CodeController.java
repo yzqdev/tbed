@@ -2,6 +2,7 @@ package cn.hellohao.controller;
 
 import cn.hellohao.entity.Code;
 import cn.hellohao.entity.Msg;
+import cn.hellohao.entity.dto.PageDto;
 import cn.hellohao.service.CodeService;
 import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSONArray;
@@ -10,6 +11,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,11 +30,11 @@ public class CodeController {
 
     @RequestMapping(value = "/selectCodeList")//new
     @ResponseBody
-    public Map<String, Object> selectCodeList(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Map<String, Object> selectCodeList(@RequestBody PageDto pageDto) {
         Map<String, Object> map = new HashMap<String, Object>();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        Integer pageNum = jsonObj.getInteger("pageNum");
-        Integer pageSize = jsonObj.getInteger("pageSize");
+
+        Integer pageNum = pageDto.getPageNum();
+        Integer pageSize = pageDto.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<Code> codes = null;
         try {
@@ -52,14 +54,14 @@ public class CodeController {
 
     @RequestMapping("/deleteCodes")//new
     @ResponseBody
-    public Msg deletecodes(@RequestParam(value = "data", defaultValue = "") String data){
+    public Msg deletecodes(@RequestBody List<Code> arr){
         final Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        JSONArray arr = jsonObj.getJSONArray("arr");
+
+
         Integer v = 0;
         try {
             for (int i = 0; i < arr.size(); i++) {
-                codeService.deleteCode(arr.getJSONObject(i).getString("code"));
+                codeService.deleteCode(arr.get(i).getCode());
                 v++;
             }
             msg.setInfo("已成功删除"+v+"个扩容码");
@@ -74,11 +76,11 @@ public class CodeController {
 
     @RequestMapping("/addCode")//new
     @ResponseBody
-    public Msg addcode(@RequestParam(value = "data", defaultValue = "") String data){
+    public Msg addcode(@RequestBody Map<String,Object> jsonObj){
         final Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        Long value = jsonObj.getLong("memory");
-        Long count = jsonObj.getLong("count");
+
+        Integer value = (Integer) jsonObj.get("memory");
+       Integer count = (Integer) jsonObj.get("count");
         if(value<=0 || value>1048576 || count<=0 || count>1000){
             msg.setInfo("数据格式错误,请正确输入");
             return msg;

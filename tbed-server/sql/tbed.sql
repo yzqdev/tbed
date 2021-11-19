@@ -103,10 +103,10 @@ CREATE TABLE `email_config`  (
 INSERT INTO `email_config` VALUES (1, '', '', '', '465', 'Hellohao图床', 0);
 
 -- ----------------------------
--- Table structure for group
+-- Table structure for siteGroup
 -- ----------------------------
-DROP TABLE IF EXISTS `group`;
-CREATE TABLE `group`  (
+DROP TABLE IF EXISTS `siteGroup`;
+CREATE TABLE `siteGroup`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `group_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '组名称',
   `key_id` int NULL DEFAULT NULL,
@@ -116,9 +116,9 @@ CREATE TABLE `group`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of group
+-- Records of siteGroup
 -- ----------------------------
-INSERT INTO `group` VALUES (1, '默认群组', 5, 0, 0);
+INSERT INTO `siteGroup` VALUES (1, '默认群组', 5, 0, 0);
 
 -- ----------------------------
 -- Table structure for imgandalbum

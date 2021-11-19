@@ -28,7 +28,7 @@ public class OSSImageupload {
                 java.text.DateFormat format1 = new java.text.SimpleDateFormat("MMddhhmmss");
                 file = entry.getValue();
                 System.out.println("待上传的图片："+username + "/" + ShortUID + "." + entry.getKey());
-                ossClient.putObject(key.getBucketname(), username + "/" + ShortUID + "." + entry.getKey(),file);
+                ossClient.putObject(key.getBucketName(), username + "/" + ShortUID + "." + entry.getKey(),file);
                 returnImage.setImgName(username + "/" + ShortUID + "." + entry.getKey());//entry.getValue().getOriginalFilename()
                 returnImage.setImgUrl(key.getRequestAddress() + "/" + username + "/" + ShortUID + "." + entry.getKey());
                 returnImage.setImgSize(file.length());
@@ -46,12 +46,12 @@ public class OSSImageupload {
         int ret = -1;
         ObjectListing objectListing = null;
         if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getAccessKey()!=null && k.getEndpoint()!=null
-                && k.getBucketname()!=null && k.getRequestAddress()!=null ) {
+                && k.getBucketName()!=null && k.getRequestAddress()!=null ) {
             if(!k.getEndpoint().equals("") && !k.getAccessSecret().equals("") && !k.getAccessKey().equals("") && !k.getEndpoint().equals("")
-                    && !k.getBucketname().equals("") && !k.getRequestAddress().equals("") ) {
+                    && !k.getBucketName().equals("") && !k.getRequestAddress().equals("") ) {
                 OSS ossClient = new OSSClientBuilder().build(k.getEndpoint(), k.getAccessKey(), k.getAccessSecret());
                 try {
-                    objectListing = ossClient.listObjects(k.getBucketname());
+                    objectListing = ossClient.listObjects(k.getBucketName());
                     ret=1;
                     ossClient = ossClient;
                     key = k;
@@ -67,7 +67,7 @@ public class OSSImageupload {
     public boolean delOSS(Integer keyID, String fileName){
         boolean b =true;
         try {
-            ossClient.deleteObject(key.getBucketname(), fileName);
+            ossClient.deleteObject(key.getBucketName(), fileName);
         } catch (Exception e) {
             e.printStackTrace();
             b = false;

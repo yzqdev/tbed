@@ -1,17 +1,16 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.entity.Group;
+import cn.hellohao.entity.SiteGroup;
 import cn.hellohao.entity.Msg;
+import cn.hellohao.entity.dto.PageDto;
 import cn.hellohao.service.GroupService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,23 +31,23 @@ public class GroupController {
     @ResponseBody
     public Msg getGrouplistForUsers() {
         Msg msg = new Msg();
-        List<Group> groupList = groupService.grouplist(0);
-        msg.setData(groupList);
+        List<SiteGroup> siteGroupList = groupService.grouplist(0);
+        msg.setData(siteGroupList);
         return msg;
     }
 
     @PostMapping(value = "/getGroupList")//new
     @ResponseBody
-    public Map<String, Object> getgrouplist(@RequestParam(value = "data", defaultValue = "") String data) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        Integer pageNum = jsonObj.getInteger("pageNum");
-        Integer pageSize = jsonObj.getInteger("pageSize");
+    public Map<String, Object> getgrouplist(@RequestBody PageDto data ) {
+        Map<String, Object> map = new HashMap<>();
+
+        int pageNum = data.getPageNum();
+        Integer pageSize = data.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
-        List<Group> group = null;
+        List<SiteGroup> siteGroup = null;
         try {
-            group = groupService.grouplist(null);
-            PageInfo<Group> rolePageInfo = new PageInfo<>(group);
+            siteGroup = groupService.grouplist(null);
+            PageInfo<SiteGroup> rolePageInfo = new PageInfo<>(siteGroup);
             map.put("code", 200);
             map.put("info", "");
             map.put("count", rolePageInfo.getTotal());
@@ -65,31 +64,37 @@ public class GroupController {
     @ResponseBody
     public Msg addisgroup(@RequestParam(value = "data", defaultValue = "") String data) {
         JSONObject jsonObject = JSONObject.parseObject(data);
-        Group group = new Group();
-        group.setGroupName(jsonObject.getString("groupname"));
-        group.setKeyId(jsonObject.getInteger("keyid"));
-        group.setUsertype(jsonObject.getInteger("usertype"));
-        group.setCompress(jsonObject.getBoolean("compress")?1:0);
-        Msg msg = groupService.addgroup(group);
+        SiteGroup siteGroup = new SiteGroup();
+        siteGroup.setGroupName(jsonObject.getString("groupname"));
+        siteGroup.setKeyId(jsonObject.getInteger("keyid"));
+        siteGroup.setUserType(jsonObject.getInteger("usertype"));
+        siteGroup.setCompress(jsonObject.getBoolean("compress")?1:0);
+        Msg msg = groupService.addgroup(siteGroup);
         return msg;
     }
 
     @PostMapping("/updateGroup")//new
     @ResponseBody
-    public Msg updategroup(@RequestParam(value = "data", defaultValue = "") String data) {
-        JSONObject jsonObject = JSONObject.parseObject(data);
-        Group group = new Group();
-        group.setId(jsonObject.getInteger("id"));
-        if(jsonObject.getInteger("id")==1){
-            group.setGroupName("默认群组");
-            group.setUsertype(0);
+    public Msg updategroup(@RequestBody SiteGroup siteGroup) {
+
+
+
+        if(siteGroup.getId()==1){
+            siteGroup.setGroupName("默认群组");
+            siteGroup.setUserType(0);
         }else{
-            group.setGroupName(jsonObject.getString("groupname"));
-            group.setUsertype(jsonObject.getInteger("usertype"));
+            //siteGroup.setGroupName(jsonObject.getString("groupname"));
+            //siteGroup.setUserType(jsonObject.getInteger("usertype"));
         }
-        group.setKeyId(jsonObject.getInteger("keyid"));
-        group.setCompress(jsonObject.getBoolean("compress")?1:0);
-        Msg msg = groupService.setgroup(group);
+        System.out.println("updateGroup");
+        System.out.println(siteGroup.getCompress());
+        if (siteGroup.getCompress().toString()=="true") {
+            siteGroup.setCompress(1);
+        }
+        else {
+            siteGroup.setCompress(0);
+        }
+        Msg msg = groupService.setgroup(siteGroup);
         return msg;
     }
 

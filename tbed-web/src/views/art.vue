@@ -22,7 +22,7 @@
               <Row class="animate__animated animate__fadeIn animate__delay-1.5s">
                 <Col flex="1" v-for="(item,index) in imglist" :key="index">
                   <div class="imgdivstyle" >
-                    <img :class="[viewType==1?'imgstyle-max':'imgstyle-min']"  class="imgstyle" style="cursor:pointer;" :src="item.imgurl+''"  onerror="this.src='http://tc.hellohao.cn/img/img404.jpg'" >
+                    <img :class="[viewType==1?'imgstyle-max':'imgstyle-min']"  class="imgstyle" style="cursor:pointer;" :src="item.imgUrl+''"  onerror="this.src='https://www.baidu.com/img/flexible/logo/pc/result.png'" >
                         <div class="img-tool-cover" :style="{bottom:toolBottom+ 'px'}">
                           <Icon style="cursor:pointer;" type="ios-book icostyle" @click.native="imgInfo(item)" title="信息"></Icon>
                         </div>
@@ -112,7 +112,7 @@ export default {
       var paramJson={};
       paramJson.pageNum=this.pageNum;
       paramJson.pageSize=this.pageSize;
-      paramJson.albumkey = 'TOALBUM'+this.urlKey;
+      paramJson.albumKey = 'TOALBUM'+this.urlKey;
       paramJson.password = this.password;
 
       request(

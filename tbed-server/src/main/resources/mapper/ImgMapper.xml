@@ -146,7 +146,7 @@
         count(id) countNum,
         MONTH(update_time) monthNum
         FROM
-        img_data
+        tbed.img_data
         where YEAR(update_time)=#{yyyy}
         <if test="userId != null">
             and user_id = #{userId}

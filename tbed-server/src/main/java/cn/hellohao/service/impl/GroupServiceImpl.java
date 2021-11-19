@@ -2,8 +2,8 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.GroupMapper;
 import cn.hellohao.dao.UserMapper;
+import cn.hellohao.entity.SiteGroup;
 import cn.hellohao.exception.CodeException;
-import cn.hellohao.entity.Group;
 import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.User;
 import cn.hellohao.service.GroupService;
@@ -20,36 +20,36 @@ import java.util.List;
  * @date 2019/8/19 16:30
  */
 @Service
-public class GroupServiceImpl extends ServiceImpl<GroupMapper,Group> implements GroupService {
+public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implements GroupService {
     @Autowired
     private GroupMapper groupMapper;
     @Autowired
     private UserMapper userMapper;
 
     @Override
-    public List<Group> grouplist(Integer usertype) {
+    public List<SiteGroup> grouplist(Integer usertype) {
         return groupMapper.grouplist(usertype);
     }
 
     @Override
-    public Group idgrouplist(Integer id) {
+    public SiteGroup idgrouplist(Integer id) {
         return groupMapper.idgrouplist(id);
     }
 
     @Override
-    public Msg addgroup(Group group) {
+    public Msg addgroup(SiteGroup siteGroup) {
         final Msg msg = new Msg();
-        if(group.getUsertype()!=0){
-            Integer count = groupMapper.GetCountFroUserType(group.getUsertype());
+        if(siteGroup.getUserType()!=0){
+            Integer count = groupMapper.GetCountFroUserType(siteGroup.getUserType());
             if(count==0){
-                groupMapper.addgroup(group);
+                groupMapper.addgroup(siteGroup);
                 msg.setInfo("添加成功");
             }else{
                 msg.setCode("110401");
                 msg.setInfo("分配的该用户组已存在。请勿重复分配。");
             }
         }else{
-            groupMapper.addgroup(group);
+            groupMapper.addgroup(siteGroup);
             msg.setInfo("添加成功");
         }
         return msg;
@@ -84,41 +84,41 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper,Group> implements 
     }
 
     @Override
-    public Msg setgroup(Group group) {
+    public Msg setgroup(SiteGroup siteGroup) {
         Msg msg = new Msg();
-        if(group.getUsertype()!=0){
-            Group groupFroUserType = groupMapper.getGroupFroUserType(group.getUsertype());
-            if(groupFroUserType!=null){
-                if(groupFroUserType.getUsertype()==group.getUsertype()){
-                    if(groupFroUserType.getId()==group.getId()){
-                        groupMapper.setgroup(group);
+        if(siteGroup.getUserType()!=0){
+            SiteGroup siteGroupFroUserType = groupMapper.getGroupFroUserType(siteGroup.getUserType());
+            if(siteGroupFroUserType !=null){
+                if(siteGroupFroUserType.getUserType().equals(siteGroup.getUserType())){
+                    if(siteGroupFroUserType.getId().equals(siteGroup.getId())){
+                        groupMapper.updateById(siteGroup);
                         msg.setInfo("修改成功");
                     }else{
                         msg.setCode("110401");
                         msg.setInfo("分配的该用户组已存在。请勿重复分配。");
                     }
                 }else{
-                    if(groupMapper.GetCountFroUserType(group.getUsertype())>0){
+                    if(groupMapper.GetCountFroUserType(siteGroup.getUserType())>0){
                         msg.setCode("110401");
                         msg.setInfo("分配的该用户组已存在。请勿重复分配。");
                     }else{
-                        groupMapper.setgroup(group);
+                        groupMapper.updateById(siteGroup);
                         msg.setInfo("修改成功");
                     }
                 }
             }else{
-                groupMapper.setgroup(group);
+                groupMapper.updateById(siteGroup);
                 msg.setInfo("修改成功");
             }
         }else{
-            groupMapper.setgroup(group);
+            groupMapper.updateById(siteGroup);
             msg.setInfo("修改成功");
         }
         return msg;
     }
 
     @Override
-    public Group getGroupFroUserType(Integer usertype) {
+    public SiteGroup getGroupFroUserType(Integer usertype) {
         return groupMapper.getGroupFroUserType(usertype);
     }
 

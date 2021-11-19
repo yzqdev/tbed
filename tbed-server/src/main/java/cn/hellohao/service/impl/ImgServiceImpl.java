@@ -25,7 +25,6 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.util.Auth;
 import com.upyun.UpException;
 import org.apache.commons.net.ftp.FTPClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.netease.cloud.auth.BasicCredentials;
@@ -97,7 +96,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
         String endpoint = key.getEndpoint();
         String accessKeyId = key.getAccessKey();
         String accessKeySecret = key.getAccessSecret();
-        String bucketName = key.getBucketname();
+        String bucketName = key.getBucketName();
         String objectName = fileName;
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
         ossClient.deleteObject(bucketName, objectName);
@@ -105,7 +104,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
     }
     //删除USS对象存储的图片文件
     public void delectUSS(Keys key, String fileName) {
-        UpYun upyun = new UpYun(key.getBucketname(), key.getAccessKey(), key.getAccessSecret());
+        UpYun upyun = new UpYun(key.getBucketName(), key.getAccessKey(), key.getAccessSecret());
         try {
             boolean result = upyun.deleteFile(fileName, null);
         } catch (IOException e) {
@@ -116,7 +115,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
     }
 
     public void delectUFile(Keys key, String fileName) {
-        UpYun upyun = new UpYun(key.getBucketname(), key.getAccessKey(), key.getAccessSecret());
+        UpYun upyun = new UpYun(key.getBucketName(), key.getAccessKey(), key.getAccessSecret());
         try {
             boolean result = upyun.deleteFile(fileName, null);
         } catch (IOException e) {
@@ -135,7 +134,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
         Auth auth = Auth.create(key.getAccessKey(), key.getAccessSecret());
         BucketManager bucketManager = new BucketManager(auth, cfg);
         try {
-            bucketManager.delete(key.getBucketname(), fileName);
+            bucketManager.delete(key.getBucketName(), fileName);
         } catch (QiniuException ex) {
 
             //如果遇到异常，说明删除失败
@@ -150,9 +149,9 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper,Images> implements Img
         ClientConfig clientConfig = new ClientConfig(region);
         COSClient cosClient= new COSClient(cred, clientConfig);
         try {
-            String bucketName = key.getBucketname();
+            String bucketName = key.getBucketName();
             String userkey = fileName;
-             cosClient.deleteObject(key.getBucketname(), userkey);
+             cosClient.deleteObject(key.getBucketName(), userkey);
         } catch (CosServiceException serverException) {
             serverException.printStackTrace();
         } catch (CosClientException clientException) {

@@ -1,6 +1,6 @@
 package cn.hellohao.service;
 
-import cn.hellohao.entity.Group;
+import cn.hellohao.entity.SiteGroup;
 import cn.hellohao.entity.Msg;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
@@ -13,12 +13,12 @@ import java.util.List;
  * @date 2019/8/19 16:29
  */
 @Service
-public interface GroupService extends IService<Group> {
-    List<Group> grouplist(Integer usertype);
-    Group idgrouplist(Integer id);
-    Msg addgroup(Group group);
+public interface GroupService extends IService<SiteGroup> {
+    List<SiteGroup> grouplist(Integer usertype);
+    SiteGroup idgrouplist(Integer id);
+    Msg addgroup(SiteGroup siteGroup);
     Integer GetCountFroUserType(Integer usertype);
     Msg delegroup(Integer id);
-    Msg setgroup(Group group);
-    Group getGroupFroUserType(Integer usertype);
+    Msg setgroup(SiteGroup siteGroup);
+    SiteGroup getGroupFroUserType(Integer usertype);
 }

@@ -14,23 +14,23 @@
     </select>
     <!-- 查询添加的所有对象存储-->
     <select id="getStorageName"  resultType="cn.hellohao.entity.Keys">
-        select id,keyname,storageType from `keys`
+        select id,key_name,storage_type from tbed.`keys`
     </select>
 
     <!-- 查询对象存储有多少种-->
     <select id="getStorage"  resultType="cn.hellohao.entity.Keys">
-        SELECT id,storageType,
-               CASE WHEN storageType=1 THEN '网易云'
-                    WHEN storageType=2 THEN '阿里云'
-                    WHEN storageType=3 THEN '又拍云'
-                    WHEN storageType=4 THEN '七牛云'
-                    WHEN storageType=5 THEN '本地'
-                    WHEN storageType=6 THEN '腾讯云'
-                    WHEN storageType=7 THEN 'FTP'
-                    WHEN storageType=8 THEN 'UFile'
+        SELECT id,storage_type,
+               CASE WHEN storage_type=1 THEN '网易云'
+                    WHEN storage_type=2 THEN '阿里云'
+                    WHEN storage_type=3 THEN '又拍云'
+                    WHEN storage_type=4 THEN '七牛云'
+                    WHEN storage_type=5 THEN '本地'
+                    WHEN storage_type=6 THEN '腾讯云'
+                    WHEN storage_type=7 THEN 'FTP'
+                    WHEN storage_type=8 THEN 'UFile'
                     ELSE  '未知' END AS storageName,
-               keyname
-        FROM `keys`  GROUP BY storageType
+               key_name
+        FROM tbed.`keys`  GROUP BY storage_type
 
     </select>
 

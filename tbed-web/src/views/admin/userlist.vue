@@ -90,8 +90,8 @@
           </FormItem>
 
           <FormItem label="分发群组">
-            <Select v-model="formItem.groupid" filterable placeholder="存储源" size="large">
-              <Option v-for="item in grouplist" :value="item.id" :key="item.id">{{ item.groupname }}</Option>
+            <Select v-model="formItem.groupId" filterable placeholder="存储源" size="large">
+              <Option v-for="item in grouplist" :value="item.id" :key="item.id">{{ item.groupName }}</Option>
             </Select>
           </FormItem>
 
