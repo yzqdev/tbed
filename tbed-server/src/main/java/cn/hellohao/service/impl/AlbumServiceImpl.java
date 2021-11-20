@@ -13,6 +13,7 @@ import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.AlbumService;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
         for (int i = 0; i < array.length; i++) {
             ImgSearchDto imgSearchDto = new ImgSearchDto();
             //imgSearchDto.setImgUid(array.getString(i));
-            jsonArray.add(imgMapper.selectimg(imgSearchDto).get(0));
+            jsonArray.add(imgMapper.selectimg(new Page<>(1,20), imgSearchDto).getRecords().get(0));
         }
         return jsonArray;
     }
@@ -80,8 +81,8 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
     }
 
     @Override
-    public List<Album> selectAlbumURLList(AlbumDto album) {
-        return albumMapper.selectAlbumURLList(album);
+    public Page<Album> selectAlbumURLList(Page<Album> page,AlbumDto album) {
+        return albumMapper.selectAlbumURLList(page,album);
     }
 
     @Override

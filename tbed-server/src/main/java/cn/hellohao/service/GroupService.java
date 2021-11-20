@@ -2,6 +2,7 @@ package cn.hellohao.service;
 
 import cn.hellohao.entity.SiteGroup;
 import cn.hellohao.entity.Msg;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Service
 public interface GroupService extends IService<SiteGroup> {
-    List<SiteGroup> grouplist(Integer usertype);
+    Page<SiteGroup> grouplist(Page<SiteGroup> page,Integer usertype);
     SiteGroup idgrouplist(Integer id);
     Msg addgroup(SiteGroup siteGroup);
     Integer GetCountFroUserType(Integer usertype);

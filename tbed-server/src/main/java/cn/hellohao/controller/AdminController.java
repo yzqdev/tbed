@@ -12,7 +12,6 @@ import cn.hellohao.utils.*;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -319,9 +318,9 @@ public class AdminController {
             img.setUserId(user.getId());
         }
         Page<Images> page= new Page<>(img.getPageNum(), img.getPageSize());
-        List<Images> images = imgService.selectimg(img);
-        PageInfo<Images> rolePageInfo = new PageInfo<>(images);
-        PageResultBean<Images> pageResultBean = new PageResultBean<>(rolePageInfo.getTotal(), rolePageInfo.getList());
+       Page<Images> images = imgService.selectimg(page,img);
+
+        PageResultBean<Images> pageResultBean = new PageResultBean<>(images.getTotal(), images.getRecords());
         msg.setData(pageResultBean);
         return msg;
     }

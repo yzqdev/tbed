@@ -7,6 +7,7 @@ import cn.hellohao.exception.CodeException;
 import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.User;
 import cn.hellohao.service.GroupService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     private UserMapper userMapper;
 
     @Override
-    public List<SiteGroup> grouplist(Integer usertype) {
-        return groupMapper.grouplist(usertype);
+    public Page<SiteGroup> grouplist(Page<SiteGroup> page,Integer usertype) {
+        return groupMapper.grouplist(page,usertype);
     }
 
     @Override

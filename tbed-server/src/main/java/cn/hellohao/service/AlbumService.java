@@ -3,7 +3,9 @@ package cn.hellohao.service;
 import cn.hellohao.entity.Album;
 import cn.hellohao.entity.dto.AlbumDto;
 import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public interface AlbumService extends IService<Album> {
 
     Integer deleteAlbum(String albumkey);
 
-    List<Album> selectAlbumURLList(AlbumDto albumDto);
+    Page<Album> selectAlbumURLList(Page<Album> page,AlbumDto albumDto);
 
     Integer selectAlbumCount(Integer userid);
 }

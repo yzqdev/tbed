@@ -2,6 +2,7 @@ package cn.hellohao.service;
 
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.ImgAndAlbum;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,5 @@ public interface ImgAndAlbumService extends IService<ImgAndAlbum> {
 
 
 
-    List<Images> selectImgForAlbumkey(String albumkey);
+    Page<Images> selectImgForAlbumkey(Page<Images> page,String albumkey);
 }

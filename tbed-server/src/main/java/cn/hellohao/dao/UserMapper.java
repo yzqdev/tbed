@@ -1,6 +1,7 @@
 package cn.hellohao.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,7 +32,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     Integer getUserTotal();
 
-    List<User> getuserlist(String username);
+    Page<User> getuserlist(@Param("page") Page<User> page, String username);
 
     //刪除用戶
     Integer deleuser(@Param("id") Integer id);

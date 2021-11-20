@@ -2,6 +2,7 @@ package cn.hellohao.dao;
 
 import cn.hellohao.entity.SiteGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Mapper
 public interface GroupMapper extends BaseMapper<SiteGroup> {
-    List<SiteGroup> grouplist(Integer usertype);
+    Page<SiteGroup> grouplist(@Param("page")Page<SiteGroup> page, Integer usertype);
     SiteGroup idgrouplist(@Param("id") Integer id);
     Integer addgroup(SiteGroup siteGroup);
     Integer GetCountFroUserType(@Param("usertype") Integer usertype);

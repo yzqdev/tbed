@@ -5,10 +5,8 @@ import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.dto.PageDto;
 import cn.hellohao.service.CodeService;
 import cn.hutool.crypto.SecureUtil;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,15 +31,15 @@ public class CodeController {
 
         Integer pageNum = pageDto.getPageNum();
         Integer pageSize = pageDto.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<Code> codes = null;
+        Page<Code> page=new Page<>(pageNum,pageSize);
+        Page<Code> codes = null;
         try {
             codes = codeService.selectCode(null);
-            PageInfo<Code> rolePageInfo = new PageInfo<>(codes);
+
             map.put("code", 200);
             map.put("info", "");
-            map.put("count", rolePageInfo.getTotal());
-            map.put("data", rolePageInfo.getList());
+            map.put("count", codes.getTotal());
+            map.put("data", codes.getRecords());
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", 500);

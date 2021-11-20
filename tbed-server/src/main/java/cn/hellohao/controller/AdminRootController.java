@@ -10,8 +10,8 @@ import cn.hellohao.utils.*;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +49,12 @@ public class AdminRootController {
         Integer pageNum =userSearchDto.getPageNum();
         Integer pageSize =userSearchDto.getPageSize();
         String queryText = userSearchDto.getQueryText();
-        PageHelper.startPage(pageNum, pageSize);
-        List<User> users = userService.getuserlist(queryText);
-        PageInfo<User> rolePageInfo = new PageInfo<>(users);
-        Map<String, Object> map = new HashMap<>();
-        map.put("count", rolePageInfo.getTotal());
-        map.put("users", rolePageInfo.getList());
+        Page<User> page =new Page<>(pageNum,pageSize);
+        Page<User> users = userService.getuserlist(page,queryText);
+
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("count", users.getTotal());
+        map.put("users", users.getRecords());
         return map;
 
     }

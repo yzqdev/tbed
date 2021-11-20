@@ -11,7 +11,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,img_uid,deltime
+        id,img_uid,del_time
     </sql>
 <!--    点赞累计增加-->
     <update id="addGreatForImguid" >
@@ -32,19 +32,19 @@
         img_data.source,
         img_data.img_name
         FROM
-            imgtemp LEFT JOIN img_data on imgtemp.img_uid = img_data.img_uid
-        where imgtemp.del_time &lt;=  STR_TO_DATE(#{datatime}, '%Y-%m-%d %H:%i:%s')
+            tbed.img_temp LEFT JOIN img_data on tbed.img_temp.img_uid = img_data.img_uid
+        where tbed.img_temp.del_time &lt;=  STR_TO_DATE(#{datatime}, '%Y-%m-%d %H:%i:%s')
     </select>
 
-<!--    此sql会同时删除img_data 和 imgtemp两个表的数据 -->
+<!--    此sql会同时删除img_data 和 tbed.img_temp两个表的数据 -->
     <delete id="delImgAndExp" parameterType="string">
-        DELETE imgtemp,img_data FROM imgtemp LEFT JOIN img_data ON imgtemp.img_uid = img_data.img_uid
-        WHERE img_data.img_uid =#{imgUid}
+        DELETE tbed.img_temp,tbed.img_data FROM tbed.img_temp LEFT JOIN tbed.img_data ON img_temp.img_uid = tbed.img_data.img_uid
+        WHERE tbed.img_data.img_uid =#{imgUid}
     </delete>
 
     <insert id="insertImgExp" parameterType="cn.hellohao.entity.ImgTemp" >
-        insert into `imgtemp` (id,img_uid,`del_time`)
-        values (null,#{img_uid},#{deltime})
+        insert into tbed.img_temp (id,img_uid,`del_time`)
+        values (null,#{imgUid},#{deltime})
     </insert>
 
 

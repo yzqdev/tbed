@@ -2,6 +2,7 @@ package cn.hellohao.service;
 
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.User;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public interface UserService extends IService<User> {
 
     Integer getUserTotal();
 
-    List<User> getuserlist(String username);
+    Page<User> getuserlist(Page<User> page,String username);
 
     Integer deleuser(Integer id);
 

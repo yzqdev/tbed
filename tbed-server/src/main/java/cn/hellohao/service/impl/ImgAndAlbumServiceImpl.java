@@ -5,6 +5,7 @@ import cn.hellohao.entity.Images;
 import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.ImgAndAlbumService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ImgAndAlbumServiceImpl extends ServiceImpl<ImgAndAlbumMapper,ImgAnd
 
 
     @Override
-    public List<Images> selectImgForAlbumkey(String albumkey) {
-        return imgAndAlbumMapper.selectImgForAlbumkey(albumkey);
+    public Page<Images> selectImgForAlbumkey(Page<Images> page,String albumkey) {
+        return imgAndAlbumMapper.selectImgForAlbumkey( page,albumkey);
     }
 }

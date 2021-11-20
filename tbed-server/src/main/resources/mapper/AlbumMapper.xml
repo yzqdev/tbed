@@ -33,14 +33,14 @@
         u.username
         FROM `album` a LEFT JOIN user u on a.user_id = u.id
         <where>
-            <if test="albumKey != null">
-                `album_key` like '%${albumKey}%'
+            <if test="albumDto.albumKey != null">
+                `album_key` like '%${albumDto.albumKey}%'
             </if>
-            <if test="username != null">
-                `username` like '%${username}%'
+            <if test="albumDto.username != null">
+                `username` like '%${albumDto.username}%'
             </if>
-            <if test="userId != null">
-                a.user_id = #{userId}
+            <if test="albumDto.userId != null">
+                a.user_id = #{albumDto.userId}
             </if>
         </where>
         order by a.create_date

@@ -5,8 +5,7 @@ import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.dto.PageDto;
 import cn.hellohao.service.GroupService;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +30,8 @@ public class GroupController {
     @ResponseBody
     public Msg getGrouplistForUsers() {
         Msg msg = new Msg();
-        List<SiteGroup> siteGroupList = groupService.grouplist(0);
-        msg.setData(siteGroupList);
+        Page<SiteGroup> siteGroupList = groupService.grouplist(new Page<>(0,20),0);
+        msg.setData(siteGroupList.getRecords());
         return msg;
     }
 
@@ -43,15 +42,16 @@ public class GroupController {
 
         int pageNum = data.getPageNum();
         Integer pageSize = data.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<SiteGroup> siteGroup = null;
+        Page<SiteGroup> page = new Page<>(data.getPageNum(), data.getPageSize());
+//todo 添加分页
+        Page<SiteGroup> rolePageInfo = null;
         try {
-            siteGroup = groupService.grouplist(null);
-            PageInfo<SiteGroup> rolePageInfo = new PageInfo<>(siteGroup);
+            rolePageInfo = groupService.grouplist( page,null);
+
             map.put("code", 200);
             map.put("info", "");
             map.put("count", rolePageInfo.getTotal());
-            map.put("data", rolePageInfo.getList());
+            map.put("data", rolePageInfo.getRecords());
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", 500);

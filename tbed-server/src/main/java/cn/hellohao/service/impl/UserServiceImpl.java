@@ -7,6 +7,7 @@ import cn.hellohao.entity.Images;
 import cn.hellohao.entity.User;
 import cn.hellohao.service.UserService;
 import cn.hellohao.utils.Print;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,8 +80,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public List<User> getuserlist(String username) {
-        return userMapper.getuserlist(username);
+    public Page<User> getuserlist(Page<User> page,String username) {
+        return userMapper.getuserlist(page,username);
     }
 
     @Override

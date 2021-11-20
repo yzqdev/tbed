@@ -8,6 +8,7 @@ import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.ImageVo;
 import cn.hellohao.entity.vo.RecentUserVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +17,7 @@ import cn.hellohao.entity.Images;
 @Mapper
 public interface ImgMapper extends BaseMapper<Images> {
 
-    List<Images> selectimg(ImgSearchDto imgSearchDto);
+  Page<Images> selectimg(@Param("page") Page<Images> page,@Param("img") ImgSearchDto imgSearchDto);
 
 
 

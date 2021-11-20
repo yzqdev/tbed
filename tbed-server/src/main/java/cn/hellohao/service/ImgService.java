@@ -11,12 +11,20 @@ import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.ImageVo;
 import cn.hellohao.entity.vo.RecentUserVo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+/**
+ * img服务
+ *
+ * @author yanni
+ * @date 2021/11/20
+ */
 @Service
 public interface ImgService extends IService<Images> {
-    List<Images> selectimg(ImgSearchDto imgSearchDto);
+    Page<Images> selectimg(  Page<Images> page, ImgSearchDto imgSearchDto);
 
     Integer deleimg(Integer id);
 

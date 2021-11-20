@@ -24,28 +24,28 @@
         FROM  tbed.img_data a  LEFT JOIN tbed.user b ON a.user_id = b.id
         <where>
 
-            <if test="source != null">
+            <if test=" img.source != null">
                 and
-                a.source = #{source}
+                a.source = #{img.source}
             </if>
-            <if test="startTime != null">
+            <if test="img.startTime != null">
                 and
-                a.update_time &gt;= #{startTime}
+                a.update_time &gt;= #{img.startTime}
             </if>
-            <if test="stopTime != null">
+            <if test="img.stopTime != null">
                 and
-                a.update_time &lt;= #{stopTime}
+                a.update_time &lt;= #{img.stopTime}
             </if>
 
-            <if test="userId != null">
+            <if test="img.userId != null">
                 <choose>
-                    <when test="selectType != null">
+                    <when test="img.selectType != null">
                         and
-                        a.user_id not in (#{userId})
+                        a.user_id not in (#{img.userId})
                     </when>
                     <otherwise>
                         and
-                        a.user_id = #{userId}
+                        a.user_id = #{img.userId}
                     </otherwise>
                 </choose>
             </if>

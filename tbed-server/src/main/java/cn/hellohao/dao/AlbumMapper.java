@@ -3,6 +3,7 @@ package cn.hellohao.dao;
 import cn.hellohao.entity.Album;
 import cn.hellohao.entity.dto.AlbumDto;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +21,7 @@ public interface AlbumMapper extends BaseMapper<Album> {
 
 
 
-    List<Album> selectAlbumURLList(AlbumDto albumDto);
+    Page<Album> selectAlbumURLList(@Param("page")Page<Album> page,@Param("albumDto") AlbumDto albumDto);
 
     Integer selectAlbumCount(@Param("userId")  Integer userId);
 }

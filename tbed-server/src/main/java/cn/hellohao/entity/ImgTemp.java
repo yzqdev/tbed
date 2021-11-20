@@ -13,7 +13,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+
 public class ImgTemp {
     /**
      *
@@ -23,13 +23,13 @@ public class ImgTemp {
     /**
      *
      */
-    private String imguid;
+    private String imgUid;
 
 
     /**
      *
      */
-    private String deltime;
+    private String delTime;
 
 
 }

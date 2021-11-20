@@ -8,8 +8,8 @@ import cn.hellohao.service.UserService;
 import cn.hellohao.service.impl.AlbumServiceImpl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,15 +51,15 @@ public class AlbumController {
         }else{
             albumDto.setUserId(String.valueOf(user.getId()));
         }
-        PageHelper.startPage(pageNum, pageSize);
-        List<Album> albums = null;
+        Page<Album> page=new Page<>(pageNum,pageSize);
+
         try {
-            albums = albumServiceImpl.selectAlbumURLList(albumDto);
-            PageInfo<Album> rolePageInfo = new PageInfo<>(albums);
+         Page<Album>   albums = albumServiceImpl.selectAlbumURLList(page,albumDto);
+
             map.put("code", 200);
             map.put("info", "");
-            map.put("count", rolePageInfo.getTotal());
-            map.put("data", rolePageInfo.getList());
+            map.put("count", albums.getTotal());
+            map.put("data", albums.getRecords());
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", 500);
@@ -226,17 +226,17 @@ public class AlbumController {
             msg.setCode("110404");
             msg.setInfo("画廊地址不存在");
         }else{
-            PageHelper.startPage(pageNum, pageSize);
+            Page<Images> page =new Page<>(pageNum,pageSize);
             if(a.getPassword()==null || (a.getPassword().replace(" ", "")).equals("")){
-                List<Images> imagesList = imgAndAlbumService.selectImgForAlbumkey(albumkey);
-                PageInfo<Images> rolePageInfo = new PageInfo<>(imagesList);
-                PageResultBean<Images> pageResultBean = new PageResultBean<>(rolePageInfo.getTotal(), rolePageInfo.getList());
+                Page<Images> imagesList = imgAndAlbumService.selectImgForAlbumkey(page,albumkey);
+
+                PageResultBean<Images> pageResultBean = new PageResultBean<>(imagesList.getTotal(), imagesList.getRecords());
                 json.put("imagesList",pageResultBean);
             }else{
                 if(a.getPassword().equals(password)){
-                    List<Images> imagesList =  imgAndAlbumService.selectImgForAlbumkey(albumkey);
-                    PageInfo<Images> rolePageInfo = new PageInfo<>(imagesList);
-                    PageResultBean<Images> pageResultBean = new PageResultBean<>(rolePageInfo.getTotal(), rolePageInfo.getList());
+                    Page<Images> imagesList =  imgAndAlbumService.selectImgForAlbumkey(page,albumkey);
+
+                    PageResultBean<Images> pageResultBean = new PageResultBean<>(imagesList.getTotal(), imagesList.getRecords());
                     json.put("imagesList",pageResultBean);
                 }else{
                     msg.setCode("110403");

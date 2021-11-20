@@ -14,6 +14,7 @@ import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -29,6 +30,7 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.util.Auth;
 import com.upyun.UpException;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.netease.cloud.auth.BasicCredentials;
@@ -50,9 +52,9 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     private ImgMapper imgMapper;
 
     @Override
-    public List<Images> selectimg(ImgSearchDto imgSearchDto) {
+    public Page<Images> selectimg(  Page<Images> page, ImgSearchDto imgSearchDto) {
         // TODO Auto-generated method stub
-        return imgMapper.selectimg(imgSearchDto);
+        return imgMapper.selectimg( page,    imgSearchDto);
     }
 
     @Override
