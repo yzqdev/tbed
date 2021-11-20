@@ -192,7 +192,7 @@ export default {
           if(res.data.code=='200'){
             if(json.exist){
               //有画廊
-              this.titlename = json.album.albumtitle;
+              this.titlename = json.album.albumTitle;
               if(json.passType){
                 this.isShowPass=true;
               }else{

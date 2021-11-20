@@ -190,6 +190,11 @@ router.beforeEach((to,from,next) => {
         localStorage.removeItem('Authorization');
         localStorage.removeItem('RoleLevel');
     }
+    console.log(to)
+    console.log("zhehheeh")
+    if (to.path.includes('admin')) {
+      document.title="控制台|"+to.meta.title
+    }
     var fullPath = to.path;
     if ( fullPath == '/login' || fullPath == '/register' || fullPath == '/'
         || fullPath.substring(0, 2)==='/v' || fullPath.substring(0, 2)==='/h') {

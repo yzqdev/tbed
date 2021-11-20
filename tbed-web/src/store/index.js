@@ -54,7 +54,7 @@ const store = new vuex.Store({
                 metaInfo.websubtitle="";
                 metaInfo.splitline = "";
             }
-            if(metaInfo.logo==null || metaInfo.logo.replace(/\s*/g,'')==""){
+            if(metaInfo.logo==null || metaInfo.logo.replace(/\s*/g,'')===""){
                 metaInfo.logo = null;
             }
             if(locStorage.get("ISINFORMATION")==null){

@@ -7,17 +7,17 @@
             <Card class="cardShadow" style="margin-top: 10px;padding-left: 8px; padding-right: 8px;">
               <Form  @submit.native.prevent :label-width="100" style="max-width: 600px; margin: auto;" >
                 <FormItem label="邮箱昵称">
-                  <Input v-model="mailFormItem.emailname"  placeholder="邮箱昵称" maxlength="50"  size="large"></Input>
+                  <Input v-model="mailFormItem.emailName"  placeholder="邮箱昵称" maxlength="50"  size="large"></Input>
                 </FormItem>
                 <FormItem label="邮箱地址">
                   <Input v-model="mailFormItem.emails"  placeholder="邮箱地址" maxlength="200"  size="large"></Input>
                 </FormItem>
                 <FormItem label="授权码">
-                  <Input v-model="mailFormItem.emailkey"  placeholder="授权码" maxlength="200"  size="large"></Input>
+                  <Input v-model="mailFormItem.emailKey"  placeholder="授权码" maxlength="200"  size="large"></Input>
                 </FormItem>
 
                 <FormItem label="SMTP服务器">
-                  <Input v-model="mailFormItem.emailurl"  placeholder="SMTP服务器" maxlength="200"  size="large"></Input>
+                  <Input v-model="mailFormItem.emailUrl"  placeholder="SMTP服务器" maxlength="200"  size="large"></Input>
                 </FormItem>
                 <FormItem label="端口">
                   <Input v-model="mailFormItem.port" type="number" placeholder="端口 如:465" maxlength="10"  size="large"></Input>
@@ -100,7 +100,7 @@
         <br />
         <Form  @submit.native.prevent>
           <FormItem >
-            <Input prefix="md-mail-open" v-model="mailFormItem.tomail" placeholder="填待接收邮件的邮箱" size="large" style="width: 100%" />
+            <Input prefix="md-mail-open" v-model="mailFormItem.toMail" placeholder="填待接收邮件的邮箱" size="large" style="width: 100%" />
           </FormItem>
           <div style="color: rgb(228 102 70);font-size: 14px; font-weight: 200;" v-show="iserror">
             <p>异常提示：</p>
@@ -196,8 +196,8 @@ export default {
     },
     mailTest(){
       request(
-          "/admin/root/mailTest",
-          this.mailFormItem).then(res => {
+          "/admin/root/mailTest/"+
+          this.mailFormItem.toMail).then(res => {
         this.$Spin.hide();
         if(res.status==200){
           if(res.data.code=='200'){
