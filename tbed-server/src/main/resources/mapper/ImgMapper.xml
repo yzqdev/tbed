@@ -147,8 +147,8 @@
         LIMIT 20
     </select>
 
-    <select id="RecentlyUser" resultType="cn.hellohao.entity.User">
-        select count(i.id) as counts, i.user_id, u.username
+    <select id="RecentlyUser" resultType="cn.hellohao.entity.vo.RecentUserVo">
+        select count(i.id) as counts, i.user_id, u.username,u.email,u.memory
         from tbed.img_data i
                  LEFT JOIN tbed.user u on i.user_id = u.id
         where i.user_id not in (0)
@@ -159,7 +159,7 @@
 
 
     <select id="getyyyy" parameterType="integer" resultType="string">
-        SELECT DISTINCT YEAR(update_time) yyyy FROM `img_data` where
+        SELECT DISTINCT YEAR(update_time) yyyy FROM tbed.img_data where
         IFNULL(update_time,'')
         <if test="userId != null">
             and user_id = #{userId}

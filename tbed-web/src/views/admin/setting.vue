@@ -233,9 +233,9 @@
                       <Input   type="textarea" v-model="config.aboutinfo" :rows="4" maxlength="500"  placeholder="请输入站内关于菜单的内容,支持html标签" />
                     </FormItem>
 
-<!--                    <FormItem label="统计JS代码" :label-width="90">-->
-<!--                      <Input   type="textarea" v-model="config.baidu" :rows="4" maxlength="2000"  placeholder="添加网站统计的JS代码，不需要要添加<script>标签</script>" />-->
-<!--                    </FormItem>-->
+                    <FormItem label="统计JS代码" :label-width="90">
+                      <Input   type="textarea" v-model="config.baidu" :rows="4" maxlength="2000"  placeholder="添加网站统计的JS代码，不需要要添加<script>标签</script>" />
+                    </FormItem>
                     <FormItem label="备案显示" :label-width="90">
                       <Input   type="textarea"  v-model="config.links" :rows="4" maxlength="5000"  placeholder="站点底部备案信息，不填写则不显示" />
                     </FormItem>

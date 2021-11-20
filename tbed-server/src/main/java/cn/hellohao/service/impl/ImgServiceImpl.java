@@ -9,6 +9,7 @@ import cn.hellohao.entity.User;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.ImageVo;
+import cn.hellohao.entity.vo.RecentUserVo;
 import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
@@ -249,7 +250,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public List<User> RecentlyUser() {
+    public List<RecentUserVo> RecentlyUser() {
         return imgMapper.RecentlyUser();
     }
 

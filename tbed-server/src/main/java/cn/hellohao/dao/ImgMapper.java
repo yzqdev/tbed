@@ -6,6 +6,7 @@ import cn.hellohao.entity.User;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.ImageVo;
+import cn.hellohao.entity.vo.RecentUserVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -44,7 +45,7 @@ public interface ImgMapper extends BaseMapper<Images> {
 
     List<Images> RecentlyUploaded(@Param("userId") Integer userId);
 
-    List<User> RecentlyUser();
+    List<RecentUserVo> RecentlyUser();
 
     List<String> getyyyy(@Param("userId") Integer userId);
 

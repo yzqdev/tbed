@@ -10,6 +10,7 @@ import cn.hellohao.entity.Images;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.ImageVo;
+import cn.hellohao.entity.vo.RecentUserVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,7 @@ public interface ImgService extends IService<Images> {
 
     List<Images> RecentlyUploaded(Integer userid);
 
-    List<User> RecentlyUser();
+    List<RecentUserVo> RecentlyUser();
 
     List<String> getyyyy(Integer useriVo);
 

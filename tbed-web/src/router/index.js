@@ -190,8 +190,7 @@ router.beforeEach((to,from,next) => {
         localStorage.removeItem('Authorization');
         localStorage.removeItem('RoleLevel');
     }
-    console.log(to)
-    console.log("zhehheeh")
+
     if (to.path.includes('admin')) {
       document.title="控制台|"+to.meta.title
     }

@@ -176,8 +176,8 @@ public class UploadServicel {
                 if(setday == 1 || setday == 3 || setday == 7 || setday == 30){
                     img.setImgType(1);
                     ImgTemp imgDataExp = new ImgTemp();
-                    imgDataExp.setDeltime(plusDay(setday));
-                    imgDataExp.setImguid(imguid);
+                    imgDataExp.setDelTime(plusDay(setday));
+                    imgDataExp.setImgUid(imguid);
                     imgTempService.insertImgExp(imgDataExp);
                 }else{
                     img.setImgType(0);

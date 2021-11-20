@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "dayjs";
 
 var storage = {
     /*key 保存键

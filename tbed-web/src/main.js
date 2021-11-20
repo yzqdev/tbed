@@ -25,13 +25,25 @@ Vue.config.productionTip = false
 Vue.prototype.clipboard = clipboard
 Vue.prototype.$store = store
 Vue.prototype.$http = axios;
-
+function   loadScriptString(code) {
+  let script = document.createElement("script");
+  script.type = "text/javascript";
+  try {
+    // firefox、safari、chrome和Opera
+    script.appendChild(document.createTextNode(code));
+  } catch (ex) {
+    // IE早期的浏览器 ,需要使用script的text属性来指定javascript代码。
+    script.text = code;
+  }
+  document.getElementsByTagName("head")[0].appendChild(script);
+}
 function getWebInfo () {
   return new Promise((resolve, reject) => {
-    axios.get('/webInfo'+'?'+new Date().getTime()+Math.random()+Math.ceil(Math.random()*(10000-99999)+99999)).then(data => {
+    axios.get('/webInfo').then(data => {
       var json = data.data.data;
       if(json){
         json.splitline="-";
+        loadScriptString(json.baidu)
         store.commit("cahngeMetaInfo", json);
       }
       resolve();

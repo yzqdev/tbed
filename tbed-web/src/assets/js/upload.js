@@ -4,6 +4,7 @@ import vueQr from 'vue-qr'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import md5 from "js-md5";
+import axios from "axios";
 
 export default {
     metaInfo() {
@@ -268,9 +269,8 @@ export default {
             })
         },
         getUploadInfo(){
-            request(
-                "/getUploadInfo",
-                {}).then(res => {
+
+                axios.get("/getUploadInfo").then(res => {
                 this.$Spin.hide();
                 if(res.status==200){
                     var json = res.data.data;

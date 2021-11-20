@@ -23,7 +23,6 @@ export function request(url, params,setTime) {
         let timeout = parseInt(t);
         // url = url + '?' + new Date().getTime() + Math.random() + Math.ceil(Math.random() * (10000 - 99999) + 99999);
 
-        console.log("这是啥 ")
         Vue.prototype.$http.post(url, params, {timeout: timeout}).then(res => {
             resolve(res);
         }).catch(err => {
