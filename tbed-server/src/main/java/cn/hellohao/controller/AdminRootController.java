@@ -338,14 +338,13 @@ public class AdminRootController {
 
     @PostMapping("/updateEmailConfig") //new
     @ResponseBody
-    public Msg updateemail(@RequestParam(value = "data", defaultValue = "") String data ) {
+    public Msg updateemail(@RequestBody EmailConfig emailConfig ) {
         final Msg msg = new Msg();
         try {
-            JSONObject jsonObj = JSONObject.parseObject(data);
-            EmailConfig emailConfig = JSON.toJavaObject(jsonObj,EmailConfig.class);
-            if(null==emailConfig.getId() || null==emailConfig.getEmailname()  || null==emailConfig.getEmailUrl() || null==emailConfig.getEmails()
+
+            if(null==emailConfig.getId() || null==emailConfig.getEmailName()  || null==emailConfig.getEmailUrl() || null==emailConfig.getEmails()
                     || null==emailConfig.getEmailKey()  || null==emailConfig.getPort() || null==emailConfig.getUsing()
-                    || emailConfig.getEmailname().equals("")  || emailConfig.getEmailUrl().equals("")  || emailConfig.getEmails().equals("")
+                    || emailConfig.getEmailName().equals("")  || emailConfig.getEmailUrl().equals("")  || emailConfig.getEmails().equals("")
                     || emailConfig.getEmailKey().equals("")   || emailConfig.getPort().equals("")){
                 msg.setCode("110400");
                 msg.setInfo("各参数不能为空");
@@ -361,20 +360,19 @@ public class AdminRootController {
         return msg;
     }
 
-    @PostMapping("/mailTest") //new
+    @PostMapping("/mailTest/{toMail}") //new
     @ResponseBody
-    public Msg mailTest(@RequestParam(value = "data", defaultValue = "") String data ) {
+    public Msg mailTest(@PathVariable("toMail") String toMail ) {
         Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        String tomail = jsonObj.getString("tomail");
-        EmailConfig emailConfig = JSON.toJavaObject(jsonObj,EmailConfig.class);
+
+        EmailConfig emailConfig = emailConfigService.getemail();
         if(null==emailConfig.getEmails() || null==emailConfig.getEmailKey() || null==emailConfig.getEmailUrl()
-                || null==emailConfig.getPort()  || null==emailConfig.getEmailname() || null==tomail){
+                || null==emailConfig.getPort()  || null==emailConfig.getEmailName() || null==toMail){
 //        if(jsonObj.size()==0){
             msg.setCode("110400");
             msg.setInfo("邮箱配置参数不能为空");
         }else{
-            msg = NewSendEmail.sendTestEmail(emailConfig, tomail);
+            msg = NewSendEmail.sendTestEmail(emailConfig, toMail);
         }
         return msg;
     }

@@ -24,19 +24,19 @@ public class EmailConfig {
      * 端口
      */
     private String port;
-    private String emailname;
+    private String emailName;
     private Integer using ;
 
     public EmailConfig() {
     }
 
-    public EmailConfig(Integer id, String emails, String emailKey, String emailUrl, String port, String emailname, Integer using) {
+    public EmailConfig(Integer id, String emails, String emailKey, String emailUrl, String port, String emailName, Integer using) {
         this.id = id;
         this.emails = emails;
         this.emailKey = emailKey;
         this.emailUrl = emailUrl;
         this.port = port;
-        this.emailname = emailname;
+        this.emailName = emailName;
         this.using = using;
     }
 
@@ -80,12 +80,12 @@ public class EmailConfig {
         this.port = port;
     }
 
-    public String getEmailname() {
-        return emailname;
+    public String getEmailName() {
+        return emailName;
     }
 
-    public void setEmailname(String emailname) {
-        this.emailname = emailname;
+    public void setEmailName(String emailName) {
+        this.emailName = emailName;
     }
 
     public Integer getUsing() {

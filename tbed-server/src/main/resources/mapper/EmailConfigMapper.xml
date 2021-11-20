@@ -3,26 +3,26 @@
 <mapper namespace="cn.hellohao.dao.EmailConfigMapper">
 
     <select id="getemail" resultType="cn.hellohao.entity.EmailConfig">
-        select * from emailconfig where id = 1
+        select * from tbed.email_config where id = 1
     </select>
 
     <update id="updateemail" parameterType="cn.hellohao.entity.EmailConfig">
-        UPDATE emailconfig
+        UPDATE tbed.email_config
         <set>
             <if test="emails != null">
                 emails = #{emails},
             </if>
-            <if test="emailkey != null">
-                emailkey = #{emailkey},
+            <if test="emailKey != null">
+                email_key = #{emailKey},
             </if>
-            <if test="emailurl != null">
-                emailurl = #{emailurl},
+            <if test="emailUrl != null">
+                email_url = #{emailUrl},
             </if>
             <if test="port != null">
                 `port` = #{port},
             </if>
-            <if test="emailname != null">
-                `emailname` = #{emailname},
+            <if test="emailName != null">
+                `email_name` = #{emailName},
             </if>
             <if test="using != null">
                 `using` = #{using},

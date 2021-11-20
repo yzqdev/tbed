@@ -7,33 +7,58 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
-import io.github.biezhi.ome.OhMyEmail;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.core.io.ClassPathResource;
+
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
+import java.util.*;
 
 public class NewSendEmail {
+    public static MimeMessage emailMessage(EmailConfig emailConfig) {
+        Properties p = new Properties();
+        p.setProperty("mail.smtp.auth", "true");
+        p.put("mail.smtp.timeout", "20000");
+        p.setProperty("mail.smtp.host", emailConfig.getEmailUrl());
+        p.setProperty("mail.smtp.port", emailConfig.getPort());
+        p.setProperty("mail.smtp.socketFactory.port", emailConfig.getPort());
+        p.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        //p.setProperty("mail.smtp.socketFactory.class", "SSL_FACTORY");
 
-    public static Integer sendEmail(EmailConfig emailConfig, String username, String uid, String toEmail,  Config config) {
+        Session session = Session.getInstance(p, new Authenticator() {
+            // 设置认证账户信息
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(emailConfig.getEmails(), emailConfig.getEmailKey());
+            }
+        });
+        session.setDebug(true);
+        return new MimeMessage(session);
+    }
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.debug", "false");
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.debug",  "false");
-        props.put("mail.smtp.timeout", "20000");
-        props.put("mail.smtp.port", emailConfig.getPort());//465  25
-        props.put("mail.smtp.host", emailConfig.getEmailUrl());
-        // 配置一次即可，可以配置为静态方法
-//        OhMyEmail.config(OhMyEmail.SMTP_QQ(false), "xxxx@qq.com", "your@password");
-        OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailKey());
-
-        String webname=config.getWebname();
+    public static Integer sendEmail(EmailConfig emailConfig, String username, String uid, String toEmail, Config config) {
+//
+//        Properties props = new Properties();
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.ssl.enable", "true");
+//        props.put("mail.debug", "false");
+//        props.put("mail.transport.protocol", "smtp");
+//        props.put("mail.smtp.timeout", "20000");
+//        props.put("mail.smtp.port", emailConfig.getPort());//465  25
+//        props.put("mail.smtp.host", emailConfig.getEmailUrl());
+//        // 配置一次即可，可以配置为静态方法
+////        OhMyEmail.config(OhMyEmail.SMTP_QQ(false), "xxxx@qq.com", "your@password");
+//        Session session = Session.getInstance(props, new Authenticator() {
+//            // 设置认证账户信息
+//            @Override
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(emailConfig.getEmails(), emailConfig.getEmailKey());
+//            }
+//        });
+//        session.setDebug(true);
+        String webname = config.getWebname();
         String domain = config.getDomain();
         try {
             //生成模板
@@ -43,15 +68,21 @@ public class NewSendEmail {
             Map<String, Object> context = new HashMap<>();
             context.put("username", username);
             context.put("webname", webname);
-            context.put("url", domain+"/user/activation?activation="+uid+"&username=" + username );
+            context.put("url", domain + "/user/activation?activation=" + uid + "&username=" + username);
             Writer writer = new StringWriter();
             compiledTemplate.evaluate(writer, context);
             String output = writer.toString();
-            OhMyEmail.subject(webname+"账号激活")
-                    .from(webname)
-                    .to(toEmail)
-                    .html(output)
-                    .send();
+            MimeMessage message = emailMessage(emailConfig);
+            message.setFrom(new InternetAddress(emailConfig.getEmails(), emailConfig.getEmailName(), "UTF-8"));
+            // 收件人和抄送人
+
+            message.setSubject(emailConfig.getEmailName() + "账号激活");
+            message.setRecipients(Message.RecipientType.TO,toEmail);
+            message.setContent(output, "text/html;charset=UTF-8");
+            message.setSentDate(new Date());
+            message.saveChanges();
+            Transport.send(message);
+
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,24 +92,20 @@ public class NewSendEmail {
 
     public static Msg sendTestEmail(EmailConfig emailConfig, String toEmail) {
         Msg msg = new Msg();
-        Properties props = new Properties();
+        MimeMessage message = emailMessage(emailConfig);
         try {
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.ssl.enable", "true");
-            props.put("mail.debug", "false");
-            props.put("mail.transport.protocol", "smtp");
-            props.put("mail.debug",  "false");
-            props.put("mail.smtp.timeout", "20000");
-            props.put("mail.smtp.port", emailConfig.getPort());//465  25
-            props.put("mail.smtp.host", emailConfig.getEmailUrl());
-            OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailKey());
-            String webname="Hellohao图像托管程序";
-            OhMyEmail.subject("Hellohao图像托管程序邮箱配置测试")
-                    .from(webname)
-                    .to(toEmail)
-                    .html("<p>这是一条测试邮件，当您收到此邮件证明测试成功了</p>")
-                    .send();
+            message.setFrom(new InternetAddress(emailConfig.getEmails(), emailConfig.getEmailName(), "UTF-8"));
+            // 收件人和抄送人
+            String output = "<p>这是一条测试邮件，当您收到此邮件证明测试成功了</p>";
+            message.setRecipients(Message.RecipientType.TO, toEmail);
+            message.setSubject("Hellohao图像托管程序邮箱配置测试");
+            message.setContent(output, "text/html;charset=UTF-8");
+            message.setSentDate(new Date());
+            message.saveChanges();
+            String webname = "Hellohao图像托管程序";
+            Transport.send(message);
             msg.setInfo("发送邮件指令已执行，请自行前往收信箱或垃圾箱查看是否收到测试邮件");
+
             return msg;
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,22 +117,11 @@ public class NewSendEmail {
     }
 
 
-    public static Integer sendEmailFindPass(EmailConfig emailConfig,String username, String uid, String toEmail,  Config config) {
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.debug", "false");
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.debug",  "false");
-        props.put("mail.smtp.timeout", "20000");
-        props.put("mail.smtp.port", emailConfig.getPort());//465  25
-        props.put("mail.smtp.host", emailConfig.getEmailUrl());
-        // 配置一次即可，可以配置为静态方法
-//        OhMyEmail.config(OhMyEmail.SMTP_QQ(false), "xxxx@qq.com", "your@password");
-        OhMyEmail.config(props, emailConfig.getEmails(), emailConfig.getEmailKey());
-        String webname=config.getWebname();
+    public static Integer sendEmailFindPass(EmailConfig emailConfig, String username, String uid, String toEmail, Config config) {
+        MimeMessage message = emailMessage(emailConfig);
+        String webname = config.getWebname();
         String domain = config.getDomain();
-        String new_pass = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,10);
+        String new_pass = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0, 10);
         try {
             //生成模板
             PebbleEngine engine = new PebbleEngine.Builder().build();
@@ -115,22 +131,25 @@ public class NewSendEmail {
             context.put("username", username);
             context.put("webname", webname);
             context.put("new_pass", new_pass);
-            context.put("url",domain+"/user/retrieve?activation=" + uid+"&cip="+ HexUtil.encodeHexStr(new_pass, CharsetUtil.CHARSET_UTF_8));
+            context.put("url", domain + "/user/retrieve?activation=" + uid + "&cip=" + HexUtil.encodeHexStr(new_pass, CharsetUtil.CHARSET_UTF_8));
             Writer writer = new StringWriter();
             compiledTemplate.evaluate(writer, context);
             String output = writer.toString();
-            OhMyEmail.subject(webname+"密码重置")
-                    .from(webname)
-                    .to(toEmail)
-                    .html(output)
-                    .send();
+            message.setFrom(new InternetAddress(emailConfig.getEmails(), emailConfig.getEmailName(), "UTF-8"));
+            // 收件人和抄送人
+
+            message.setRecipients(Message.RecipientType.TO, toEmail);
+            message.setSubject("Hellohao图像托管程序邮箱配置测试");
+            message.setContent(output, "text/html;charset=UTF-8");
+            message.setSentDate(new Date());
+            message.saveChanges();
+            Transport.send(message);
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
     }
-
 
 
 }

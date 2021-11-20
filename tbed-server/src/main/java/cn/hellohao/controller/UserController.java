@@ -46,14 +46,15 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
-    public Msg Register(HttpServletRequest request, @RequestParam(value = "data", defaultValue = "") String data) {//Validated
+    public Msg Register( @RequestBody UserLoginDto userLoginDto) {//Validated
         Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        String username = jsonObj.getString("username");
-        String email = jsonObj.getString("email");
-        String password = Base64Encryption.encryptBASE64(jsonObj.getString("password").getBytes());
+        HttpServletRequest request=RequestHelper.getRequest();
+
+        String username = userLoginDto.getUsername();
+        String email = userLoginDto.getEmail();
+        String password = Base64Encryption.encryptBASE64(userLoginDto.getPassword().getBytes());
         String userIP = GetIPS.getIpAddr(request);
-        String verifyCodeForRegister = jsonObj.getString("verifyCode");
+        String verifyCodeForRegister = userLoginDto.getVerifyCode();
         Object redis_verifyCodeForRegister = iRedisService.getValue(userIP+"_hellohao_verifyCodeForRegister");
         if(!SetText.checkEmail(email)){
             msg.setCode("110403");
