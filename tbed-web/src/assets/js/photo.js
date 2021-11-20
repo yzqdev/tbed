@@ -13,7 +13,7 @@ export default {
             hostText:window.location.host,
             viewType:1,//1-大图模式 2-小图
             upName:null,
-            imgage:null,
+            images:null,
             isViolation:{
                 isControl:false,
                 info:"此图像可能存在违规内容 建议删除"
@@ -27,7 +27,7 @@ export default {
             type:'picture',
             selectIndex:[],
             selectImgUrl:[],
-            bucketname:null,
+            bucketName:null,
             bucketlist:[],
             searchType:'1',//查询的文本类型
             searchtext:null,//查询的文本
@@ -164,7 +164,7 @@ export default {
         },
         imgInfo (e) {
             this.isimginfo = true;
-            this.getBucketName(e.source);
+            this.getbucketName(e.source);
             if(e.username!=null){
                 this.upName =e.username;
             }else{
@@ -175,7 +175,7 @@ export default {
             }else{
                 this.isViolation.isControl = false;
             }
-            this.imgage = e;
+            this.images = e;
         },
 
         delSelectImg(){
@@ -254,11 +254,11 @@ export default {
             })
         },
 
-        getBucketName(id) {
-            this.bucketname = "";
+        getbucketName(id) {
+            this.bucketName = "";
             for (let i = 0; i < this.bucketlist.length; i++) {
                 if(id==this.bucketlist[i].id){
-                    this.bucketname = this.bucketlist[i].keyname;
+                    this.bucketName = this.bucketlist[i].keyname;
                 }
             }
         },

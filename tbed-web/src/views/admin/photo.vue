@@ -8,7 +8,7 @@
 
         <FormItem label="存储源">
               <Select v-model="searchbucket" filterable clearable placeholder="存储源(默认全部)">
-                <Option v-for="item in bucketlist" :value="item.storageType" :key="item.id">{{ item.keyname }}</Option>
+                <Option v-for="item in bucketlist" :value="item.storageType" :key="item.id">{{ item.keyName }}</Option>
               </Select>
         </FormItem>
         <FormItem label="起始日期">
@@ -123,24 +123,24 @@
     <Modal  v-model="isimginfo" :footer-hide="true">
 
       <List :split="false" >
-        <ListItem><span style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><Icon style="font-size: 32px;" type="md-image" />&nbsp;&nbsp;&nbsp;<span style="font-size: 18px;">{{imgage==null?'暂缺数据':imgage.imgname}}</span></span></ListItem>
+        <ListItem><span style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><Icon style="font-size: 32px;" type="md-image" />&nbsp;&nbsp;&nbsp;<span style="font-size: 18px;">{{ images == null ? '暂缺数据' : images.imgname }}</span></span></ListItem>
       </List>
 
       <Tabs>
         <TabPane label="图像信息" icon="ios-images" >
 
           <div style="line-height: 32px;margin-bottom: 40px;">
-            <p><span class="infotitle"> 文件大小：</span><span style="font-size: 14px;">{{imgage==null?'暂缺数据':imgage.sizes>0?this.formatBytes(imgage.sizes,2):''}}</span></p>
-            <p><span class="infotitle"> 文件类型：</span><span style="font-size: 14px;">{{imgage==null?'未知':imgage.format}}</span></p>
-            <p><span class="infotitle"> 来源IP：</span><span style="font-size: 14px;">{{imgage==null?'暂缺数据':imgage.abnormal}}</span></p>
-            <p><span class="infotitle"> 上传日期：</span><span style="font-size: 14px;">{{imgage==null?'暂缺数据':imgage.updatetime?imgage.updatetime:''}}</span></p>
+            <p><span class="infotitle"> 文件大小：</span><span style="font-size: 14px;">{{ images == null ? '暂缺数据' : images.sizes > 0 ? this.formatBytes(images.sizes, 2) : '' }}</span></p>
+            <p><span class="infotitle"> 文件类型：</span><span style="font-size: 14px;">{{ images == null ? '未知' : images.format }}</span></p>
+            <p><span class="infotitle"> 来源IP：</span><span style="font-size: 14px;">{{ images == null ? '暂缺数据' : images.abnormal }}</span></p>
+            <p><span class="infotitle"> 上传日期：</span><span style="font-size: 14px;">{{ images == null ? '暂缺数据' : images.updateTime ? images.updateTime : '' }}</span></p>
             <p><span class="infotitle"> 上传者：</span><span style="font-size: 14px;">{{upName}}</span></p>
-            <p><span class="infotitle"> 所属存储源：</span><span style="font-size: 14px;">{{bucketname}}</span></p>
-            <p><span class="infotitle|"> 存储性质：</span><span style="font-size: 14px;">{{imgage==null?'暂缺数据':(imgage.imgtype==0?'持久':'暂存')}}</span></p>
+            <p><span class="infotitle"> 所属存储源：</span><span style="font-size: 14px;">{{bucketName}}</span></p>
+            <p><span class="infotitle|"> 存储性质：</span><span style="font-size: 14px;">{{ images == null ? '暂缺数据' : (images.imgType == 0 ? '持久' : '暂存') }}</span></p>
           </div>
-          <p style="color: rgb(228 102 70);font-size: 12px; font-weight: 200;position: absolute; bottom: 10px; display: block; left: 0; width: 100%;z-index: 1;" align="center" v-show="isViolation.isControl">{{isViolation.info}}</p>
+          <p style="color: rgb(228 102 70);font-size: 12px; font-weight: 200;position: absolute; bottom: 10px; display: block; left: 0; width: 100%;z-index: 1;" v-show="isViolation.isControl">{{isViolation.info}}</p>
           <div class="QRCodestyle">
-            <vue-qr  :text="imgage?imgage.imgUrl?imgage.imgUrl:'未获取到文件信息':'未获取到文件信息'" :size="160"></vue-qr>
+            <vue-qr :text="images?images.imgUrl?images.imgUrl:'未获取到文件信息':'未获取到文件信息'" :size="160"></vue-qr>
           </div>
         </TabPane>
       </Tabs>
