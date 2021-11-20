@@ -1,21 +1,19 @@
 package cn.hellohao.dao;
 
+import cn.hellohao.entity.StorageKey;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import cn.hellohao.entity.Keys;
-
 import java.util.List;
 
 @Mapper
-public interface KeysMapper extends BaseMapper<Keys> {
+public interface KeysMapper extends BaseMapper<StorageKey> {
     //查询密钥
-    Keys selectKeys(@Param("id") Integer id);
-    List<Keys> getStorageName();
-    List<Keys> getStorage();
+    StorageKey selectKeys(@Param("id") Integer id);
+    List<StorageKey> getStorageName();
+    List<StorageKey> getStorage();
     //修改key
-    Integer updateKey(Keys key);
-    List<Keys> getKeys();
+    List<StorageKey> getKeys();
 
 }

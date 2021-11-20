@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
 import com.aliyun.oss.OSS;
@@ -15,7 +15,7 @@ import java.util.*;
 @Service
 public class OSSImageupload {
     static OSSClient ossClient;
-    static Keys key;
+    static StorageKey key;
 
     public ReturnImage ImageuploadOSS(Map<String, File> fileMap, String username,Integer keyID){
         ReturnImage returnImage = new ReturnImage();
@@ -42,7 +42,7 @@ public class OSSImageupload {
 
     }
 
-    public static Integer Initialize(Keys k) {
+    public static Integer Initialize(StorageKey k) {
         int ret = -1;
         ObjectListing objectListing = null;
         if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getAccessKey()!=null && k.getEndpoint()!=null

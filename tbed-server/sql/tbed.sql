@@ -199,10 +199,10 @@ CREATE TABLE `imgtemp`  (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for keys
+-- Table structure for storageKey
 -- ----------------------------
-DROP TABLE IF EXISTS `keys`;
-CREATE TABLE `keys`  (
+DROP TABLE IF EXISTS `storageKey`;
+CREATE TABLE `storageKey`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `AccessKey` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `AccessSecret` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -215,16 +215,16 @@ CREATE TABLE `keys`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of keys
+-- Records of storageKey
 -- ----------------------------
-INSERT INTO `keys` VALUES (1, '', '', '', '', '', 2, '阿里云');
-INSERT INTO `keys` VALUES (2, '', '', '', '', '', 1, '网易云');
-INSERT INTO `keys` VALUES (3, '', '', '0', '', '', 3, '又拍');
-INSERT INTO `keys` VALUES (4, '', '', '', '', '', 4, '七牛云');
-INSERT INTO `keys` VALUES (5, '0', '0', '0', '0', 'http://127.0.0.1:8089', 5, 'Localhost');
-INSERT INTO `keys` VALUES (6, '', '', '', '', '', 6, '腾讯云');
-INSERT INTO `keys` VALUES (8, '', '', '0', '', '', 8, 'UFile');
-INSERT INTO `keys` VALUES (13, '', '', '', '0', '', 7, 'ftp');
+INSERT INTO `storageKey` VALUES (1, '', '', '', '', '', 2, '阿里云');
+INSERT INTO `storageKey` VALUES (2, '', '', '', '', '', 1, '网易云');
+INSERT INTO `storageKey` VALUES (3, '', '', '0', '', '', 3, '又拍');
+INSERT INTO `storageKey` VALUES (4, '', '', '', '', '', 4, '七牛云');
+INSERT INTO `storageKey` VALUES (5, '0', '0', '0', '0', 'http://127.0.0.1:8089', 5, 'Localhost');
+INSERT INTO `storageKey` VALUES (6, '', '', '', '', '', 6, '腾讯云');
+INSERT INTO `storageKey` VALUES (8, '', '', '0', '', '', 8, 'UFile');
+INSERT INTO `storageKey` VALUES (13, '', '', '', '0', '', 7, 'ftp');
 
 -- ----------------------------
 -- Table structure for sysconfig

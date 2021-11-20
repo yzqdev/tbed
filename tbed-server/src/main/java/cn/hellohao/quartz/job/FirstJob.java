@@ -1,7 +1,7 @@
 package cn.hellohao.quartz.job;
 
 import cn.hellohao.entity.Images;
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.KeysService;
 import cn.hellohao.service.impl.*;
@@ -61,23 +61,23 @@ public class FirstJob {
 			for (Images images : imagesList) {
 				imgTempService.delImgAndExp(images.getImgUid());
 				imgService.deleimgForImgUid(images.getImgUid());
-				Keys keys = keysService.selectKeys(images.getSource());
-				if(keys.getStorageType()==1){
-					firstJob.nosImageupload.delNOS(keys.getId(),images.getImgName());
-				}else if (keys.getStorageType()==2){
-					firstJob.ossImageupload.delOSS(keys.getId(), images.getImgName());
-				}else if(keys.getStorageType()==3){
-					firstJob.ussImageupload.delUSS(keys.getId(), images.getImgName());
-				}else if(keys.getStorageType()==4){
-					firstJob.kodoImageupload.delKODO(keys.getId(), images.getImgName());
-				}else if(keys.getStorageType()==5){
+				StorageKey storageKey = keysService.selectKeys(images.getSource());
+				if(storageKey.getStorageType()==1){
+					firstJob.nosImageupload.delNOS(storageKey.getId(),images.getImgName());
+				}else if (storageKey.getStorageType()==2){
+					firstJob.ossImageupload.delOSS(storageKey.getId(), images.getImgName());
+				}else if(storageKey.getStorageType()==3){
+					firstJob.ussImageupload.delUSS(storageKey.getId(), images.getImgName());
+				}else if(storageKey.getStorageType()==4){
+					firstJob.kodoImageupload.delKODO(storageKey.getId(), images.getImgName());
+				}else if(storageKey.getStorageType()==5){
 					LocUpdateImg.deleteLOCImg(images.getImgName());
-				}else if(keys.getStorageType()==6){
-					firstJob.cosImageupload.delCOS(keys.getId(),images.getImgName());
-				}else if(keys.getStorageType()==7){
-					firstJob.ftpImageupload.delFTP(keys.getId(), images.getImgName());
-				}else if(keys.getStorageType()==8){
-					firstJob.uFileImageupload.delUFile(keys.getId(), images.getImgName());
+				}else if(storageKey.getStorageType()==6){
+					firstJob.cosImageupload.delCOS(storageKey.getId(),images.getImgName());
+				}else if(storageKey.getStorageType()==7){
+					firstJob.ftpImageupload.delFTP(storageKey.getId(), images.getImgName());
+				}else if(storageKey.getStorageType()==8){
+					firstJob.uFileImageupload.delUFile(storageKey.getId(), images.getImgName());
 				}else{
 					System.err.println("未获取到对象存储参数，上传失败。");
 				}

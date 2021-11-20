@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
 import com.qcloud.cos.COSClient;
@@ -19,7 +19,7 @@ import java.util.*;
 @Service
 public class COSImageupload {
     static COSClient cosClient;
-    static Keys key;
+    static StorageKey key;
 
     public ReturnImage ImageuploadCOS(Map<String, File> fileMap, String username,Integer keyID) {
         ReturnImage returnImage = new ReturnImage();
@@ -52,7 +52,7 @@ public class COSImageupload {
     }
 
 
-    public static Integer Initialize(Keys k) {
+    public static Integer Initialize(StorageKey k) {
         int ret = -1;
         if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
                 && k.getBucketName()!=null && k.getRequestAddress()!=null ) {

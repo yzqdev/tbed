@@ -2,7 +2,7 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.dao.KeysMapper;
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.utils.Print;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,8 +38,8 @@ public class InitializationStorage implements CommandLineRunner {
         sout();
     }
     public void intiStorage(){
-        List<Keys> keylist = keysMapper.getKeys();
-        for (Keys key : keylist) {
+        List<StorageKey> keylist = keysMapper.getKeys();
+        for (StorageKey key : keylist) {
             if(key.getStorageType()!=0 && key.getStorageType()!=null){
                 int ret =0;
                 if(key.getStorageType()==1){

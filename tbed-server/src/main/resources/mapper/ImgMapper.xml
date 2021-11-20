@@ -20,122 +20,146 @@
         a.format,
         a.about,
         a.violation
-        FROM
-        tbed.img_data a
-        LEFT JOIN tbed.user b ON a.user_id = b.id
-         <where>
-        <if test="source != null">
-            and
-            a.source = #{source}
-        </if>
-        <if test="startTime != null">
-            and
-            a.update_time &gt;= #{startTime}
-        </if>
-        <if test="stopTime != null">
-            and
-            a.update_time &lt;= #{stopTime}
-        </if>
 
-        <if test="userId != null">
-            <choose>
-                <when test="selectType != null">
-                    and
-                    a.user_id not in (#{userId})
-                </when>
-                <otherwise>
-                    and
-                    a.user_id = #{userId}
-                </otherwise>
-            </choose>
-        </if>
-    </where>
+        FROM  tbed.img_data a  LEFT JOIN tbed.user b ON a.user_id = b.id
+        <where>
+
+            <if test="source != null">
+                and
+                a.source = #{source}
+            </if>
+            <if test="startTime != null">
+                and
+                a.update_time &gt;= #{startTime}
+            </if>
+            <if test="stopTime != null">
+                and
+                a.update_time &lt;= #{stopTime}
+            </if>
+
+            <if test="userId != null">
+                <choose>
+                    <when test="selectType != null">
+                        and
+                        a.user_id not in (#{userId})
+                    </when>
+                    <otherwise>
+                        and
+                        a.user_id = #{userId}
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
 
         order by a.id desc
     </select>
     <!-- 此用户下总数 -->
 
 
-
-
     <delete id="deleimgForImgUid" parameterType="string">
-        DELETE FROM img_data WHERE img_uid = #{imguid}
+        DELETE
+        FROM img_data
+        WHERE img_uid = #{imguid}
     </delete>
 
     <select id="selectByPrimaryKey" parameterType="integer" resultType="cn.hellohao.entity.Images">
-        select * from img_data where id = #{id}
+        select *
+        from img_data
+        where id = #{id}
     </select>
 
     <select id="counts" resultType="integer">
         select count(*) from tbed.img_data
 
-            <where>
-        <if test="userId != null">
-            user_id=#{userId}
+        <where>
+            <if test="userId != null">
+                user_id=#{userId}
 
-        </if></where>
+            </if>
+        </where>
     </select>
 
     <!-- 根据图片名字标记IP -->
     <update id="setImg" parameterType="cn.hellohao.entity.Images">
-         UPDATE img_data
-             <set>
-                 <if test="abnormal!=null">
-                     abnormal=#{abnormal}
-                 </if>
-                 <if test="explains!=null">
-                     explains=#{explains}
-                 </if>
-             </set>
-              where img_name=#{imgname}
+        UPDATE img_data
+        <set>
+            <if test="abnormal!=null">
+                abnormal=#{abnormal}
+            </if>
+            <if test="explains!=null">
+                explains=#{explains}
+            </if>
+        </set>
+        where img_name=#{imgname}
     </update>
     <!-- 非法图片删除他  根据名称-->
     <delete id="deleimgname" parameterType="string">
-        DELETE FROM img_data WHERE img_name=#{imgname}
+        DELETE
+        FROM img_data
+        WHERE img_name = #{imgname}
     </delete>
 
-<!--    批量删除-->
+    <!--    批量删除-->
     <delete id="deleall" parameterType="integer">
-        DELETE FROM img_data WHERE id = #{id}
+        DELETE
+        FROM img_data
+        WHERE id = #{id}
     </delete>
 
     <select id="gettimeimg" parameterType="string" resultType="cn.hellohao.entity.Images">
-        SELECT * from  img_data WHERE  update_time>=#{time}
+        SELECT *
+        from img_data
+        WHERE update_time >= #{time}
     </select>
-<!--查询指定用户总内存-->
+    <!--查询指定用户总内存-->
     <select id="getusermemory" parameterType="integer" resultType="long">
-        SELECT sum(sizes) as sizes FROM `img_data` where user_id = #{userid}
+        SELECT sum(sizes) as sizes
+        FROM `img_data`
+        where user_id = #{userid}
     </select>
 
     <!--  获取指定对象存储的已用空间 -->
     <select id="getsourcememory" parameterType="integer" resultType="long">
-        SELECT sum(sizes) as sizes FROM tbed.img_data where source = #{source}
+        SELECT sum(sizes) as sizes
+        FROM tbed.img_data
+        where source = #{source}
     </select>
 
     <select id="md5Count" resultType="integer">
-        select count(id) from tbed.img_data where md5key=#{md5key} and user_id = #{userid}
+        select count(id)
+        from tbed.img_data
+        where md5key = #{md5key}
+          and user_id = #{userid}
     </select>
 
     <select id="selectImgUrlByMD5" parameterType="string" resultType="cn.hellohao.entity.Images">
-        select img_name,img_url from tbed.img_data where md5key = #{md5key}
+        select img_name, img_url
+        from tbed.img_data
+        where md5key = #{md5key}
     </select>
 
     <!--    查询当前用户的近20条数据-->
     <select id="RecentlyUploaded" parameterType="integer" resultType="cn.hellohao.entity.Images">
-        select * from tbed.img_data where user_id = #{userId}  ORDER BY update_time DESC LIMIT 20
+        select *
+        from tbed.img_data
+        where user_id = #{userId}
+        ORDER BY update_time DESC
+        LIMIT 20
     </select>
 
     <select id="RecentlyUser" resultType="cn.hellohao.entity.User">
-        select count(i.id) as counts ,i.user_id,u.username from tbed.img_data i
-         LEFT JOIN tbed.user u on i.user_id = u.id
+        select count(i.id) as counts, i.user_id, u.username
+        from tbed.img_data i
+                 LEFT JOIN tbed.user u on i.user_id = u.id
         where i.user_id not in (0)
-        GROUP BY i.user_id ORDER BY counts DESC LIMIT 20
+        GROUP BY i.user_id
+        ORDER BY counts DESC
+        LIMIT 20
     </select>
 
 
-
     <select id="getyyyy" parameterType="integer" resultType="string">
-        SELECT DISTINCT  YEAR(update_time) yyyy FROM `img_data` where
+        SELECT DISTINCT YEAR(update_time) yyyy FROM `img_data` where
         IFNULL(update_time,'')
         <if test="userId != null">
             and user_id = #{userId}
@@ -145,7 +169,7 @@
 
     <select id="countByM" parameterType="cn.hellohao.entity.dto.HomeImgDto" resultType="cn.hellohao.entity.vo.ImageVo">
         SELECT
-               *,
+        *,
         count(id) countNum,
         MONTH(update_time) monthNum
         FROM
@@ -160,7 +184,6 @@
         MONTH(update_time) ASC
 
     </select>
-
 
 
 </mapper>

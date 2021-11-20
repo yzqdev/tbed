@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
 import com.UpYun;
@@ -13,7 +13,7 @@ import java.util.*;
 @Service
 public class UFileImageupload {
     static UpYun uFile;
-    static Keys key;
+    static StorageKey key;
 
     public ReturnImage ImageuploadUFile(Map<String, File> fileMap, String username,Integer keyID) {
         ReturnImage returnImage = new ReturnImage();
@@ -44,7 +44,7 @@ public class UFileImageupload {
     }
 
     //ufile初始化
-    public static Integer Initialize(Keys k) {
+    public static Integer Initialize(StorageKey k) {
         int ret = -1;
         if(k.getAccessSecret()!=null && k.getAccessKey()!=null
                 && k.getBucketName()!=null && k.getRequestAddress()!=null ) {

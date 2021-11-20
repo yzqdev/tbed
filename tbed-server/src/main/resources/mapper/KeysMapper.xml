@@ -4,21 +4,21 @@
 
 
     <!-- 查询对象存储key-->
-    <select id="selectKeys" parameterType="integer" resultType="cn.hellohao.entity.Keys">
+    <select id="selectKeys" parameterType="integer" resultType="cn.hellohao.entity.StorageKey">
         SELECT
             *
         FROM
-            `keys`
+            tbed.storage_key
         WHERE
             id = #{id}
     </select>
     <!-- 查询添加的所有对象存储-->
-    <select id="getStorageName"  resultType="cn.hellohao.entity.Keys">
-        select id,key_name,storage_type from tbed.`keys`
+    <select id="getStorageName"  resultType="cn.hellohao.entity.StorageKey">
+        select id,key_name,storage_type from  tbed.storage_key
     </select>
 
     <!-- 查询对象存储有多少种-->
-    <select id="getStorage"  resultType="cn.hellohao.entity.Keys">
+    <select id="getStorage"  resultType="cn.hellohao.entity.StorageKey">
         SELECT id,storage_type,
                CASE WHEN storage_type=1 THEN '网易云'
                     WHEN storage_type=2 THEN '阿里云'
@@ -30,27 +30,17 @@
                     WHEN storage_type=8 THEN 'UFile'
                     ELSE  '未知' END AS storageName,
                key_name
-        FROM tbed.`keys`  GROUP BY storage_type
+        FROM  tbed.storage_key  GROUP BY storage_type
 
     </select>
 
     <!-- 查询对象存储key-->
-    <select id="getKeys" parameterType="integer" resultType="cn.hellohao.entity.Keys">
+    <select id="getKeys" parameterType="integer" resultType="cn.hellohao.entity.StorageKey">
         SELECT
             *
         FROM
-            `keys`
+            tbed.storage_key
     </select>
 
-    <update id="updateKey" parameterType="cn.hellohao.entity.Keys">
-        UPDATE `keys`
-        SET AccessKey = #{AccessKey},
-        AccessSecret = #{AccessSecret},
-        Endpoint = #{Endpoint},
-        Bucketname = #{Bucketname},
-        RequestAddress = #{RequestAddress},
-        keyname = #{keyname}
-        WHERE
-            storageType = #{storageType}
-    </update>
+
 </mapper>

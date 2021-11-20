@@ -1,6 +1,6 @@
 package cn.hellohao.utils;
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.service.impl.KeysServiceImpl;
 
@@ -23,7 +23,7 @@ public class LocUpdateImg {
 
     public static ReturnImage ImageuploadLOC(Map<String, File> fileMap, String username,Integer keyID) throws Exception {
         KeysServiceImpl keysService = SpringContextHolder.getBean(KeysServiceImpl.class);
-        final Keys key = keysService.selectKeys(keyID);
+        final StorageKey key = keysService.selectKeys(keyID);
         ReturnImage returnImage = new ReturnImage();
         String filePath =File.separator + "HellohaoData" + File.separator;
         File file = null;

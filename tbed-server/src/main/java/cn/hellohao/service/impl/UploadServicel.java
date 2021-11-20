@@ -85,7 +85,7 @@ public class UploadServicel {
 
             //判断可用容量
             sourceKeyId = siteGroup.getKeyId();
-            Keys key = keysMapper.selectKeys(sourceKeyId);
+            StorageKey key = keysMapper.selectKeys(sourceKeyId);
             Long tmp = (memory == -1 ? -2 : UsedTotleMemory);
             if (tmp >= memory) {
                 msg.setCode("4005");

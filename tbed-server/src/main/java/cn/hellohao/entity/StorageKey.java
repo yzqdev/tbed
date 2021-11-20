@@ -1,6 +1,12 @@
 package cn.hellohao.entity;
 
-public class Keys {
+/**
+ * 存储键
+ *
+ * @author yanni
+ * @date 2021/11/20
+ */
+public class StorageKey {
     private Integer id;
     private String accessKey;
     private String accessSecret;
@@ -10,12 +16,12 @@ public class Keys {
     private Integer storageType;
     private String keyName;
 
-    public Keys() {
+    public StorageKey() {
         super();
     }
 
-    public Keys(Integer id, String accessKey, String accessSecret, String endpoint, String bucketName,
-                String requestAddress, Integer storageType,String keyName) {
+    public StorageKey(Integer id, String accessKey, String accessSecret, String endpoint, String bucketName,
+                      String requestAddress, Integer storageType, String keyName) {
         super();
         this.id = id;
         this.accessKey = accessKey;

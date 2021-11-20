@@ -1,10 +1,10 @@
 package cn.hellohao.utils;
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 
 public class StringUtils {
     //此方法目前未使用2020-04-06
-    public static Boolean doNull(Integer sourcekey,Keys k) {
+    public static Boolean doNull(Integer sourcekey, StorageKey k) {
         if(sourcekey==1){
             if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
                     && k.getBucketName()!=null && k.getRequestAddress()!=null ){

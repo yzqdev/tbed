@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import cn.hellohao.entity.ReturnImage;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.utils.*;
 import com.netease.cloud.services.nos.model.ObjectListing;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,10 @@ import com.netease.cloud.auth.BasicCredentials;
 import com.netease.cloud.auth.Credentials;
 import com.netease.cloud.services.nos.NosClient;
 
-import cn.hellohao.entity.Keys;
-
 @Service
 public class NOSImageupload {
     static NosClient nosClient;
-    static Keys key;
+    static StorageKey key;
 
     public ReturnImage Imageupload(Map<String, File> fileMap, String username,Integer keyID){
         ReturnImage returnImage = new ReturnImage();
@@ -42,7 +41,7 @@ public class NOSImageupload {
 
 
     //初始化网易NOS对象存储
-    public static Integer Initialize(Keys k) {
+    public static Integer Initialize(StorageKey k) {
         int ret = -1;
         if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null
                 && k.getBucketName()!=null && k.getRequestAddress()!=null ){

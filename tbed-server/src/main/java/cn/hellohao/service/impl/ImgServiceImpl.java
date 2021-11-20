@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.User;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
@@ -12,7 +13,6 @@ import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -39,7 +39,6 @@ import com.netease.cloud.services.nos.transfer.TransferManager;
 
 import cn.hellohao.dao.ImgMapper;
 import cn.hellohao.entity.Images;
-import cn.hellohao.entity.Keys;
 import cn.hellohao.service.ImgService;
 
 import javax.annotation.Resource;
@@ -71,7 +70,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     //删除对象存储的图片文件
-    public void delect(Keys key, String fileName) {
+    public void delect(StorageKey key, String fileName) {
         // 初始化
         Credentials credentials = new BasicCredentials(key.getAccessKey(), key.getAccessSecret());
         NosClient nosClient = new NosClient(credentials);
@@ -97,7 +96,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
         }
     }
 
-    public void delectOSS(Keys key, String fileName) {
+    public void delectOSS(StorageKey key, String fileName) {
         String endpoint = key.getEndpoint();
         String accessKeyId = key.getAccessKey();
         String accessKeySecret = key.getAccessSecret();
@@ -109,7 +108,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     //删除USS对象存储的图片文件
-    public void delectUSS(Keys key, String fileName) {
+    public void delectUSS(StorageKey key, String fileName) {
         UpYun upyun = new UpYun(key.getBucketName(), key.getAccessKey(), key.getAccessSecret());
         try {
             boolean result = upyun.deleteFile(fileName, null);
@@ -120,7 +119,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
         }
     }
 
-    public void delectUFile(Keys key, String fileName) {
+    public void delectUFile(StorageKey key, String fileName) {
         UpYun upyun = new UpYun(key.getBucketName(), key.getAccessKey(), key.getAccessSecret());
         try {
             boolean result = upyun.deleteFile(fileName, null);
@@ -131,7 +130,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
         }
     }
 
-    public void delectKODO(Keys key, String fileName) {
+    public void delectKODO(StorageKey key, String fileName) {
         Configuration cfg;
         if (key.getEndpoint().equals("1")) {
             cfg = new Configuration(Zone.zone0());
@@ -157,7 +156,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     //删除COS对象存储的图片文件
-    public void delectCOS(Keys key, String fileName) {
+    public void delectCOS(StorageKey key, String fileName) {
         COSCredentials cred = new BasicCOSCredentials(key.getAccessKey(), key.getAccessSecret());
         Region region = new Region(key.getEndpoint());
         ClientConfig clientConfig = new ClientConfig(region);
@@ -173,7 +172,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
         }
     }
 
-    public void delectFTP(Keys key, String fileName) {
+    public void delectFTP(StorageKey key, String fileName) {
         FTPClient ftp = new FTPClient();
         String[] host = key.getEndpoint().split("\\:");
         String h = host[0];

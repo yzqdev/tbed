@@ -261,7 +261,7 @@ public class AdminController {
     @ResponseBody
     public Msg getStorage() {
         Msg msg = new Msg();
-        List<Keys> storage = keysService.getStorage();
+        List<StorageKey> storage = keysService.getStorage();
         msg.setData(storage);
         return msg;
     }
@@ -270,7 +270,7 @@ public class AdminController {
     @ResponseBody
     public Msg getStorageName() {
         Msg msg = new Msg();
-        List<Keys> storage = keysService.getStorageName();
+        List<StorageKey> storage = keysService.getStorageName();
         msg.setData(storage);
         return msg;
     }
@@ -435,7 +435,7 @@ public class AdminController {
             Images image = imgService.selectByPrimaryKey(imgid);
             Integer keyid = image.getSource();
             String imgname = image.getImgName();
-            Keys key = keysService.selectKeys(keyid);
+            StorageKey key = keysService.selectKeys(keyid);
 
             if(!subject.hasRole("admin")){
                 if(!image.getUserId().equals(user.getId())){

@@ -163,7 +163,7 @@ public class AdminRootController {
     @ResponseBody
     public Msg getKeysList() {
         Msg msg = new Msg();
-        List<Keys> list = keysService.getKeys();
+        List<StorageKey> list = keysService.getKeys();
         msg.setData(list);
         return msg;
     }
@@ -177,7 +177,7 @@ public class AdminRootController {
             Integer keyId = jsonData.getInteger("keyId");
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id",keyId);
-            Keys key = keysService.selectKeys(keyId);
+            StorageKey key = keysService.selectKeys(keyId);
             Integer ret = 0;
             if(key.getStorageType()==1){
                 ret = NOSImageupload.Initialize(key);
@@ -223,16 +223,16 @@ public class AdminRootController {
         String RequestAddress = jsonObj.getString("RequestAddress");
         Integer storageType = jsonObj.getInteger("storageType");
         String keyname = jsonObj.getString("keyname");
-        Keys keys = new Keys();
-        keys.setId(id);
-        keys.setAccessKey(AccessKey);
-        keys.setAccessSecret(AccessSecret);
-        keys.setEndpoint(Endpoint);
-        keys.setBucketName(Bucketname);
-        keys.setRequestAddress(RequestAddress);
-        keys.setStorageType(storageType);
-        keys.setKeyName(keyname);
-        Msg msg = keysService.updateKey(keys);
+        StorageKey storageKey = new StorageKey();
+        storageKey.setId(id);
+        storageKey.setAccessKey(AccessKey);
+        storageKey.setAccessSecret(AccessSecret);
+        storageKey.setEndpoint(Endpoint);
+        storageKey.setBucketName(Bucketname);
+        storageKey.setRequestAddress(RequestAddress);
+        storageKey.setStorageType(storageType);
+        storageKey.setKeyName(keyname);
+        Msg msg = keysService.updateKey(storageKey);
         return msg;
     }
 
@@ -242,8 +242,8 @@ public class AdminRootController {
         Msg msg = new Msg();
         JSONObject jsonObj = JSONObject.parseObject(data);
         Integer keyid = jsonObj.getInteger("id");
-        Keys keys = keysService.selectKeys(keyid);
-        msg.setData(keys);
+        StorageKey storageKey = keysService.selectKeys(keyid);
+        msg.setData(storageKey);
         return msg;
     }
 

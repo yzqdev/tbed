@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
 import com.google.gson.Gson;
@@ -22,11 +22,11 @@ import java.util.Map;
 public class KODOImageupload {
     static String upToken;
     static BucketManager bucketManager;
-    static Keys key;
+    static StorageKey key;
 
     public ReturnImage ImageuploadKODO(Map<String, File> fileMap, String username, Integer keyID){
         ReturnImage returnImage = new ReturnImage();
-        Keys key = null;
+        StorageKey key = null;
         Configuration cfg;
         if (key.getEndpoint().equals("1")) {
             cfg = new Configuration(Zone.zone0());
@@ -71,7 +71,7 @@ public class KODOImageupload {
         return returnImage;
     }
 
-    public static Integer Initialize(Keys k) {
+    public static Integer Initialize(StorageKey k) {
         int ret = -1;
         if (k.getEndpoint() != null && k.getAccessSecret() != null && k.getEndpoint() != null
                 && k.getBucketName() != null && k.getRequestAddress() != null) {

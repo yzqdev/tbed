@@ -1,19 +1,19 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.entity.Msg;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.utils.Print;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.hellohao.dao.KeysMapper;
-import cn.hellohao.entity.Keys;
 import cn.hellohao.service.KeysService;
 
 import java.util.List;
 
 @Service
-public class KeysServiceImpl extends ServiceImpl<KeysMapper,Keys> implements KeysService {
+public class KeysServiceImpl extends ServiceImpl<KeysMapper, StorageKey> implements KeysService {
 
     @Autowired
     private KeysMapper keysMapper;
@@ -35,22 +35,22 @@ public class KeysServiceImpl extends ServiceImpl<KeysMapper,Keys> implements Key
 
 
     @Override
-    public Keys selectKeys(Integer id) {
+    public StorageKey selectKeys(Integer id) {
         // TODO Auto-generated method stub
         return keysMapper.selectKeys(id);
     }
     @Override
-    public List<Keys> getStorageName() {
+    public List<StorageKey> getStorageName() {
         return keysMapper.getStorageName();
     }
 
     @Override
-    public List<Keys> getStorage() {
+    public List<StorageKey> getStorage() {
         return keysMapper.getStorage();
     }
 
     @Override
-    public Msg updateKey(Keys key) {
+    public Msg updateKey(StorageKey key) {
         Msg msg = new Msg();
         Integer ret = -2;
         //修改完初始化
@@ -74,11 +74,11 @@ public class KeysServiceImpl extends ServiceImpl<KeysMapper,Keys> implements Key
             Print.Normal("为获取到存储参数，或者使用存储源是本地的。");
         }
         if(ret>0){
-            keysMapper.updateKey(key);
+            keysMapper.updateById(key);
             msg.setInfo("保存成功");
         }else{
             if(key.getStorageType()==5){
-                keysMapper.updateKey(key);
+                keysMapper.updateById(key);
                 msg.setInfo("保存成功");
             }else{
                 msg.setCode("4002");
@@ -92,7 +92,7 @@ public class KeysServiceImpl extends ServiceImpl<KeysMapper,Keys> implements Key
     }
 
     @Override
-    public List<Keys> getKeys() {
+    public List<StorageKey> getKeys() {
         return keysMapper.getKeys();
     }
 

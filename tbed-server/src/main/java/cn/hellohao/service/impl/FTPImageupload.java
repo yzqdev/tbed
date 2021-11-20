@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
 import org.apache.commons.net.ftp.FTPClient;
@@ -16,11 +16,11 @@ import java.util.*;
 @Service
 public class FTPImageupload {
     static FTPClient ftpClient1 ;
-    static Keys key;
+    static StorageKey key;
 
     public ReturnImage ImageuploadFTP(Map<String, File> fileMap, String username,Integer keyID)  {
         ReturnImage returnImage = new ReturnImage();
-        Keys key = null;
+        StorageKey key = null;
         String[] host = key.getEndpoint().split("\\:");
         String h = host[0];
         Integer p = Integer.parseInt(host[1]);
@@ -57,7 +57,7 @@ public class FTPImageupload {
     }
 
     //初始化FTP对象存储
-    public static Integer Initialize(Keys k) {
+    public static Integer Initialize(StorageKey k) {
         int ret = -1;
         if(k.getEndpoint()!=null && k.getAccessSecret()!=null && k.getEndpoint()!=null && k.getRequestAddress()!=null ) {
             if(!k.getEndpoint().equals("") && !k.getAccessSecret().equals("") && !k.getEndpoint().equals("") && !k.getRequestAddress().equals("") ) {

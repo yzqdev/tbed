@@ -14,4 +14,5 @@ import lombok.EqualsAndHashCode;
 public class ImageVo extends Images {
     private Long countNum;
     private Integer monthNum;
+    private String bucketName;
 }

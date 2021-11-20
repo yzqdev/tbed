@@ -1,7 +1,7 @@
 package cn.hellohao.service;
 
 
-import cn.hellohao.entity.Keys;
+import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.Msg;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface KeysService extends IService<Keys> {
+public interface KeysService extends IService<StorageKey> {
     //查询密钥
-    Keys selectKeys(Integer id);
-    List<Keys> getStorageName();
-    List<Keys> getStorage();
+    StorageKey selectKeys(Integer id);
+    List<StorageKey> getStorageName();
+    List<StorageKey> getStorage();
     //修改key
-    Msg updateKey(Keys key);
-    List<Keys> getKeys();
+    Msg updateKey(StorageKey key);
+    List<StorageKey> getKeys();
 }
