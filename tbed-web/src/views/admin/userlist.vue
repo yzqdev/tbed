@@ -334,7 +334,7 @@ export default {
         this.userIdList=[];
         this.userIdList.push(id);
       }
-      paramJson.arr=this.userIdList;
+      paramJson=this.userIdList;
 
       request(
           "/admin/root/deleUser",

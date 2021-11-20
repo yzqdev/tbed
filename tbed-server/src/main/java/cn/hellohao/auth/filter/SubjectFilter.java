@@ -26,6 +26,7 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
     public static String WEBHOST = null;
     private String CODE ="000";
 
+    @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         UserServiceImpl userService = SpringContextHolder.getBean(UserServiceImpl.class);
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;

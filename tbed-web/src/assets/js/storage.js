@@ -258,14 +258,14 @@ export default {
         },
         //获取指定存储源
         sendGetStorageById(id){
-            var paramJson={};
+
             if(!id){
                 this.$Message.error("修改指令不存在");
             }
-            paramJson.id = id;
+
             request(
-                "/admin/root/getStorageById",
-                paramJson).then(res => {
+                `/admin/root/getStorageById/${id}`,
+                 ).then(res => {
                 if(res.status==200){
                     this.id = id;
                     if(res.data.code=='200'){

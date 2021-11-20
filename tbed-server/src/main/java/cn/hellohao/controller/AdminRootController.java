@@ -235,13 +235,12 @@ public class AdminRootController {
         return msg;
     }
 
-    @PostMapping("/getStorageById")//new
+    @PostMapping("/getStorageById/{id}")//new
     @ResponseBody
-    public Msg getselectkey(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg getselectkey(@PathVariable("id") Integer id) {
         Msg msg = new Msg();
-        JSONObject jsonObj = JSONObject.parseObject(data);
-        Integer keyid = jsonObj.getInteger("id");
-        StorageKey storageKey = keysService.selectKeys(keyid);
+
+        StorageKey storageKey = keysService.selectKeys(id);
         msg.setData(storageKey);
         return msg;
     }

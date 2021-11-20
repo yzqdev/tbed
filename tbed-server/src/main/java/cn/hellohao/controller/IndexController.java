@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.Map;
 
-@Controller
+@RestController
 public class IndexController {
     @Autowired
     private ImgService imgService;
@@ -61,8 +61,8 @@ public class IndexController {
     private ImgAndAlbumService imgAndAlbumService;
 
 
-    @RequestMapping(value = "/webInfo")
-    @ResponseBody
+    @GetMapping(value = "/webInfo")
+    
     public Msg webInfo() {
         final Msg msg = new Msg();
         Config config = configService.getSourceype();
@@ -87,7 +87,7 @@ public class IndexController {
 
 
     @PostMapping(value = "/upload")//upimg new
-    @ResponseBody
+    
     public Msg upimg(
               @RequestParam(value = "file", required = false) MultipartFile multipartFile,Integer day,
                      @RequestParam(value = "classifications", defaultValue = "" ) String classifications) {
@@ -104,7 +104,7 @@ public class IndexController {
 
     //根据网络图片url上传
     @PostMapping(value = "/uploadForUrl") //new
-    @ResponseBody
+    
     public Msg upurlimg(@RequestBody Map<String,Object> data) {
 
         final JSONArray jsonArray = new JSONArray();
@@ -120,8 +120,8 @@ public class IndexController {
         return uploadServicel.uploadForLoc(RequestHelper.getRequest(),null,setday,imgUrl,jsonArray);
     }
 
-    @RequestMapping(value = "/getUploadInfo")//new
-    @ResponseBody
+    @GetMapping(value = "/getUploadInfo")//new
+    
     public Msg getUploadInfo() {
         Msg msg = new Msg();
         JSONObject jsonObject = new JSONObject();
@@ -147,8 +147,8 @@ public class IndexController {
     }
 
 
-    @RequestMapping("/checkStatus")
-    @ResponseBody
+    @PostMapping("/checkStatus")
+    
     public Msg checkStatus(HttpServletRequest request) {
         Msg msg = new Msg();
         String token = request.getHeader("Authorization");
@@ -247,7 +247,7 @@ public class IndexController {
 
     //删除图像
     @PostMapping("/deleImagesByUid/{imgUid}") //new
-    @ResponseBody
+    
     public Msg deleImagesByUid( @PathVariable("imgUid") String imgUid) {
         Msg msg = new Msg();
 
@@ -311,8 +311,8 @@ public class IndexController {
 
 
     //没有权限
-    @RequestMapping("/authError")
-    @ResponseBody
+    @PostMapping("/authError")
+    
     public Msg authError(HttpServletRequest request){
         Msg msg = new Msg();
         msg.setCode("4031");
@@ -321,8 +321,8 @@ public class IndexController {
     }
 
     //认证失败
-    @RequestMapping("/jurisError")
-    @ResponseBody
+    @PostMapping("/jurisError")
+    
     public Msg jurisError(HttpServletRequest request){
         Msg msg = new Msg();
         msg.setCode("4031");
