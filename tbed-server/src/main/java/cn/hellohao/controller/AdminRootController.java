@@ -130,23 +130,22 @@ public class AdminRootController {
 
     @PostMapping("/deleUser")//new
     @ResponseBody
-    public Msg deleuser(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg deleuser(@RequestBody Integer[] userIdList) {
         Msg msg = new Msg();
         try {
-            JSONObject jsonObj = JSONObject.parseObject(data);
-            JSONArray userIdList = jsonObj.getJSONArray("arr");
+
             boolean b = false;
-            for (int i = 0; i < userIdList.size(); i++) {
+            for (int i = 0; i < userIdList.length; i++) {
                 User u = new User();
-                u.setId(userIdList.getInteger(i));
+                u.setId(userIdList[i]);
                 User user = userService.getUsers(u);
                 if(user.getLevel()==1){
-                    userService.deleuser(userIdList.getInteger(i));
+                    userService.deleuser(userIdList[i]);
                 }else{
                     b = true;
                 }
             }
-            if(b && userIdList.size()==1){
+            if(b && userIdList.length==1){
                 msg.setInfo("管理员账户不可删除");
             }else {
                 msg.setInfo("用户已删除成功");
