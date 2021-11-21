@@ -21,7 +21,7 @@ import java.util.Collections;
 public class OriginFilter {
 
 	@Value("${CROS_ALLOWED_ORIGINS}")
-  	private String allowedOrigins;
+  	private String[] allowedOrigins;
 
 	@SuppressWarnings("unchecked")
 	@Bean

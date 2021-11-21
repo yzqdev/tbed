@@ -1,4 +1,4 @@
-CROS_ALLOWED_ORIGINS: http://localhost:8080
+CROS_ALLOWED_ORIGINS:  http://localhost:8080, http://localhost:8090
 logging:
     config: classpath:logback-spring.xml
     file:

@@ -14,6 +14,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 /**
  * @author Hellohao
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SubjectFilter extends BasicHttpAuthenticationFilter {
 
-    public static String WEBHOST = null;
+    public static String[] WEBHOST = null;
     private String CODE ="000";
 
     @Override
@@ -31,20 +32,27 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
         UserServiceImpl userService = SpringContextHolder.getBean(UserServiceImpl.class);
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse =(HttpServletResponse) response;
-        String serviceName = httpServletRequest.getServletPath();//获取接口
+        String serviceName = httpServletRequest.getServletPath();
         String Users_Origin = httpServletRequest.getHeader("usersOrigin");
 
         //验证前端域名
         if(httpServletRequest.getMethod().equals("POST") && !serviceName.contains("/api") && !serviceName.contains("/verifyCode")){
             try{
-                if(Users_Origin.compareTo(SecureUtil.md5(WEBHOST))!=0){
-                    System.out.println("前端域名校验未通过");
-                    System.out.println("request-MD5:"+Users_Origin);
-                    System.out.println("配置文件-MD5:"+SecureUtil.md5(WEBHOST));
-                    System.out.println("配置Host:"+WEBHOST);
-                    this.CODE = "406";
-                    return false;
+                for (String item:  WEBHOST) {
+                    if(Users_Origin.compareTo(SecureUtil.md5(item))!=0){
+                        System.out.println("前端域名校验未通过");
+                        System.out.println("request-MD5:"+Users_Origin);
+                        System.out.println("配置文件-MD5:"+SecureUtil.md5(item));
+                        System.out.println("配置Host:"+item);
+                        this.CODE = "406";
+                        return false;
+                    }
                 }
+
+
+
+
+
             }catch (Exception e){
                 e.printStackTrace();
                 this.CODE = "500";

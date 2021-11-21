@@ -25,16 +25,16 @@ public class CodeController {
     private CodeService codeService;
 
     @GetMapping(value = "/selectCodeList")//new
-
     public Map<String, Object> selectCodeList(@RequestBody PageDto pageDto) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         Integer pageNum = pageDto.getPageNum();
         Integer pageSize = pageDto.getPageSize();
         Page<Code> page=new Page<>(pageNum,pageSize);
         Page<Code> codes = null;
         try {
-            codes = codeService.selectCode(null);
+            codes=codeService.page(page);
+
 
             map.put("code", 200);
             map.put("info", "");

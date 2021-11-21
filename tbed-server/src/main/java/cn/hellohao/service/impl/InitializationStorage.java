@@ -24,7 +24,7 @@ import java.util.List;
 public class InitializationStorage implements CommandLineRunner {
 
     @Value("${CROS_ALLOWED_ORIGINS}")
-    private String allowedOrigins;
+    private String[] allowedOrigins;
 
     @Autowired
     private KeysMapper keysMapper;
