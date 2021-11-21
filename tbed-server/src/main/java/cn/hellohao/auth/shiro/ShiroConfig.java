@@ -36,6 +36,7 @@ public class ShiroConfig {
         filterMap.put("/ota/**","anon");
         filterMap.put("/admin/root/**","roles[admin]");
         filterMap.put("/**","JWT");
+        filterMap.put("/swagger-ui/**", "anon");
         bean.setLoginUrl("/jurisError");
         bean.setUnauthorizedUrl("/authError");
         bean.setFilterChainDefinitionMap(filterMap);

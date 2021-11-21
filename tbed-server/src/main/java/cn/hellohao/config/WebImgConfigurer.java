@@ -16,11 +16,6 @@ public class WebImgConfigurer implements WebMvcConfigurer {
         String filePath = File.separator + "HellohaoData" + File.separator;
         registry.addResourceHandler("/ota/**").addResourceLocations("file:"+filePath);
     }
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController(  "/swagger-ui/")
-                .setViewName("forward:" +  "/swagger-ui/index.html");
-    }
 
 
 }

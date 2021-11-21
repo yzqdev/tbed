@@ -92,7 +92,7 @@ public class FirstRun implements InitializingBean {
 
         //RunSqlScript.RunInsert("alter table img_data drop index index_md5key_url");
         RunSqlScript.RunInsert(inddx_md5key);
-        RunSqlScript.RunInsert("UPDATE `keys` SET `Endpoint` = '0' WHERE `id` = 8");
+        RunSqlScript.RunInsert("UPDATE `storage_key` SET `Endpoint` = '0' WHERE `id` = 8");
         Print.Normal("Stage success");
     }
 

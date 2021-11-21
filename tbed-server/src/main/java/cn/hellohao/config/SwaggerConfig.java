@@ -1,52 +1,57 @@
-//package cn.hellohao.config;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.context.annotation.Configuration;
-//import springfox.documentation.builders.RequestHandlerSelectors;
-//import springfox.documentation.oas.annotations.EnableOpenApi;
-//import springfox.documentation.service.ApiInfo;
-//import springfox.documentation.service.Contact;
-//import springfox.documentation.spi.DocumentationType;
-//import springfox.documentation.spring.web.plugins.Docket;
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
-//
-//import java.util.ArrayList;
-//
-///**
-// * @author yanni
-// */
-////@Configuration
-////@EnableOpenApi
-//public class SwaggerConfig {
-//    @Bean
-//    public Docket docker() {
-//        // 构造函数传入初始化规范，这是swagger2规范
-//        return new Docket(DocumentationType.OAS_30)
-//                //apiInfo： 添加api详情信息，参数为ApiInfo类型的参数，这个参数包含了第二部分的所有信息比如标题、描述、版本之类的，开发中一般都会自定义这些信息
-//                .apiInfo(apiInfo())
-//                .groupName("group")
-//                //配置是否启用Swagger，如果是false，在浏览器将无法访问，默认是true
-//                .enable(true)
-//                .select()
-//                //apis： 添加过滤条件,
-//                .apis(RequestHandlerSelectors.basePackage("cn.hellohao.controller"))
-//                //paths： 这里是控制哪些路径的api会被显示出来，比如下方的参数就是除了/user以外的其它路径都会生成api文档
-//
-//                .build();
-//    }
-//
-//    private ApiInfo apiInfo() {
-//        Contact contact = new Contact("名字：name", "个人链接：https://yzqdev.github.io/", "邮箱：yzqdev@outlook.com");
-//        return new ApiInfo(
-//                "tbed",
-//                "描述内容",
-//                "版本内容：v1.0",
-//                "链接：https://github.com/yzqdev/tbed",
-//                contact,
-//                "许可：Apach 2.0 ",
-//                "许可链接：XXX",
-//                new ArrayList<>()
-//        );
-//    }
-//}
+package cn.hellohao.config;
+
+
+
+
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * 的配置
+ *
+ * @author yanni
+ * @date 2021/11/21
+ */
+
+@Configuration
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Swagger3",
+                version = "1.0",
+                description = "Swagger3使用演示",
+                contact = @Contact(name = "TOM")
+        ),
+        security = @SecurityRequirement(name = "token"),
+        externalDocs = @ExternalDocumentation(description = "参考文档",
+                url = "https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations"
+        )
+)
+@SecurityScheme(type = SecuritySchemeType.APIKEY, name = "token",in = SecuritySchemeIn.HEADER)
+
+public class SwaggerConfig {
+    @Bean
+    public GroupedOpenApi docker() {
+        return GroupedOpenApi.builder()
+                .packagesToScan("cn.hellohao.controller")
+                .group("api")
+                .pathsToMatch("/**").build();
+
+
+    }
+
+
+
+}

@@ -12,6 +12,7 @@ import cn.hellohao.utils.*;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/admin")
+@Tag(name = "管理员")
 public class AdminController {
 
     @Autowired
