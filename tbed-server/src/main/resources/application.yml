@@ -1,34 +1,30 @@
 CROS_ALLOWED_ORIGINS: http://localhost:8080, http://localhost:8090
 logging:
-  config: classpath:logback-spring.xml
-  file:
-    path: /HellohaoData/tbedlog
-  level:
-    cn:
-      hellohao:
-        dao: debug
+    config: classpath:logback-spring.xml
+    file:
+        path: /HellohaoData/tbedlog
+    level:
+        cn:
+            hellohao:
+                dao: debug
 multipart:
-  maxFileSize: 10240KB
-  maxRequestSize: 10240KB
-
+    maxFileSize: 10240KB
+    maxRequestSize: 10240KB
 mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
-  port: 8089
+    port: 8089
 spring:
-
-  http:
-    multipart:
-      location: /data/upload_tmp
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-  thymeleaf:
-    cache: false
-
-    suffix: .html
-  config:
-    activate:
-      on-profile: @activatedProperties@
+    http:
+        multipart:
+            location: /data/upload_tmp
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+    profiles:
+        active: '@activatedProperties@'
+    thymeleaf:
+        cache: false
+        suffix: .html
 systemupdate: '2020-05-26'
