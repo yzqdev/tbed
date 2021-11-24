@@ -1,10 +1,8 @@
 module.exports = {
     productionSourceMap: false,
-    chainWebpack: config => {
-
-
-
-    },
+     devServer:{
+        port:8090
+     }
 
 
 }

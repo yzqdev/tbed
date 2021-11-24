@@ -58,7 +58,7 @@ export default {
 
     checkLogin() {
       this.$http(
-          '/checkStatus' + '?' + new Date().getTime() + Math.random() + Math.ceil(Math.random() * (10000 - 99999) + 99999),
+          '/checkStatus'  ,
           {}).then(res => {
         if (res.status == 200) {
           var json = res.data;
