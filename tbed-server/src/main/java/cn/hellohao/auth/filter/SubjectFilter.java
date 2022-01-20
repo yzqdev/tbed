@@ -38,16 +38,18 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
         //验证前端域名
         if(httpServletRequest.getMethod().equals("POST") && !serviceName.contains("/api") && !serviceName.contains("/verifyCode")){
             try{
-                for (String item:  WEBHOST) {
-                    if(Users_Origin.compareTo(SecureUtil.md5(item))!=0){
-                        System.out.println("前端域名校验未通过");
-                        System.out.println("request-MD5:"+Users_Origin);
-                        System.out.println("配置文件-MD5:"+SecureUtil.md5(item));
-                        System.out.println("配置Host:"+item);
-                        this.CODE = "406";
-                        return false;
-                    }
-                }
+
+                //todo 这里禁止其他网站使用我们的api
+                //for (String item:  WEBHOST) {
+                //    if(Users_Origin.compareTo(SecureUtil.md5(item))!=0){
+                //        System.out.println("前端域名校验未通过");
+                //        System.out.println("request-MD5:"+Users_Origin);
+                //        System.out.println("配置文件-MD5:"+SecureUtil.md5(item));
+                //        System.out.println("配置Host:"+item);
+                //        this.CODE = "406";
+                //        return false;
+                //    }
+                //}
 
 
 
