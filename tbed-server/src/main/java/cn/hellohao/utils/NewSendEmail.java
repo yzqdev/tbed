@@ -5,18 +5,21 @@ import cn.hellohao.entity.EmailConfig;
 import cn.hellohao.entity.Msg;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
-import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.template.PebbleTemplate;
-import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.core.io.ClassPathResource;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import javax.annotation.Resource;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.*;
 
 public class NewSendEmail {
+    @Resource
+    private static TemplateEngine templateEngine;
     public static MimeMessage emailMessage(EmailConfig emailConfig) {
         Properties p = new Properties();
         p.setProperty("mail.smtp.auth", "true");
@@ -37,7 +40,16 @@ public class NewSendEmail {
         session.setDebug(true);
         return new MimeMessage(session);
     }
-
+    /**
+     * 获取html中的内容
+     */
+    private static String build(String template,Map<String, Object> mapMsg) {
+        Context context = new Context();
+        context.setVariables(mapMsg);
+        String result = templateEngine.process(template, context);
+        System.out.println(result);
+        return result;
+    }
     public static Integer sendEmail(EmailConfig emailConfig, String username, String uid, String toEmail, Config config) {
 //
 //        Properties props = new Properties();
@@ -62,16 +74,13 @@ public class NewSendEmail {
         String domain = config.getDomain();
         try {
             //生成模板
-            PebbleEngine engine = new PebbleEngine.Builder().build();
-            ClassPathResource classPathResource = new ClassPathResource("emailTemplate/emailRegister.html");
-            PebbleTemplate compiledTemplate = engine.getTemplate(classPathResource.getPath());
+
             Map<String, Object> context = new HashMap<>();
             context.put("username", username);
             context.put("webname", webname);
             context.put("url", domain + "/user/activation?activation=" + uid + "&username=" + username);
-            Writer writer = new StringWriter();
-            compiledTemplate.evaluate(writer, context);
-            String output = writer.toString();
+
+            String output = build("emailTemplate/emailRegister.html",context);
             MimeMessage message = emailMessage(emailConfig);
             message.setFrom(new InternetAddress(emailConfig.getEmails(), emailConfig.getEmailName(), "UTF-8"));
             // 收件人和抄送人
@@ -124,17 +133,14 @@ public class NewSendEmail {
         String new_pass = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0, 10);
         try {
             //生成模板
-            PebbleEngine engine = new PebbleEngine.Builder().build();
-            ClassPathResource classPathResource = new ClassPathResource("emailTemplate/emailFindPass.html");
-            PebbleTemplate compiledTemplate = engine.getTemplate(classPathResource.getPath());
+
             Map<String, Object> context = new HashMap<>();
             context.put("username", username);
             context.put("webname", webname);
             context.put("new_pass", new_pass);
             context.put("url", domain + "/user/retrieve?activation=" + uid + "&cip=" + HexUtil.encodeHexStr(new_pass, CharsetUtil.CHARSET_UTF_8));
             Writer writer = new StringWriter();
-            compiledTemplate.evaluate(writer, context);
-            String output = writer.toString();
+            String output =build("emailTemplate/emailFindPass.html",context);
             message.setFrom(new InternetAddress(emailConfig.getEmails(), emailConfig.getEmailName(), "UTF-8"));
             // 收件人和抄送人
 

@@ -13,10 +13,14 @@ import java.net.InetAddress;
 import java.util.Properties;
 import java.util.Date;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
 
 import com.sun.mail.smtp.*;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  * Demo app that shows how to construct and send an RFC822
