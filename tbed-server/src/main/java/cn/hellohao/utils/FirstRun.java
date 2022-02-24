@@ -1,5 +1,6 @@
 package cn.hellohao.utils;
 
+import cn.hellohao.config.GlobalConstant;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.UUID;
 
 /**
@@ -28,6 +30,7 @@ public class FirstRun implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        isWindows();
         RunSqlScript.USERNAME = jdbcusername;
         RunSqlScript.PASSWORD = jdbcpass;
         RunSqlScript.DBURL = jdbcurl;
@@ -123,11 +126,11 @@ public class FirstRun implements InitializingBean {
     private String compressed = "alter table img_data row_format=compressed";
 
     private void clears(){
-        File file1 = new File(File.separator+"HellohaoData"+File.separator+"hellohaotempimg");
-        File file2 = new File(File.separator+"HellohaoData"+File.separator+"hellohaotempwatermarimg");
+        File file1 = new File(GlobalConstant.LOCPATH+File.separator+"hellohaotempimg");
+        File file2 = new File(GlobalConstant.LOCPATH+File.separator+"hellohaotempwatermarimg");
 
         //判断目录有没有创建
-        File file = new File(File.separator+"HellohaoData");
+        File file = new File(GlobalConstant.LOCPATH);
         if(!file.exists()){
             file.mkdirs();
             file1.mkdirs();
@@ -141,5 +144,21 @@ public class FirstRun implements InitializingBean {
         }
     }
 
+    public boolean isWindows() {
 
+        System.out.println("当前系统类型:"+System.getProperties().getProperty("os.name").toUpperCase());
+
+        if(System.getProperties().getProperty("os.name").toUpperCase().contains("MAC")){
+
+            GlobalConstant.SYSTYPE = "MAC";
+
+            Properties props=System.getProperties();
+
+            GlobalConstant.LOCPATH = props.getProperty("user.home")+File.separator+".HellohaoData";
+
+        }
+
+        return System.getProperties().getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1;
+
+    }
 }

@@ -1,5 +1,6 @@
 package cn.hellohao.service.impl;
 
+import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
@@ -23,7 +24,8 @@ public class UFileImageupload {
         try {
             for (Map.Entry<String, File> entry : fileMap.entrySet()) {
                 String ShortUID = SetText.getShortUuid();
-                file = entry.getValue();
+                file = entry.getValue();   Msg fileMiME = TypeDict.FileMiME(file);
+                meta.setHeader("content-type", fileMiME.getData().toString());
                 uFile.setContentMD5(UpYun.md5(file));
                 boolean result = uFile.writeFile(username + "/" + ShortUID + "." + entry.getKey(), file, true);
                 if(result){
@@ -32,6 +34,7 @@ public class UFileImageupload {
                     returnImage.setImgSize(entry.getValue().length());
                     returnImage.setCode("200");
                 }else{
+                    returnImage.setCode("400");
                     System.err.println("上传失败");
                 }
             }

@@ -33,7 +33,7 @@
     </select>
 
     <insert id="addgroup" parameterType="cn.hellohao.entity.SiteGroup">
-        insert into tbed.site_group (id,group_name,key_id) values (null,#{groupname},#{keyid})
+        insert into tbed.site_group (id,group_name,key_id,use_type,compress) values (null,#{groupName},#{keyId},#{userType},#{compress})
     </insert>
 
     <select id="GetCountFroUserType" parameterType="integer" resultType="integer">
@@ -48,9 +48,9 @@
         delete from tbed.site_group where id=#{id}
     </delete>
 
-<!--    <update id="setgroup" parameterType="cn.hellohao.entity.SiteGroup">-->
-<!--        UPDATE tbed.site_group SET group_name=#{groupname},key_id=#{keyid} where id = #{id};-->
-<!--    </update>-->
+    <update id="setgroup" parameterType="cn.hellohao.entity.SiteGroup">
+        UPDATE tbed.site_group SET group_name=#{groupname},key_id=#{keyid},user_type=#{userType},compress=#{compress} where id = #{id};
+    </update>
 
     <select id="getGroupFroUserType" parameterType="integer" resultType="cn.hellohao.entity.SiteGroup">
         SELECT

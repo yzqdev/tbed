@@ -1,5 +1,6 @@
 package cn.hellohao.service.impl;
 
+import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.utils.*;
@@ -26,7 +27,8 @@ public class OSSImageupload {
             for (Map.Entry<String, File> entry : fileMap.entrySet()) {
                 String ShortUID = SetText.getShortUuid();
                 java.text.DateFormat format1 = new java.text.SimpleDateFormat("MMddhhmmss");
-                file = entry.getValue();
+                file = entry.getValue();  Msg fileMiME = TypeDict.FileMiME(file);
+                meta.setHeader("content-type", fileMiME.getData().toString());
                 System.out.println("待上传的图片："+username + "/" + ShortUID + "." + entry.getKey());
                 ossClient.putObject(key.getBucketName(), username + "/" + ShortUID + "." + entry.getKey(),file);
                 returnImage.setImgName(username + "/" + ShortUID + "." + entry.getKey());//entry.getValue().getOriginalFilename()
