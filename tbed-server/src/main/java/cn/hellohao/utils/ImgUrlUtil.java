@@ -93,7 +93,7 @@ public class ImgUrlUtil {
 
         Map<String ,Object> resmap = new HashMap<>();
         Map<String ,String> map = checkURLStatusCode(urlStr);
-        if(map.get("Check").equals("false")){
+        if(map.size()==0 || map.get("Check").equals("false")){
 //            StatusCode
             resmap.put("res",false);
             resmap.put("StatusCode",map.get("StatusCode"));
@@ -134,6 +134,7 @@ public class ImgUrlUtil {
                     f.renameTo(new File(imgPath));
                     resmap.put("res",true);
                     resmap.put("imgPath",imgPath);
+                    resmap.put("imgsize",new File(imgPath).length());
                 }else{
                     new File(saveDir+File.separator+fileName).delete();
                     resmap.put("res",false);

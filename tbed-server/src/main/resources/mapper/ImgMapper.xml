@@ -37,18 +37,30 @@
                 a.update_time &lt;= #{img.stopTime}
             </if>
 
-            <if test="img.userId != null">
-                <choose>
-                    <when test="img.selectType != null">
-                        and
-                        a.user_id not in (#{img.userId})
-                    </when>
-                    <otherwise>
-                        and
-                        a.user_id = #{img.userId}
-                    </otherwise>
-                </choose>
+            <if test="violation == 'true'">
+                and
+                a.violation !=""
             </if>
+            <choose>
+                <when test="userid!=null and userid!=''">
+                    and
+                    a.user_id = #{userId}
+                </when>
+                <otherwise>
+                    <if test="username != null and username != ''">
+                        <choose>
+                            <when test="selecttype==1">
+                                and
+                                a.user_id in ( SELECT id  from `user` where username LIKE '%${username}%')
+                            </when>
+                            <otherwise>
+                                and
+                                a.user_id not in ( SELECT id  from `user` where username LIKE '%${username}%')
+                            </otherwise>
+                        </choose>
+                    </if>
+                </otherwise>
+            </choose>
         </where>
 
         order by a.id desc
