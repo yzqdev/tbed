@@ -52,9 +52,8 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     private ImgMapper imgMapper;
 
     @Override
-    public Page<Images> selectimg(  Page<Images> page, ImgSearchDto imgSearchDto) {
-        // TODO Auto-generated method stub
-        return imgMapper.selectimg( page,    imgSearchDto);
+    public List<Images> selectImages(ImgSearchDto<Images> imgSearchDto) {
+        return imgMapper.selectimg(imgSearchDto);
     }
 
     @Override
@@ -68,6 +67,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
         return imgMapper.deleimgForImgUid(imguid);
     }
 
+    @Override
     public Images selectByPrimaryKey(Integer id) {
         return imgMapper.selectByPrimaryKey(id);
     }
@@ -196,7 +196,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     public Integer counts(Integer userid) {
         // TODO Auto-generated method stub
 
-         return imgMapper.counts(userid);
+        return imgMapper.counts(userid);
     }
 
     @Override
@@ -248,7 +248,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     @Override
     public List<Images> RecentlyUploaded(Integer userid) {
 
-         return imgMapper.RecentlyUploaded(userid);
+        return imgMapper.RecentlyUploaded(userid);
     }
 
     @Override

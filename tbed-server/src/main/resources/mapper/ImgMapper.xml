@@ -37,25 +37,25 @@
                 a.update_time &lt;= #{img.stopTime}
             </if>
 
-            <if test="violation == 'true'">
-                and
-                a.violation !=""
-            </if>
+<!--            <if test="img.violation == 'true'">-->
+<!--                and-->
+<!--                a.violation !=-->
+<!--            </if>-->
             <choose>
-                <when test="userid!=null and userid!=''">
+                <when test="img.userId!=null and img.userId!=''">
                     and
                     a.user_id = #{userId}
                 </when>
                 <otherwise>
-                    <if test="username != null and username != ''">
+                    <if test="img.username != null and img.username != ''">
                         <choose>
-                            <when test="selecttype==1">
+                            <when test="img.selecttype==1">
                                 and
-                                a.user_id in ( SELECT id  from `user` where username LIKE '%${username}%')
+                                a.user_id in ( SELECT id  from tbed.user where username LIKE '%${img.username}%')
                             </when>
                             <otherwise>
                                 and
-                                a.user_id not in ( SELECT id  from `user` where username LIKE '%${username}%')
+                                a.user_id not in ( SELECT id  from tbed.user where username LIKE '%${img.username}%')
                             </otherwise>
                         </choose>
                     </if>
@@ -70,13 +70,13 @@
 
     <delete id="deleimgForImgUid" parameterType="string">
         DELETE
-        FROM img_data
+        FROM tbed.img_data
         WHERE img_uid = #{imguid}
     </delete>
 
     <select id="selectByPrimaryKey" parameterType="integer" resultType="cn.hellohao.entity.Images">
         select *
-        from img_data
+        from tbed.img_data
         where id = #{id}
     </select>
 
@@ -93,7 +93,7 @@
 
     <!-- 根据图片名字标记IP -->
     <update id="setImg" parameterType="cn.hellohao.entity.Images">
-        UPDATE img_data
+        UPDATE tbed.img_data
         <set>
             <if test="abnormal!=null">
                 abnormal=#{abnormal}
@@ -107,26 +107,26 @@
     <!-- 非法图片删除他  根据名称-->
     <delete id="deleimgname" parameterType="string">
         DELETE
-        FROM img_data
+        FROM tbed.img_data
         WHERE img_name = #{imgname}
     </delete>
 
     <!--    批量删除-->
     <delete id="deleall" parameterType="integer">
         DELETE
-        FROM img_data
+        FROM tbed.img_data
         WHERE id = #{id}
     </delete>
 
     <select id="gettimeimg" parameterType="string" resultType="cn.hellohao.entity.Images">
         SELECT *
-        from img_data
+        from tbed.img_data
         WHERE update_time >= #{time}
     </select>
     <!--查询指定用户总内存-->
     <select id="getusermemory" parameterType="integer" resultType="long">
         SELECT sum(sizes) as sizes
-        FROM `img_data`
+        FROM tbed.`img_data`
         where user_id = #{userid}
     </select>
 

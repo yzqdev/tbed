@@ -43,9 +43,9 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
     public JSONArray getAlbumList(String[] array) {
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < array.length; i++) {
-            ImgSearchDto imgSearchDto = new ImgSearchDto();
+            ImgSearchDto<Images> imgSearchDto = new ImgSearchDto<>(1, 5);
             //imgSearchDto.setImgUid(array.getString(i));
-            jsonArray.add(imgMapper.selectimg(new Page<>(1,20), imgSearchDto).getRecords().get(0));
+            jsonArray.add(imgMapper.selectimg( imgSearchDto) );
         }
         return jsonArray;
     }
