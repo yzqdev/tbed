@@ -169,6 +169,7 @@ public class UploadServicel {
                 String imgname = returnImage.getImgName();
                 img.setImgUrl(imgurl);
                 img.setUpdateTime(LocalDateTime.now());
+                img.setCreateTime(LocalDateTime.now());
                 img.setSource(key.getId());
                 img.setUserId(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());

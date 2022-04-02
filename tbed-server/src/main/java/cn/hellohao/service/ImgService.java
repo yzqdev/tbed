@@ -19,7 +19,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface ImgService extends IService<Images> {
-    List<Images> selectImages(ImgSearchDto<Images> imgSearchDto);
+    /**
+     * 选择图片
+     *
+     * @param imgSearchDto img搜索dto
+     * @return {@link List}<{@link Images}>
+     */
+    List<Images> selectImages(ImgSearchDto  imgSearchDto);
 
     Integer deleimg(Integer id);
 

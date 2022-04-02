@@ -15,7 +15,7 @@ import cn.hellohao.entity.Images;
 @Mapper
 public interface ImgMapper extends BaseMapper<Images> {
 
-  List<Images> selectimg( @Param("img") ImgSearchDto imgSearchDto);
+  List<Images>  selectImageData(@Param("img") ImgSearchDto imgSearchDto);
 
 
 

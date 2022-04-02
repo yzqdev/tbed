@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * 用户
  *
@@ -34,7 +36,7 @@ public class User extends Model<User> {
     /**
      * 生日
      */
-    private String birthday;
+    private LocalDateTime birthday;
     private Integer level;
     private String uid;
     private Integer isok;
@@ -54,6 +56,7 @@ public class User extends Model<User> {
     // * 用户照片数量
     // */
     //private Long counts;
-
+private LocalDateTime createTime;
+private LocalDateTime updateTime;
 
 }

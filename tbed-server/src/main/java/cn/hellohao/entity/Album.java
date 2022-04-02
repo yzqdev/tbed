@@ -2,7 +2,6 @@ package cn.hellohao.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +24,8 @@ public class Album {
     /**
      * 创建日期
      */
-    private LocalDateTime createDate;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
     /**
      * 密码
      */

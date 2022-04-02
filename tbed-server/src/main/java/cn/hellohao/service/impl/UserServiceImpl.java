@@ -3,7 +3,6 @@ package cn.hellohao.service.impl;
 import cn.hellohao.dao.CodeMapper;
 import cn.hellohao.dao.UserMapper;
 import cn.hellohao.exception.CodeException;
-import cn.hellohao.entity.Images;
 import cn.hellohao.entity.User;
 import cn.hellohao.service.UserService;
 import cn.hellohao.utils.Print;
@@ -111,22 +110,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public List<User> getuserlistforgroupid(Integer groupid) {
-        return userMapper.getuserlistforgroupid(groupid);
+        return userMapper.getUserListFromGroupId(groupid);
     }
 
-//    @Transactional//默认遇到throw new RuntimeException(“…”);会回滚
-//    public Integer usersetmemory(User user,String codestring) {
-//        Integer ret = userMapper.setmemory(user);
-//        if(ret<=0){
-//            Print.warning("用户空间没有设置成功。回滚");
-//            throw new CodeException("用户之没有设置成功。");
-//        }else{
-//            ret = codeMapper.deleteCode(codestring);
-//        }
-//        return ret;
-//    }
 
-    @Transactional//默认遇到throw new RuntimeException(“…”);会回滚
+
+    /**
+     * 默认遇到throw new RuntimeException(“…”);会回滚
+     *
+     * @param user       用户
+     * @param codestring codestring
+     * @return {@link Integer}
+     */
+    @Transactional
     public Integer usersetmemory(User user, String codestring) {
         Integer ret = userMapper.changeUser(user);
         if(ret<=0){

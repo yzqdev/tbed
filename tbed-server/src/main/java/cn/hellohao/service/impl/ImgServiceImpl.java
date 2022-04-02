@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hellohao.entity.StorageKey;
-import cn.hellohao.entity.User;
 import cn.hellohao.entity.dto.HomeImgDto;
 import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.entity.vo.ImageVo;
@@ -14,7 +13,6 @@ import cn.hellohao.utils.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -30,7 +28,6 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.util.Auth;
 import com.upyun.UpException;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.netease.cloud.auth.BasicCredentials;
@@ -52,8 +49,8 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     private ImgMapper imgMapper;
 
     @Override
-    public List<Images> selectImages(ImgSearchDto<Images> imgSearchDto) {
-        return imgMapper.selectimg(imgSearchDto);
+    public List<Images> selectImages(ImgSearchDto  imgSearchDto) {
+        return imgMapper.selectImageData(imgSearchDto);
     }
 
     @Override

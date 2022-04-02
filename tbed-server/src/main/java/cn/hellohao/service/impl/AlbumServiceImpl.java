@@ -11,15 +11,15 @@ import cn.hellohao.entity.Album;
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.AlbumService;
-import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,14 +40,15 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
 
 
     @Override
-    public JSONArray getAlbumList(String[] array) {
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < array.length; i++) {
-            ImgSearchDto<Images> imgSearchDto = new ImgSearchDto<>(1, 5);
-            //imgSearchDto.setImgUid(array.getString(i));
-            jsonArray.add(imgMapper.selectimg( imgSearchDto) );
+    public Page<Images> getAlbumList(String[] array) {
+
+        List<Images> images= new ArrayList<>(List.of());
+        for (String s : array) {
+            images.add(imgMapper.selectOne(new LambdaQueryWrapper<Images>().eq(Images::getId, s)));
         }
-        return jsonArray;
+        Page<Images> page=new Page<>(1,5);
+          //List<Images> images= imgMapper.selectImageData( imgSearchDto);
+        return page.setRecords(images);
     }
 
     @Override

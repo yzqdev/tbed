@@ -11,6 +11,7 @@ import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -326,8 +327,9 @@ public class AdminController {
         imgSearchDto.setPageNum(1);
         imgSearchDto.setPageSize(10);
         List<Images> imgList = imgService.selectImages(imgSearchDto);
-        //Page<Images> images = new Page<Images>(imgList);
-        PageResultBean<Images> pageResultBean = new PageResultBean<>(imgList.size(), imgList);
+        Page<Images> images = new Page<>(1,10);
+        images.setRecords(imgList);
+        PageResultBean<Images> pageResultBean = new PageResultBean<>(images.getTotal(), images.getRecords());
         msg.setData(pageResultBean);
         return msg;
     }
@@ -407,6 +409,7 @@ public class AdminController {
                 user.setPassword(Base64Encryption.encryptBASE64(password.getBytes()));
                 user.setUid(u.getUid());
             }
+            user.setUpdateTime(LocalDateTime.now());
             userService.change(user);
             msg.setInfo("信息修改成功，请重新登录");
         } catch (Exception e) {

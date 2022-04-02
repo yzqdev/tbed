@@ -1,8 +1,8 @@
 package cn.hellohao.service;
 
 import cn.hellohao.entity.Album;
+import cn.hellohao.entity.Images;
 import cn.hellohao.entity.dto.AlbumDto;
-import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public interface AlbumService extends IService<Album> {
 
-    JSONArray getAlbumList(String[] array);
+    Page<Images> getAlbumList(String[] array);
 
     Album selectAlbum(AlbumDto albumDto);
 

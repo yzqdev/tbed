@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.ImgMapper">
 
     <!-- 查询-->
-    <select id="selectimg" parameterType="cn.hellohao.entity.dto.ImgSearchDto" resultType="cn.hellohao.entity.Images">
+    <select id="selectImageData" parameterType="cn.hellohao.entity.dto.ImgSearchDto" resultType="cn.hellohao.entity.Images">
         SELECT
         a.id,
         a.img_name,

@@ -100,14 +100,20 @@ public class AlbumController {
 
     }
 
-    @PostMapping("/getAlbumImgList") //new
+    /**
+     * 得到专辑img列表
+     *
+     * @param data 数据
+     * @return {@link Msg}
+     */
+    @PostMapping("/getAlbumImgList")
     @ResponseBody
     public Msg getAlbumImgList(@RequestBody String[] data) {
         Msg msg = new Msg();
 
 
-        JSONArray json = albumServiceImpl.getAlbumList(data);
-        msg.setData(json);
+       Page<Images> json = albumServiceImpl.getAlbumList(data);
+        msg.setData(json.getRecords());
         return msg;
     }
 
@@ -140,7 +146,8 @@ public class AlbumController {
             DateTimeFormatter df=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Album album = new Album();
             album.setAlbumTitle(albumtitle);
-            album.setCreateDate(LocalDateTime.now());
+            album.setCreateTime(LocalDateTime.now());
+            album.setUpdateTime(LocalDateTime.now());
             album.setPassword(password);
             album.setAlbumKey(uuid);
             if(u==null){

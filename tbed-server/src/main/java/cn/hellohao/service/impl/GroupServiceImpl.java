@@ -68,7 +68,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
         Integer ret = 0;
         ret = groupMapper.delegroup(id);
         if(ret>0){
-            List<User> userList = userMapper.getuserlistforgroupid(id);
+            List<User> userList = userMapper.getUserListFromGroupId(id);
             for (User user : userList) {
                 User u = new User();
                 u.setGroupId(1);

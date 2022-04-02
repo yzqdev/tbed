@@ -99,16 +99,16 @@ public class UserController {
                 return msg;
             }
             String uid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-           DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//设置日期格式
-            String birthder = df.format(LocalDateTime.now());// new Date()为获取当前系统时间
             user.setLevel(1);
             user.setUid(uid);
-            user.setBirthday(birthder);
+            user.setBirthday(LocalDateTime.now());
             user.setMemory(updateConfig.getUserStorage());
             user.setGroupId(1);
             user.setEmail(email);
             user.setUsername(username);
             user.setPassword(password);
+            user.setCreateTime(LocalDateTime.now());
+            user.setUpdateTime(LocalDateTime.now());
             Config config = configService.getSourceype();
             Integer type = 0;
             if(emailConfig.getUsing()==1){

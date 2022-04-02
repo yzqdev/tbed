@@ -194,20 +194,20 @@
 
     <!--刪除用戶-->
     <delete id="deleuser" parameterType="integer">
-        DELETE FROM user WHERE id=#{id}
+        DELETE FROM tbed.user WHERE id=#{id}
     </delete>
 
     <update id="setisok" parameterType="cn.hellohao.entity.User">
         <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE `user` set `isok`=#{isok} where id=#{id}
+        UPDATE tbed.user set `isok`=#{isok} where id=#{id}
     </update>
     <update id="setmemory" parameterType="cn.hellohao.entity.User">
         <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE `user` set `memory`=#{memory} where id=#{id}
+        UPDATE tbed.user set `memory`=#{memory} where id=#{id}
     </update>
 
-    <select id="getuserlistforgroup_id" parameterType="integer" resultType="cn.hellohao.entity.User">
-        select * from user where group_id=#{group_id}
+    <select id="getUserListFromGroupId" parameterType="integer" resultType="cn.hellohao.entity.User">
+        select * from tbed.user where group_id=#{group_id}
     </select>
 
 </mapper>
