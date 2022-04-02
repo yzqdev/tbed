@@ -92,12 +92,21 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 html, body, .app {
   height: 100%;
   /*overflow: hidden;*/
 }
+.QRCodestyle {
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ img{
+   height: 160px;
+   width: 160px; opacity: 0.7;
+ }
+}
 .app {
   font-family: JetBrainsMono, Noto Sans SC, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-style: normal;
