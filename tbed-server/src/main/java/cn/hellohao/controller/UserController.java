@@ -1,7 +1,7 @@
 package cn.hellohao.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,8 +99,8 @@ public class UserController {
                 return msg;
             }
             String uid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-            String birthder = df.format(new Date());// new Date()为获取当前系统时间
+           DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//设置日期格式
+            String birthder = df.format(LocalDateTime.now());// new Date()为获取当前系统时间
             user.setLevel(1);
             user.setUid(uid);
             user.setBirthday(birthder);

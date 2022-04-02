@@ -14,13 +14,13 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -89,8 +89,8 @@ public class IndexController {
     @PostMapping(value = "/upload")//upimg new
     
     public Msg upimg(
-              @RequestParam(value = "file", required = false) MultipartFile multipartFile,Integer day,
-                     @RequestParam(value = "classifications", defaultValue = "" ) String classifications) {
+            @RequestParam(value = "file", required = false) MultipartFile multipartFile, int day,
+            @RequestParam(value = "classifications", defaultValue = "" ) String classifications) {
         final JSONArray jsonArray = new JSONArray();
         HttpServletRequest request=RequestHelper.getRequest();
         if(!classifications.equals("")){
@@ -108,7 +108,7 @@ public class IndexController {
     public Msg upurlimg(@RequestBody Map<String,Object> data) {
 
         final JSONArray jsonArray = new JSONArray();
-        Integer setday = (Integer) data.get("day");
+        int setday = (int) data.get("day");
         String imgUrl = (String) data.get("imgUrl");
         String selectTreeListStr = (String) data.get("classifications");
         if(null != selectTreeListStr){

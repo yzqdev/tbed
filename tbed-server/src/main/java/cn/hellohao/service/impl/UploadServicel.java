@@ -5,6 +5,7 @@ import cn.hellohao.entity.*;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.SysConfigService;
 import cn.hellohao.utils.*;
+import cn.hutool.core.lang.Console;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -18,8 +19,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
-import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -50,7 +55,7 @@ public class UploadServicel {
 
 
     public Msg uploadForLoc(HttpServletRequest request,
-                            MultipartFile multipartFile, Integer setday, String imgUrl, JSONArray selectTreeList) {
+                            MultipartFile multipartFile,int setday, String imgUrl, JSONArray selectTreeList) {
         Msg msg = new Msg();
         try{
             JSONObject jsonObject = new JSONObject();
@@ -158,13 +163,12 @@ public class UploadServicel {
             Map<ReturnImage, Integer> m = null;
             ReturnImage returnImage = GetSource.storageSource(key.getStorageType(), map, updatePath, key.getId());
             Images img = new Images();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             if(returnImage.getCode().equals("200")){
                 String imgurl = returnImage.getImgUrl();
                 Long imgsize = returnImage.getImgSize();
                 String imgname = returnImage.getImgName();
                 img.setImgUrl(imgurl);
-                img.setUpdateTime(df.format(new Date()));
+                img.setUpdateTime(LocalDateTime.now());
                 img.setSource(key.getId());
                 img.setUserId(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());
@@ -265,9 +269,8 @@ public class UploadServicel {
     //判断用户 或 游客 当前上传图片的一系列校验
     private Msg updateImgCheck(User user, UploadConfig uploadConfig){
         final Msg msg = new Msg();
-        java.text.DateFormat dateFormat = null;
+       DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         try {
-            dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             if (user == null) {
                 //用户没有登陆，值判断游客能不能上传即可
                 if(uploadConfig.getIsupdate()!=1){
@@ -293,7 +296,7 @@ public class UploadServicel {
                 UsedTotleMemory = imgMapper.getusermemory(user.getId())==null?0L:imgMapper.getusermemory(user.getId());//单位 B
             }
             if (uploadConfig.getUrlType() == 2) {
-                updatePath = dateFormat.format(new Date());
+                updatePath = dateFormat.format(LocalDateTime.now());
             }
             msg.setCode("300");
         } catch (Exception e) {
@@ -366,17 +369,13 @@ public class UploadServicel {
 
 
     //计算时间
-    public static String plusDay(int setday){
-        Date d = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String currdate = format.format(d);
-        System.out.println("现在的日期是：" + currdate);
-        Calendar ca = Calendar.getInstance();
-        ca.setTime(d);
-        ca.add(Calendar.DATE, setday);// num为增加的天数，可以改变的
-        d = ca.getTime();
-        String enddate = format.format(d);
-        System.out.println("到期的日期：" + enddate);
+    public static LocalDateTime plusDay(int setday){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+       LocalDateTime today=LocalDateTime.now();
+       Console.log("现在的日期是：" + today);
+
+       LocalDateTime enddate =  today.plusDays(setday) ;
+        Console.log("到期的日期：" + enddate.format(format));
         return enddate;
     }
 

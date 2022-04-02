@@ -14,12 +14,12 @@ import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -32,40 +32,40 @@ import java.util.*;
 @Tag(name = "管理员")
 public class AdminController {
 
-    @Autowired
+    @Resource
     private ImgService imgService;
-    @Autowired
+    @Resource
     private KeysService keysService;
-    @Autowired
+    @Resource
     private UserServiceImpl userService;
-    @Autowired
+    @Resource
     private ImgreviewService imgreviewService;
-    @Autowired
+    @Resource
     private ImgTempService imgTempService;
-    @Autowired
+    @Resource
     private UploadConfigService uploadConfigService;
-    @Autowired
+    @Resource
     private CodeService codeService;
-    @Autowired
+    @Resource
     private ImgAndAlbumService imgAndAlbumService;
-    @Autowired
+    @Resource
     private AlbumService albumService;
-    @Autowired
+    @Resource
     AlbumServiceImpl albumServiceI;
 
-    @Autowired
+    @Resource
     private NOSImageupload nosImageupload;
-    @Autowired
+    @Resource
     private OSSImageupload ossImageupload;
-    @Autowired
+    @Resource
     private COSImageupload cosImageupload;
-    @Autowired
+    @Resource
     private KODOImageupload kodoImageupload;
-    @Autowired
+    @Resource
     private USSImageupload ussImageupload;
-    @Autowired
+    @Resource
     private UFileImageupload uFileImageupload;
-    @Autowired
+    @Resource
     private FTPImageupload ftpImageupload;
 
 
@@ -289,18 +289,18 @@ public class AdminController {
         User user = (User) subject.getPrincipal();
 
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       ;
         if (imgSearchDto.getStartTime() != null) {
             try {
-                Date date1 = format.parse(imgSearchDto.getStartTime());
-                Date date2 = format.parse(imgSearchDto.getStopTime() == null ? format.format(new Date()) : imgSearchDto.getStopTime());
+               LocalDateTime date1 = LocalDateTime.parse(imgSearchDto.getStartTime(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                LocalDateTime date2 =imgSearchDto.getStopTime() == null ?LocalDateTime.now() :  LocalDateTime.parse(   imgSearchDto.getStopTime(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 int compareTo = date1.compareTo(date2);
                 if (compareTo == 1) {
                     msg.setCode("110500");
                     msg.setInfo("起始日期不能大于结束日期");
                     return msg;
                 }
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 msg.setCode("110500");
                 msg.setInfo("您输入的日期不正确");

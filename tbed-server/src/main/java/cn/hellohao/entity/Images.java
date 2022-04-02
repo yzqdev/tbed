@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * 图片
  *
@@ -48,7 +50,7 @@ public class Images {
     /**
      * 更新时间
      */
-    private String updateTime;
+    private LocalDateTime updateTime;
 
 
     /**

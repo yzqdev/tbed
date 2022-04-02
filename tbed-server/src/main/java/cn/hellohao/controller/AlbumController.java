@@ -16,10 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -137,10 +137,10 @@ public class AlbumController {
             Subject subject = SecurityUtils.getSubject();
             User u = (User) subject.getPrincipal();
             String uuid = "TOALBUM"+ UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,5)+"N";
-            SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter df=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Album album = new Album();
             album.setAlbumTitle(albumtitle);
-            album.setCreateDate(df.format(new Date()));
+            album.setCreateDate(LocalDateTime.now());
             album.setPassword(password);
             album.setAlbumKey(uuid);
             if(u==null){

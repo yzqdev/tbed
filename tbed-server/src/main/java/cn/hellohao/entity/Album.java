@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Hellohao
  * @version 1.0
@@ -23,7 +25,7 @@ public class Album {
     /**
      * 创建日期
      */
-    private String createDate;
+    private LocalDateTime createDate;
     /**
      * 密码
      */

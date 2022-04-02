@@ -46,7 +46,6 @@ public class KODOImageupload {
         try {
             for (Map.Entry<String, File> entry : fileMap.entrySet()) {
                 String ShortUID = SetText.getShortUuid();
-                java.text.DateFormat format1 = new java.text.SimpleDateFormat("MMddhhmmss");
                 file = entry.getValue();
                 try {
                     Response response = uploadManager.put(file,username + "/" + ShortUID + "." + entry.getKey(),upToken);

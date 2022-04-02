@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -84,11 +86,11 @@ public class CodeController {
         Integer val = 0;
         Code code = new Code();
         for (int i = 0; i < count; i++) {
-            java.text.DateFormat format1 = new java.text.SimpleDateFormat("hhmmss");
+            DateTimeFormatter format1 = DateTimeFormatter.ofPattern("hhmmss");
             Integer number = (int) (Math.random() * 100000) + 1;
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0, 5);
             code.setValue(Long.toString(value * 1024 * 1024));
-            code.setCode(SecureUtil.sha256(number + format1.format(new Date()) + uuid));
+            code.setCode(SecureUtil.sha256(number + format1.format(LocalDateTime.now()) + uuid));
             codeService.addCode(code);
             val++;
         }

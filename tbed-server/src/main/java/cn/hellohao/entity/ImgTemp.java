@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 /**
  * By Hellohao
  *
@@ -29,7 +31,7 @@ public class ImgTemp {
     /**
      *
      */
-    private String delTime;
+    private LocalDateTime delTime;
 
 
 }

@@ -17,7 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -164,13 +165,13 @@ public class ClientService {
             Map<ReturnImage, Integer> m = null;
             ReturnImage returnImage = GetSource.storageSource(key.getStorageType(), map, updatePath,  key.getId());
             Images img = new Images();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             if (returnImage.getCode().equals("200")) {
                 String imgurl = returnImage.getImgUrl();
                 Long imgsize = returnImage.getImgSize();
                 String imgname = returnImage.getImgName();
                 img.setImgUrl(imgurl);
-                img.setUpdateTime(df.format(new Date()));
+                img.setUpdateTime(LocalDateTime.now());
                 img.setSource(key.getId());
                 img.setUserId(u == null ? 0 : u.getId());
                 img.setSizes(imgsize.toString());
@@ -222,9 +223,8 @@ public class ClientService {
     //判断用户 或 游客 当前上传图片的一系列校验
     private Msg updateImgCheck(User user, UploadConfig uploadConfig){
         final Msg msg = new Msg();
-        java.text.DateFormat dateFormat = null;
+        DateTimeFormatter dateFormat =DateTimeFormatter.ofPattern("yyyy/MM/dd");
         try {
-            dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             if (user == null) {
                 //用户没有登陆，值判断游客能不能上传即可
                 if(uploadConfig.getIsupdate()!=1){
@@ -251,7 +251,7 @@ public class ClientService {
             }
             //判断上传的图片目录结构类型
             if (uploadConfig.getUrlType() == 2) {
-                updatePath = dateFormat.format(new Date());
+                updatePath = dateFormat.format(LocalDateTime.now());
             }
             msg.setCode("300");
         } catch (Exception e) {

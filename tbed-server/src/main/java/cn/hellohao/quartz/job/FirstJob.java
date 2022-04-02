@@ -11,7 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -51,8 +52,8 @@ public class FirstJob {
 	public void task() {
 //		System.out.println("定时任务.//开始");
 		try{
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currdate = format.format(new Date());
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			String currdate = format.format(LocalDateTime.now());
 			List<Images> imagesList = imgTempService.selectDelImgUidList(currdate);
 			if(imagesList.size()==0){
 //				System.out.println("定时任务.//没有期限图片");

@@ -11,6 +11,18 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysConfigMapper extends BaseMapper<SysConfig> {
+    /**
+     * getstate
+     *
+     * @return {@link SysConfig}
+     */
     SysConfig getstate();
+
+    /**
+     * 设置状态
+     *
+     * @param sysConfig 系统配置
+     * @return {@link Integer}
+     */
     Integer setstate(SysConfig sysConfig);
 }

@@ -26,7 +26,6 @@ public class OSSImageupload {
         try {
             for (Map.Entry<String, File> entry : fileMap.entrySet()) {
                 String ShortUID = SetText.getShortUuid();
-                java.text.DateFormat format1 = new java.text.SimpleDateFormat("MMddhhmmss");
                 file = entry.getValue();  Msg fileMiME = TypeDict.FileMiME(file);
                 meta.setHeader("content-type", fileMiME.getData().toString());
                 System.out.println("待上传的图片："+username + "/" + ShortUID + "." + entry.getKey());
