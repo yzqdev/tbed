@@ -3,7 +3,7 @@ package cn.hellohao.config;
 
 
 import java.io.File;
-
+import java.util.Properties;
 
 
 /**
@@ -19,7 +19,7 @@ import java.io.File;
 public class GlobalConstant {
 
     public static String SYSTYPE = "LINUX";
-
-    public static String LOCPATH = File.separator + "HellohaoData";
+static Properties props=System.getProperties();
+    public static String LOCPATH =props.getProperty("user.home")+ File.separator + "HellohaoData";
 
 }

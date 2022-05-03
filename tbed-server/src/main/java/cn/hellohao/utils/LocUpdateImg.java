@@ -1,5 +1,6 @@
 package cn.hellohao.utils;
 
+import cn.hellohao.config.GlobalConstant;
 import cn.hellohao.entity.StorageKey;
 import cn.hellohao.entity.ReturnImage;
 import cn.hellohao.service.impl.KeysServiceImpl;
@@ -11,7 +12,7 @@ public class LocUpdateImg {
     public static boolean deleteLOCImg(String imagename){
         boolean isDele = false;
         try {
-            String filePath =File.separator + "HellohaoData" + File.separator+imagename;
+            String filePath = GlobalConstant.LOCPATH + File.separator+imagename;
             File file = new File(filePath);
             isDele = file.delete();
         }catch (Exception e){
@@ -25,7 +26,7 @@ public class LocUpdateImg {
         KeysServiceImpl keysService = SpringContextHolder.getBean(KeysServiceImpl.class);
         final StorageKey key = keysService.selectKeys(keyID);
         ReturnImage returnImage = new ReturnImage();
-        String filePath =File.separator + "HellohaoData" + File.separator;
+        String filePath = GlobalConstant.LOCPATH + File.separator;
         File file = null;
         for (Map.Entry<String, File> entry : fileMap.entrySet()) {
             String ShortUID = SetText.getShortUuid();
