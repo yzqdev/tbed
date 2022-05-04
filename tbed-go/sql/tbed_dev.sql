@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80023
  Source Host           : localhost:3306
- Source Schema         : tbed
+ Source Schema         : tbed_dev
 
  Target Server Type    : MySQL
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 04/05/2022 16:11:40
+ Date: 04/05/2022 17:10:16
 */
 
 SET NAMES utf8mb4;
@@ -317,7 +317,7 @@ CREATE TABLE `user_group`  (
   `user_id` int NULL DEFAULT NULL,
   `group_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of user_group
