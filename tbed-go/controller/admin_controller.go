@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/gookit/color"
+	"github.com/rs/xid"
 	"net/http"
 	"tbed-go/model"
 	"tbed-go/utils"
@@ -42,12 +43,11 @@ func Login(c *gin.Context) {
 		})
 	}
 	sqlU := model.QueryByUsername(user.Username)
-	salt := sqlU.Salt
 	color.Red.Println(user.Username)
 	color.Red.Println(user.Password)
 	color.Red.Println("登陆接口进入")
 	color.Cyan.Println(sqlU.Password)
-	if sqlU.Password == utils.MD5(user.Password+salt) {
+	if sqlU.Password == utils.MD5(user.Password) {
 		expiresTime := time.Now().Unix() + int64(60*60*24)
 		//claims := jwt.StandardClaims{
 		//	Audience:  user.Username,          // 受众
@@ -102,23 +102,19 @@ func Login(c *gin.Context) {
 // @Router /register [post]
 func Register(c *gin.Context) {
 
-	u := &ReqReg{}
+	u := &model.AdminUser{}
 	if err := c.ShouldBindJSON(u); err != nil {
 		color.Danger.Println("json解析失败")
 	}
-	username := u.Username
-	password := u.Password
-
-	have := model.GetUserCheck(username)
+	color.Redln(u)
+	have := model.GetUserCheck(u.Username)
 	if !have {
-		salt := utils.GetRandomString(4)
-		data := map[string]interface{}{
-			"username": username,
-			"password": utils.MD5(password + salt),
-
-			"salt": salt,
-		}
-		model.SaveUser(data)
+		u.Isok = true
+		u.CreateTime = time.Now()
+		u.UpdateTime = time.Now()
+		u.Uid = xid.New()
+		u.Birthday = time.Now()
+		model.SaveUser(u)
 
 		c.JSON(http.StatusOK, gin.H{
 			"status":  200,
