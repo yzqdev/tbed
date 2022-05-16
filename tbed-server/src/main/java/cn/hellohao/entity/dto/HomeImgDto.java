@@ -10,5 +10,5 @@ import lombok.Data;
 @Data
 public class HomeImgDto {
     private String year;
-    private Integer userId;
+    private String userId;
 }

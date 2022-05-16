@@ -64,7 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public Integer deleuser(Integer id) {
+    public Integer deleuser(String id) {
         return userMapper.deleuser(id);
     }
 
@@ -104,12 +104,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public User getUsersid(Integer id) {
+    public User getUsersid(String id) {
         return userMapper.getUsersid(id);
     }
 
     @Override
-    public List<User> getuserlistforgroupid(Integer groupid) {
+    public List<User> getuserlistforgroupid(String groupid) {
         return userMapper.getUserListFromGroupId(groupid);
     }
 

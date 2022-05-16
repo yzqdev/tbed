@@ -1,5 +1,7 @@
 package cn.hellohao.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
@@ -13,7 +15,8 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 public class Config {
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
     private Integer sourcekey;
     private Integer emails;
     private String webname;

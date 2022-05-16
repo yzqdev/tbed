@@ -54,7 +54,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public Integer deleimg(Integer id) {
+    public Integer deleimg(String id) {
 
         return imgMapper.deleteById(id);
     }
@@ -65,7 +65,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public Images selectByPrimaryKey(Integer id) {
+    public Images selectByPrimaryKey(String id) {
         return imgMapper.selectByPrimaryKey(id);
     }
 
@@ -190,14 +190,14 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public Integer counts(Integer userid) {
+    public Integer counts(String userid) {
         // TODO Auto-generated method stub
 
         return imgMapper.counts(userid);
     }
 
     @Override
-    public Integer countimg(Integer userid) {
+    public Integer countimg(String userid) {
         return Math.toIntExact(imgMapper.selectCount(new LambdaQueryWrapper<Images>().eq(Images::getUserId, userid)));
         //return imgMapper.countimg(userid);
     }
@@ -213,7 +213,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public Integer deleall(Integer id) {
+    public Integer deleall(String id) {
         return imgMapper.deleall(id);
     }
 
@@ -223,12 +223,12 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public Long getusermemory(Integer userid) {
+    public Long getusermemory(String userid) {
         return imgMapper.getusermemory(userid);
     }
 
     @Override
-    public Long getsourcememory(Integer source) {
+    public Long getsourcememory(String source) {
         return imgMapper.getsourcememory(source);
     }
 
@@ -243,7 +243,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public List<Images> RecentlyUploaded(Integer userid) {
+    public List<Images> RecentlyUploaded(String userid) {
 
         return imgMapper.RecentlyUploaded(userid);
     }
@@ -255,7 +255,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
 
 
     @Override
-    public List<String> getyyyy(Integer userid) {
+    public List<String> getyyyy(String userid) {
         return imgMapper.getyyyy(userid);
     }
 

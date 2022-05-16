@@ -103,7 +103,7 @@ public class UserController {
             user.setUid(uid);
             user.setBirthday(LocalDateTime.now());
             user.setMemory(updateConfig.getUserStorage());
-            user.setGroupId(1);
+            user.setGroupId("1");
             user.setEmail(email);
             user.setUsername(username);
             user.setPassword(password);

@@ -1,6 +1,9 @@
 package cn.hellohao.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,10 +15,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class SiteGroup {
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
     private String groupName;
-    private Integer keyId;
+    private String keyID;
     private Integer userType;
     private Integer compress;
     private Integer storageType;

@@ -37,7 +37,7 @@ public class GetCurrentSource {
 
 
 
-    public static SiteGroup GetSource(Integer userid) {
+    public static SiteGroup GetSource(String userid) {
         //UserType 0-未分配 1-游客 2-用户 3-管理员
         User user =null;
         if(userid!=null){
@@ -52,11 +52,11 @@ public class GetCurrentSource {
             if(count>0){
                 siteGroup = groupService.getGroupFroUserType(1);
             }else{
-                siteGroup = groupService.idgrouplist(1);
+                siteGroup = groupService.idgrouplist("1");
             }
         }else{
             //用户
-            if(user.getGroupId()!=1){
+            if(user.getGroupId()!="1"){
                 //说明自定义过的优先
                 siteGroup = groupService.idgrouplist(user.getGroupId());
             }else{
@@ -67,7 +67,7 @@ public class GetCurrentSource {
                     if(count>0){
                         siteGroup = groupService.getGroupFroUserType(3);
                     }else{
-                        siteGroup = groupService.idgrouplist(1);
+                        siteGroup = groupService.idgrouplist("1");
                     }
                 }else{
                     //先查询普通用户组有没有 如果有就用 没有就默认
@@ -76,7 +76,7 @@ public class GetCurrentSource {
                         siteGroup = groupService.getGroupFroUserType(2);
 
                     }else{
-                        siteGroup = groupService.idgrouplist(1);
+                        siteGroup = groupService.idgrouplist("1");
                     }
                 }
             }

@@ -18,7 +18,7 @@ public class NOSImageupload {
     static NosClient nosClient;
     static StorageKey key;
 
-    public ReturnImage Imageupload(Map<String, File> fileMap, String username,Integer keyID){
+    public ReturnImage Imageupload(Map<String, File> fileMap, String username,String keyID){
         ReturnImage returnImage = new ReturnImage();
         File file = null;
         try {
@@ -68,7 +68,7 @@ public class NOSImageupload {
     }
 
 
-    public Boolean delNOS(Integer keyID, String fileName) {
+    public Boolean delNOS(String keyID, String fileName) {
         boolean b =true;
         try {
             //这种方法不能删除指定文件夹下的文件

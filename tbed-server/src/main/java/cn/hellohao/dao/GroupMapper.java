@@ -16,9 +16,9 @@ import java.util.List;
 @Mapper
 public interface GroupMapper extends BaseMapper<SiteGroup> {
     Page<SiteGroup> grouplist(@Param("page")Page<SiteGroup> page, Integer usertype);
-    SiteGroup idgrouplist(@Param("id") Integer id);
+    SiteGroup idgrouplist(@Param("id") String id);
     Integer addgroup(SiteGroup siteGroup);
     Integer GetCountFroUserType(@Param("usertype") Integer usertype);
-    Integer delegroup(@Param("id") Integer id);
+    Integer delegroup(@Param("id") String id);
     SiteGroup getGroupFroUserType(@Param("usertype") Integer usertype);
 }

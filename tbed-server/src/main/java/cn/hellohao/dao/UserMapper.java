@@ -46,7 +46,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @param id id
      * @return {@link Integer}
      */
-    Integer deleuser(@Param("id") Integer id);
+    Integer deleuser(@Param("id") String id);
 
 
     /**
@@ -65,8 +65,8 @@ public interface UserMapper extends BaseMapper<User> {
     Integer setisok (User user);
 
     Integer setmemory(User user);
-    User getUsersid(@Param("id") Integer id);
+    User getUsersid(@Param("id") String id);
 
-    List<User> getUserListFromGroupId(@Param("groupid") Integer groupid);
+    List<User> getUserListFromGroupId(@Param("groupid") String groupid);
 
 }

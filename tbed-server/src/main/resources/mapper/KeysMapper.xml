@@ -8,13 +8,13 @@
         SELECT
             *
         FROM
-            tbed.storage_key
+            storage_key
         WHERE
             id = #{id}
     </select>
     <!-- 查询添加的所有对象存储-->
     <select id="getStorageName"  resultType="cn.hellohao.entity.StorageKey">
-        select id,key_name,storage_type from  tbed.storage_key
+        select id,key_name,storage_type from  storage_key
     </select>
 
     <!-- 查询对象存储有多少种-->
@@ -30,7 +30,7 @@
                     WHEN storage_type=8 THEN 'UFile'
                     ELSE  '未知' END AS storageName,
                key_name
-        FROM  tbed.storage_key  GROUP BY storage_type
+        FROM  storage_key  GROUP BY storage_type
 
     </select>
 
@@ -39,7 +39,7 @@
         SELECT
             *
         FROM
-            tbed.storage_key
+             storage_key
     </select>
 
 

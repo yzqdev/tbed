@@ -28,5 +28,5 @@ public interface AlbumService extends IService<Album> {
 
     Page<Album> selectAlbumURLList(Page<Album> page,AlbumDto albumDto);
 
-    Integer selectAlbumCount(Integer userid);
+    Integer selectAlbumCount(String userid);
 }

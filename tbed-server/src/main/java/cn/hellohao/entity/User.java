@@ -1,6 +1,8 @@
 package cn.hellohao.entity;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +22,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends Model<User> {
-
-    private Integer id;
+@TableId(value="id",type = IdType.ASSIGN_ID)
+    private String id;
     //@NotBlank(message = "用户名不能为空")
    // @Length(min = 6, max = 20, message = "用户名需要为 6 - 20 个字符")
     private String username;
@@ -47,7 +49,7 @@ public class User extends Model<User> {
     /**
      * 组id
      */
-    private Integer groupId;
+    private String groupId;
     /**
      * 组名称
      */

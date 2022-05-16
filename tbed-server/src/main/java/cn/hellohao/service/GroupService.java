@@ -16,10 +16,10 @@ import java.util.List;
 @Service
 public interface GroupService extends IService<SiteGroup> {
     Page<SiteGroup> grouplist(Page<SiteGroup> page,Integer usertype);
-    SiteGroup idgrouplist(Integer id);
+    SiteGroup idgrouplist(String id);
     Msg addgroup(SiteGroup siteGroup);
     Integer GetCountFroUserType(Integer usertype);
-    Msg delegroup(Integer id);
+    Msg delegroup(String id);
     Msg setgroup(SiteGroup siteGroup);
     SiteGroup getGroupFroUserType(Integer usertype);
 }

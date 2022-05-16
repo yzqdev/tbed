@@ -35,7 +35,7 @@ public class KeysServiceImpl extends ServiceImpl<KeysMapper, StorageKey> impleme
 
 
     @Override
-    public StorageKey selectKeys(Integer id) {
+    public StorageKey selectKeys(String id) {
         // TODO Auto-generated method stub
         return keysMapper.selectKeys(id);
     }

@@ -3,11 +3,11 @@
 <mapper namespace="cn.hellohao.dao.SysConfigMapper">
 
     <select id="getstate" resultType="cn.hellohao.entity.SysConfig">
-        select * from tbed.sysconfig where id = 1
+        select * from sysconfig where id = 1
     </select>
 
     <update id="setstate" parameterType="cn.hellohao.entity.SysConfig">
-        UPDATE tbed.sysconfig
+        UPDATE sysconfig
         <set>
             <if test="register != null">
                 `register` = #{register},

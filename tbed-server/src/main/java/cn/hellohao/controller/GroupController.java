@@ -66,7 +66,7 @@ public class GroupController {
         JSONObject jsonObject = JSONObject.parseObject(data);
         SiteGroup siteGroup = new SiteGroup();
         siteGroup.setGroupName(jsonObject.getString("groupname"));
-        siteGroup.setKeyId(jsonObject.getInteger("keyid"));
+        siteGroup.setKeyID(jsonObject.getString("keyid"));
         siteGroup.setUserType(jsonObject.getInteger("usertype"));
         siteGroup.setCompress(jsonObject.getBoolean("compress")?1:0);
         Msg msg = groupService.addgroup(siteGroup);
@@ -79,7 +79,7 @@ public class GroupController {
 
 
 
-        if(siteGroup.getId()==1){
+        if(siteGroup.getId()=="1"){
             siteGroup.setGroupName("默认群组");
             siteGroup.setUserType(0);
         }else{
@@ -102,9 +102,9 @@ public class GroupController {
     @ResponseBody
     public Msg delegroup(@RequestParam(value = "data", defaultValue = "") String data) {
         JSONObject jsonObject = JSONObject.parseObject(data);
-        Integer id = jsonObject.getInteger("id");
+        String id = jsonObject.getString("id");
         Msg msg = null;
-        if(id!=1){
+        if(id!="1"){
             msg = groupService.delegroup(id);
             return msg;
         }else{

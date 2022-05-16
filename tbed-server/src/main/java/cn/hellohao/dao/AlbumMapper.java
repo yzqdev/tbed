@@ -23,5 +23,5 @@ public interface AlbumMapper extends BaseMapper<Album> {
 
     Page<Album> selectAlbumURLList(@Param("page")Page<Album> page,@Param("albumDto") AlbumDto albumDto);
 
-    Integer selectAlbumCount(@Param("userId")  Integer userId);
+    Integer selectAlbumCount(@Param("userId")  String userId);
 }

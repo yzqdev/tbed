@@ -111,7 +111,7 @@ public class AdminController {
                 jsonObject.put("VisitorProportion", 100.00);//游客用量%占比
                 jsonObject.put("VisitorMemory", "禁用");//访客共大小
             } else {
-                Long temp = imgService.getusermemory(0) == null ? 0 : imgService.getusermemory(0);
+                Long temp = imgService.getusermemory("0") == null ? 0 : imgService.getusermemory("0");
                 jsonObject.put("UsedMemory", (temp == null ? 0 : SetFiles.readableFileSize(temp)));//访客已用大小
                 if (Long.valueOf(uploadConfig.getVisitorStorage()) == 0) {
                     jsonObject.put("VisitorProportion", 100.00);//游客用量%占比
@@ -440,11 +440,11 @@ public class AdminController {
             return msg;
         }
         for (int i = 0; i < images.length; i++) {
-            Integer imgid = Integer.valueOf(images[i]);
+            String imgid =  images[i] ;
             Images image = imgService.selectByPrimaryKey(imgid);
-            Integer keyid = image.getSource();
+            String keyID = image.getSource();
             String imgname = image.getImgName();
-            StorageKey key = keysService.selectKeys(keyid);
+            StorageKey key = keysService.selectKeys(keyID);
 
             if (!subject.hasRole("admin")) {
                 if (!image.getUserId().equals(user.getId())) {

@@ -66,7 +66,7 @@ public class UploadServicel {
             if(null!=u){
                 u =  userMapper.getUsers(u);
             }
-            Integer sourceKeyId = 0;
+           String sourceKeyId  ;
             String md5key = null;
             FileInputStream fis = null;
             File file =null;
@@ -89,7 +89,7 @@ public class UploadServicel {
             }
 
             //判断可用容量
-            sourceKeyId = siteGroup.getKeyId();
+            sourceKeyId = siteGroup.getKeyID();
             StorageKey key = keysMapper.selectKeys(sourceKeyId);
             Long tmp = (memory == -1 ? -2 : UsedTotleMemory);
             if (tmp >= memory) {
@@ -128,7 +128,7 @@ public class UploadServicel {
             if(Integer.valueOf(sysConfigService.getstate().getCheckduplicate())==1){
                 Images imaOBJ = new Images();
                 imaOBJ.setMd5key(md5key);
-                imaOBJ.setUserId(u==null?0:u.getId());
+                imaOBJ.setUserId(u==null?"0":u.getId());
                 if(imgMapper.md5Count(imaOBJ)>0){
                     Images images = imgMapper.selectImgUrlByMD5(md5key);
                     jsonObject.put("url", images.getImgUrl());
@@ -171,7 +171,7 @@ public class UploadServicel {
                 img.setUpdateTime(LocalDateTime.now());
                 img.setCreateTime(LocalDateTime.now());
                 img.setSource(key.getId());
-                img.setUserId(u == null ? 0 : u.getId());
+                img.setUserId(u == null ? "0" : u.getId());
                 img.setSizes(imgsize.toString());
                 if(uploadConfig.getUrlType()==2){
                     img.setImgName(imgname);
@@ -282,7 +282,7 @@ public class UploadServicel {
                 siteGroup = GetCurrentSource.GetSource(null);
                 memory = Long.valueOf(uploadConfig.getVisitorStorage());//单位 B 游客设置总量
                 TotleMemory = Long.valueOf(uploadConfig.getFilesizetourists());//单位 B  游客单文件大小
-                UsedTotleMemory = imgMapper.getusermemory(0)==null?0L : imgMapper.getusermemory(0);//单位 B
+                UsedTotleMemory = imgMapper.getusermemory("0")==null?0L : imgMapper.getusermemory("0");//单位 B
             } else {
                 //判断用户能不能上传
                 if(uploadConfig.getUserclose()!=1){

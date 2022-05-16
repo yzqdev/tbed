@@ -1,7 +1,10 @@
 package cn.hellohao.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,10 +20,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @TableName("img_data")
 @AllArgsConstructor
+@Builder
 public class Images {
-    // 默认的时间字符串格式
 
-    private Integer id;
+@TableId(type = IdType.ASSIGN_ID)
+    private String id;
     /**
      * imgname
      */
@@ -29,7 +33,7 @@ public class Images {
      * imgurl
      */
     private String imgUrl;
-    private Integer userId;
+    private String userId;
     /**
      * 大小
      */
@@ -41,7 +45,7 @@ public class Images {
     /**
      * 源
      */
-    private Integer source;
+    private String source;
     /**
      * imgtype
      */

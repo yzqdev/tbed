@@ -1,16 +1,12 @@
 package cn.hellohao.utils;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.jdbc.ScriptRunner;
-
-import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
 
 final class RunSqlScript {
 
-    public static  String DBDRIVER = "com.mysql.cj.jdbc.Driver";
+    public static  String DBDRIVER = "org.postgresql.Driver";
     public static  String DBURL ;
     //现在使用的是mysql数据库，是直接连接的，所以此处必须有用户名和密码
     public static  String USERNAME ;

@@ -16,7 +16,7 @@ public class UFileImageupload {
     static UpYun uFile;
     static StorageKey key;
 
-    public ReturnImage ImageuploadUFile(Map<String, File> fileMap, String username,Integer keyID) {
+    public ReturnImage ImageuploadUFile(Map<String, File> fileMap, String username,String keyID) {
         ReturnImage returnImage = new ReturnImage();
         File file = null;
         ObjectMetadata meta = new ObjectMetadata();
@@ -70,7 +70,7 @@ public class UFileImageupload {
         return ret;
     }
 
-    public Boolean delUFile(Integer keyID, String fileName) {
+    public Boolean delUFile(String keyID, String fileName) {
         boolean b = true;
         try {
             boolean result = uFile.deleteFile(fileName, null);

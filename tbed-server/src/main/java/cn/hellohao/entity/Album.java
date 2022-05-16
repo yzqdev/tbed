@@ -1,7 +1,9 @@
 package cn.hellohao.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Album {
     /**
      * albumkey
@@ -33,11 +37,10 @@ public class Album {
     /**
      * 用户标识
      */
-    private Integer userId;
+    private String userId;
     private String username;
 
 
-    public Album() {
-    }
+
 
 }

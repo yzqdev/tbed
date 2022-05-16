@@ -261,9 +261,9 @@ public class IndexController {
                 return msg;
             }
         }
-        Integer keyid = image.getSource();
+        String keyID = image.getSource();
         String imgname = image.getImgName();
-        StorageKey key = keysService.selectKeys(keyid);
+        StorageKey key = keysService.selectKeys(keyID);
         //删除图片
         boolean isDele = false;
         if (key.getStorageType() == 1) {

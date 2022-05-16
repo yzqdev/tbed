@@ -15,7 +15,7 @@
         SELECT
         g.id,g.group_name,g.key_id,g.user_type,g.compress,k.storage_type,k.key_name
         FROM
-        tbed.site_group as g LEFT JOIN tbed.storage_key as k on g.key_id = k.id
+        site_group as g LEFT JOIN storage_key as k on g.key_id = k.id
          <where>
         <if test="usertype!=null">
             and g.user_type=#{usertype}
@@ -28,35 +28,35 @@
         SELECT
             *
         FROM
-            tbed.site_group
+            site_group
         where id = #{id}
     </select>
 
     <insert id="addgroup" parameterType="cn.hellohao.entity.SiteGroup">
-        insert into tbed.site_group (id,group_name,key_id,use_type,compress) values (null,#{groupName},#{keyId},#{userType},#{compress})
+        insert into site_group (id,group_name,key_id,use_type,compress) values (null,#{groupName},#{keyId},#{userType},#{compress})
     </insert>
 
     <select id="GetCountFroUserType" parameterType="integer" resultType="integer">
         SELECT
             count(id)
         FROM
-            tbed.site_group
+            site_group
         where user_type = #{usertype}
     </select>
 
     <delete id="delegroup" parameterType="integer">
-        delete from tbed.site_group where id=#{id}
+        delete from site_group where id=#{id}
     </delete>
 
     <update id="setgroup" parameterType="cn.hellohao.entity.SiteGroup">
-        UPDATE tbed.site_group SET group_name=#{groupname},key_id=#{keyid},user_type=#{userType},compress=#{compress} where id = #{id};
+        UPDATE site_group SET group_name=#{groupname},key_id=#{keyid},user_type=#{userType},compress=#{compress} where id = #{id};
     </update>
 
     <select id="getGroupFroUserType" parameterType="integer" resultType="cn.hellohao.entity.SiteGroup">
         SELECT
             *
         FROM
-            tbed.site_group
+            site_group
         where user_type = #{usertype}
     </select>
 

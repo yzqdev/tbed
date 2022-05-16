@@ -21,7 +21,7 @@ public class COSImageupload {
     static COSClient cosClient;
     static StorageKey key;
 
-    public ReturnImage ImageuploadCOS(Map<String, File> fileMap, String username,Integer keyID) {
+    public ReturnImage ImageuploadCOS(Map<String, File> fileMap, String username,String keyID) {
         ReturnImage returnImage = new ReturnImage();
         File file = null;
         Map<ReturnImage, Integer> ImgUrl = new HashMap<>();
@@ -86,7 +86,7 @@ public class COSImageupload {
         return ret;
     }
 
-    public Boolean delCOS(Integer keyID, String fileName) {
+    public Boolean delCOS(String keyID, String fileName) {
         boolean b = true;
         try {
             cosClient.deleteObject(key.getBucketName(), fileName);

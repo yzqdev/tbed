@@ -68,10 +68,10 @@ public class AdminRootController {
             Subject subject = SecurityUtils.getSubject();
             User u = (User) subject.getPrincipal();
 
-            Integer id = userUpdateDto.getId();
+           String id = userUpdateDto.getId();
             String email = userUpdateDto.getEmail();
             Long memory = userUpdateDto.getMemory();
-            Integer groupid = userUpdateDto.getGroupId();
+            String groupid = userUpdateDto.getGroupId();
             Integer isok =userUpdateDto.getIsok();
             if(memory<0 || memory>1048576L){
                 msg.setCode("500");
@@ -109,11 +109,11 @@ public class AdminRootController {
             JSONArray userIdList = jsonObj.getJSONArray("arr");
             for (int i = 0; i < userIdList.size(); i++) {
                 User u = new User();
-                u.setId(userIdList.getInteger(i));
+                u.setId(userIdList.getString(i));
                 User u2 = userService.getUsers(u);
                 if(u2.getLevel()==1){
                     User user = new User();
-                    user.setId(userIdList.getInteger(i));
+                    user.setId(userIdList.getString(i));
                     user.setIsok(-1);
                     userService.changeUser(user);
                 }
@@ -130,7 +130,7 @@ public class AdminRootController {
 
     @PostMapping("/deleUser")//new
     @ResponseBody
-    public Msg deleuser(@RequestBody Integer[] userIdList) {
+    public Msg deleuser(@RequestBody String[] userIdList) {
         Msg msg = new Msg();
         try {
 
@@ -173,7 +173,7 @@ public class AdminRootController {
         Msg msg = new Msg();
         try {
             JSONObject jsonData = JSONObject.parseObject(data);
-            Integer keyId = jsonData.getInteger("keyId");
+            String keyId = jsonData.getString("keyId");
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id",keyId);
             StorageKey key = keysService.selectKeys(keyId);
@@ -214,7 +214,7 @@ public class AdminRootController {
     @ResponseBody
     public Msg updateStorage(@RequestParam(value = "data", defaultValue = "") String data) {
         JSONObject jsonObj = JSONObject.parseObject(data);
-        Integer id = jsonObj.getInteger("id");
+        String id = jsonObj.getString("id");
         String AccessKey = jsonObj.getString("AccessKey");
         String AccessSecret = jsonObj.getString("AccessSecret");
         String Endpoint = jsonObj.getString("Endpoint");
@@ -237,7 +237,7 @@ public class AdminRootController {
 
     @PostMapping("/getStorageById/{id}")//new
     @ResponseBody
-    public Msg getselectkey(@PathVariable("id") Integer id) {
+    public Msg getselectkey(@PathVariable("id") String id) {
         Msg msg = new Msg();
 
         StorageKey storageKey = keysService.selectKeys(id);

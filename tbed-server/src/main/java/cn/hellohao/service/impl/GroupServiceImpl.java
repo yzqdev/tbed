@@ -33,7 +33,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     }
 
     @Override
-    public SiteGroup idgrouplist(Integer id) {
+    public SiteGroup idgrouplist(String id) {
         return groupMapper.idgrouplist(id);
     }
 
@@ -63,7 +63,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
 
     @Override
     @Transactional//默认遇到throw new RuntimeException(“…”);会回滚
-    public Msg delegroup(Integer id) {
+    public Msg delegroup(String id) {
         Msg msg = new Msg();
         Integer ret = 0;
         ret = groupMapper.delegroup(id);
@@ -71,7 +71,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
             List<User> userList = userMapper.getUserListFromGroupId(id);
             for (User user : userList) {
                 User u = new User();
-                u.setGroupId(1);
+                u.setGroupId("1");
                 u.setUid(user.getUid());
                 userMapper.change(u);
             }

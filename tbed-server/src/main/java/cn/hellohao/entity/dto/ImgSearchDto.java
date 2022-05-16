@@ -22,6 +22,6 @@ public class ImgSearchDto  {
     private Integer selectType;
     private  String[] classifulids;
     private Boolean violation;
-    private Integer userId;
+    private String userId;
 
 }

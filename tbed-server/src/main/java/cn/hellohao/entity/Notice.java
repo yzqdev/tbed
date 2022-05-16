@@ -11,7 +11,7 @@ public class Notice {
 
 
     public Notice(Integer id, String text, String password, String email, String birthder, Integer level,
-                  Integer keyId) {
+                  String keyID) {
         super();
         this.id = id;
         this.text = text;

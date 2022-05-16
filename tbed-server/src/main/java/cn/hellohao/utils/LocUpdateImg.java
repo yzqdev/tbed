@@ -22,7 +22,7 @@ public class LocUpdateImg {
         return isDele;
     }
 
-    public static ReturnImage ImageuploadLOC(Map<String, File> fileMap, String username,Integer keyID) throws Exception {
+    public static ReturnImage ImageuploadLOC(Map<String, File> fileMap, String username,String keyID) throws Exception {
         KeysServiceImpl keysService = SpringContextHolder.getBean(KeysServiceImpl.class);
         final StorageKey key = keysService.selectKeys(keyID);
         ReturnImage returnImage = new ReturnImage();

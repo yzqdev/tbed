@@ -59,7 +59,7 @@
         isok,
         memory,
         group_id
-        FROM user
+        FROM "user"
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -84,7 +84,7 @@
                isok,
                memory,
                group_id
-        FROM user
+        FROM "user"
         WHERE id = #{id}
     </select>
     <!-- 查询当前用户:根据uid -->
@@ -99,7 +99,7 @@
         isok,
         memory,
         group_id
-        FROM user
+        FROM "user"
         WHERE uid = #{uid}
     </select>
 
@@ -108,7 +108,7 @@
     <!-- 修改资料 -->
     <update id="change" parameterType="cn.hellohao.entity.User">
         <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE tbed.user
+        UPDATE user
         <set>
             <if test="email != null">
                 `email` = #{email},
@@ -130,7 +130,7 @@
     </update>
 
     <update id="changeUser" parameterType="cn.hellohao.entity.User">
-        UPDATE tbed.user
+        UPDATE user
         <set>
             <if test="email != null">
                 `email` = #{email},
@@ -179,9 +179,9 @@
         isok,
         ceil((memory/1024/1024)) as memory,
         group_id,
-        (select group_name from tbed.site_group where id = group_id) as group_name
+        (select group_name from site_group where id = group_id) as group_name
         FROM
-        tbed.user
+        user
          <where>
         <if test="username != null">
             and CONCAT(
@@ -194,20 +194,20 @@
 
     <!--刪除用戶-->
     <delete id="deleuser" parameterType="integer">
-        DELETE FROM tbed.user WHERE id=#{id}
+        DELETE FROM user WHERE id=#{id}
     </delete>
 
     <update id="setisok" parameterType="cn.hellohao.entity.User">
         <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE tbed.user set `isok`=#{isok} where id=#{id}
+        UPDATE user set `isok`=#{isok} where id=#{id}
     </update>
     <update id="setmemory" parameterType="cn.hellohao.entity.User">
         <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE tbed.user set `memory`=#{memory} where id=#{id}
+        UPDATE user set `memory`=#{memory} where id=#{id}
     </update>
 
     <select id="getUserListFromGroupId" parameterType="integer" resultType="cn.hellohao.entity.User">
-        select * from tbed.user where group_id=#{group_id}
+        select * from user where group_id=#{group_id}
     </select>
 
 </mapper>

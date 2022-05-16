@@ -33,7 +33,7 @@ public interface UserService extends IService<User> {
 
     Page<User> getuserlist(Page<User> page,String username);
 
-    Integer deleuser(Integer id);
+    Integer deleuser(String id);
 
     //查询用户名或者邮箱是否存在
     Integer countusername(String username);
@@ -45,6 +45,6 @@ public interface UserService extends IService<User> {
     User getUsersMail(String uid);
     Integer setisok (User user);
     Integer setmemory(User user);
-    User getUsersid(Integer id);
-    List<User> getuserlistforgroupid(Integer groupid);
+    User getUsersid(String id);
+    List<User> getuserlistforgroupid(String groupid);
 }

@@ -151,7 +151,7 @@ public class AlbumController {
             album.setPassword(password);
             album.setAlbumKey(uuid);
             if(u==null){
-                album.setUserId(0);
+                album.setUserId("0");
             }else{
                 album.setUserId(u.getId());
             }

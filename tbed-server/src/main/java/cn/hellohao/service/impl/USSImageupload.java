@@ -16,7 +16,7 @@ public class USSImageupload {
     static UpYun upyun;
     static StorageKey key;
 
-    public ReturnImage ImageuploadUSS(Map<String, File> fileMap, String username,Integer keyID) {
+    public ReturnImage ImageuploadUSS(Map<String, File> fileMap, String username,String keyID) {
         ReturnImage returnImage = new ReturnImage();
         File file = null;
         ObjectMetadata meta = new ObjectMetadata();
@@ -72,7 +72,7 @@ public class USSImageupload {
         return ret;
     }
 
-    public Boolean delUSS(Integer keyID, String fileName) {
+    public Boolean delUSS(String keyID, String fileName) {
         boolean b = true;
         try {
             boolean result = upyun.deleteFile(fileName, null);

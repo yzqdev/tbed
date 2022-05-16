@@ -7,7 +7,7 @@
     </select>
 
     <update id="setSourceype" parameterType="cn.hellohao.entity.Config">
-        UPDATE tbed.config
+        UPDATE config
         <set>
             <if test="sourcekey != null">
                 sourcekey = #{sourcekey},

@@ -64,7 +64,7 @@ public class ClientService {
     public Msg uploadImg(HttpServletRequest request, MultipartFile multipartFile, String email, String pass ){
         Msg msg = new Msg();
         try {
-            Integer sourceKeyId = 0;
+            String sourceKeyId  ;
             FileInputStream fis = null;
             String md5key = null;
             Integer setday = 0;
@@ -99,7 +99,7 @@ public class ClientService {
             if (!msg1.getCode().equals("300")) {
                 return msg1;
             }
-            sourceKeyId = siteGroup.getKeyId();
+            sourceKeyId = siteGroup.getKeyID();
             StorageKey key = keysMapper.selectKeys(sourceKeyId);
             Long tmp = (memory == -1 ? -2 : UsedTotleMemory);
             if (tmp >= memory) {
@@ -173,7 +173,7 @@ public class ClientService {
                 img.setImgUrl(imgurl);
                 img.setUpdateTime(LocalDateTime.now());
                 img.setSource(key.getId());
-                img.setUserId(u == null ? 0 : u.getId());
+                img.setUserId(u == null ? "0": u.getId());
                 img.setSizes(imgsize.toString());
                 if (uploadConfig.getUrlType() == 2) {
                     img.setImgName(imgname);
@@ -235,7 +235,7 @@ public class ClientService {
                 siteGroup = GetCurrentSource.GetSource(null);
                 memory = Long.valueOf(uploadConfig.getVisitorStorage());//单位 B 游客设置总量
                 TotleMemory = Long.valueOf(uploadConfig.getFilesizetourists());//单位 B  游客单文件大小
-                UsedTotleMemory = imgMapper.getusermemory(0)==null?0L : imgMapper.getusermemory(0);//单位 B
+                UsedTotleMemory = imgMapper.getusermemory("0")==null?0L : imgMapper.getusermemory("0");//单位 B
             } else {
                 //判断用户能不能上传
                 if(uploadConfig.getUserclose()!=1){

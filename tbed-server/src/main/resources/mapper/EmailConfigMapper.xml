@@ -3,11 +3,11 @@
 <mapper namespace="cn.hellohao.dao.EmailConfigMapper">
 
     <select id="getemail" resultType="cn.hellohao.entity.EmailConfig">
-        select * from tbed.email_config where id = 1
+        select * from email_config where id = 1
     </select>
 
     <update id="updateemail" parameterType="cn.hellohao.entity.EmailConfig">
-        UPDATE tbed.email_config
+        UPDATE email_config
         <set>
             <if test="emails != null">
                 emails = #{emails},

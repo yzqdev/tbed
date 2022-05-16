@@ -18,7 +18,7 @@ public class FTPImageupload {
     static FTPClient ftpClient1 ;
     static StorageKey key;
 
-    public ReturnImage ImageuploadFTP(Map<String, File> fileMap, String username,Integer keyID)  {
+    public ReturnImage ImageuploadFTP(Map<String, File> fileMap, String username,String keyID)  {
         ReturnImage returnImage = new ReturnImage();
         StorageKey key = null;
         String[] host = key.getEndpoint().split("\\:");
@@ -113,7 +113,7 @@ public class FTPImageupload {
         }
     }
 
-    public Boolean delFTP(Integer keyID, String fileName) {
+    public Boolean delFTP(String keyID, String fileName) {
         boolean b = true;
         try {
             String[] host = key.getEndpoint().split("\\:");

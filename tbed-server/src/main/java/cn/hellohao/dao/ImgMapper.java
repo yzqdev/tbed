@@ -23,30 +23,30 @@ public interface ImgMapper extends BaseMapper<Images> {
 
     Integer deleimgForImgUid(@Param("imguid") String imguid);
 
-    Images selectByPrimaryKey(@Param("id") Integer id);
+    Images selectByPrimaryKey(@Param("id") String id);
 
-    Integer counts(@Param("userId") Integer userId);
+    Integer counts(@Param("userId") String userId);
 
     Integer setImg(Images images);
 
     Integer deleimgname(@Param("imgname") String imgname);
-    Integer deleall(@Param("id") Integer id);
+    Integer deleall(@Param("id") String id);
 
     List<Images> gettimeimg(@Param("time") String time);
 
-    Long getusermemory(@Param("userid") Integer userid);
+    Long getusermemory(@Param("userid") String userid);
 
-    Long getsourcememory(@Param("source") Integer source);
+    Long getsourcememory(@Param("source") String source);
 
     Integer md5Count(Images images);
 
     Images selectImgUrlByMD5(@Param("md5key") String md5key);
 
-    List<Images> RecentlyUploaded(@Param("userId") Integer userId);
+    List<Images> RecentlyUploaded(@Param("userId") String userId);
 
     List<RecentUserVo> RecentlyUser();
 
-    List<String> getyyyy(@Param("userId") Integer userId);
+    List<String> getyyyy(@Param("userId") String userId);
 
     List<ImageVo> countByM(HomeImgDto homeImgDto);
 

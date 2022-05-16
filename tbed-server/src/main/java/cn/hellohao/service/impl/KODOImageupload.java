@@ -24,7 +24,7 @@ public class KODOImageupload {
     static BucketManager bucketManager;
     static StorageKey key;
 
-    public ReturnImage ImageuploadKODO(Map<String, File> fileMap, String username, Integer keyID){
+    public ReturnImage ImageuploadKODO(Map<String, File> fileMap, String username, String keyID){
         ReturnImage returnImage = new ReturnImage();
         StorageKey key = null;
         Configuration cfg;
@@ -110,7 +110,7 @@ public class KODOImageupload {
         return ret;
     }
 
-    public Boolean delKODO(Integer keyID, String fileName) {
+    public Boolean delKODO(String keyID, String fileName) {
         boolean b = true;
         try {
             bucketManager.delete(key.getBucketName(), fileName);

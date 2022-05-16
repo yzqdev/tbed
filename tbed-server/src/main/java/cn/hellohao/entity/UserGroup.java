@@ -1,45 +1,25 @@
 package cn.hellohao.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author Hellohao
  * @version 1.0
  * @date 2019/8/19 16:01
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserGroup {
-    private Integer id;
-    private Integer userId;
-    private Integer groupId;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
+    private String userId;
+    private String groupId;
 
-    public UserGroup() {
-    }
 
-    public UserGroup(Integer id, Integer userId, Integer groupId) {
-        this.id = id;
-        this.userId = userId;
-        this.groupId = groupId;
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
 }

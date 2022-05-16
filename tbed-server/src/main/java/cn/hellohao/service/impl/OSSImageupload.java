@@ -18,7 +18,7 @@ public class OSSImageupload {
     static OSSClient ossClient;
     static StorageKey key;
 
-    public ReturnImage ImageuploadOSS(Map<String, File> fileMap, String username,Integer keyID){
+    public ReturnImage ImageuploadOSS(Map<String, File> fileMap, String username,String keyID){
         ReturnImage returnImage = new ReturnImage();
         File file = null;
         ObjectMetadata meta = new ObjectMetadata();
@@ -65,7 +65,7 @@ public class OSSImageupload {
         return ret;
     }
 
-    public boolean delOSS(Integer keyID, String fileName){
+    public boolean delOSS(String keyID, String fileName){
         boolean b =true;
         try {
             ossClient.deleteObject(key.getBucketName(), fileName);

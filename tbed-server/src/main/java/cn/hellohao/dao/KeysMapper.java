@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface KeysMapper extends BaseMapper<StorageKey> {
     //查询密钥
-    StorageKey selectKeys(@Param("id") Integer id);
+    StorageKey selectKeys(@Param("id") String id);
     List<StorageKey> getStorageName();
     List<StorageKey> getStorage();
     //修改key

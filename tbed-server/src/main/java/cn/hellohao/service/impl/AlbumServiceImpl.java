@@ -87,7 +87,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
     }
 
     @Override
-    public Integer selectAlbumCount(Integer userid) {
+    public Integer selectAlbumCount(String userid) {
         //return Math.toIntExact(albumMapper.selectCount(new LambdaQueryWrapper<Album>().eq(Album::getUserid, userid)));
         return albumMapper.selectAlbumCount(userid);
     }
