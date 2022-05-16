@@ -13,8 +13,13 @@ public interface CodeMapper extends BaseMapper<Code> {
     //查询扩容码
     Page<Code> selectCode(@Param("code") String code);
     Code selectCodekey(@Param("code") String code);
-    //Integer selectCodekey(@Param("value") String value);
-    //添加
+    //Integer selectCodekey(@Param("value") String value)
+
+    /**
+     * 添加
+     * @param code
+     * @return
+     */
     Integer addCode(Code code);
     //删除扩容码
     Integer deleteCode(@Param("code") String code);

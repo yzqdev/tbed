@@ -17,7 +17,13 @@ public interface CodeService extends IService<Code> {
     //查询扩容码
     Page<Code> selectCode(String value);
     Code selectCodekey(String code);
-    //添加
+
+    /**
+     * 添加代码
+     *
+     * @param code 代码
+     * @return {@link Integer}
+     */
     Integer addCode(Code code);
     //删除扩容码
     Integer deleteCode(String code);

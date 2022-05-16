@@ -14,9 +14,9 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Code {
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
     private String value;
-    private String code;
+    private String expandCode;
 
 }

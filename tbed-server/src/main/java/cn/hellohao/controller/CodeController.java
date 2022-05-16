@@ -7,8 +7,8 @@ import cn.hellohao.service.CodeService;
 import cn.hutool.crypto.SecureUtil;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -59,7 +59,7 @@ public class CodeController {
         Integer v = 0;
         try {
             for (int i = 0; i < arr.size(); i++) {
-                codeService.deleteCode(arr.get(i).getCode());
+                codeService.deleteCode(arr.get(i).getExpandCode());
                 v++;
             }
             msg.setInfo("已成功删除" + v + "个扩容码");
@@ -78,7 +78,7 @@ public class CodeController {
         final Msg msg = new Msg();
 
         Integer value = (Integer) jsonObj.get("memory");
-        Integer count = (Integer) jsonObj.get("count");
+        Integer count = Integer.parseInt((String) jsonObj.get("count"));
         if (value <= 0 || value > 1048576 || count <= 0 || count > 1000) {
             msg.setInfo("数据格式错误,请正确输入");
             return msg;
@@ -89,8 +89,10 @@ public class CodeController {
             DateTimeFormatter format1 = DateTimeFormatter.ofPattern("hhmmss");
             Integer number = (int) (Math.random() * 100000) + 1;
             String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0, 5);
+            code.setId(uuid);
             code.setValue(Long.toString(value * 1024 * 1024));
-            code.setCode(SecureUtil.sha256(number + format1.format(LocalDateTime.now()) + uuid));
+            code.setExpandCode(SecureUtil.sha256(number + format1.format(LocalDateTime.now()) + uuid));
+
             codeService.addCode(code);
             val++;
         }

@@ -7,28 +7,30 @@
         SELECT
         *
         FROM
-        `code`
-            where 1=1
-        <if test="code != null">
-            and `code` = #{code}
-        </if>
+        "code"
+            <where>
+                <if test="code != null">
+                    and expand_code = #{code}
+                </if>
+            </where>
+
     </select>
 
     <select id="selectCodekey"  parameterType="string" resultType="cn.hellohao.entity.Code">
         SELECT
         *
         FROM
-        `code`
-         where code = #{code}
+            "code"
+         where expand_code = #{code}
 
     </select>
 
     <insert id="addCode" parameterType="cn.hellohao.entity.Code">
-        insert into `code` (id,value,code) values (null,#{value},#{code})
+        insert into  "code" values (#{id}, #{value},#{expandCode})
     </insert>
 
     <delete id="deleteCode" parameterType="string">
-        delete from code where code=#{code}
+        delete from  "code" where expand_code=#{code}
     </delete>
 
 
