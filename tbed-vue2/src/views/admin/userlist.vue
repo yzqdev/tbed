@@ -179,8 +179,8 @@
     >
   </Layout>
 </template>
-<script lang="tsx">
-import expandRow from "./userlist-expand.vue";
+<script>
+import expandRow from "./userlist-expand";
 import { request } from "@/network/request";
 export default {
   name: "userlist",

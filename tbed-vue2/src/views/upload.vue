@@ -282,6 +282,8 @@
 <script>
 import { request } from "@/network/request";
 import vueQr from "vue-qr";
+import Treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import md5 from "js-md5";
 import axios from "axios";
 import AddAlbum from "@/views/admin/AddAlbum";

@@ -122,7 +122,7 @@
     >
   </Layout>
 </template>
-<script lang="tsx">
+<script>
 import { request } from "@/network/request";
 export default {
   name: "group",

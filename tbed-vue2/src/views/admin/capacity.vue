@@ -106,7 +106,7 @@
     </Modal>
   </Layout>
 </template>
-<script lang="tsx">
+<script>
 import { request } from "@/network/request";
 import expandRow from "@/views/admin/userlist-expand";
 export default {
@@ -132,7 +132,7 @@ export default {
         },
         {
           title: "编号",
-        width: 400,
+          width: 100,
           key: "id",
         },
         {
