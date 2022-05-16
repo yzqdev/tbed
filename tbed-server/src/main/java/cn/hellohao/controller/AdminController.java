@@ -70,6 +70,11 @@ public class AdminController {
     private FTPImageupload ftpImageupload;
 
 
+    /**
+     * 概述数据
+     *
+     * @return {@link Msg}
+     */
     @PostMapping(value = "/overviewData") //new
     @ResponseBody
     public Msg overviewData() {
@@ -79,17 +84,19 @@ public class AdminController {
         user = userService.getUsers(user);
         JSONObject jsonObject = new JSONObject();
         UploadConfig uploadConfig = uploadConfigService.getUpdateConfig();
-        Imgreview imgreview = imgreviewService.selectByPrimaryKey(1);//查询非法个数
-        Imgreview isImgreviewOK = imgreviewService.selectByusing(1);//查询有没有启动鉴别功能
+        //查询非法个数
+        Imgreview imgreview = imgreviewService.selectByPrimaryKey("1");
+        //查询有没有启动鉴别功能
+        Imgreview isImgreviewOK = imgreviewService.selectByusing(1);
         String ok = "false";
         jsonObject.put("myImgTotal", imgService.countimg(user.getId())); //我的图片数
         jsonObject.put("myAlbumTitle", albumService.selectAlbumCount(user.getId()));//我的画廊数量
-        long memory = Long.valueOf(user.getMemory());//分配量
+        long memory = user.getMemory();//分配量
         Long usermemory = imgService.getusermemory(user.getId()) == null ? 0L : imgService.getusermemory(user.getId());
         if (memory == 0) {
             jsonObject.put("myMemory", "无容量");
         } else {
-            Double aDouble = Double.valueOf(String.format("%.2f", (((double) usermemory / (double) memory) * 100)));
+            double aDouble = Double.parseDouble(String.format("%.2f", (((double) usermemory / (double) memory) * 100)));
             if (aDouble >= 999) {
                 jsonObject.put("myMemory", 999);
             } else {
@@ -104,9 +111,9 @@ public class AdminController {
             jsonObject.put("userTotal", userService.getUserTotal()); //admin  用户个数
             jsonObject.put("ViolationImgTotal", imgreview.getCount()); //admin 非法图片
             jsonObject.put("ViolationSwitch", isImgreviewOK == null ? 0 : isImgreviewOK.getId()); //admin 非法图片开关
-            jsonObject.put("VisitorUpload", uploadConfig.getIsupdate());//是否禁用了游客上传
-            jsonObject.put("VisitorMemory", SetFiles.readableFileSize(Long.valueOf(uploadConfig.getVisitorStorage())));//访客共大小
-            if (uploadConfig.getIsupdate() != 1) {
+            jsonObject.put("VisitorUpload", uploadConfig.getIsUpdate());//是否禁用了游客上传
+            jsonObject.put("VisitorMemory", SetFiles.readableFileSize(Long.parseLong(uploadConfig.getVisitorStorage())));//访客共大小
+            if (uploadConfig.getIsUpdate() != 1) {
                 jsonObject.put("VisitorUpload", 0);//是否禁用了游客上传
                 jsonObject.put("VisitorProportion", 100.00);//游客用量%占比
                 jsonObject.put("VisitorMemory", "禁用");//访客共大小
@@ -290,7 +297,7 @@ public class AdminController {
         User user = (User) subject.getPrincipal();
 
 
-       ;
+
         if (imgSearchDto.getStartTime() != null) {
             try {
                LocalDateTime date1 = LocalDateTime.parse(imgSearchDto.getStartTime(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

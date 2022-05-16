@@ -21,7 +21,7 @@
         a.about,
         a.violation
 
-        FROM  img_data a  LEFT JOIN user b ON a.user_id = b.id
+        FROM  img_data a  LEFT JOIN "user" b ON a.user_id = b.id
         <where>
 
             <if test=" img.source != null">
@@ -74,7 +74,7 @@
         WHERE img_uid = #{imguid}
     </delete>
 
-    <select id="selectByPrimaryKey" parameterType="integer" resultType="cn.hellohao.entity.Images">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="cn.hellohao.entity.Images">
         select *
         from img_data
         where id = #{id}
@@ -118,20 +118,20 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="gettimeimg" parameterType="string" resultType="cn.hellohao.entity.Images">
+    <select id="getTimeImg" parameterType="string" resultType="cn.hellohao.entity.Images">
         SELECT *
         from img_data
         WHERE update_time >= #{time}
     </select>
     <!--查询指定用户总内存-->
-    <select id="getusermemory" parameterType="integer" resultType="long">
+    <select id="getUserMemory" parameterType="string" resultType="long">
         SELECT sum(sizes) as sizes
-        FROM `img_data`
+        FROM  img_data
         where user_id = #{userid}
     </select>
 
     <!--  获取指定对象存储的已用空间 -->
-    <select id="getsourcememory" parameterType="integer" resultType="long">
+    <select id="getSourceMemory" parameterType="integer" resultType="long">
         SELECT sum(sizes) as sizes
         FROM img_data
         where source = #{source}
@@ -170,30 +170,28 @@
     </select>
 
 
-    <select id="getyyyy" parameterType="integer" resultType="string">
-        SELECT DISTINCT YEAR(update_time) yyyy FROM img_data where
-        IFNULL(update_time,'')
-        <if test="userId != null">
-            and user_id = #{userId}
-        </if>
+    <select id="getyyyy" parameterType="string" resultType="string">
+        SELECT DISTINCT update_time yyyy FROM img_data
+
+         where user_id = #{userId}
+
     </select>
 
 
     <select id="countByM" parameterType="cn.hellohao.entity.dto.HomeImgDto" resultType="cn.hellohao.entity.vo.ImageVo">
         SELECT
-        *,
         count(id) countNum,
-        MONTH(update_time) monthNum
+        to_char(update_time,'MM') monthNum
         FROM
         img_data
-        where YEAR(update_time)=#{year}
+        where to_char(update_time,'yyyy')=#{year}
         <if test="userId != null">
             and user_id = #{userId}
         </if>
         GROUP BY
-        MONTH(update_time)
+        to_char(update_time,'MM')
         ORDER BY
-        MONTH(update_time) ASC
+        to_char(update_time,'MM') ASC
 
     </select>
 

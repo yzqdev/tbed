@@ -174,7 +174,7 @@ public class ClientService {
                 img.setUpdateTime(LocalDateTime.now());
                 img.setSource(key.getId());
                 img.setUserId(u == null ? "0": u.getId());
-                img.setSizes(imgsize.toString());
+                img.setSizes(imgsize.intValue());
                 if (uploadConfig.getUrlType() == 2) {
                     img.setImgName(imgname);
                 } else {
@@ -227,15 +227,15 @@ public class ClientService {
         try {
             if (user == null) {
                 //用户没有登陆，值判断游客能不能上传即可
-                if(uploadConfig.getIsupdate()!=1){
+                if(uploadConfig.getIsUpdate()!=1){
                     msg.setCode("1000");
                     msg.setInfo("系统已禁用游客上传");
                     return msg;
                 }
                 siteGroup = GetCurrentSource.GetSource(null);
                 memory = Long.valueOf(uploadConfig.getVisitorStorage());//单位 B 游客设置总量
-                TotleMemory = Long.valueOf(uploadConfig.getFilesizetourists());//单位 B  游客单文件大小
-                UsedTotleMemory = imgMapper.getusermemory("0")==null?0L : imgMapper.getusermemory("0");//单位 B
+                TotleMemory = Long.valueOf(uploadConfig.getFileSizeTourists());//单位 B  游客单文件大小
+                UsedTotleMemory = imgMapper.getUserMemory("0")==null?0L : imgMapper.getUserMemory("0");//单位 B
             } else {
                 //判断用户能不能上传
                 if(uploadConfig.getUserclose()!=1){
@@ -246,8 +246,8 @@ public class ClientService {
                 updatePath = user.getUsername();
                 siteGroup = GetCurrentSource.GetSource(user.getId());
                 memory = Long.valueOf(user.getMemory())*1024*1024;//单位 B
-                TotleMemory = Long.valueOf(uploadConfig.getFilesizeuser());//单位 B
-                UsedTotleMemory = imgMapper.getusermemory(user.getId())==null?0L:imgMapper.getusermemory(user.getId());//单位 B
+                TotleMemory = Long.valueOf(uploadConfig.getFileSizeUser());//单位 B
+                UsedTotleMemory = imgMapper.getUserMemory(user.getId())==null?0L:imgMapper.getUserMemory(user.getId());//单位 B
             }
             //判断上传的图片目录结构类型
             if (uploadConfig.getUrlType() == 2) {
@@ -299,7 +299,7 @@ public class ClientService {
                                     img.setViolation("1[1]");
                                     imgMapper.setImg(img);
                                     Imgreview imgv = new Imgreview();
-                                    imgv.setId(1);
+                                    imgv.setId("1");
                                     Integer count = imgreview.getCount();
                                     System.out.println("违法图片总数：" + count);
                                     imgv.setCount(count + 1);

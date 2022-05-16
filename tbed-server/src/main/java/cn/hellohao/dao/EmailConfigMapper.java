@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface EmailConfigMapper extends BaseMapper<EmailConfig> {
-    EmailConfig getemail();
-    Integer updateemail(EmailConfig emailConfig);
+    EmailConfig getEmail();
+    Integer updateEmail(EmailConfig emailConfig);
 }

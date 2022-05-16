@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.UploadConfigMapper">
 
     <select id="getUpdateConfig" resultType="cn.hellohao.entity.UploadConfig">
-        select * from  upload_config where "id" = 1
+        select * from  upload_config where id = '1'
     </select>
 
     <update id="setUpdateConfig" parameterType="cn.hellohao.entity.UploadConfig">

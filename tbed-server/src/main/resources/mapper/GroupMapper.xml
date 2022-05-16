@@ -24,7 +24,7 @@
     </select>
 
 
-    <select id="idgrouplist" parameterType="integer" resultType="cn.hellohao.entity.SiteGroup">
+    <select id="idgrouplist" parameterType="string" resultType="cn.hellohao.entity.SiteGroup">
         SELECT
             *
         FROM

@@ -167,12 +167,11 @@
     </select>
 
     <!-- 获取用户的详细信息 -->
-    <select id="getuserlist" resultType="cn.hellohao.entity.User" parameterType="string">
+    <select id="getUserList" resultType="cn.hellohao.entity.User" parameterType="java.lang.String">
         SELECT
         id,
         username,
         email,
-        (select from_base64(password)) as password,
         birthday,
         LEVEL,
         uid,
@@ -181,7 +180,7 @@
         group_id,
         (select group_name from site_group where id = group_id) as group_name
         FROM
-        user
+        "user"
          <where>
         <if test="username != null">
             and CONCAT(

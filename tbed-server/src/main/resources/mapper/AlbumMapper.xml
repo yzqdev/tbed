@@ -7,13 +7,13 @@
         SELECT
         *
         FROM
-        `album`
+        album
         <where>
             <if test="albumKey != null">
-                `album_key` = #{albumKey}
+               album_key = #{albumKey}
             </if>
             <if test="userId != null">
-                `user_id` = #{userId}
+                user_id= #{userId}
             </if>
         </where>
     </select>
@@ -28,16 +28,16 @@
         a.album_key,
         a.album_title,
         a.create_time,
-        a.`password`,
+        a.password,
         a.user_id,
         u.username
-        FROM `album` a LEFT JOIN user u on a.user_id = u.id
+        FROM album a LEFT JOIN "user" u on a.user_id = u.id
         <where>
             <if test="albumDto.albumKey != null">
-                `album_key` like '%${albumDto.albumKey}%'
+                "album" like '%${albumDto.albumKey}%'
             </if>
             <if test="albumDto.username != null">
-                `username` like '%${albumDto.username}%'
+                 "username" like '%${albumDto.username}%'
             </if>
             <if test="albumDto.userId != null">
                 a.user_id = #{albumDto.userId}
@@ -46,14 +46,14 @@
         order by a.create_time
     </select>
 
-    <select id="selectAlbumCount" parameterType="integer" resultType="integer">
+    <select id="selectAlbumCount" parameterType="java.lang.String" resultType="java.lang.Integer" >
         SELECT
         count(album_key)
         FROM
-        `album`
+        album
         <where>
             <if test="userId != null">
-                `user_id` = #{userId}
+                user_id = #{userId}
             </if>
         </where>
     </select>

@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.SysConfigMapper">
 
     <select id="getstate" resultType="cn.hellohao.entity.SysConfig">
-        select * from sysconfig where id = 1
+        select * from sysconfig where id ='1'
     </select>
 
     <update id="setstate" parameterType="cn.hellohao.entity.SysConfig">
@@ -17,7 +17,7 @@
             </if>
 
         </set>
-        where id=1
+        where id='1'
     </update>
 
 

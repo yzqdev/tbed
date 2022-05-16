@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -36,7 +35,7 @@ public class IndexController {
     @Autowired
     private UploadConfigService uploadConfigService;
     @Autowired
-    private  UploadServicel uploadServicel;
+    private UploadServicelmpl uploadServicelmpl;
     @Autowired
     private NOSImageupload nosImageupload;
     @Autowired
@@ -99,7 +98,7 @@ public class IndexController {
                 jsonArray.add(calssif[i]);
             }
         }
-        return uploadServicel.uploadForLoc(request,multipartFile,day,null,jsonArray);
+        return uploadServicelmpl.uploadForLoc(request,multipartFile,day,null,jsonArray);
     }
 
     //根据网络图片url上传
@@ -117,7 +116,7 @@ public class IndexController {
                 jsonArray.add(calssif[i]);
             }
         }
-        return uploadServicel.uploadForLoc(RequestHelper.getRequest(),null,setday,imgUrl,jsonArray);
+        return uploadServicelmpl.uploadForLoc(RequestHelper.getRequest(),null,setday,imgUrl,jsonArray);
     }
 
     @GetMapping(value = "/getUploadInfo")//new
@@ -131,13 +130,13 @@ public class IndexController {
             UploadConfig updateConfig = uploadConfigService.getUpdateConfig();
             jsonObject.put("suffix",updateConfig.getSuffix().split(","));
             if(null==user){
-                jsonObject.put("filesize",Integer.valueOf(updateConfig.getFilesizetourists())/1024);
-                jsonObject.put("imgcount",updateConfig.getImgcounttourists());
-                jsonObject.put("uploadSwitch",updateConfig.getIsupdate());
+                jsonObject.put("filesize",Integer.valueOf(updateConfig.getFileSizeTourists())/1024);
+                jsonObject.put("imgcount",updateConfig.getImgCountTourists());
+                jsonObject.put("uploadSwitch",updateConfig.getIsUpdate());
                 jsonObject.put("uploadInfo","您登陆后才能使用此功能哦");
             }else{
-                jsonObject.put("filesize",Integer.valueOf(updateConfig.getFilesizeuser())/1024);
-                jsonObject.put("imgcount",updateConfig.getImgcountuser());
+                jsonObject.put("filesize",Integer.valueOf(updateConfig.getFileSizeUser())/1024);
+                jsonObject.put("imgcount",updateConfig.getImgCountUser());
             }
         }catch (Exception e){
             e.printStackTrace();

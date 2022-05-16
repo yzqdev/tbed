@@ -219,17 +219,17 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
 
     @Override
     public List<Images> gettimeimg(String time) {
-        return imgMapper.gettimeimg(time);
+        return imgMapper.getTimeImg(time);
     }
 
     @Override
     public Long getusermemory(String userid) {
-        return imgMapper.getusermemory(userid);
+        return imgMapper.getUserMemory(userid);
     }
 
     @Override
     public Long getsourcememory(String source) {
-        return imgMapper.getsourcememory(source);
+        return imgMapper.getSourceMemory(source);
     }
 
     @Override

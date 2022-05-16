@@ -32,11 +32,11 @@ public interface ImgMapper extends BaseMapper<Images> {
     Integer deleimgname(@Param("imgname") String imgname);
     Integer deleall(@Param("id") String id);
 
-    List<Images> gettimeimg(@Param("time") String time);
+    List<Images> getTimeImg(@Param("time") String time);
 
-    Long getusermemory(@Param("userid") String userid);
+    Long getUserMemory(@Param("userid") String userid);
 
-    Long getsourcememory(@Param("source") String source);
+    Long getSourceMemory(@Param("source") String source);
 
     Integer md5Count(Images images);
 

@@ -2,13 +2,13 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.*;
 import cn.hellohao.entity.*;
+import cn.hellohao.entity.vo.UploadImgVo;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.SysConfigService;
 import cn.hellohao.utils.*;
 import cn.hutool.core.lang.Console;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.contentcensor.AipContentCensor;
 import com.baidu.aip.contentcensor.EImgType;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -34,7 +33,7 @@ import java.util.*;
  */
 
 @Service
-public class UploadServicel {
+public class UploadServicelmpl {
     @Autowired
     ConfigMapper configMapper;
     @Autowired
@@ -58,9 +57,9 @@ public class UploadServicel {
                             MultipartFile multipartFile,int setday, String imgUrl, JSONArray selectTreeList) {
         Msg msg = new Msg();
         try{
-            JSONObject jsonObject = new JSONObject();
+            UploadImgVo jsonObject = new UploadImgVo();
             UploadConfig uploadConfig = uploadConfigMapper.getUpdateConfig();
-            String userip = GetIPS.getIpAddr(request);
+            String userIp = GetIPS.getIpAddr(request);
             Subject subject = SecurityUtils.getSubject();
             User u = (User) subject.getPrincipal();
             if(null!=u){
@@ -68,8 +67,8 @@ public class UploadServicel {
             }
            String sourceKeyId  ;
             String md5key = null;
-            FileInputStream fis = null;
-            File file =null;
+            FileInputStream fis;
+            File file;
             if(imgUrl==null){
                 file = SetFiles.changeFile_new(multipartFile);
             }else{
@@ -81,7 +80,7 @@ public class UploadServicel {
                     return imgData;
                 }
             }
-            String imguid = UUID.randomUUID().toString().replace("-", "");
+            String imgUid = UUID.randomUUID().toString().replace("-", "");
             //判断上传前的一些用户限制信息
             Msg msg1 = updateImgCheck(u,uploadConfig);
             if(!msg1.getCode().equals("300")){
@@ -91,7 +90,7 @@ public class UploadServicel {
             //判断可用容量
             sourceKeyId = siteGroup.getKeyID();
             StorageKey key = keysMapper.selectKeys(sourceKeyId);
-            Long tmp = (memory == -1 ? -2 : UsedTotleMemory);
+            long tmp = (memory == -1 ? -2 : UsedTotleMemory);
             if (tmp >= memory) {
                 msg.setCode("4005");
                 msg.setInfo(u==null?"游客空间已用尽":"您的可用空间不足");
@@ -131,9 +130,9 @@ public class UploadServicel {
                 imaOBJ.setUserId(u==null?"0":u.getId());
                 if(imgMapper.md5Count(imaOBJ)>0){
                     Images images = imgMapper.selectImgUrlByMD5(md5key);
-                    jsonObject.put("url", images.getImgUrl());
-                    jsonObject.put("name",file.getName());
-                    jsonObject.put("imguid",images.getImgUid());
+                    jsonObject.setUrl(  images.getImgUrl());
+                    jsonObject.setName(file.getName());
+                    jsonObject.setImgUid(images.getImgUid());
 //                    jsonObject.put("shortLink",images.getShortlink());
                     msg.setData(jsonObject);
                     return msg;
@@ -146,7 +145,7 @@ public class UploadServicel {
             if (uploadConfig.getBlacklist() != null) {
                 String[] iparr = uploadConfig.getBlacklist().split(";");
                 for (String s : iparr) {
-                    if (s.equals(userip)) {
+                    if (s.equals(userIp)) {
                         file.delete();
                         msg.setCode("4003");
                         msg.setInfo("你暂时不能上传");
@@ -157,7 +156,7 @@ public class UploadServicel {
 
             Map<String, File> map = new HashMap<>();
             if (file.exists()) {
-                map.put(prefix, file);//prefix
+                map.put(prefix, file);
             }
             long stime = System.currentTimeMillis();
             Map<ReturnImage, Integer> m = null;
@@ -172,7 +171,7 @@ public class UploadServicel {
                 img.setCreateTime(LocalDateTime.now());
                 img.setSource(key.getId());
                 img.setUserId(u == null ? "0" : u.getId());
-                img.setSizes(imgsize.toString());
+                img.setSizes(imgsize.intValue());
                 if(uploadConfig.getUrlType()==2){
                     img.setImgName(imgname);
                 }else{
@@ -182,22 +181,22 @@ public class UploadServicel {
                     img.setImgType(1);
                     ImgTemp imgDataExp = new ImgTemp();
                     imgDataExp.setDelTime(plusDay(setday));
-                    imgDataExp.setImgUid(imguid);
+                    imgDataExp.setImgUid(imgUid);
                     imgTempService.insertImgExp(imgDataExp);
                 }else{
                     img.setImgType(0);
                 }
 
-                img.setAbnormal(userip);
+                img.setAbnormal(userIp);
                 img.setMd5key(md5key);
-                img.setImgUid(imguid);
+                img.setImgUid(imgUid);
                 img.setFormat(fileMiME.getData().toString());
               imgMapper.insert(img);
                 long etime = System.currentTimeMillis();
                 Print.Normal("上传图片所用总时长：" + String.valueOf(etime - stime) + "ms");
-                jsonObject.put("url", img.getImgUrl());
-                jsonObject.put("name", imgname);
-                jsonObject.put("imguid",img.getImgUid());
+                jsonObject.setUrl(  img.getImgUrl());
+                jsonObject.setName(  imgname);
+                jsonObject.setImgUid( img.getImgUid());
 //                jsonObject.put("shortLink", img.getShortlink());
                 new Thread(()->{LegalImageCheck(img);}).start();
             }else{
@@ -261,28 +260,41 @@ public class UploadServicel {
     }
 
 
-    public static SiteGroup siteGroup; //上传用户或游客的所属分组
-    public static Long memory;//上传用户或者游客的分配容量 memory
-    public static Long TotleMemory;//用户或者游客下可使用的总容量 //maxsize
-    public static Long UsedTotleMemory;//用户或者游客已经用掉的总容量 //usermemory
+    /**
+     * 上传用户或游客的所属分组
+     */
+    public static SiteGroup siteGroup;
+    /**
+     * 上传用户或者游客的分配容量 memory
+     */
+    public static Long memory;
+    /**
+     * //用户或者游客下可使用的总容量 //maxsize
+     */
+    public static Long TotleMemory;
+    //用户或者游客已经用掉的总容量 //usermemory
+    public static Long UsedTotleMemory;
     public static String updatePath="tourist";
 
     //判断用户 或 游客 当前上传图片的一系列校验
     private Msg updateImgCheck(User user, UploadConfig uploadConfig){
-        final Msg msg = new Msg();
+      Msg msg = new Msg();
        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         try {
             if (user == null) {
                 //用户没有登陆，值判断游客能不能上传即可
-                if(uploadConfig.getIsupdate()!=1){
+                if(uploadConfig.getIsUpdate()!=1){
                     msg.setCode("1000");
                     msg.setInfo("系统已禁用游客上传");
                     return msg;
                 }
                 siteGroup = GetCurrentSource.GetSource(null);
-                memory = Long.valueOf(uploadConfig.getVisitorStorage());//单位 B 游客设置总量
-                TotleMemory = Long.valueOf(uploadConfig.getFilesizetourists());//单位 B  游客单文件大小
-                UsedTotleMemory = imgMapper.getusermemory("0")==null?0L : imgMapper.getusermemory("0");//单位 B
+                //单位 B 游客设置总量
+                memory = Long.valueOf(uploadConfig.getVisitorStorage());
+                //单位 B  游客单文件大小
+                TotleMemory = Long.valueOf(uploadConfig.getFileSizeTourists());
+                //单位 B
+                UsedTotleMemory = imgMapper.getUserMemory("0")==null?0L : imgMapper.getUserMemory("0");
             } else {
                 //判断用户能不能上传
                 if(uploadConfig.getUserclose()!=1){
@@ -292,9 +304,12 @@ public class UploadServicel {
                 }
                 updatePath = user.getUsername();
                 siteGroup = GetCurrentSource.GetSource(user.getId());
-                memory = Long.valueOf(user.getMemory())*1024*1024;//单位 B
-                TotleMemory = Long.valueOf(uploadConfig.getFilesizeuser());//单位 B
-                UsedTotleMemory = imgMapper.getusermemory(user.getId())==null?0L:imgMapper.getusermemory(user.getId());//单位 B
+                //单位 B
+                memory = user.getMemory()*1024*1024;
+                //单位 B
+                TotleMemory = Long.valueOf(uploadConfig.getFileSizeUser());
+                //单位 B
+                UsedTotleMemory = imgMapper.getUserMemory(user.getId())==null?0L:imgMapper.getUserMemory(user.getId());
             }
             if (uploadConfig.getUrlType() == 2) {
                 updatePath = dateFormat.format(LocalDateTime.now());
@@ -347,7 +362,7 @@ public class UploadServicel {
                                     img.setViolation("1[1]");
                                     imgMapper.setImg(img);
                                     Imgreview imgv = new Imgreview();
-                                    imgv.setId(1);
+                                    imgv.setId("1");
                                     Integer count = imgreview.getCount();
                                     System.out.println("违法图片总数：" + count);
                                     imgv.setCount(count + 1);

@@ -37,7 +37,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     Integer getUserTotal();
 
-    Page<User> getuserlist(@Param("page") Page<User> page, String username);
+    Page<User> getUserList(@Param("page") Page<User> page, String username);
 
 
     /**

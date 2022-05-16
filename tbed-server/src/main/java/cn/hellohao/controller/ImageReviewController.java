@@ -27,7 +27,7 @@ public class ImageReviewController {
         try {
             JSONObject jsonObj = JSONObject.parseObject(data);
             Imgreview imgreview = JSON.toJavaObject(jsonObj,Imgreview.class);
-            if(imgreview.getId()==1){
+            if(imgreview.getId()=="1"){
                 if(null==imgreview.getId() || null==imgreview.getApiKey() || null==imgreview.getUsing() || null==imgreview.getSecretKey()
                         || null==imgreview.getAppId() || imgreview.getApiKey().equals("")
                         || imgreview.getSecretKey().equals("") || imgreview.getAppId().equals("")){

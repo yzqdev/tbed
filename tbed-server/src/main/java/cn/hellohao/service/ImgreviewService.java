@@ -11,7 +11,7 @@ public interface ImgreviewService {
 
     int insertSelective(Imgreview record);
 
-    Imgreview selectByPrimaryKey(Integer id);
+    Imgreview selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(Imgreview record);
 

@@ -17,15 +17,15 @@ import lombok.NoArgsConstructor;
 @TableName("upload_config")
 public class UploadConfig {
     private String suffix;
-    private String filesizetourists;
-    private String filesizeuser;
-    private Integer imgcounttourists;
-    private Integer imgcountuser;
+    private String fileSizeTourists;
+    private String fileSizeUser;
+    private Integer imgCountTourists;
+    private Integer imgCountUser;
     /**
      * url类型
      */
     private Integer urlType;
-    private Integer isupdate;
+    private Integer isUpdate;
     private Integer api;
     /**
      * 访问存储

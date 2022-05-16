@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface EmailConfigService extends IService<EmailConfig> {
-    EmailConfig getemail();
+    EmailConfig getEmail();
     Integer updateemail(EmailConfig emailConfig);
 }

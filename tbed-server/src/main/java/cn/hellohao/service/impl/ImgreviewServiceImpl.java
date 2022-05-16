@@ -28,7 +28,7 @@ public class ImgreviewServiceImpl implements ImgreviewService {
     }
 
     @Override
-    public Imgreview selectByPrimaryKey(Integer id) {
+    public Imgreview selectByPrimaryKey(String id) {
         return imgreviewMapper.selectByPrimaryKey(id);
     }
 

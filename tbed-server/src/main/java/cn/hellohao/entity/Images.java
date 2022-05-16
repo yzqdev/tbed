@@ -37,7 +37,7 @@ public class Images {
     /**
      * 大小
      */
-    private String sizes;
+    private Integer sizes;
     /**
      * 不正常的
      */

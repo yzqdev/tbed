@@ -13,7 +13,7 @@ public interface ImgreviewMapper extends BaseMapper<Imgreview> {
 
     int insertSelective(Imgreview record);
 
-    Imgreview selectByPrimaryKey(@Param("id") Integer id);
+    Imgreview selectByPrimaryKey(@Param("id") String id);
 
     Imgreview selectByusing(@Param("using") Integer using);
 

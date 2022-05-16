@@ -7,7 +7,6 @@ import cn.hellohao.entity.dto.UserUpdateDto;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -259,8 +258,8 @@ public class AdminRootController {
             SysConfig sysConfig = sysConfigService.getstate();
             uploadConfig.setUserStorage(Long.valueOf(uploadConfig.getUserStorage())/1024/1024);
             uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())/1024/1024));
-            uploadConfig.setFilesizetourists(Long.toString(Long.valueOf(uploadConfig.getFilesizetourists())/1024/1024));
-            uploadConfig.setFilesizeuser(Long.toString(Long.valueOf(uploadConfig.getFilesizeuser())/1024/1024));
+            uploadConfig.setFileSizeTourists(Long.toString(Long.valueOf(uploadConfig.getFileSizeTourists())/1024/1024));
+            uploadConfig.setFileSizeUser(Long.toString(Long.valueOf(uploadConfig.getFileSizeUser())/1024/1024));
             jsonObject.put("uploadConfig",uploadConfig);
             jsonObject.put("config",config);
             jsonObject.put("sysConfig",sysConfig);
@@ -282,9 +281,9 @@ public class AdminRootController {
 
             UploadConfig uploadConfig = configDto.getUploadConfig();
             String vm =  uploadConfig.getVisitorStorage();
-            if((Long.valueOf(vm)<-1) || Long.valueOf(vm) > 104857600 || Long.valueOf(uploadConfig.getFilesizetourists())<0 || Long.valueOf(uploadConfig.getFilesizetourists()) > 5120
+            if((Long.valueOf(vm)<-1) || Long.valueOf(vm) > 104857600 || Long.valueOf(uploadConfig.getFileSizeTourists())<0 || Long.valueOf(uploadConfig.getFileSizeTourists()) > 5120
                     || Long.valueOf(uploadConfig.getUserStorage())<0 || Long.valueOf(uploadConfig.getUserStorage())>1048576
-                    || Long.valueOf(uploadConfig.getFilesizeuser())<0 || Long.valueOf(uploadConfig.getFilesizeuser())>5120 ){
+                    || Long.valueOf(uploadConfig.getFileSizeUser())<0 || Long.valueOf(uploadConfig.getFileSizeUser())>5120 ){
                 msg.setInfo("你输入的值不正确");
                 msg.setCode("500");
                 return  msg;
@@ -296,9 +295,9 @@ public class AdminRootController {
             }else{
                 uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())*1024*1024));
             }
-            uploadConfig.setFilesizetourists(Long.toString(Long.valueOf(uploadConfig.getFilesizetourists())*1024*1024));
+            uploadConfig.setFileSizeTourists(Long.toString(Long.valueOf(uploadConfig.getFileSizeTourists())*1024*1024));
             uploadConfig.setUserStorage( Long.valueOf(uploadConfig.getUserStorage())*1024*1024);
-            uploadConfig.setFilesizeuser(Long.toString(Long.valueOf(uploadConfig.getFilesizeuser())*1024*1024));
+            uploadConfig.setFileSizeUser(Long.toString(Long.valueOf(uploadConfig.getFileSizeUser())*1024*1024));
             uploadConfigService.setUpdateConfig(uploadConfig);
             configService.setSourceype(config);
             sysConfigService.setstate(sysConfig);
@@ -312,16 +311,21 @@ public class AdminRootController {
     }
 
 
+    /**
+     * 邮件配置
+     *
+     * @return {@link Msg}
+     */
     @PostMapping(value = "/getOrderConfig")//new
     @ResponseBody
-    public Msg emailconfig() {
+    public Msg emailConfig() {
         final Msg msg = new Msg();
         EmailConfig emailConfig = null;
         Imgreview imgreview = null;
         try {
             final JSONObject jsonObject = new JSONObject();
-            emailConfig = emailConfigService.getemail();
-            imgreview = imgreviewService.selectByPrimaryKey(1);
+            emailConfig = emailConfigService.getEmail();
+            imgreview = imgreviewService.selectByPrimaryKey("1");
             jsonObject.put("emailConfig",emailConfig);
             jsonObject.put("imgreview",imgreview);
             msg.setData(jsonObject);
@@ -363,7 +367,7 @@ public class AdminRootController {
     public Msg mailTest(@PathVariable("toMail") String toMail ) {
         Msg msg = new Msg();
 
-        EmailConfig emailConfig = emailConfigService.getemail();
+        EmailConfig emailConfig = emailConfigService.getEmail();
         if(null==emailConfig.getEmails() || null==emailConfig.getEmailKey() || null==emailConfig.getEmailUrl()
                 || null==emailConfig.getPort()  || null==emailConfig.getEmailName() || null==toMail){
 //        if(jsonObj.size()==0){

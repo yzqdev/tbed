@@ -33,17 +33,17 @@
         img_data.img_name
         FROM
             img_temp LEFT JOIN img_data on img_temp.img_uid = img_data.img_uid
-        where img_temp.del_time &lt;=  STR_TO_DATE(#{datatime}, '%Y-%m-%d %H:%i:%s')
+        where img_temp.del_time &lt;=   to_char(#{datatime}, 'yyyy-MM-dd HH:mm:ss')
     </select>
 
 <!--    此sql会同时删除img_data 和 img_temp两个表的数据 -->
-    <delete id="delImgAndExp" parameterType="string">
-        DELETE img_temp,img_data FROM img_temp LEFT JOIN img_data ON img_temp.img_uid = img_data.img_uid
+    <delete id="delImgAndExp" parameterType="java.lang.String">
+        DELETE   img_temp,img_data FROM img_temp LEFT JOIN img_data ON img_temp.img_uid = img_data.img_uid
         WHERE img_data.img_uid =#{imgUid}
     </delete>
 
     <insert id="insertImgExp" parameterType="cn.hellohao.entity.ImgTemp" >
-        insert into img_temp (id,img_uid,`del_time`)
+        insert into img_temp (id,img_uid,del_time)
         values (null,#{imgUid},#{deltime})
     </insert>
 

@@ -1,7 +1,6 @@
 package cn.hellohao.controller;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,7 +78,7 @@ public class UserController {
         if((redis_verifyCodeForRegister.toString().toLowerCase()).compareTo((verifyCodeForRegister.toLowerCase()))==0){
             User user = new User();
             UploadConfig updateConfig = uploadConfigService.getUpdateConfig();
-            EmailConfig emailConfig = emailConfigService.getemail();
+            EmailConfig emailConfig = emailConfigService.getEmail();
             Integer countusername = userService.countusername(username);
             Integer countmail = userService.countmail(email);
             SysConfig sysConfig = sysConfigService.getstate();
@@ -249,7 +248,7 @@ public class UserController {
             String userIP = GetIPS.getIpAddr(request);
             Object redis_verifyCodeForEmailRetrieve = iRedisService.getValue(userIP+"_hellohao_verifyCodeForEmailRetrieve");
 
-            EmailConfig emailConfig = emailConfigService.getemail();
+            EmailConfig emailConfig = emailConfigService.getEmail();
             if(null==redis_verifyCodeForEmailRetrieve){
                 msg.setCode("4035");
                 msg.setInfo("验证码已失效，请重新弄获取。");

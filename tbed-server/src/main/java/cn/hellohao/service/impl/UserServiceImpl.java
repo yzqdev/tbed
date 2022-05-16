@@ -80,7 +80,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public Page<User> getuserlist(Page<User> page,String username) {
-        return userMapper.getuserlist(page,username);
+        return userMapper.getUserList(page,username);
     }
 
     @Override

@@ -7,27 +7,27 @@
         <result column="app_id" jdbcType="VARCHAR" property="appId"/>
         <result column="api_key" jdbcType="VARCHAR" property="apiKey"/>
         <result column="secret_key" jdbcType="VARCHAR" property="secretKey"/>
-        <result column="Using" jdbcType="INTEGER" property="using"/>
+        <result column="using" jdbcType="INTEGER" property="using"/>
         <result column="count" jdbcType="INTEGER" property="count"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, app_id, api_key, secret_key, `Using`,`count`
+        id, app_id, api_key, secret_key, 'using',count
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="string" resultMap="BaseResultMap">
         <!--@mbg.generated-->
         select
         <include refid="Base_Column_List"/>
         from imgreview
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id }
     </select>
 
     <select id="selectByusing" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--@mbg.generated-->
         select
-        id, app_id, api_key, secret_key, `Using`,`count`
+        id, app_id, api_key, secret_key, 'using',count
         from imgreview
-        where `Using` = #{using,jdbcType=INTEGER}
+        where  "using" = #{using }
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

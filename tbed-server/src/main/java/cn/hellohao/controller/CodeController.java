@@ -26,7 +26,7 @@ public class CodeController {
     @Autowired
     private CodeService codeService;
 
-    @GetMapping(value = "/selectCodeList")//new
+    @PostMapping(value = "/selectCodeList")//new
     public Map<String, Object> selectCodeList(@RequestBody PageDto pageDto) {
         Map<String, Object> map = new HashMap<>();
 

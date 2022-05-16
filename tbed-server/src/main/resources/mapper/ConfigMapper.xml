@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.dao.ConfigMapper">
 
     <select id="getSourceype" resultType="cn.hellohao.entity.Config">
-        select * from config where id = 1
+        select * from config where id = '1'
     </select>
 
     <update id="setSourceype" parameterType="cn.hellohao.entity.Config">

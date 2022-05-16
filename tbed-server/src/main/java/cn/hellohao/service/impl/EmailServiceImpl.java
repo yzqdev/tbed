@@ -12,12 +12,12 @@ public class EmailServiceImpl extends ServiceImpl<EmailConfigMapper,EmailConfig>
     @Autowired
     EmailConfigMapper emailConfigMapper;
     @Override
-    public EmailConfig getemail() {
-        return emailConfigMapper.getemail();
+    public EmailConfig getEmail() {
+        return emailConfigMapper.getEmail();
     }
 
     @Override
     public Integer updateemail(EmailConfig emailConfig) {
-        return emailConfigMapper.updateemail(emailConfig);
+        return emailConfigMapper.updateEmail(emailConfig);
     }
 }
