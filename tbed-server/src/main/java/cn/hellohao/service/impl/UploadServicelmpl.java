@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -124,7 +125,7 @@ public class UploadServicelmpl {
             }
 
             //判断图片是否存在
-            if(Integer.valueOf(sysConfigService.getstate().getCheckduplicate())==1){
+            if(Integer.parseInt(sysConfigService.getstate().getCheckduplicate())==1){
                 Images imaOBJ = new Images();
                 imaOBJ.setMd5key(md5key);
                 imaOBJ.setUserId(u==null?"0":u.getId());
@@ -180,7 +181,7 @@ public class UploadServicelmpl {
                 if(setday == 1 || setday == 3 || setday == 7 || setday == 30){
                     img.setImgType(1);
                     ImgTemp imgDataExp = new ImgTemp();
-                    imgDataExp.setDelTime(plusDay(setday));
+                    imgDataExp.setDelTime( Timestamp.valueOf(plusDay(setday)));
                     imgDataExp.setImgUid(imgUid);
                     imgTempService.insertImgExp(imgDataExp);
                 }else{

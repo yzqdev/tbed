@@ -4,44 +4,44 @@
 
     <!-- 用户注册 -->
     <insert id="register" parameterType="cn.hellohao.entity.User">
-        INSERT INTO user (id, username, PASSWORD, email, birthday, LEVEL,uid,isok,memory,group_id)
-        VALUES (NULL, #{username}, #{password}, #{email}, #{birthday}, #{level},#{uid},#{isok},#{memory},#{groupId}   )
+        INSERT INTO "user" (id, username, PASSWORD, email, birthday, LEVEL,uid,isok,memory,group_id)
+        VALUES (#{id}, #{username}, #{password}, #{email}, #{birthday}, #{level},#{uid},#{isok},#{memory},#{groupId}   )
     </insert>
     <!--  查询是否有username  -->
     <select id="countusername" parameterType="string" resultType="integer">
         select COUNT(*)
-        from user
+        from "user"
         where username = #{username}
     </select>
     <!--  查询是否有邮箱  -->
     <select id="countmail" parameterType="string" resultType="integer">
         select COUNT(*)
-        from user
+        from "user"
         where email = #{email}
 
     </select>
     <!--  uid查询用户并修改  -->
     <update id="uiduser" parameterType="cn.hellohao.entity.User">
-        <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE `user` set `isok`=1 where uid=#{uid}
+        <!-- UPDATE "user" set username=#{username},`password`=#{password} where email=#{email} -->
+        UPDATE "user" set `isok`=1 where uid=#{uid}
     </update>
 
     <!-- 登录 -->
     <select id="login" parameterType="string" resultType="integer">
         select COUNT(*)
-        from user
+        from "user"
 <!--        where email = #{email}-->
 <!--        and password = #{password}-->
         <where>
-             1=1
+
             <if test="email != null">
-                and email = #{email}
+                  email = #{email}
             </if>
             <if test="password != null">
-                and password = #{password}
+                  password = #{password}
             </if>
             <if test="uid != null">
-                and uid = #{uid}
+               uid = #{uid}
             </if>
 
         </where>
@@ -107,63 +107,63 @@
 
     <!-- 修改资料 -->
     <update id="change" parameterType="cn.hellohao.entity.User">
-        <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
-        UPDATE user
+        <!-- UPDATE "user" set username=#{username},`password`=#{password} where email=#{email} -->
+        UPDATE "user"
         <set>
             <if test="email != null">
-                `email` = #{email},
+               email = #{email},
             </if>
             <if test="username != null">
-                `username` = #{username},
+                username = #{username},
             </if>
             <if test="password != null">
-            `password` = #{password},
+            password = #{password},
             </if>
             <if test="memory != null">
-                `memory` = #{memory},
+               memory = #{memory},
             </if>
             <if test="groupId != null">
-                `group_id` = #{groupId}
+                group_id = #{groupId}
             </if>
         </set>
         where uid=#{uid}
     </update>
 
     <update id="changeUser" parameterType="cn.hellohao.entity.User">
-        UPDATE user
+        UPDATE "user"
         <set>
             <if test="email != null">
-                `email` = #{email},
+                email = #{email},
             </if>
             <if test="username != null">
-                `username` = #{username},
+                username = #{username},
             </if>
             <if test="password != null">
-                `password` = #{password},
+                password = #{password},
             </if>
             <if test="memory != null">
-                `memory` = #{memory},
+                memory = #{memory},
             </if>
             <if test="groupId != null">
-                `group_id` = #{groupId},
+                group_id = #{groupId},
             </if>
             <if test="isok != null">
-                `isok` = #{isok},
+                isok = #{isok},
             </if>
             <if test="uid != null">
-                `uid` = #{uid},
+                uid = #{uid},
             </if>
         </set>
         where id=#{id}
     </update>
 
     <select id="checkUsername" parameterType="string" resultType="integer">
-        SELECT count(username) FROM `user` where username=#{username}
+        SELECT count(username) FROM "user" where username=#{username}
     </select>
 
     <!-- 查询用户总数 -->
     <select id="getUserTotal" resultType="integer">
-        SELECT count(*) FROM `user`
+        SELECT count(*) FROM "user"
     </select>
 
     <!-- 获取用户的详细信息 -->
@@ -173,7 +173,7 @@
         username,
         email,
         birthday,
-        LEVEL,
+       level,
         uid,
         isok,
         ceil((memory/1024/1024)) as memory,
@@ -197,11 +197,11 @@
     </delete>
 
     <update id="setisok" parameterType="cn.hellohao.entity.User">
-        <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
+        <!-- UPDATE "user" set username=#{username},`password`=#{password} where email=#{email} -->
         UPDATE user set `isok`=#{isok} where id=#{id}
     </update>
     <update id="setmemory" parameterType="cn.hellohao.entity.User">
-        <!-- UPDATE `user` set username=#{username},`password`=#{password} where email=#{email} -->
+        <!-- UPDATE "user" set username=#{username},`password`=#{password} where email=#{email} -->
         UPDATE user set `memory`=#{memory} where id=#{id}
     </update>
 

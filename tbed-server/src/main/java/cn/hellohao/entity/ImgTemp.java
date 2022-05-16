@@ -1,10 +1,13 @@
 package cn.hellohao.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +23,8 @@ public class ImgTemp {
     /**
      *
      */
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
 
     /**
      *
@@ -31,7 +35,7 @@ public class ImgTemp {
     /**
      *
      */
-    private LocalDateTime delTime;
+    private Timestamp delTime;
 
 
 }

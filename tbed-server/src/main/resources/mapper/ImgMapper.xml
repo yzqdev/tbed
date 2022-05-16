@@ -131,7 +131,7 @@
     </select>
 
     <!--  获取指定对象存储的已用空间 -->
-    <select id="getSourceMemory" parameterType="integer" resultType="long">
+    <select id="getSourceMemory" parameterType="java.lang.String" resultType="long">
         SELECT sum(sizes) as sizes
         FROM img_data
         where source = #{source}
@@ -151,7 +151,7 @@
     </select>
 
     <!--    查询当前用户的近20条数据-->
-    <select id="RecentlyUploaded" parameterType="integer" resultType="cn.hellohao.entity.Images">
+    <select id="RecentlyUploaded" parameterType="java.lang.String" resultType="cn.hellohao.entity.Images">
         select *
         from img_data
         where user_id = #{userId}
@@ -160,11 +160,11 @@
     </select>
 
     <select id="RecentlyUser" resultType="cn.hellohao.entity.vo.RecentUserVo">
-        select count(i.id) as counts, i.user_id, u.username,u.email,u.memory
+        select count(i.id) as counts, i.user_id, u.username, u.email, u.memory
         from img_data i
-                 LEFT JOIN user u on i.user_id = u.id
-        where i.user_id not in (0)
-        GROUP BY i.user_id
+                 LEFT JOIN "user" u on i.user_id = u.id
+        where i.user_id not in ('0')
+        GROUP BY i.user_id, u.username,  u.email, u.memory
         ORDER BY counts DESC
         LIMIT 20
     </select>

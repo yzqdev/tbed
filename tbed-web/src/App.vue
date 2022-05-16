@@ -1,8 +1,15 @@
 <template>
   <!--  -->
   <div class="app" id="app">
-    <div v-if="$store.state.auth==false">
-      <div style="width: 100%;height: 100px; text-align: center; margin-top: 150px;">
+    <div v-if="$store.state.auth == false">
+      <div
+        style="
+          width: 100%;
+          height: 100px;
+          text-align: center;
+          margin-top: 150px;
+        "
+      >
         <h1>{{ $store.state.authInfo }}</h1>
       </div>
     </div>
@@ -11,30 +18,23 @@
 </template>
 
 <script>
-
 import VConsole from "vconsole";
 import store from "@/store";
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
-
   data() {
-    return {}
+    return {};
   },
   mounted() {
-
-
     if (this.$store.state.auth) {
       // var vConsole = new VConsole();
       // console.log(vConsole);
       // this.getWebInfo();
       this.checkLogin();
     }
-
-
   },
 
   methods: {
-
     /*    getWebInfo () {
           return new Promise((resolve, reject) => {
             this.$http('/webInfo'+'?'+new Date().getTime()+Math.random()+Math.ceil(Math.random()*(10000-99999)+99999)).then(data => {
@@ -57,58 +57,64 @@ export default {
         },*/
 
     checkLogin() {
-      this.$http(
-          '/checkStatus'  ,
-          {}).then(res => {
-        if (res.status == 200) {
-          var json = res.data;
-          if (json.code == '200') {
-            this.$store.state.loginStatus = true;
-            // this.$store.state.RoleLevel = json.data.RoleLevel;
-            localStorage.setItem('RoleLevel', json.data.RoleLevel);
-            localStorage.setItem('userName', json.data.userName);
-            store.commit("setUserName", json.data.userName);
-            if (this.$router.history.current.path == '/login' || this.$router.history.current.path == '/register') {
-              this.$router.replace("/");
+      this.$http("/checkStatus", {})
+        .then((res) => {
+          if (res.status == 200) {
+            var json = res.data;
+            if (json.code == "200") {
+              this.$store.state.loginStatus = true;
+              // this.$store.state.RoleLevel = json.data.RoleLevel;
+              localStorage.setItem("RoleLevel", json.data.RoleLevel);
+              localStorage.setItem("userName", json.data.userName);
+              store.commit("setUserName", json.data.userName);
+              if (
+                this.$router.history.current.path == "/login" ||
+                this.$router.history.current.path == "/register"
+              ) {
+                this.$router.replace("/");
+              }
+            } else {
+              this.$store.state.loginStatus = false;
+              this.$Message.warning(json.info);
+              localStorage.removeItem("Authorization");
+              localStorage.removeItem("RoleLevel");
+              this.$router.replace("");
             }
           } else {
-            this.$store.state.loginStatus = false;
-            this.$Message.warning(json.info);
-            localStorage.removeItem('Authorization');
-            localStorage.removeItem('RoleLevel');
-            this.$router.replace("");
+            this.$Message.error("请求时出现错误");
           }
-        } else {
-          this.$Message.error("请求时出现错误");
-        }
-      }).catch(err => {
-        console.log(err);
-        // this.reloadCode();
-        this.$Message.error('服务器请求错误');
-      })
+        })
+        .catch((err) => {
+          console.log(err);
+          // this.reloadCode();
+          this.$Message.error("服务器请求错误");
+        });
     },
-  }
-
-}
+  },
+};
 </script>
 
 <style lang="less">
-html, body, .app {
+html,
+body,
+.app {
   height: 100%;
   /*overflow: hidden;*/
 }
 .QRCodestyle {
-
   display: flex;
   justify-content: center;
   align-items: center;
- img{
-   height: 160px;
-   width: 160px; opacity: 0.7;
- }
+  img {
+    height: 160px;
+    width: 160px;
+    opacity: 0.7;
+  }
 }
 .app {
-  font-family: JetBrainsMono, Noto Sans SC, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: JetBrainsMono, Noto Sans SC, "Helvetica Neue", Helvetica,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
+    sans-serif;
   font-style: normal;
   font-weight: 400;
 }

@@ -31,29 +31,29 @@
 export default {
   name: "table-expand.vue",
   props: {
-    row: Object
+    row: Object,
   },
   methods: {
     //自动计算大小
     formatBytes(a, b) {
       if (0 == a) return "0 Bytes";
-      var c = 1024, d = b || 2, e = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
-          f = Math.floor(Math.log(a) / Math.log(c));
-      return parseFloat((a / Math.pow(c, f)).toFixed(d)) + " " + e[f]
-    }
+      var c = 1024,
+        d = b || 2,
+        e = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+        f = Math.floor(Math.log(a) / Math.log(c));
+      return parseFloat((a / Math.pow(c, f)).toFixed(d)) + " " + e[f];
+    },
   },
   computed: {
     getMemory: function () {
       if (this.row.memory) {
-        return this.formatBytes((this.row.memory * 1024 * 1024), 2);//参数二的意思是两位小数
+        return this.formatBytes(this.row.memory * 1024 * 1024, 2); //参数二的意思是两位小数
       } else {
-        return '0B';
+        return "0B";
       }
-    }
+    },
   },
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

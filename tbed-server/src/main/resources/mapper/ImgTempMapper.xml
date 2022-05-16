@@ -7,7 +7,7 @@
     <resultMap id="BaseResultMap" type="cn.hellohao.entity.ImgTemp">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="img_uid" column="img_uid" jdbcType="VARCHAR"/>
-            <result property="deltime" column="deltime" jdbcType="VARCHAR"/>
+            <result property="del_time" column="del_time" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -26,14 +26,14 @@
     </update>
 
 <!--    根据日期查询要删除的图片-->
-    <select id="selectDelImgUidList" parameterType="string" resultType="cn.hellohao.entity.Images">
+    <select id="selectDelImgUidList" parameterType="java.lang.String" resultType="cn.hellohao.entity.Images">
         SELECT
         img_data.img_uid,
         img_data.source,
         img_data.img_name
         FROM
             img_temp LEFT JOIN img_data on img_temp.img_uid = img_data.img_uid
-        where img_temp.del_time &lt;=   to_char(#{datatime}, 'yyyy-MM-dd HH:mm:ss')
+        where img_temp.del_time &lt;=   to_date(#{datatime}, 'YYYY-MM-DD HH24:MI:ss')
     </select>
 
 <!--    此sql会同时删除img_data 和 img_temp两个表的数据 -->
@@ -44,7 +44,7 @@
 
     <insert id="insertImgExp" parameterType="cn.hellohao.entity.ImgTemp" >
         insert into img_temp (id,img_uid,del_time)
-        values (null,#{imgUid},#{deltime})
+        values (#{id},#{imgUid},#{delTime})
     </insert>
 
 
