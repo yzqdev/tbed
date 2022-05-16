@@ -44,7 +44,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
 
         List<Images> images= new ArrayList<>(List.of());
         for (String s : array) {
-            images.add(imgMapper.selectOne(new LambdaQueryWrapper<Images>().eq(Images::getId, s)));
+            images.add(imgMapper.selectOne(new LambdaQueryWrapper<Images>().eq(Images::getImgUid, s)));
         }
         Page<Images> page=new Page<>(1,5);
           //List<Images> images= imgMapper.selectImageData( imgSearchDto);

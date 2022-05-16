@@ -284,10 +284,10 @@ CREATE TABLE `upload_config`  (
 INSERT INTO `upload_config` VALUES (1, '10485760', '20971520', 5, 10, 'gif,jpg,jpeg,bmp,png,jfif,webp', 1, 1, 1, '524288000', '104857600', '', 1);
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for sysUser
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
+DROP TABLE IF EXISTS `sysUser`;
+CREATE TABLE `sysUser`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
@@ -304,9 +304,9 @@ CREATE TABLE `user`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of user
+-- Records of sysUser
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', 'YWRtaW4=', 'admin', '2019-01-10 00:00:00', 2, '813a942c153b4d24a5c7e06fbaf53786', 1, '2147483648', 1, NULL, NULL);
+INSERT INTO `sysUser` VALUES (1, 'admin', 'YWRtaW4=', 'admin', '2019-01-10 00:00:00', 2, '813a942c153b4d24a5c7e06fbaf53786', 1, '2147483648', 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user_group

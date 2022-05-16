@@ -2,8 +2,8 @@ package cn.hellohao.controller;
 
 import cn.hellohao.entity.*;
 import cn.hellohao.entity.dto.ConfigDto;
+import cn.hellohao.entity.dto.SysUserUpdateDto;
 import cn.hellohao.entity.dto.UserSearchDto;
-import cn.hellohao.entity.dto.UserUpdateDto;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.*;
@@ -48,8 +48,8 @@ public class AdminRootController {
         Integer pageNum =userSearchDto.getPageNum();
         Integer pageSize =userSearchDto.getPageSize();
         String queryText = userSearchDto.getQueryText();
-        Page<User> page =new Page<>(pageNum,pageSize);
-        Page<User> users = userService.getuserlist(page,queryText);
+        Page<SysUser> page =new Page<>(pageNum,pageSize);
+        Page<SysUser> users = userService.getuserlist(page,queryText);
 
         Map<String, Object> map = new HashMap<>(2);
         map.put("count", users.getTotal());
@@ -61,11 +61,11 @@ public class AdminRootController {
 
     @PostMapping(value = "/updateUserInfo")//new
     @ResponseBody
-    public Msg updateUserInfo(@RequestBody UserUpdateDto userUpdateDto) {
+    public Msg updateUserInfo(@RequestBody SysUserUpdateDto userUpdateDto) {
         final Msg msg = new Msg();
         try{
             Subject subject = SecurityUtils.getSubject();
-            User u = (User) subject.getPrincipal();
+            SysUser u = (SysUser) subject.getPrincipal();
 
            String id = userUpdateDto.getId();
             String email = userUpdateDto.getEmail();
@@ -77,18 +77,18 @@ public class AdminRootController {
                 msg.setInfo("容量不得超过1048576");
                 return msg;
             }
-            final User user = new User();
-            final User user2 = new User();
-            user2.setId(id);
-            User userInfo = userService.getUsers(user2);
-            user.setId(id);
-            user.setEmail(email);
-            user.setMemory( memory*1024*1024);
-            user.setGroupId(groupid);
-            if(userInfo.getLevel()==1){
-                user.setIsok(isok==1?1:-1);
+            final SysUser sysUser = new SysUser();
+            final SysUser sysUser2 = new SysUser();
+            sysUser2.setId(id);
+            SysUser sysUserInfo = userService.getUsers(sysUser2);
+            sysUser.setId(id);
+            sysUser.setEmail(email);
+            sysUser.setMemory( memory*1024*1024);
+            sysUser.setGroupId(groupid);
+            if(sysUserInfo.getLevel()==1){
+                sysUser.setIsok(isok==1?1:-1);
             }
-            userService.changeUser(user);
+            userService.changeUser(sysUser);
             msg.setInfo("修改成功");
         }catch (Exception e){
             msg.setCode("500");
@@ -107,14 +107,14 @@ public class AdminRootController {
             JSONObject jsonObj = JSONObject.parseObject(data);
             JSONArray userIdList = jsonObj.getJSONArray("arr");
             for (int i = 0; i < userIdList.size(); i++) {
-                User u = new User();
+                SysUser u = new SysUser();
                 u.setId(userIdList.getString(i));
-                User u2 = userService.getUsers(u);
+                SysUser u2 = userService.getUsers(u);
                 if(u2.getLevel()==1){
-                    User user = new User();
-                    user.setId(userIdList.getString(i));
-                    user.setIsok(-1);
-                    userService.changeUser(user);
+                    SysUser sysUser = new SysUser();
+                    sysUser.setId(userIdList.getString(i));
+                    sysUser.setIsok(-1);
+                    userService.changeUser(sysUser);
                 }
 
             }
@@ -135,10 +135,10 @@ public class AdminRootController {
 
             boolean b = false;
             for (int i = 0; i < userIdList.length; i++) {
-                User u = new User();
+                SysUser u = new SysUser();
                 u.setId(userIdList[i]);
-                User user = userService.getUsers(u);
-                if(user.getLevel()==1){
+                SysUser sysUser = userService.getUsers(u);
+                if(sysUser.getLevel()==1){
                     userService.deleuser(userIdList[i]);
                 }else{
                     b = true;
@@ -166,13 +166,12 @@ public class AdminRootController {
         return msg;
     }
 
-    @PostMapping("/LoadInfo")//new
+    @PostMapping("/LoadInfo/{keyId}")//new
     @ResponseBody
-    public Msg LoadInfo(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg LoadInfo(@PathVariable("keyId") String keyId) {
         Msg msg = new Msg();
         try {
-            JSONObject jsonData = JSONObject.parseObject(data);
-            String keyId = jsonData.getString("keyId");
+
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id",keyId);
             StorageKey key = keysService.selectKeys(keyId);
@@ -251,7 +250,7 @@ public class AdminRootController {
         final Msg msg = new Msg();
         final JSONObject jsonObject = new JSONObject();
         Subject subject = SecurityUtils.getSubject();
-        User u = (User) subject.getPrincipal();
+        SysUser u = (SysUser) subject.getPrincipal();
         try {
             UploadConfig uploadConfig = uploadConfigService.getUpdateConfig();
             Config config = configService.getSourceype();

@@ -19,13 +19,13 @@
                 email_url = #{emailUrl},
             </if>
             <if test="port != null">
-                `port` = #{port},
+                port = #{port},
             </if>
             <if test="emailName != null">
-                `email_name` = #{emailName},
+                email_name = #{emailName},
             </if>
             <if test="using != null">
-                `using` = #{using},
+                using = #{using},
             </if>
         </set>
         WHERE

@@ -12,7 +12,7 @@
  Target Server Version : 140002
  File Encoding         : 65001
 
- Date: 16/05/2022 01:06:28
+ Date: 16/05/2022 20:32:00
 */
 
 
@@ -24,7 +24,7 @@ CREATE TABLE "public"."album" (
   "album_key" varchar(255) COLLATE "pg_catalog"."default",
   "album_title" varchar(255) COLLATE "pg_catalog"."default",
   "password" varchar(255) COLLATE "pg_catalog"."default",
-  "user_id" int4,
+  "user_id" varchar(32) COLLATE "pg_catalog"."default",
   "username" varchar(255) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "update_time" timestamp(6)
@@ -34,8 +34,7 @@ CREATE TABLE "public"."album" (
 -- ----------------------------
 -- Records of album
 -- ----------------------------
-INSERT INTO "public"."album" VALUES ('TOALBUMbb108N', 'cc', NULL, 1, NULL, '2022-05-05 05:36:27', '2022-05-05 05:36:27');
-INSERT INTO "public"."album" VALUES ('TOALBUM2ab6eN', 'cccc', '1234', 1, NULL, '2022-05-05 05:37:21', '2022-05-05 05:37:21');
+INSERT INTO "public"."album" VALUES ('TOALBUMb7410N', '123', NULL, '1', NULL, '2022-05-16 20:08:27.228016', '2022-05-16 20:08:27.228016');
 
 -- ----------------------------
 -- Table structure for code
@@ -44,13 +43,14 @@ DROP TABLE IF EXISTS "public"."code";
 CREATE TABLE "public"."code" (
   "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
   "value" varchar(500) COLLATE "pg_catalog"."default",
-  "code" varchar(500) COLLATE "pg_catalog"."default" NOT NULL
+  "expand_code" varchar(500) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
 
 -- ----------------------------
 -- Records of code
 -- ----------------------------
+INSERT INTO "public"."code" VALUES ('53a32aa53e6b8322a55b1a9aa3bb0467', '1073741824', 'c27ffa9ad0cc6f1ac0bf62a576c90c0b953a361fdcb0616cf481220935ee731f');
 
 -- ----------------------------
 -- Table structure for config
@@ -126,15 +126,20 @@ COMMENT ON COLUMN "public"."email_config"."using" IS '1为可用，其他为不�
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."img_and_album";
 CREATE TABLE "public"."img_and_album" (
+  "id" varchar(255) COLLATE "pg_catalog"."default",
   "img_name" varchar(255) COLLATE "pg_catalog"."default",
-  "album_key" varchar(255) COLLATE "pg_catalog"."default",
-  "notes" varchar(1000) COLLATE "pg_catalog"."default"
+  "notes" varchar(1000) COLLATE "pg_catalog"."default",
+  "album_key" varchar(32) COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
 -- Records of img_and_album
 -- ----------------------------
+INSERT INTO "public"."img_and_album" VALUES ('admin/ytRbBq7K.jpg', 'TOALBUMb7410N', NULL, NULL);
+INSERT INTO "public"."img_and_album" VALUES ('admin/OT0nI6R6.jpg', 'TOALBUMb7410N', NULL, NULL);
+INSERT INTO "public"."img_and_album" VALUES ('admin/2SV2UEFZ.jpg', 'TOALBUMb7410N', NULL, NULL);
+INSERT INTO "public"."img_and_album" VALUES ('admin/URyRzPdm.jpg', 'TOALBUMb7410N', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for img_data
@@ -144,10 +149,10 @@ CREATE TABLE "public"."img_data" (
   "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
   "img_name" varchar(500) COLLATE "pg_catalog"."default",
   "img_url" varchar(500) COLLATE "pg_catalog"."default",
-  "user_id" int4,
-  "sizes" varchar(500) COLLATE "pg_catalog"."default",
+  "user_id" varchar(32) COLLATE "pg_catalog"."default",
+  "sizes" int4,
   "abnormal" varchar(255) COLLATE "pg_catalog"."default",
-  "source" int4,
+  "source" varchar(32) COLLATE "pg_catalog"."default",
   "img_type" int4,
   "explains" varchar(500) COLLATE "pg_catalog"."default",
   "md5key" varchar(500) COLLATE "pg_catalog"."default",
@@ -171,6 +176,10 @@ COMMENT ON COLUMN "public"."img_data"."create_time" IS '创建时间';
 -- ----------------------------
 -- Records of img_data
 -- ----------------------------
+INSERT INTO "public"."img_data" VALUES ('1526172681683677185', 'admin/OT0nI6R6.jpg', 'http://127.0.0.1:8089/ota/admin/OT0nI6R6.jpg', '1', 1608297, '0:0:0:0:0:0:0:1', '5', 0, NULL, 'a2f77bcbd9a915afcc91ba2bd32bae32', '932f876999f7457f9edb7e069a93c2b5', 'image/jpeg', NULL, NULL, NULL, '2022-05-16 20:08:16.877694', '2022-05-16 20:08:16.877694');
+INSERT INTO "public"."img_data" VALUES ('1526172681683677186', 'admin/2SV2UEFZ.jpg', 'http://127.0.0.1:8089/ota/admin/2SV2UEFZ.jpg', '1', 3802376, '0:0:0:0:0:0:0:1', '5', 0, NULL, 'ac446decdb67317c2c9daf9b58c27da5', '446bd860f21745ca9cf6b95416f8bbd0', 'image/jpeg', NULL, NULL, NULL, '2022-05-16 20:08:16.889693', '2022-05-16 20:08:16.889693');
+INSERT INTO "public"."img_data" VALUES ('1526172681725620225', 'admin/ytRbBq7K.jpg', 'http://127.0.0.1:8089/ota/admin/ytRbBq7K.jpg', '1', 4311695, '0:0:0:0:0:0:0:1', '5', 0, NULL, '9e555f1d6a77fce6ffd1d424ab05b8d0', '9991f911e65c44e58bf125fb22d179bf', 'image/jpeg', NULL, NULL, NULL, '2022-05-16 20:08:16.895688', '2022-05-16 20:08:16.895688');
+INSERT INTO "public"."img_data" VALUES ('1526172683004882946', 'admin/URyRzPdm.jpg', 'http://127.0.0.1:8089/ota/admin/URyRzPdm.jpg', '1', 4367272, '0:0:0:0:0:0:0:1', '5', 0, NULL, '073bf3e75a0e581b898dbb392dd9dd04', '0f4ba85ea789424987394e69e93a29ff', 'image/jpeg', NULL, NULL, NULL, '2022-05-16 20:08:17.200695', '2022-05-16 20:08:17.200695');
 
 -- ----------------------------
 -- Table structure for img_temp
@@ -179,27 +188,12 @@ DROP TABLE IF EXISTS "public"."img_temp";
 CREATE TABLE "public"."img_temp" (
   "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
   "img_uid" varchar(255) COLLATE "pg_catalog"."default",
-  "del_time" varchar(255) COLLATE "pg_catalog"."default"
+  "del_time" timestamptz(6)
 )
 ;
 
 -- ----------------------------
 -- Records of img_temp
--- ----------------------------
-
--- ----------------------------
--- Table structure for imgandalbum
--- ----------------------------
-DROP TABLE IF EXISTS "public"."imgandalbum";
-CREATE TABLE "public"."imgandalbum" (
-  "imgname" varchar(5000) COLLATE "pg_catalog"."default",
-  "albumkey" varchar(5000) COLLATE "pg_catalog"."default",
-  "notes" varchar(1000) COLLATE "pg_catalog"."default"
-)
-;
-
--- ----------------------------
--- Records of imgandalbum
 -- ----------------------------
 
 -- ----------------------------
@@ -211,7 +205,7 @@ CREATE TABLE "public"."imgreview" (
   "app_id" varchar(255) COLLATE "pg_catalog"."default",
   "api_key" varchar(255) COLLATE "pg_catalog"."default",
   "secret_key" varchar(255) COLLATE "pg_catalog"."default",
-  "Using" int4,
+  "using" int4,
   "count" int4
 )
 ;
@@ -271,60 +265,27 @@ INSERT INTO "public"."storage_key" VALUES ('8', '', '', '0', '', '', 8, 'UFile')
 INSERT INTO "public"."storage_key" VALUES ('13', '', '', '', '0', '', 7, 'ftp');
 
 -- ----------------------------
--- Table structure for sysconfig
+-- Table structure for sys_config
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."sysconfig";
-CREATE TABLE "public"."sysconfig" (
+DROP TABLE IF EXISTS "public"."sys_config";
+CREATE TABLE "public"."sys_config" (
   "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
   "register" int4 NOT NULL,
   "checkduplicate" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-COMMENT ON COLUMN "public"."sysconfig"."register" IS '是否可以注册';
+COMMENT ON COLUMN "public"."sys_config"."register" IS '是否可以注册';
 
 -- ----------------------------
--- Records of sysconfig
+-- Records of sys_config
 -- ----------------------------
-INSERT INTO "public"."sysconfig" VALUES ('1', 1, '0');
+INSERT INTO "public"."sys_config" VALUES ('1', 1, '0');
 
 -- ----------------------------
--- Table structure for upload_config
+-- Table structure for sys_user
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."upload_config";
-CREATE TABLE "public"."upload_config" (
-  "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
-  "filesizetourists" varchar(500) COLLATE "pg_catalog"."default",
-  "filesizeuser" varchar(500) COLLATE "pg_catalog"."default",
-  "imgcounttourists" int4,
-  "imgcountuser" int4,
-  "suffix" varchar(255) COLLATE "pg_catalog"."default",
-  "url_type" int4,
-  "isupdate" int4,
-  "api" int4 NOT NULL,
-  "visitor_storage" varchar(500) COLLATE "pg_catalog"."default",
-  "user_storage" varchar(500) COLLATE "pg_catalog"."default",
-  "blacklist" varchar(4000) COLLATE "pg_catalog"."default",
-  "userclose" int4
-)
-;
-COMMENT ON COLUMN "public"."upload_config"."imgcounttourists" IS '游客文件总数量, 超出则不允许加入队列';
-COMMENT ON COLUMN "public"."upload_config"."imgcountuser" IS '用户文件总数量, 超出则不允许加入队列';
-COMMENT ON COLUMN "public"."upload_config"."suffix" IS '支持后缀';
-COMMENT ON COLUMN "public"."upload_config"."url_type" IS 'url类型';
-COMMENT ON COLUMN "public"."upload_config"."isupdate" IS '禁止游客上传';
-COMMENT ON COLUMN "public"."upload_config"."api" IS '开启api';
-COMMENT ON COLUMN "public"."upload_config"."userclose" IS '用户上传开关';
-
--- ----------------------------
--- Records of upload_config
--- ----------------------------
-INSERT INTO "public"."upload_config" VALUES ('1', '10485760', '20971520', 5, 10, 'gif,jpg,jpeg,bmp,png,jfif,webp', 1, 1, 1, '524288000', '104857600', '', 1);
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS "public"."user";
-CREATE TABLE "public"."user" (
+DROP TABLE IF EXISTS "public"."sys_user";
+CREATE TABLE "public"."sys_user" (
   "id" varchar(64) COLLATE "pg_catalog"."default" NOT NULL,
   "username" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
   "password" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
@@ -333,25 +294,59 @@ CREATE TABLE "public"."user" (
   "level" int4,
   "uid" varchar(50) COLLATE "pg_catalog"."default",
   "isok" int4 NOT NULL,
-  "memory" varchar(500) COLLATE "pg_catalog"."default",
-  "group_id" int4,
+  "memory" float8,
+  "group_id" varchar(32) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "update_time" timestamp(6)
 )
 ;
-COMMENT ON COLUMN "public"."user"."id" IS '主键';
-COMMENT ON COLUMN "public"."user"."username" IS '用户名';
-COMMENT ON COLUMN "public"."user"."password" IS '密码';
-COMMENT ON COLUMN "public"."user"."birthday" IS '生日';
-COMMENT ON COLUMN "public"."user"."level" IS '等级';
-COMMENT ON COLUMN "public"."user"."uid" IS '用户唯一标识';
-COMMENT ON COLUMN "public"."user"."create_time" IS '创建时间(注册事件)';
-COMMENT ON COLUMN "public"."user"."update_time" IS '更新时间';
+COMMENT ON COLUMN "public"."sys_user"."id" IS '主键';
+COMMENT ON COLUMN "public"."sys_user"."username" IS '用户名';
+COMMENT ON COLUMN "public"."sys_user"."password" IS '密码';
+COMMENT ON COLUMN "public"."sys_user"."birthday" IS '生日';
+COMMENT ON COLUMN "public"."sys_user"."level" IS '等级';
+COMMENT ON COLUMN "public"."sys_user"."uid" IS '用户唯一标识';
+COMMENT ON COLUMN "public"."sys_user"."create_time" IS '创建时间(注册事件)';
+COMMENT ON COLUMN "public"."sys_user"."update_time" IS '更新时间';
 
 -- ----------------------------
--- Records of user
+-- Records of sys_user
 -- ----------------------------
-INSERT INTO "public"."user" VALUES ('1', 'admin', 'YWRtaW4=', 'admin', '2019-01-10 00:00:00', 2, '54ee5d7ba60f4ff4bac28b88f15c6182', 1, '2147483648', 1, NULL, NULL);
+INSERT INTO "public"."sys_user" VALUES ('1', 'admin', 'MTIzNDU2', '1@qq.com', '2019-01-10 00:00:00', 2, '54ee5d7ba60f4ff4bac28b88f15c6182', 1, 2147483648, '1', NULL, NULL);
+INSERT INTO "public"."sys_user" VALUES ('0', 'tourist', '1', '1', '2022-05-23 09:33:12', 1, '1', 1, 2148532224, '1', '2022-05-16 09:33:23', '2022-05-16 09:33:27');
+
+-- ----------------------------
+-- Table structure for upload_config
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."upload_config";
+CREATE TABLE "public"."upload_config" (
+  "id" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
+  "file_size_tourists" varchar(500) COLLATE "pg_catalog"."default",
+  "file_size_user" varchar(500) COLLATE "pg_catalog"."default",
+  "img_count_tourists" int4,
+  "img_count_user" int4,
+  "suffix" varchar(255) COLLATE "pg_catalog"."default",
+  "url_type" int4,
+  "is_update" int4,
+  "api" int4 NOT NULL,
+  "visitor_storage" varchar(500) COLLATE "pg_catalog"."default",
+  "user_storage" varchar(500) COLLATE "pg_catalog"."default",
+  "blacklist" varchar(4000) COLLATE "pg_catalog"."default",
+  "userclose" int4
+)
+;
+COMMENT ON COLUMN "public"."upload_config"."img_count_tourists" IS '游客文件总数量, 超出则不允许加入队列';
+COMMENT ON COLUMN "public"."upload_config"."img_count_user" IS '用户文件总数量, 超出则不允许加入队列';
+COMMENT ON COLUMN "public"."upload_config"."suffix" IS '支持后缀';
+COMMENT ON COLUMN "public"."upload_config"."url_type" IS 'url类型';
+COMMENT ON COLUMN "public"."upload_config"."is_update" IS '禁止游客上传';
+COMMENT ON COLUMN "public"."upload_config"."api" IS '开启api';
+COMMENT ON COLUMN "public"."upload_config"."userclose" IS '用户上传开关';
+
+-- ----------------------------
+-- Records of upload_config
+-- ----------------------------
+INSERT INTO "public"."upload_config" VALUES ('1', '10485760', '20971520', 5, 10, 'gif,jpg,jpeg,bmp,png,jfif,webp', 1, 1, 1, '524288000', '104857600', '', 1);
 
 -- ----------------------------
 -- Table structure for user_group
@@ -418,19 +413,19 @@ ALTER TABLE "public"."site_group" ADD CONSTRAINT "site_group_pkey" PRIMARY KEY (
 ALTER TABLE "public"."storage_key" ADD CONSTRAINT "storage_key_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table sysconfig
+-- Primary Key structure for table sys_config
 -- ----------------------------
-ALTER TABLE "public"."sysconfig" ADD CONSTRAINT "sysconfig_pkey" PRIMARY KEY ("id");
+ALTER TABLE "public"."sys_config" ADD CONSTRAINT "sysconfig_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table sys_user
+-- ----------------------------
+ALTER TABLE "public"."sys_user" ADD CONSTRAINT "user_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table upload_config
 -- ----------------------------
 ALTER TABLE "public"."upload_config" ADD CONSTRAINT "upload_config_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table user
--- ----------------------------
-ALTER TABLE "public"."user" ADD CONSTRAINT "user_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table user_group

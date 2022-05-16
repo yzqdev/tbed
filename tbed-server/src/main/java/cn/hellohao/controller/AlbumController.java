@@ -6,7 +6,6 @@ import cn.hellohao.entity.vo.PageResultBean;
 import cn.hellohao.service.ImgAndAlbumService;
 import cn.hellohao.service.UserService;
 import cn.hellohao.service.impl.AlbumServiceImpl;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -40,8 +39,8 @@ public class AlbumController {
     @ResponseBody
     public Map<String, Object> getGalleryList (@RequestBody AlbumDto albumDto){
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
-        user =  userService.getUsers(user);
+        SysUser sysUser = (SysUser) subject.getPrincipal();
+        sysUser =  userService.getUsers(sysUser);
         Map<String, Object> map = new HashMap<String, Object>();
 
         Integer pageNum =albumDto.getPageNum();
@@ -49,7 +48,7 @@ public class AlbumController {
         String albumtitle = albumDto.getAlbumTitle();
         if(subject.hasRole("admin")){
         }else{
-            albumDto.setUserId(String.valueOf(user.getId()));
+            albumDto.setUserId(String.valueOf(sysUser.getId()));
         }
         Page<Album> page=new Page<>(pageNum,pageSize);
 
@@ -74,7 +73,7 @@ public class AlbumController {
     public Msg deleGallery (@RequestBody String[] albumkeyList) {
         Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
+        SysUser sysUser = (SysUser) subject.getPrincipal();
         try {
 
 
@@ -85,7 +84,7 @@ public class AlbumController {
                     AlbumDto album = new AlbumDto();
                     album.setAlbumKey(s);
                     final Album alb = albumServiceImpl.selectAlbum(album);
-                    if (alb.getUserId().equals(user.getId())) {
+                    if (alb.getUserId().equals(sysUser.getId())) {
                         albumServiceImpl.deleteAlbum(s);
                     }
                 }
@@ -141,7 +140,7 @@ public class AlbumController {
                 return msg;
             }
             Subject subject = SecurityUtils.getSubject();
-            User u = (User) subject.getPrincipal();
+            SysUser u = (SysUser) subject.getPrincipal();
             String uuid = "TOALBUM"+ UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,5)+"N";
             DateTimeFormatter df=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Album album = new Album();

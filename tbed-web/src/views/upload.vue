@@ -63,7 +63,7 @@
                   margin-top: 5px;
                   line-height: 32px;
                   text-align: right;
-                  font-size: 1vh;
+
                   color: #808794;
                 "
               >
@@ -118,7 +118,7 @@
                       ? '#43b984'
                       : '#c7c7c7',
                 }"
-                @click.native="clickImg(item.response.data.imguid, item.uid)"
+                @click.native="clickImg(item.response.data.imgUid, item.uid)"
                 title="选择"
               ></Icon>
               <Icon
@@ -271,6 +271,11 @@
         </Modal>
       </div>
     </Card>
+    <AddAlbum
+        :visible="visible"
+        :album-list="albumlist"
+        @close="closeAddAlbum"
+    ></AddAlbum>
   </div>
 </template>
 
@@ -373,7 +378,9 @@ export default {
     created() {
       this.imgListShow = "show";
     },
-
+    closeAddAlbum(visible) {
+      this.visible = visible;
+    },
     handleRemove(file) {
       this.$Modal.confirm({
         title: "确认删除",
@@ -475,7 +482,7 @@ export default {
       }
     },
     clickImg(key, uid) {
-      if (this.selectIndexUid.indexOf(uid) == -1) {
+      if (!this.selectIndexUid.includes(uid)  ) {
         this.selectIndex.push(key);
         this.selectIndexUid.push(uid);
       } else {
@@ -542,7 +549,7 @@ export default {
     },
     //获取选中的画廊图片信息
     getAlbumImgList() {
-      var param = this.selectIndex;
+      let param = this.selectIndex;
 
       request("/getAlbumImgList", param)
         .then((res) => {

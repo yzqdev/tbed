@@ -39,7 +39,7 @@
             useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into imgreview (app_id, api_key, secret_key,
-        `Using`,count)
+        Using,count)
         values (#{appId,jdbcType=VARCHAR}, #{apiKey,jdbcType=VARCHAR}, #{secretKey,jdbcType=VARCHAR},
         #{using,jdbcType=INTEGER},#{count,jdbcType=INTEGER})
     </insert>
@@ -58,10 +58,10 @@
                 secret_key,
             </if>
             <if test="using != null">
-                `Using`,
+                Using,
             </if>
             <if test="count != null">
-                `count`,
+                count,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -96,10 +96,10 @@
                 secret_key = #{secretKey,jdbcType=VARCHAR},
             </if>
             <if test="using != null">
-                `Using` = #{using,jdbcType=INTEGER},
+                Using = #{using,jdbcType=INTEGER},
             </if>
             <if test="count != null">
-                `count` = #{count,jdbcType=INTEGER},
+                count = #{count,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -110,8 +110,8 @@
         set app_id = #{appId,jdbcType=VARCHAR},
         api_key = #{apiKey,jdbcType=VARCHAR},
         secret_key = #{secretKey,jdbcType=VARCHAR},
-        `Using` = #{using,jdbcType=INTEGER},
-        `count` = #{count,jdbcType=INTEGER}
+        Using = #{using,jdbcType=INTEGER},
+        count = #{count,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

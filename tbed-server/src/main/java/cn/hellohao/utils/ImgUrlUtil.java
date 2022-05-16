@@ -41,7 +41,7 @@ public class ImgUrlUtil {
         try {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("HEAD");
-            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows 7; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36 YNoteCef/5.8.0.1 (Windows)");
+            conn.setRequestProperty("SysUser-Agent", "Mozilla/5.0 (Windows 7; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36 YNoteCef/5.8.0.1 (Windows)");
             return (long) conn.getContentLength();
         } catch (IOException e) {
             return 0L;
@@ -105,7 +105,7 @@ public class ImgUrlUtil {
             //设置超时间为3秒
             conn.setConnectTimeout(5*1000);
             //防止屏蔽程序抓取而返回403错误
-            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+            conn.setRequestProperty("SysUser-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
 
             //得到输入流
             InputStream inputStream = conn.getInputStream();

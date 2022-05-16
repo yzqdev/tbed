@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends Model<User> {
+public class SysUser extends Model<SysUser> {
 @TableId(value="id",type = IdType.ASSIGN_ID)
     private String id;
     //@NotBlank(message = "用户名不能为空")
@@ -58,7 +59,7 @@ public class User extends Model<User> {
     // * 用户照片数量
     // */
     //private Long counts;
-private LocalDateTime createTime;
-private LocalDateTime updateTime;
+private Timestamp createTime;
+private Timestamp updateTime;
 
 }

@@ -1,7 +1,7 @@
 package cn.hellohao.utils;
 
 
-import cn.hellohao.entity.User;
+import cn.hellohao.entity.SysUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -50,9 +50,9 @@ public class RequestHelper {
      *
      * @return
      */
-    public static User getSessionUser() {
+    public static SysUser getSessionUser() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-         User attribute = ( User) requestAttributes.getAttribute("user", RequestAttributes.SCOPE_REQUEST);
+         SysUser attribute = (SysUser) requestAttributes.getAttribute("user", RequestAttributes.SCOPE_REQUEST);
         return attribute;
     }
     public static HttpSession getSession(){

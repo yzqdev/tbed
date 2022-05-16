@@ -62,7 +62,7 @@ public class UploadServicelmpl {
             UploadConfig uploadConfig = uploadConfigMapper.getUpdateConfig();
             String userIp = GetIPS.getIpAddr(request);
             Subject subject = SecurityUtils.getSubject();
-            User u = (User) subject.getPrincipal();
+            SysUser u = (SysUser) subject.getPrincipal();
             if(null!=u){
                 u =  userMapper.getUsers(u);
             }
@@ -278,11 +278,11 @@ public class UploadServicelmpl {
     public static String updatePath="tourist";
 
     //判断用户 或 游客 当前上传图片的一系列校验
-    private Msg updateImgCheck(User user, UploadConfig uploadConfig){
+    private Msg updateImgCheck(SysUser sysUser, UploadConfig uploadConfig){
       Msg msg = new Msg();
        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         try {
-            if (user == null) {
+            if (sysUser == null) {
                 //用户没有登陆，值判断游客能不能上传即可
                 if(uploadConfig.getIsUpdate()!=1){
                     msg.setCode("1000");
@@ -303,14 +303,14 @@ public class UploadServicelmpl {
                     msg.setInfo("系统已禁用上传功能");
                     return msg;
                 }
-                updatePath = user.getUsername();
-                siteGroup = GetCurrentSource.GetSource(user.getId());
+                updatePath = sysUser.getUsername();
+                siteGroup = GetCurrentSource.GetSource(sysUser.getId());
                 //单位 B
-                memory = user.getMemory()*1024*1024;
+                memory = sysUser.getMemory()*1024*1024;
                 //单位 B
                 TotleMemory = Long.valueOf(uploadConfig.getFileSizeUser());
                 //单位 B
-                UsedTotleMemory = imgMapper.getUserMemory(user.getId())==null?0L:imgMapper.getUserMemory(user.getId());
+                UsedTotleMemory = imgMapper.getUserMemory(sysUser.getId())==null?0L:imgMapper.getUserMemory(sysUser.getId());
             }
             if (uploadConfig.getUrlType() == 2) {
                 updatePath = dateFormat.format(LocalDateTime.now());

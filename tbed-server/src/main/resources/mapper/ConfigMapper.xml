@@ -19,41 +19,41 @@
                 webname = #{webname},
             </if>
             <if test="explain != null">
-                `explain` = #{explain},
+                explain = #{explain},
             </if>
             <if test="video != null">
-                `video` = #{video},
+                video = #{video},
             </if>
             <if test="backtype != null">
-                `backtype` = #{backtype},
+                backtype = #{backtype},
             </if>
             <if test="links != null">
-                `links` = #{links},
+                links = #{links},
             </if>
             <if test="notice != null">
-                `notice` = #{notice},
+                notice = #{notice},
             </if>
             <if test="baidu != null">
-                `baidu` = #{baidu},
+                baidu = #{baidu},
             </if>
             <if test="domain != null">
-                `domain` = #{domain},
+                domain = #{domain},
             </if>
             <if test="background1 != null">
-                `background1` = #{background1},
+                background1 = #{background1},
             </if>
             <if test="background2 != null">
-                `background2` = #{background2},
+                background2 = #{background2},
             </if>
 
             <if test="webms != null">
-                `webms` = #{webms},
+                webms = #{webms},
             </if>
             <if test="webkeywords != null">
-                `webkeywords` = #{webkeywords},
+                webkeywords = #{webkeywords},
             </if>
             <if test="webfavicons != null">
-                `webfavicons` = #{webfavicons},
+                webfavicons = #{webfavicons},
             </if>
 
             <if test="websubtitle != null">

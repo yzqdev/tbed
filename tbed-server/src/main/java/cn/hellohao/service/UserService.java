@@ -1,7 +1,6 @@
 package cn.hellohao.service;
 
-import cn.hellohao.entity.Images;
-import cn.hellohao.entity.User;
+import cn.hellohao.entity.SysUser;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
@@ -9,29 +8,29 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface UserService extends IService<User> {
+public interface UserService extends IService<SysUser> {
     //注册
-    Integer register(User user);
+    Integer register(SysUser sysUser);
 
     //登录
     Integer login(String email, String password,String uid);
 
     //获取用户信息
-    User getUsers(User user);
+    SysUser getUsers(SysUser sysUser);
 
 
 
     //修改资料
-    Integer change(User user);
+    Integer change(SysUser sysUser);
 
-    Integer changeUser(User user);
+    Integer changeUser(SysUser sysUser);
 
     //检查用户名是否重复
     Integer checkUsername(String username);
 
     Integer getUserTotal();
 
-    Page<User> getuserlist(Page<User> page,String username);
+    Page<SysUser> getuserlist(Page<SysUser> page, String username);
 
     Integer deleuser(String id);
 
@@ -42,9 +41,9 @@ public interface UserService extends IService<User> {
 
     Integer uiduser(String uid);
 
-    User getUsersMail(String uid);
-    Integer setisok (User user);
-    Integer setmemory(User user);
-    User getUsersid(String id);
-    List<User> getuserlistforgroupid(String groupid);
+    SysUser getUsersMail(String uid);
+    Integer setisok (SysUser sysUser);
+    Integer setmemory(SysUser sysUser);
+    SysUser getUsersid(String id);
+    List<SysUser> getuserlistforgroupid(String groupid);
 }

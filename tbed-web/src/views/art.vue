@@ -103,6 +103,15 @@
             imgage == null || imgage == "" ? "无" : imgage.notes
           }}</span>
         </p>
+        <p>
+         大小: {{ imgage == null || imgage == "" ? "无":imgage.sizes}}
+        </p>
+        <p>
+         格式: {{ imgage == null || imgage == "" ? "无":imgage.format}}
+        </p>
+        <p>
+         更新时间: {{ imgage == null || imgage == "" ? "无":imgage.updateTime}}
+        </p>
       </div>
     </Modal>
   </Layout>

@@ -1,5 +1,6 @@
 package cn.hellohao.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +77,7 @@ public class UserController {
             return msg;
         }
         if((redis_verifyCodeForRegister.toString().toLowerCase()).compareTo((verifyCodeForRegister.toLowerCase()))==0){
-            User user = new User();
+            SysUser sysUser = new SysUser();
             UploadConfig updateConfig = uploadConfigService.getUpdateConfig();
             EmailConfig emailConfig = emailConfigService.getEmail();
             Integer countusername = userService.countusername(username);
@@ -98,30 +99,30 @@ public class UserController {
                 return msg;
             }
             String uid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-            user.setLevel(1);
-            user.setUid(uid);
-            user.setBirthday(LocalDateTime.now());
-            user.setMemory(updateConfig.getUserStorage());
-            user.setGroupId("1");
-            user.setEmail(email);
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setCreateTime(LocalDateTime.now());
-            user.setUpdateTime(LocalDateTime.now());
+            sysUser.setLevel(1);
+            sysUser.setUid(uid);
+            sysUser.setBirthday(LocalDateTime.now());
+            sysUser.setMemory(updateConfig.getUserStorage());
+            sysUser.setGroupId("1");
+            sysUser.setEmail(email);
+            sysUser.setUsername(username);
+            sysUser.setPassword(password);
+            sysUser.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
+            sysUser.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
             Config config = configService.getSourceype();
             Integer type = 0;
-            if(emailConfig.getUsing()==1){
-                user.setIsok(0);
+            if(emailConfig!=null&&emailConfig.getUsing()==1){
+                sysUser.setIsok(0);
                 Thread thread = new Thread(() -> {
-                    Integer a = NewSendEmail.sendEmail(emailConfig,user.getUsername(), uid, user.getEmail(),config);
+                    Integer a = NewSendEmail.sendEmail(emailConfig, sysUser.getUsername(), uid, sysUser.getEmail(),config);
                 });
                 thread.start();
                 msg.setInfo("注册成功,请注意查收邮箱尽快激活账户");
             }else{
-                user.setIsok(1);
+                sysUser.setIsok(1);
                 msg.setInfo("注册成功,快去登陆吧");
             }
-            userService.register(user);
+            userService.register(sysUser);
         }else{
             msg.setCode("110408");
             msg.setInfo("验证码不正确");//失效也要处理。
@@ -156,24 +157,24 @@ public class UserController {
                 subject.login(tokenOBJ);
                 SecurityUtils.getSubject().getSession().setTimeout(3600000);//一小时
                 JSONObject jsonObject = new JSONObject();
-                User user = (User) SecurityUtils.getSubject().getPrincipal();
-                if(user.getIsok()==0){
+                SysUser sysUser = (SysUser) SecurityUtils.getSubject().getPrincipal();
+                if(sysUser.getIsok()==0){
                     msg.setInfo("你的账号暂未激活");
                     msg.setCode("110403");
                     return msg;
                 }
-                if(user.getIsok()<0){
+                if(sysUser.getIsok()<0){
                     msg.setInfo("你的账户已被冻结");
                     msg.setCode("110403");
                     return msg;
                 }
-                String token = JWTUtil.createToken(user);
+                String token = JWTUtil.createToken(sysUser);
                 Subject su = SecurityUtils.getSubject();
                 System.out.println("当前用户角色：admin:"+su.hasRole("admin"));
                 msg.setInfo("登录成功");
                 jsonObject.put("token",token);
-                jsonObject.put("RoleLevel",user.getLevel()==2?"admin":"user");
-                jsonObject.put("userName",user.getUsername());
+                jsonObject.put("RoleLevel", sysUser.getLevel()==2?"admin":"sysUser");
+                jsonObject.put("userName", sysUser.getUsername());
                 msg.setData(jsonObject);
                 return msg;
             } catch (UnknownAccountException e) {
@@ -208,11 +209,11 @@ public class UserController {
     public String activation(Model model, HttpServletRequest request, HttpSession session, String activation, String username) {
         Config config = configService.getSourceype();
         Integer ret = 0;
-        User u2 = new User();
+        SysUser u2 = new SysUser();
         u2.setUid(activation);
-        User user = userService.getUsers(u2);
+        SysUser sysUser = userService.getUsers(u2);
         model.addAttribute("webhost",SubjectFilter.WEBHOST);
-        if (user != null && user.getIsok() == 0) {
+        if (sysUser != null && sysUser.getIsok() == 0) {
             userService.uiduser(activation);
             model.addAttribute("title","激活成功");
             model.addAttribute("name","Hi~"+username);
@@ -267,17 +268,17 @@ public class UserController {
             Integer ret = userService.countmail(email);
             if(ret>0){
                 if(emailConfig.getUsing()==1){
-                    User u2 = new User();
+                    SysUser u2 = new SysUser();
                     u2.setEmail(email);
-                    User user = userService.getUsers(u2);
-                    if(user.getIsok()==-1){
+                    SysUser sysUser = userService.getUsers(u2);
+                    if(sysUser.getIsok()==-1){
                         msg.setCode("110110");
                         msg.setInfo("当前用户已被冻结，禁止操作");
                         return msg;
                     }
                     Config config = configService.getSourceype();
                     Thread thread = new Thread(() -> {
-                        Integer a = NewSendEmail.sendEmailFindPass(emailConfig,user.getUsername(), user.getUid(), user.getEmail(),config);//SendEmail.sendEmailT(message, user.getUsername(), user.getUid(), user.getEmail(),emailConfig,config);
+                        Integer a = NewSendEmail.sendEmailFindPass(emailConfig, sysUser.getUsername(), sysUser.getUid(), sysUser.getEmail(),config);//SendEmail.sendEmailT(message, sysUser.getUsername(), sysUser.getUid(), sysUser.getEmail(),emailConfig,config);
                     });
                     thread.start();
                     msg.setInfo("重置密码的验证链接已发送至该邮箱，请前往邮箱验证并重置密码。【若长时间未收到邮件，请检查垃圾箱】");
@@ -301,16 +302,16 @@ public class UserController {
     public String retrieve(Model model, String activation,String cip) {
         Integer ret = 0;
         try {
-            User u2 = new User();
+            SysUser u2 = new SysUser();
             u2.setUid(activation);
-            User user = userService.getUsers(u2);
-            user.setIsok(1);
+            SysUser sysUser = userService.getUsers(u2);
+            sysUser.setIsok(1);
             String new_pass = HexUtil.decodeHexStr(cip);//解密密码
-            user.setPassword(Base64Encryption.encryptBASE64(new_pass.getBytes()));
+            sysUser.setPassword(Base64Encryption.encryptBASE64(new_pass.getBytes()));
             String uid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-            user.setUid(uid);
-            if (user != null) {
-                Integer r = userService.changeUser(user);
+            sysUser.setUid(uid);
+            if (sysUser != null) {
+                Integer r = userService.changeUser(sysUser);
                 model.addAttribute("title","成功");
                 model.addAttribute("name","新密码:"+new_pass);//
                 model.addAttribute("note","密码已被系统重置，请即使登录修改你的新密码");

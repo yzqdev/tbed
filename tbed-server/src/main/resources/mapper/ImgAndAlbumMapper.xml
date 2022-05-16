@@ -7,10 +7,10 @@
         SELECT
         *
         FROM
-        `imgandalbum`
+        img_and_album
         <where>
             <if test="albumkey != null">
-                `albumkey` = #{albumkey}
+                album_key = #{albumkey}
             </if>
         </where>
     </select>
@@ -19,10 +19,10 @@
         SELECT
         *
         FROM
-        `imgandalbum`
+        img_and_album
         <where>
             <if test="imgname != null">
-                `imgname` = #{imgname}
+                imgname = #{imgname}
             </if>
         </where>
     </select>

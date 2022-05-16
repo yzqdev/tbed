@@ -2,8 +2,8 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.dao.CodeMapper;
 import cn.hellohao.dao.UserMapper;
+import cn.hellohao.entity.SysUser;
 import cn.hellohao.exception.CodeException;
-import cn.hellohao.entity.User;
 import cn.hellohao.service.UserService;
 import cn.hellohao.utils.Print;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,15 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private CodeMapper codeMapper;
     @Override
-    public Integer register(User user) {
+    public Integer register(SysUser sysUser) {
         // TODO Auto-generated method stub
-        return userMapper.register(user);
+        return userMapper.register(sysUser);
     }
 
     @Override
@@ -33,22 +33,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public User getUsers(User user) {
+    public SysUser getUsers(SysUser sysUser) {
         // TODO Auto-generated method stub
-        return userMapper.getUsers(user);
+        return userMapper.getUsers(sysUser);
     }
 
 
     @Override
-    public Integer change(User user) {
+    public Integer change(SysUser sysUser) {
         // TODO Auto-generated method stub
-        return userMapper.change(user);
+        return userMapper.change(sysUser);
     }
 
 
     @Override
-    public Integer changeUser(User user) {
-        return userMapper.changeUser(user);
+    public Integer changeUser(SysUser sysUser) {
+        return userMapper.changeUser(sysUser);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public Page<User> getuserlist(Page<User> page,String username) {
+    public Page<SysUser> getuserlist(Page<SysUser> page, String username) {
         return userMapper.getUserList(page,username);
     }
 
@@ -89,27 +89,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public User getUsersMail(String uid) {
+    public SysUser getUsersMail(String uid) {
         return userMapper.getUsersMail(uid);
     }
 
     @Override
-    public Integer setisok(User user) {
-        return userMapper.setisok(user);
+    public Integer setisok(SysUser sysUser) {
+        return userMapper.setisok(sysUser);
     }
 
     @Override
-    public Integer setmemory(User user) {
-        return userMapper.setmemory(user);
+    public Integer setmemory(SysUser sysUser) {
+        return userMapper.setmemory(sysUser);
     }
 
     @Override
-    public User getUsersid(String id) {
+    public SysUser getUsersid(String id) {
         return userMapper.getUsersid(id);
     }
 
     @Override
-    public List<User> getuserlistforgroupid(String groupid) {
+    public List<SysUser> getuserlistforgroupid(String groupid) {
         return userMapper.getUserListFromGroupId(groupid);
     }
 
@@ -118,13 +118,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     /**
      * 默认遇到throw new RuntimeException(“…”);会回滚
      *
-     * @param user       用户
+     * @param sysUser       用户
      * @param codestring codestring
      * @return {@link Integer}
      */
     @Transactional
-    public Integer usersetmemory(User user, String codestring) {
-        Integer ret = userMapper.changeUser(user);
+    public Integer usersetmemory(SysUser sysUser, String codestring) {
+        Integer ret = userMapper.changeUser(sysUser);
         if(ret<=0){
             Print.warning("用户空间没有设置成功。回滚");
             throw new CodeException("用户没有设置成功。");

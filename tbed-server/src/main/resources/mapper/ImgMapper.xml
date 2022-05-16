@@ -21,7 +21,7 @@
         a.about,
         a.violation
 
-        FROM  img_data a  LEFT JOIN "user" b ON a.user_id = b.id
+        FROM  img_data a  LEFT JOIN sys_user b ON a.user_id = b.id
         <where>
 
             <if test=" img.source != null">
@@ -51,11 +51,11 @@
                         <choose>
                             <when test="img.selecttype==1">
                                 and
-                                a.user_id in ( SELECT id  from user where username LIKE '%${img.username}%')
+                                a.user_id in ( SELECT id  from sysUser where username LIKE '%${img.username}%')
                             </when>
                             <otherwise>
                                 and
-                                a.user_id not in ( SELECT id  from user where username LIKE '%${img.username}%')
+                                a.user_id not in ( SELECT id  from sysUser where username LIKE '%${img.username}%')
                             </otherwise>
                         </choose>
                     </if>
@@ -162,7 +162,7 @@
     <select id="RecentlyUser" resultType="cn.hellohao.entity.vo.RecentUserVo">
         select count(i.id) as counts, i.user_id, u.username, u.email, u.memory
         from img_data i
-                 LEFT JOIN "user" u on i.user_id = u.id
+                 LEFT JOIN sys_user u on i.user_id = u.id
         where i.user_id not in ('0')
         GROUP BY i.user_id, u.username,  u.email, u.memory
         ORDER BY counts DESC

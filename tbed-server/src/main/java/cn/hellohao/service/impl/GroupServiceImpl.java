@@ -3,9 +3,9 @@ package cn.hellohao.service.impl;
 import cn.hellohao.dao.GroupMapper;
 import cn.hellohao.dao.UserMapper;
 import cn.hellohao.entity.SiteGroup;
+import cn.hellohao.entity.SysUser;
 import cn.hellohao.exception.CodeException;
 import cn.hellohao.entity.Msg;
-import cn.hellohao.entity.User;
 import cn.hellohao.service.GroupService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -68,11 +68,11 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
         Integer ret = 0;
         ret = groupMapper.delegroup(id);
         if(ret>0){
-            List<User> userList = userMapper.getUserListFromGroupId(id);
-            for (User user : userList) {
-                User u = new User();
+            List<SysUser> sysUserList = userMapper.getUserListFromGroupId(id);
+            for (SysUser sysUser : sysUserList) {
+                SysUser u = new SysUser();
                 u.setGroupId("1");
-                u.setUid(user.getUid());
+                u.setUid(sysUser.getUid());
                 userMapper.change(u);
             }
             msg.setInfo("删除成功");

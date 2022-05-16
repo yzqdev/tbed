@@ -1,31 +1,30 @@
 package cn.hellohao.dao;
 
+import cn.hellohao.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import cn.hellohao.entity.User;
-
 import java.util.List;
 
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<SysUser> {
     //注册
-    Integer register(User user);
+    Integer register(SysUser sysUser);
 
     //登录
     Integer login(@Param("email") String email, @Param("password") String password,@Param("uid") String uid);
 
     //获取用户信息
-    User getUsers(User user);
+    SysUser getUsers(SysUser sysUser);
 
 
 
     //修改资料
-    Integer change(User user);
+    Integer change(SysUser sysUser);
 
-    Integer changeUser(User user);
+    Integer changeUser(SysUser sysUser);
 
     /**
      * 检查用户名是否重复
@@ -37,7 +36,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     Integer getUserTotal();
 
-    Page<User> getUserList(@Param("page") Page<User> page, String username);
+    Page<SysUser> getUserList(@Param("page") Page<SysUser> page, String username);
 
 
     /**
@@ -61,12 +60,12 @@ public interface UserMapper extends BaseMapper<User> {
 
     Integer uiduser(@Param("uid") String uid);
 
-    User getUsersMail(@Param("uid") String uid);
-    Integer setisok (User user);
+    SysUser getUsersMail(@Param("uid") String uid);
+    Integer setisok (SysUser sysUser);
 
-    Integer setmemory(User user);
-    User getUsersid(@Param("id") String id);
+    Integer setmemory(SysUser sysUser);
+    SysUser getUsersid(@Param("id") String id);
 
-    List<User> getUserListFromGroupId(@Param("groupid") String groupid);
+    List<SysUser> getUserListFromGroupId(@Param("groupid") String groupid);
 
 }

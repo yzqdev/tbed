@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -80,8 +81,8 @@ public class AdminController {
     public Msg overviewData() {
         Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
-        user = userService.getUsers(user);
+        SysUser sysUser = (SysUser) subject.getPrincipal();
+        sysUser = userService.getUsers(sysUser);
         JSONObject jsonObject = new JSONObject();
         UploadConfig uploadConfig = uploadConfigService.getUpdateConfig();
         //查询非法个数
@@ -89,10 +90,10 @@ public class AdminController {
         //查询有没有启动鉴别功能
         Imgreview isImgreviewOK = imgreviewService.selectByusing(1);
         String ok = "false";
-        jsonObject.put("myImgTotal", imgService.countimg(user.getId())); //我的图片数
-        jsonObject.put("myAlbumTitle", albumService.selectAlbumCount(user.getId()));//我的画廊数量
-        long memory = user.getMemory();//分配量
-        Long usermemory = imgService.getusermemory(user.getId()) == null ? 0L : imgService.getusermemory(user.getId());
+        jsonObject.put("myImgTotal", imgService.countimg(sysUser.getId())); //我的图片数
+        jsonObject.put("myAlbumTitle", albumService.selectAlbumCount(sysUser.getId()));//我的画廊数量
+        long memory = sysUser.getMemory();//分配量
+        Long usermemory = imgService.getusermemory(sysUser.getId()) == null ? 0L : imgService.getusermemory(sysUser.getId());
         if (memory == 0) {
             jsonObject.put("myMemory", "无容量");
         } else {
@@ -104,7 +105,7 @@ public class AdminController {
             }
         }
         jsonObject.put("myMemorySum", SetFiles.readableFileSize(memory));
-        if (user.getLevel() > 1) {
+        if (sysUser.getLevel() > 1) {
             ok = "true";
             //管理员
             jsonObject.put("imgTotal", imgService.counts(null)); //admin  站点图片数
@@ -148,14 +149,14 @@ public class AdminController {
         final Msg msg = new Msg();
 
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
-        user = userService.getUsers(user);
-        if (user.getIsok() == 0) {
+        SysUser sysUser = (SysUser) subject.getPrincipal();
+        sysUser = userService.getUsers(sysUser);
+        if (sysUser.getIsok() == 0) {
             msg.setCode("100403");
             msg.setInfo("你暂时无法使用此功能");
             return msg;
         }
-        if (null == user) {
+        if (null == sysUser) {
             msg.setCode("100405");
             msg.setInfo("用户信息不存在");
             return msg;
@@ -167,12 +168,12 @@ public class AdminController {
                 msg.setInfo("扩容码不存在,请重新填写");
                 return msg;
             }
-            Long userMemory = Long.valueOf(user.getMemory());
+            Long userMemory = Long.valueOf(sysUser.getMemory());
             sizes = Long.valueOf(code.getValue()) + userMemory;
-            User newMemoryUser = new User();
-            newMemoryUser.setMemory(sizes);
-            newMemoryUser.setId(user.getId());
-            userService.usersetmemory(newMemoryUser, codeStr);
+            SysUser newMemorySysUser = new SysUser();
+            newMemorySysUser.setMemory(sizes);
+            newMemorySysUser.setId(sysUser.getId());
+            userService.usersetmemory(newMemorySysUser, codeStr);
             msg.setInfo("你已成功扩容" + SetFiles.readableFileSize(sizes));
             return msg;
         }
@@ -186,13 +187,13 @@ public class AdminController {
         final JSONObject jsonObject = new JSONObject();
         try {
             Subject subject = SecurityUtils.getSubject();
-            User user = (User) subject.getPrincipal();
-            user = userService.getUsers(user);
-            if (user.getLevel() > 1) {
+            SysUser sysUser = (SysUser) subject.getPrincipal();
+            sysUser = userService.getUsers(sysUser);
+            if (sysUser.getLevel() > 1) {
                 jsonObject.put("RecentlyUser", imgService.RecentlyUser());
-                jsonObject.put("RecentlyUploaded", imgService.RecentlyUploaded(user.getId()));
+                jsonObject.put("RecentlyUploaded", imgService.RecentlyUploaded(sysUser.getId()));
             } else {
-                jsonObject.put("RecentlyUploaded", imgService.RecentlyUploaded(user.getId()));
+                jsonObject.put("RecentlyUploaded", imgService.RecentlyUploaded(sysUser.getId()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,7 +210,7 @@ public class AdminController {
     public Msg getYyyy() {
         final Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
-        User u = (User) subject.getPrincipal();
+        SysUser u = (SysUser) subject.getPrincipal();
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("allYyyy", imgService.getyyyy(null));
         jsonObject.put("userYyyy", imgService.getyyyy(u.getId()));
@@ -226,7 +227,7 @@ public class AdminController {
         Integer type = jsonObject.getInteger("type");
 
         Subject subject = SecurityUtils.getSubject();
-        User u = (User) subject.getPrincipal();
+        SysUser u = (SysUser) subject.getPrincipal();
         List<ImageVo> list = null;
         if (u.getLevel() > 1) {
             if (type == 2) {
@@ -294,7 +295,7 @@ public class AdminController {
     public Msg selectPhoto(@RequestBody ImgSearchDto imgSearchDto) {
         Msg msg = new Msg();
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
+        SysUser sysUser = (SysUser) subject.getPrincipal();
 
 
 
@@ -329,7 +330,7 @@ public class AdminController {
             imgSearchDto.setUserId(null);
         } else {
             //普通用户
-            imgSearchDto.setUserId(user.getId());
+            imgSearchDto.setUserId(sysUser.getId());
         }
         imgSearchDto.setPageNum(1);
         imgSearchDto.setPageSize(10);
@@ -348,13 +349,13 @@ public class AdminController {
         Msg msg = new Msg();
         try {
             Subject subject = SecurityUtils.getSubject();
-            User user = (User) subject.getPrincipal();
-            final User u = new User();
-            u.setId(user.getId());
-            User userInfo = userService.getUsers(u);
+            SysUser sysUser = (SysUser) subject.getPrincipal();
+            final SysUser u = new SysUser();
+            u.setId(sysUser.getId());
+            SysUser sysUserInfo = userService.getUsers(u);
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("username", userInfo.getUsername());
-            jsonObject.put("email", userInfo.getEmail());
+            jsonObject.put("username", sysUserInfo.getUsername());
+            jsonObject.put("email", sysUserInfo.getEmail());
             msg.setData(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
@@ -373,8 +374,8 @@ public class AdminController {
             String email = jsonObject.get("email");
             String password = jsonObject.get("password");
             Subject subject = SecurityUtils.getSubject();
-            User u = (User) subject.getPrincipal();
-            User user = new User();
+            SysUser u = (SysUser) subject.getPrincipal();
+            SysUser sysUser = new SysUser();
             if (!SetText.checkEmail(email)) {
                 msg.setCode("110403");
                 msg.setInfo("邮箱格式不正确");
@@ -387,37 +388,37 @@ public class AdminController {
                 return msg;
             }
             if (subject.hasRole("admin")) {
-                final User userOld = new User();
-                userOld.setId(u.getId());
-                User userInfo = userService.getUsers(userOld);
-                if (!userInfo.getUsername().equals(username)) {
+                final SysUser sysUserOld = new SysUser();
+                sysUserOld.setId(u.getId());
+                SysUser sysUserInfo = userService.getUsers(sysUserOld);
+                if (!sysUserInfo.getUsername().equals(username)) {
                     Integer countusername = userService.countusername(username);
                     if (countusername == 1 || !SysName.CheckSysName(username)) {
                         msg.setCode("110406");
                         msg.setInfo("此用户名已存在");
                         return msg;
                     } else {
-                        user.setUsername(username);
+                        sysUser.setUsername(username);
                     }
                 }
-                if (!userInfo.getEmail().equals(email)) {
+                if (!sysUserInfo.getEmail().equals(email)) {
                     Integer countmail = userService.countmail(email);
                     if (countmail == 1) {
                         msg.setCode("110407");
                         msg.setInfo("此邮箱已被注册");
                         return msg;
                     } else {
-                        user.setEmail(email);
+                        sysUser.setEmail(email);
                     }
                 }
-                user.setPassword(Base64Encryption.encryptBASE64(password.getBytes()));
-                user.setUid(u.getUid());
+                sysUser.setPassword(Base64Encryption.encryptBASE64(password.getBytes()));
+                sysUser.setUid(u.getUid());
             } else {
-                user.setPassword(Base64Encryption.encryptBASE64(password.getBytes()));
-                user.setUid(u.getUid());
+                sysUser.setPassword(Base64Encryption.encryptBASE64(password.getBytes()));
+                sysUser.setUid(u.getUid());
             }
-            user.setUpdateTime(LocalDateTime.now());
-            userService.change(user);
+            sysUser.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
+            userService.change(sysUser);
             msg.setInfo("信息修改成功，请重新登录");
         } catch (Exception e) {
             e.printStackTrace();
@@ -434,9 +435,9 @@ public class AdminController {
         Msg msg = new Msg();
 
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
+        SysUser sysUser = (SysUser) subject.getPrincipal();
 
-        if (null == user) {
+        if (null == sysUser) {
             msg.setCode("500");
             msg.setInfo("当前用户信息不存在");
             return msg;
@@ -454,7 +455,7 @@ public class AdminController {
             StorageKey key = keysService.selectKeys(keyID);
 
             if (!subject.hasRole("admin")) {
-                if (!image.getUserId().equals(user.getId())) {
+                if (!image.getUserId().equals(sysUser.getId())) {
                     break;
                 }
             }

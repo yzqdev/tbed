@@ -7,10 +7,10 @@
         SELECT
         *
         FROM
-        `usergroup`
+        usergroup
             where 1=1
         <if test="userid != null">
-            and `userid` = #{userid}
+            and userid = #{userid}
         </if>
     </select>
 
@@ -18,25 +18,25 @@
         SELECT
         *
         FROM
-        `usergroup`
+        usergroup
          where id = #{id}
 
     </select>
 
     <insert id="addusergroup" parameterType="cn.hellohao.entity.UserGroup">
-        insert into `usergroup` (id,userid,groupid) values (null,#{userid},#{groupid})
+        insert into usergroup (id,userid,groupid) values (null,#{userid},#{groupid})
     </insert>
 
     <update id="updateusergroup" parameterType="cn.hellohao.entity.UserGroup">
-        UPDATE `usergroup` SET  groupid = #{groupid} where userid = #{userid}
+        UPDATE usergroup SET  groupid = #{groupid} where userid = #{userid}
     </update>
 
     <update id="updateusergroupdefault" parameterType="integer">
-        UPDATE `usergroup` SET  groupid = 1 where groupid =  #{groupid}
+        UPDATE usergroup SET  groupid = 1 where groupid =  #{groupid}
     </update>
 
     <delete id="deleusergroup" parameterType="integer">
-        delete from `usergroup` where userid=#{userid}
+        delete from usergroup where userid=#{userid}
     </delete>
 
 

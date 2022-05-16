@@ -125,11 +125,11 @@ public class IndexController {
         Msg msg = new Msg();
         JSONObject jsonObject = new JSONObject();
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
+        SysUser sysUser = (SysUser) subject.getPrincipal();
         try {
             UploadConfig updateConfig = uploadConfigService.getUpdateConfig();
             jsonObject.put("suffix",updateConfig.getSuffix().split(","));
-            if(null==user){
+            if(null== sysUser){
                 jsonObject.put("filesize",Integer.valueOf(updateConfig.getFileSizeTourists())/1024);
                 jsonObject.put("imgcount",updateConfig.getImgCountTourists());
                 jsonObject.put("uploadSwitch",updateConfig.getIsUpdate());
@@ -160,7 +160,7 @@ public class IndexController {
                 try {
                     subject.login(tokenOBJ);
                     SecurityUtils.getSubject().getSession().setTimeout(3600000);
-                    User u = (User) subject.getPrincipal();
+                    SysUser u = (SysUser) subject.getPrincipal();
                     final JSONObject jsonObject = new JSONObject();
                     jsonObject.put("RoleLevel",u.getLevel()==2?"admin":"user");
                     jsonObject.put("userName",u.getUsername());
@@ -252,9 +252,9 @@ public class IndexController {
 
         Images image = imgService.selectImgUrlByImgUID(imgUid);
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
-        if(null!=user){
-            if(!user.getId().equals(image.getUserId())){
+        SysUser sysUser = (SysUser) subject.getPrincipal();
+        if(null!= sysUser){
+            if(!sysUser.getId().equals(image.getUserId())){
                 msg.setInfo("删除失败，该图片不允许你执行操作");
                 msg.setCode("100403");
                 return msg;

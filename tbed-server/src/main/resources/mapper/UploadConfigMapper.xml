@@ -10,40 +10,40 @@
         UPDATE  upload_config
         <set>
             <if test="filesizetourists != null">
-                `filesizetourists` = #{filesizetourists},
+                filesizetourists = #{filesizetourists},
             </if>
             <if test="filesizeuser != null">
-                `filesizeuser` = #{filesizeuser},
+                filesizeuser = #{filesizeuser},
             </if>
             <if test="imgcounttourists != null">
-                `imgcounttourists` = #{imgcounttourists},
+                imgcounttourists = #{imgcounttourists},
             </if>
             <if test="imgcountuser != null">
-                `imgcountuser` = #{imgcountuser},
+                imgcountuser = #{imgcountuser},
             </if>
             <if test="suffix != null">
-                `suffix` = #{suffix},
+                suffix = #{suffix},
             </if>
             <if test="urlType != null">
-                `url_type` = #{urlType},
+                url_type = #{urlType},
             </if>
             <if test="isupdate != null">
-                `isupdate` = #{isupdate},
+                isupdate = #{isupdate},
             </if>
             <if test="api != null">
-                `api` = #{api},
+                api = #{api},
             </if>
             <if test="visitorStorage != null">
-                `visitor_storage` = #{visitorStorage},
+                visitor_storage = #{visitorStorage},
             </if>
             <if test="userStorage != null">
-                `user_storage` = #{userStorage},
+                user_storage = #{userStorage},
             </if>
             <if test="blacklist != null">
-                `blacklist` = #{blacklist},
+                blacklist = #{blacklist},
             </if>
             <if test="userclose != null">
-                `userclose` = #{userclose}
+                userclose = #{userclose}
             </if>
         </set>
         where id=1

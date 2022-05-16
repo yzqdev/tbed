@@ -1,10 +1,9 @@
 package cn.hellohao.auth.filter;
 
 import cn.hellohao.auth.token.JWTUtil;
-import cn.hellohao.entity.User;
+import cn.hellohao.entity.SysUser;
 import cn.hellohao.service.impl.UserServiceImpl;
 import cn.hellohao.utils.SpringContextHolder;
-import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -14,7 +13,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 
 /**
  * @author Hellohao
@@ -72,8 +70,8 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
             }
         }else{
             Subject subject = SecurityUtils.getSubject();
-            User user = (User) subject.getPrincipal();
-            if(user==null){
+            SysUser sysUser = (SysUser) subject.getPrincipal();
+            if(sysUser ==null){
                 UsernamePasswordToken tokenOBJ = new UsernamePasswordToken(jsonObject.getString("email"),jsonObject.getString("password"));
                 tokenOBJ.setRememberMe(true);
                 try {
@@ -85,10 +83,10 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
                     return false;
                 }
             }else{
-                if(null!=user){
+                if(null!= sysUser){
                     try{
-                        if(null != user.getId()){
-                            if(userService.getUsers(user).getIsok()<1){
+                        if(null != sysUser.getId()){
+                            if(userService.getUsers(sysUser).getIsok()<1){
                                 subject.logout();
                                 this.CODE = "403";
                                 return false;

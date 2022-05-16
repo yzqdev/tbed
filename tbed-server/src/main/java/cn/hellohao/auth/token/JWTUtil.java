@@ -1,6 +1,6 @@
 package cn.hellohao.auth.token;
 
-import cn.hellohao.entity.User;
+import cn.hellohao.entity.SysUser;
 import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -21,15 +21,15 @@ public class JWTUtil {
     private static String EXPIRE_TIME = "";
     private static String SECRET = "www.hellohao.cn";
 
-    public static String createToken(User user){
+    public static String createToken(SysUser sysUser){
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND,604800 );//单位秒，604800 为7天
         Algorithm algorithm = Algorithm.HMAC256(SECRET);
         String token = JWT.create()
-                .withClaim("email", user.getEmail())
-                .withClaim("username", user.getUsername())
-                .withClaim("uid", user.getUid())
-                .withClaim("password", user.getPassword())
+                .withClaim("email", sysUser.getEmail())
+                .withClaim("username", sysUser.getUsername())
+                .withClaim("uid", sysUser.getUid())
+                .withClaim("password", sysUser.getPassword())
                 .withExpiresAt(calendar.getTime())
                 .sign(algorithm);
         return token;

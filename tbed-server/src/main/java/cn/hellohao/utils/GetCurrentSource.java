@@ -1,7 +1,7 @@
 package cn.hellohao.utils;
 
 import cn.hellohao.entity.SiteGroup;
-import cn.hellohao.entity.User;
+import cn.hellohao.entity.SysUser;
 import cn.hellohao.service.impl.GroupServiceImpl;
 import cn.hellohao.service.impl.UserGroupServiceImpl;
 import cn.hellohao.service.impl.UserServiceImpl;
@@ -39,14 +39,14 @@ public class GetCurrentSource {
 
     public static SiteGroup GetSource(String userid) {
         //UserType 0-未分配 1-游客 2-用户 3-管理员
-        User user =null;
+        SysUser sysUser =null;
         if(userid!=null){
-            User u = new User();
+            SysUser u = new SysUser();
             u.setId(userid);
-            user = userService.getUsers(u);
+            sysUser = userService.getUsers(u);
         }
         SiteGroup siteGroup =null;
-        if(user==null){
+        if(sysUser ==null){
             //游客
             Integer count = groupService.GetCountFroUserType(1);
             if(count>0){
@@ -56,12 +56,12 @@ public class GetCurrentSource {
             }
         }else{
             //用户
-            if(user.getGroupId()!="1"){
+            if(sysUser.getGroupId()!="1"){
                 //说明自定义过的优先
-                siteGroup = groupService.idgrouplist(user.getGroupId());
+                siteGroup = groupService.idgrouplist(sysUser.getGroupId());
             }else{
                 //默认的，用的是group主键为1的  但是还需要看看用户组有没有设置，比如管理员 用户
-                if(user.getLevel()>1){
+                if(sysUser.getLevel()>1){
                     //先查询管理员用户组有没有 如果有就用 没有就默认
                     Integer count = groupService.GetCountFroUserType(3);
                     if(count>0){

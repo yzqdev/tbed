@@ -1,6 +1,6 @@
 package cn.hellohao.auth.shiro;
 
-import cn.hellohao.entity.User;
+import cn.hellohao.entity.SysUser;
 import cn.hellohao.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -29,13 +29,13 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
+        SysUser sysUser = (SysUser) subject.getPrincipal();
         ArrayList<String> roleList = new ArrayList();
-        if(user.getLevel()==2){
+        if(sysUser.getLevel()==2){
             roleList.add("admin");
-            roleList.add("user");
+            roleList.add("sysUser");
         }else{
-            roleList.add("user");
+            roleList.add("sysUser");
         }
         info.addRoles(roleList);
         return info;
@@ -45,9 +45,9 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken tokenOBJ) throws AuthenticationException {
         UsernamePasswordToken userToken = null;
         userToken = (UsernamePasswordToken)tokenOBJ;
-        User user = new User();
-        user.setEmail(userToken.getUsername());
-        User u = userService.getUsers(user);
+        SysUser sysUser = new SysUser();
+        sysUser.setEmail(userToken.getUsername());
+        SysUser u = userService.getUsers(sysUser);
         if(u==null){
             return null;
         }

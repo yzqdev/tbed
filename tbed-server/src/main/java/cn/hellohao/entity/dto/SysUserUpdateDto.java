@@ -1,6 +1,6 @@
 package cn.hellohao.entity.dto;
 
-import cn.hellohao.entity.User;
+import cn.hellohao.entity.SysUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserUpdateDto extends User {
+public class SysUserUpdateDto extends SysUser {
     private Long counts;
     private String groupName;
 

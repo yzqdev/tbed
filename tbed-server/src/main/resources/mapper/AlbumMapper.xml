@@ -31,7 +31,7 @@
         a.password,
         a.user_id,
         u.username
-        FROM album a LEFT JOIN "user" u on a.user_id = u.id
+        FROM album a LEFT JOIN sys_user u on a.user_id = u.id
         <where>
             <if test="albumDto.albumKey != null">
                 "album" like '%${albumDto.albumKey}%'

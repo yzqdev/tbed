@@ -3,17 +3,17 @@
 <mapper namespace="cn.hellohao.dao.SysConfigMapper">
 
     <select id="getstate" resultType="cn.hellohao.entity.SysConfig">
-        select * from sysconfig where id ='1'
+        select * from sys_config where id ='1'
     </select>
 
     <update id="setstate" parameterType="cn.hellohao.entity.SysConfig">
-        UPDATE sysconfig
+        UPDATE sys_config
         <set>
             <if test="register != null">
-                `register` = #{register},
+                register = #{register},
             </if>
             <if test="checkduplicate != null">
-                `checkduplicate` = #{checkduplicate},
+                checkduplicate = #{checkduplicate},
             </if>
 
         </set>
