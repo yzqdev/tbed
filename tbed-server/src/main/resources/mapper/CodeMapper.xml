@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.mapper.CodeMapper">
 
 
-    <select id="selectCode" parameterType="string" resultType="cn.hellohao.entity.Code">
+    <select id="selectCode" parameterType="string" resultType="cn.hellohao.model.entity.Code">
         SELECT
         *
         FROM
@@ -16,7 +16,7 @@
 
     </select>
 
-    <select id="selectCodekey"  parameterType="string" resultType="cn.hellohao.entity.Code">
+    <select id="selectCodekey"  parameterType="string" resultType="cn.hellohao.model.entity.Code">
         SELECT
         *
         FROM
@@ -25,7 +25,7 @@
 
     </select>
 
-    <insert id="addCode" parameterType="cn.hellohao.entity.Code">
+    <insert id="addCode" parameterType="cn.hellohao.model.entity.Code">
         insert into  code values (#{id}, #{value},#{expandCode})
     </insert>
 

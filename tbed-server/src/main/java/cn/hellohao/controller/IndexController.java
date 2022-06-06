@@ -2,13 +2,13 @@ package cn.hellohao.controller;
 
 import cn.hellohao.auth.token.JWTUtil;
 import cn.hellohao.auth.token.UserClaim;
-import cn.hellohao.entity.*;
+import cn.hellohao.model.entity.*;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
-import cn.hellohao.utils.*;
-import cn.hellohao.utils.verifyCode.IVerifyCodeGen;
-import cn.hellohao.utils.verifyCode.SimpleCharVerifyCodeGenImpl;
-import cn.hellohao.utils.verifyCode.VerifyCode;
+import cn.hellohao.util.*;
+import cn.hellohao.util.verifyCode.IVerifyCodeGen;
+import cn.hellohao.util.verifyCode.SimpleCharVerifyCodeGenImpl;
+import cn.hellohao.util.verifyCode.VerifyCode;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;

@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.UserGroupMapper;
-import cn.hellohao.entity.UserGroup;
+import cn.hellohao.model.entity.UserGroup;
 import cn.hellohao.service.UserGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

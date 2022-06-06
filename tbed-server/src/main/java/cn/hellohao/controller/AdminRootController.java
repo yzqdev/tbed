@@ -1,12 +1,12 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.entity.*;
-import cn.hellohao.entity.dto.ConfigDto;
-import cn.hellohao.entity.dto.SysUserUpdateDto;
-import cn.hellohao.entity.dto.UserSearchDto;
+import cn.hellohao.model.entity.*;
+import cn.hellohao.model.dto.ConfigDto;
+import cn.hellohao.model.dto.SysUserUpdateDto;
+import cn.hellohao.model.dto.UserSearchDto;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
-import cn.hellohao.utils.*;
+import cn.hellohao.util.*;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 

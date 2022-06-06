@@ -1,13 +1,12 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.entity.Code;
-import cn.hellohao.entity.Msg;
-import cn.hellohao.entity.dto.PageDto;
+import cn.hellohao.model.entity.Code;
+import cn.hellohao.model.entity.Msg;
+import cn.hellohao.model.dto.PageDto;
 import cn.hellohao.service.CodeService;
 import cn.hutool.crypto.SecureUtil;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

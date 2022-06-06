@@ -1,14 +1,14 @@
 package cn.hellohao.controller;
 
 import cn.hellohao.config.SysName;
-import cn.hellohao.entity.*;
-import cn.hellohao.entity.dto.HomeImgDto;
-import cn.hellohao.entity.dto.ImgSearchDto;
-import cn.hellohao.entity.vo.ImageVo;
-import cn.hellohao.entity.vo.PageResultBean;
+import cn.hellohao.model.entity.*;
+import cn.hellohao.model.dto.HomeImgDto;
+import cn.hellohao.model.dto.ImgSearchDto;
+import cn.hellohao.model.vo.ImageVo;
+import cn.hellohao.model.vo.PageResultBean;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
-import cn.hellohao.utils.*;
+import cn.hellohao.util.*;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

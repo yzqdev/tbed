@@ -1,8 +1,8 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.StorageKey;
-import cn.hellohao.entity.ReturnImage;
-import cn.hellohao.utils.*;
+import cn.hellohao.model.entity.StorageKey;
+import cn.hellohao.model.entity.ReturnImage;
+import cn.hellohao.util.*;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;

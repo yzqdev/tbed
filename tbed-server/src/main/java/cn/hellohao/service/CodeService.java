@@ -1,6 +1,6 @@
 package cn.hellohao.service;
 
-import cn.hellohao.entity.Code;
+import cn.hellohao.model.entity.Code;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;

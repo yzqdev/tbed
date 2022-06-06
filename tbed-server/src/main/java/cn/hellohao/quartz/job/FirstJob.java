@@ -1,12 +1,12 @@
 package cn.hellohao.quartz.job;
 
-import cn.hellohao.entity.Images;
-import cn.hellohao.entity.StorageKey;
+import cn.hellohao.model.entity.Images;
+import cn.hellohao.model.entity.StorageKey;
 import cn.hellohao.service.ImgService;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.KeysService;
 import cn.hellohao.service.impl.*;
-import cn.hellohao.utils.LocUpdateImg;
+import cn.hellohao.util.LocUpdateImg;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Component

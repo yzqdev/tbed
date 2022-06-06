@@ -2,10 +2,10 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.GroupMapper;
 import cn.hellohao.mapper.UserMapper;
-import cn.hellohao.entity.SiteGroup;
-import cn.hellohao.entity.SysUser;
+import cn.hellohao.model.entity.SiteGroup;
+import cn.hellohao.model.entity.SysUser;
 import cn.hellohao.exception.CodeException;
-import cn.hellohao.entity.Msg;
+import cn.hellohao.model.entity.Msg;
 import cn.hellohao.service.GroupService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -1,6 +1,6 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.model.dto.CommonResult;
+import cn.hellohao.model.base.CommonResult;
 import cn.hellohao.service.MobilePaperService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

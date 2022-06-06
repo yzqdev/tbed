@@ -2,10 +2,10 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.CodeMapper;
 import cn.hellohao.mapper.UserMapper;
-import cn.hellohao.entity.SysUser;
+import cn.hellohao.model.entity.SysUser;
 import cn.hellohao.exception.CodeException;
 import cn.hellohao.service.UserService;
-import cn.hellohao.utils.Print;
+import cn.hellohao.util.Print;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;

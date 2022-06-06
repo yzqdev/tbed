@@ -1,17 +1,16 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.*;
-import cn.hellohao.entity.*;
+import cn.hellohao.model.entity.*;
 import cn.hellohao.service.ImgAndAlbumService;
 import cn.hellohao.service.SysConfigService;
-import cn.hellohao.utils.*;
+import cn.hellohao.util.*;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.contentcensor.AipContentCensor;
 import com.baidu.aip.contentcensor.EImgType;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

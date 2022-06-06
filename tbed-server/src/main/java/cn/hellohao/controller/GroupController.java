@@ -1,8 +1,8 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.entity.SiteGroup;
-import cn.hellohao.entity.Msg;
-import cn.hellohao.entity.dto.PageDto;
+import cn.hellohao.model.entity.SiteGroup;
+import cn.hellohao.model.entity.Msg;
+import cn.hellohao.model.dto.PageDto;
 import cn.hellohao.service.GroupService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

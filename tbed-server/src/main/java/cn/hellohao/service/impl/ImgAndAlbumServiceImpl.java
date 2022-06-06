@@ -1,8 +1,8 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.ImgAndAlbumMapper;
-import cn.hellohao.entity.Images;
-import cn.hellohao.entity.ImgAndAlbum;
+import cn.hellohao.model.entity.Images;
+import cn.hellohao.model.entity.ImgAndAlbum;
 import cn.hellohao.service.ImgAndAlbumService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

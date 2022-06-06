@@ -1,11 +1,11 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.*;
-import cn.hellohao.entity.*;
-import cn.hellohao.entity.vo.UploadImgVo;
+import cn.hellohao.model.entity.*;
+import cn.hellohao.model.vo.UploadImgVo;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.SysConfigService;
-import cn.hellohao.utils.*;
+import cn.hellohao.util.*;
 import cn.hutool.core.lang.Console;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -55,7 +55,7 @@ public class UploadServicelmpl {
 
 
     public Msg uploadForLoc(HttpServletRequest request,
-                            MultipartFile multipartFile,int setday, String imgUrl, JSONArray selectTreeList) {
+                            MultipartFile multipartFile, int setday, String imgUrl, JSONArray selectTreeList) {
         Msg msg = new Msg();
         try{
             UploadImgVo jsonObject = new UploadImgVo();

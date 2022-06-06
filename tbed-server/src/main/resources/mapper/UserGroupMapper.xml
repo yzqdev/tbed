@@ -3,18 +3,21 @@
 <mapper namespace="cn.hellohao.mapper.UserGroupMapper">
 
 
-    <select id="getUserGroupByUserId" parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
+    <select id="getUserGroupByUserId" parameterType="integer" resultType="cn.hellohao.model.entity.UserGroup">
         SELECT
         *
         FROM
         user_group
-            where 1=1
-        <if test="userid != null">
-            and user_id = #{userid}
-        </if>
+        <where>
+
+            <if test="userid != null">
+                and user_id = #{userid}
+            </if>
+        </where>
+
     </select>
 
-    <select id="getUserGroupById" parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
+    <select id="getUserGroupById" parameterType="integer" resultType="cn.hellohao.model.entity.UserGroup">
         SELECT
         *
         FROM
@@ -23,11 +26,11 @@
 
     </select>
 
-    <insert id="addUserGroup" parameterType="cn.hellohao.entity.UserGroup">
+    <insert id="addUserGroup" parameterType="cn.hellohao.model.entity.UserGroup">
         insert into user_group (id,user_id,group_id) values (null,#{userid},#{groupid})
     </insert>
 
-    <update id="updateUserGroup" parameterType="cn.hellohao.entity.UserGroup">
+    <update id="updateUserGroup" parameterType="cn.hellohao.model.entity.UserGroup">
         UPDATE user_group SET  group_id = #{groupid} where user_id = #{userid}
     </update>
 

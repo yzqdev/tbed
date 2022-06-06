@@ -1,7 +1,7 @@
 package cn.hellohao.controller;
 
 import cn.hellohao.exception.StorageSourceInitException;
-import cn.hellohao.utils.Print;
+import cn.hellohao.util.Print;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

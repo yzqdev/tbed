@@ -1,9 +1,9 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.Msg;
-import cn.hellohao.entity.StorageKey;
-import cn.hellohao.entity.ReturnImage;
-import cn.hellohao.utils.*;
+import cn.hellohao.model.entity.Msg;
+import cn.hellohao.model.entity.StorageKey;
+import cn.hellohao.model.entity.ReturnImage;
+import cn.hellohao.util.*;
 import com.UpYun;
 import com.aliyun.oss.model.ObjectMetadata;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.mapper.AlbumMapper">
 
 
-    <select id="selectAlbum" parameterType="cn.hellohao.entity.dto.AlbumDto" resultType="cn.hellohao.entity.Album">
+    <select id="selectAlbum" parameterType="cn.hellohao.model.dto.AlbumDto" resultType="cn.hellohao.model.entity.Album">
         SELECT
         *
         FROM
@@ -23,7 +23,7 @@
 
 
 
-    <select id="selectAlbumURLList" parameterType="cn.hellohao.entity.dto.AlbumDto" resultType="cn.hellohao.entity.Album">
+    <select id="selectAlbumURLList" parameterType="cn.hellohao.model.dto.AlbumDto" resultType="cn.hellohao.model.entity.Album">
         SELECT
         a.album_key,
         a.album_title,

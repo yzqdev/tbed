@@ -7,14 +7,21 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * redis服务
+ *
+ * @author yanni
+ * @date 2022/06/06
+ */
 @Service
 public class RedisServiceImpl implements IRedisService {
-    @Autowired
+    @Resource
     private StringRedisTemplate stringRedisTemplate;
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
 
@@ -22,7 +29,8 @@ public class RedisServiceImpl implements IRedisService {
     public void setValue(String key, Map<String, Object> value) {
         ValueOperations<String, Object> vo = redisTemplate.opsForValue();
         vo.set(key, value);
-        redisTemplate.expire(key, 1, TimeUnit.HOURS); // 这里指的是1小时后失效
+        // 这里指的是1小时后失效
+        redisTemplate.expire(key, 1, TimeUnit.HOURS);
     }
 
     @Override

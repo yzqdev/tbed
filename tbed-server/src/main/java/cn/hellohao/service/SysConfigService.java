@@ -1,6 +1,6 @@
 package cn.hellohao.service;
 
-import cn.hellohao.entity.SysConfig;
+import cn.hellohao.model.entity.SysConfig;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 

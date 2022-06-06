@@ -1,7 +1,7 @@
 package cn.hellohao.mapper;
 
-import cn.hellohao.entity.Images;
-import cn.hellohao.entity.ImgTemp;
+import cn.hellohao.model.entity.Images;
+import cn.hellohao.model.entity.ImgTemp;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -2,8 +2,8 @@ package cn.hellohao.service.impl;
 
 import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.mapper.KeysMapper;
-import cn.hellohao.entity.StorageKey;
-import cn.hellohao.utils.Print;
+import cn.hellohao.model.entity.StorageKey;
+import cn.hellohao.util.Print;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -26,6 +26,8 @@ public class InitializationStorage implements CommandLineRunner {
     @Value("${CROS_ALLOWED_ORIGINS}")
     private String[] allowedOrigins;
 
+    @Value("${server.port}")
+    private String port;
     @Autowired
     private KeysMapper keysMapper;
 
@@ -65,7 +67,8 @@ public class InitializationStorage implements CommandLineRunner {
         Print.Normal("______________________________________________");
         Print.Normal("              Hellohao Tbed                ");
         Print.Normal("     Successful startup of the program      ");
-        Print.Normal("     is OK!  Open http:// yourIP:port       ");
+        Print.Normal("     is OK!  Open http://localhost:"+port+"       ");
+        Print.Normal("     is OK!  Open swagger http://localhost:"+port+"/swagger-ui.html");
         Print.Normal("______________________________________________");
     }
 }

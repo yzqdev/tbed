@@ -1,8 +1,8 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.entity.*;
-import cn.hellohao.entity.dto.AlbumDto;
-import cn.hellohao.entity.vo.PageResultBean;
+import cn.hellohao.model.entity.*;
+import cn.hellohao.model.dto.AlbumDto;
+import cn.hellohao.model.vo.PageResultBean;
 import cn.hellohao.service.AlbumService;
 import cn.hellohao.service.ImgAndAlbumService;
 import cn.hellohao.service.UserService;

@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.EmailConfigMapper;
-import cn.hellohao.entity.EmailConfig;
+import cn.hellohao.model.entity.EmailConfig;
 import cn.hellohao.service.EmailConfigService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

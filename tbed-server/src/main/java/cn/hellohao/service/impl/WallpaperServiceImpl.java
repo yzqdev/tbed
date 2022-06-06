@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.service.WallpaperService;
-import cn.hellohao.utils.ToStringTools;
+import cn.hellohao.util.ToStringTools;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;

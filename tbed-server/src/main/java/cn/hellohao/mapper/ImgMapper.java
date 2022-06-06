@@ -2,15 +2,15 @@ package cn.hellohao.mapper;
 
 import java.util.List;
 
-import cn.hellohao.entity.dto.HomeImgDto;
-import cn.hellohao.entity.dto.ImgSearchDto;
-import cn.hellohao.entity.vo.ImageVo;
-import cn.hellohao.entity.vo.RecentUserVo;
+import cn.hellohao.model.dto.HomeImgDto;
+import cn.hellohao.model.dto.ImgSearchDto;
+import cn.hellohao.model.vo.ImageVo;
+import cn.hellohao.model.vo.RecentUserVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import cn.hellohao.entity.Images;
+import cn.hellohao.model.entity.Images;
 
 @Mapper
 public interface ImgMapper extends BaseMapper<Images> {
@@ -40,11 +40,28 @@ public interface ImgMapper extends BaseMapper<Images> {
 
     Integer md5Count(Images images);
 
-    Images selectImgUrlByMD5(@Param("md5key") String md5key);
+  /**
+   * 选择通过md5 img url
+   *
+   * @param md5key md5key
+   * @return {@link Images}
+   */
+  Images selectImgUrlByMD5(@Param("md5key") String md5key);
 
-    List<Images> RecentlyUploaded(@Param("userId") String userId);
+  /**
+   * 最近上传
+   *
+   * @param userId 用户id
+   * @return {@link List}<{@link Images}>
+   */
+  List<Images> recentlyUploaded(@Param("userId") String userId);
 
-    List<RecentUserVo> RecentlyUser();
+  /**
+   * 最近用户
+   *
+   * @return {@link List}<{@link RecentUserVo}>
+   */
+  List<RecentUserVo> recentlyUser();
 
     List<String> getyyyy(@Param("userId") String userId);
 

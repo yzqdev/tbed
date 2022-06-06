@@ -1,7 +1,7 @@
 package cn.hellohao.service;
 
-import cn.hellohao.entity.SiteGroup;
-import cn.hellohao.entity.Msg;
+import cn.hellohao.model.entity.SiteGroup;
+import cn.hellohao.model.entity.Msg;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;

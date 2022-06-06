@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.hellohao.entity.StorageKey;
-import cn.hellohao.entity.dto.HomeImgDto;
-import cn.hellohao.entity.dto.ImgSearchDto;
-import cn.hellohao.entity.vo.ImageVo;
-import cn.hellohao.entity.vo.RecentUserVo;
-import cn.hellohao.utils.Print;
+import cn.hellohao.model.entity.StorageKey;
+import cn.hellohao.model.dto.HomeImgDto;
+import cn.hellohao.model.dto.ImgSearchDto;
+import cn.hellohao.model.vo.ImageVo;
+import cn.hellohao.model.vo.RecentUserVo;
+import cn.hellohao.util.Print;
 import com.UpYun;
 import com.aliyun.oss.OSSClient;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -38,7 +38,7 @@ import com.netease.cloud.services.nos.model.CannedAccessControlList;
 import com.netease.cloud.services.nos.transfer.TransferManager;
 
 import cn.hellohao.mapper.ImgMapper;
-import cn.hellohao.entity.Images;
+import cn.hellohao.model.entity.Images;
 import cn.hellohao.service.ImgService;
 
 import javax.annotation.Resource;
@@ -245,12 +245,12 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     @Override
     public List<Images> RecentlyUploaded(String userid) {
 
-        return imgMapper.RecentlyUploaded(userid);
+        return imgMapper.recentlyUploaded(userid);
     }
 
     @Override
     public List<RecentUserVo> RecentlyUser() {
-        return imgMapper.RecentlyUser();
+        return imgMapper.recentlyUser();
     }
 
 

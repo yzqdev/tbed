@@ -1,8 +1,8 @@
 package cn.hellohao.service;
 
 
-import cn.hellohao.entity.StorageKey;
-import cn.hellohao.entity.Msg;
+import cn.hellohao.model.entity.StorageKey;
+import cn.hellohao.model.entity.Msg;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 

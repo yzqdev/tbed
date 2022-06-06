@@ -1,7 +1,7 @@
 package cn.hellohao.controller;
 
-import cn.hellohao.entity.Imgreview;
-import cn.hellohao.entity.Msg;
+import cn.hellohao.model.entity.Imgreview;
+import cn.hellohao.model.entity.Msg;
 import cn.hellohao.service.ImgreviewService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

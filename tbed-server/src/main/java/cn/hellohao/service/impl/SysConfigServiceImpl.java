@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.SysConfigMapper;
-import cn.hellohao.entity.SysConfig;
+import cn.hellohao.model.entity.SysConfig;
 import cn.hellohao.service.SysConfigService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

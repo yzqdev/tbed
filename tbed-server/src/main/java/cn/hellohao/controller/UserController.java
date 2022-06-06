@@ -10,10 +10,10 @@ import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.auth.token.JWTUtil;
 import cn.hellohao.auth.token.UserClaim;
 import cn.hellohao.config.SysName;
-import cn.hellohao.entity.*;
-import cn.hellohao.entity.dto.UserLoginDto;
+import cn.hellohao.model.entity.*;
+import cn.hellohao.model.dto.UserLoginDto;
 import cn.hellohao.service.*;
-import cn.hellohao.utils.*;
+import cn.hellohao.util.*;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.log.StaticLog;
@@ -49,7 +49,7 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
-    public Msg Register( @RequestBody UserLoginDto userLoginDto) {//Validated
+    public Msg Register(@RequestBody UserLoginDto userLoginDto) {//Validated
         Msg msg = new Msg();
         HttpServletRequest request=RequestHelper.getRequest();
 

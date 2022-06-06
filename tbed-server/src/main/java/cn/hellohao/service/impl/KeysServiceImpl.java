@@ -1,8 +1,8 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.Msg;
-import cn.hellohao.entity.StorageKey;
-import cn.hellohao.utils.Print;
+import cn.hellohao.model.entity.Msg;
+import cn.hellohao.model.entity.StorageKey;
+import cn.hellohao.util.Print;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

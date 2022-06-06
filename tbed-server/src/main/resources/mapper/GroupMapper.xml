@@ -11,7 +11,7 @@
 <!--    </select>-->
 
 
-    <select id="grouplist" resultType="cn.hellohao.entity.SiteGroup" parameterType="integer">
+    <select id="grouplist" resultType="cn.hellohao.model.entity.SiteGroup" parameterType="integer">
         SELECT
         g.id,g.group_name,g.key_id,g.user_type,g.compress,k.storage_type,k.key_name
         FROM
@@ -24,7 +24,7 @@
     </select>
 
 
-    <select id="idGroupList" parameterType="string" resultType="cn.hellohao.entity.SiteGroup">
+    <select id="idGroupList" parameterType="string" resultType="cn.hellohao.model.entity.SiteGroup">
         SELECT
             *
         FROM
@@ -32,7 +32,7 @@
         where id = #{id}
     </select>
 
-    <insert id="addgroup" parameterType="cn.hellohao.entity.SiteGroup">
+    <insert id="addgroup" parameterType="cn.hellohao.model.entity.SiteGroup">
         insert into site_group (id,group_name,key_id,use_type,compress) values (null,#{groupName},#{keyId},#{userType},#{compress})
     </insert>
 
@@ -48,11 +48,11 @@
         delete from site_group where id=#{id}
     </delete>
 
-    <update id="setgroup" parameterType="cn.hellohao.entity.SiteGroup">
+    <update id="setgroup" parameterType="cn.hellohao.model.entity.SiteGroup">
         UPDATE site_group SET group_name = #{groupname},key_id = #{keyid},user_type = #{userType},compress = #{compress} where id = #{id};
     </update>
 
-    <select id="getGroupByUserType" parameterType="integer" resultType="cn.hellohao.entity.SiteGroup">
+    <select id="getGroupByUserType" parameterType="integer" resultType="cn.hellohao.model.entity.SiteGroup">
         SELECT
             *
         FROM

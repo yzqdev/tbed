@@ -1,8 +1,8 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.entity.StorageKey;
-import cn.hellohao.entity.ReturnImage;
-import cn.hellohao.utils.*;
+import cn.hellohao.model.entity.StorageKey;
+import cn.hellohao.model.entity.ReturnImage;
+import cn.hellohao.util.*;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;

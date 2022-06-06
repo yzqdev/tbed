@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.mapper.UserMapper">
 
     <!-- 用户注册 -->
-    <insert id="register" parameterType="cn.hellohao.entity.SysUser">
+    <insert id="register" parameterType="cn.hellohao.model.entity.SysUser">
         INSERT INTO sys_user (id, username, password, email, birthday, level,uid,isok,memory,group_id)
         VALUES (#{id}, #{username}, #{password}, #{email}, #{birthday}, #{level},#{uid},#{isok},#{memory},#{groupId}   )
     </insert>
@@ -21,7 +21,7 @@
 
     </select>
     <!--  uid查询用户并修改  -->
-    <update id="getUserByUid" parameterType="cn.hellohao.entity.SysUser">
+    <update id="getUserByUid" parameterType="cn.hellohao.model.entity.SysUser">
         <!-- UPDATE sys_user set username=#{username},password=#{password} where email=#{email} -->
         UPDATE sys_user set isok=1 where uid=#{uid}
     </update>
@@ -48,7 +48,7 @@
     </select>
 
     <!-- 查询当前用户:根据邮箱,根据id -->
-    <select id="getUsers" parameterType="cn.hellohao.entity.SysUser" resultType="cn.hellohao.entity.SysUser">
+    <select id="getUsers" parameterType="cn.hellohao.model.entity.SysUser" resultType="cn.hellohao.model.entity.SysUser">
         SELECT id,
         username,
         email,
@@ -73,7 +73,7 @@
         </where>
     </select>
     <!-- 查询当前用户:根据id -->
-    <select id="getUserById" parameterType="integer" resultType="cn.hellohao.entity.SysUser">
+    <select id="getUserById" parameterType="integer" resultType="cn.hellohao.model.entity.SysUser">
         SELECT id,
                username,
                email,
@@ -88,7 +88,7 @@
         WHERE id = #{id}
     </select>
     <!-- 查询当前用户:根据uid -->
-    <select id="getUsersMail" parameterType="string" resultType="cn.hellohao.entity.SysUser">
+    <select id="getUsersMail" parameterType="string" resultType="cn.hellohao.model.entity.SysUser">
         SELECT id,
         username,
         email,
@@ -106,7 +106,7 @@
 
 
     <!-- 修改资料 -->
-    <update id="change" parameterType="cn.hellohao.entity.SysUser">
+    <update id="change" parameterType="cn.hellohao.model.entity.SysUser">
         <!-- UPDATE sys_user set username=#{username},password=#{password} where email=#{email} -->
         UPDATE sys_user
         <set>
@@ -129,7 +129,7 @@
         where uid=#{uid}
     </update>
 
-    <update id="changeUser" parameterType="cn.hellohao.entity.SysUser">
+    <update id="changeUser" parameterType="cn.hellohao.model.entity.SysUser">
         UPDATE sys_user
         <set>
             <if test="email != null">
@@ -167,7 +167,7 @@
     </select>
 
     <!-- 获取用户的详细信息 -->
-    <select id="getUserList" resultType="cn.hellohao.entity.SysUser" parameterType="java.lang.String">
+    <select id="getUserList" resultType="cn.hellohao.model.entity.SysUser" parameterType="java.lang.String">
         SELECT
         id,
         username,
@@ -196,16 +196,16 @@
         DELETE FROM sysUser WHERE id=#{id}
     </delete>
 
-    <update id="setIsok" parameterType="cn.hellohao.entity.SysUser">
+    <update id="setIsok" parameterType="cn.hellohao.model.entity.SysUser">
         <!-- UPDATE sys_user set username=#{username},password=#{password} where email=#{email} -->
         UPDATE sysUser set isok=#{isok} where id=#{id}
     </update>
-    <update id="setmemory" parameterType="cn.hellohao.entity.SysUser">
+    <update id="setmemory" parameterType="cn.hellohao.model.entity.SysUser">
         <!-- UPDATE sys_user set username=#{username},password=#{password} where email=#{email} -->
         UPDATE sysUser set memory=#{memory} where id=#{id}
     </update>
 
-    <select id="getUserListFromGroupId" parameterType="integer" resultType="cn.hellohao.entity.SysUser">
+    <select id="getUserListFromGroupId" parameterType="integer" resultType="cn.hellohao.model.entity.SysUser">
         select * from sysUser where group_id=#{group_id}
     </select>
 

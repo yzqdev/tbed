@@ -3,11 +3,11 @@ package cn.hellohao.service;
 
 import java.util.List;
 
-import cn.hellohao.entity.Images;
-import cn.hellohao.entity.dto.HomeImgDto;
-import cn.hellohao.entity.dto.ImgSearchDto;
-import cn.hellohao.entity.vo.ImageVo;
-import cn.hellohao.entity.vo.RecentUserVo;
+import cn.hellohao.model.entity.Images;
+import cn.hellohao.model.dto.HomeImgDto;
+import cn.hellohao.model.dto.ImgSearchDto;
+import cn.hellohao.model.vo.ImageVo;
+import cn.hellohao.model.vo.RecentUserVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 

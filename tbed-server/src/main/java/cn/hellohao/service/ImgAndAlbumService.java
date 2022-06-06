@@ -1,12 +1,10 @@
 package cn.hellohao.service;
 
-import cn.hellohao.entity.Images;
-import cn.hellohao.entity.ImgAndAlbum;
+import cn.hellohao.model.entity.Images;
+import cn.hellohao.model.entity.ImgAndAlbum;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author Hellohao

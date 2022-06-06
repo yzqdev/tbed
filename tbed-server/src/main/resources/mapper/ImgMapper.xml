@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.mapper.ImgMapper">
 
     <!-- 查询-->
-    <select id="selectImageData" parameterType="cn.hellohao.entity.dto.ImgSearchDto" resultType="cn.hellohao.entity.Images">
+    <select id="selectImageData" parameterType="cn.hellohao.model.dto.ImgSearchDto" resultType="cn.hellohao.model.entity.Images">
         SELECT
         a.id,
         a.img_name,
@@ -74,7 +74,7 @@
         WHERE img_uid = #{imguid}
     </delete>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="cn.hellohao.entity.Images">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="cn.hellohao.model.entity.Images">
         select *
         from img_data
         where id = #{id}
@@ -92,7 +92,7 @@
     </select>
 
     <!-- 根据图片名字标记IP -->
-    <update id="setImg" parameterType="cn.hellohao.entity.Images">
+    <update id="setImg" parameterType="cn.hellohao.model.entity.Images">
         UPDATE img_data
         <set>
             <if test="abnormal!=null">
@@ -118,7 +118,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="getTimeImg" parameterType="string" resultType="cn.hellohao.entity.Images">
+    <select id="getTimeImg" parameterType="string" resultType="cn.hellohao.model.entity.Images">
         SELECT *
         from img_data
         WHERE update_time >= #{time}
@@ -144,14 +144,14 @@
           and user_id = #{userid}
     </select>
 
-    <select id="selectImgUrlByMD5" parameterType="string" resultType="cn.hellohao.entity.Images">
+    <select id="selectImgUrlByMD5" parameterType="string" resultType="cn.hellohao.model.entity.Images">
         select img_name, img_url
         from img_data
         where md5key = #{md5key}
     </select>
 
     <!--    查询当前用户的近20条数据-->
-    <select id="RecentlyUploaded" parameterType="java.lang.String" resultType="cn.hellohao.entity.Images">
+    <select id="recentlyUploaded" parameterType="java.lang.String" resultType="cn.hellohao.model.entity.Images">
         select *
         from img_data
         where user_id = #{userId}
@@ -159,7 +159,7 @@
         LIMIT 20
     </select>
 
-    <select id="RecentlyUser" resultType="cn.hellohao.entity.vo.RecentUserVo">
+    <select id="recentlyUser" resultType="cn.hellohao.model.vo.RecentUserVo">
         select count(i.id) as counts, i.user_id, u.username, u.email, u.memory
         from img_data i
                  LEFT JOIN sys_user u on i.user_id = u.id
@@ -178,7 +178,7 @@
     </select>
 
 
-    <select id="countByM" parameterType="cn.hellohao.entity.dto.HomeImgDto" resultType="cn.hellohao.entity.vo.ImageVo">
+    <select id="countByM" parameterType="cn.hellohao.model.dto.HomeImgDto" resultType="cn.hellohao.model.vo.ImageVo">
         SELECT
         count(id) countNum,
         to_char(update_time,'MM') monthNum

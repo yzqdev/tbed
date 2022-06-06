@@ -3,7 +3,7 @@
 <mapper namespace="cn.hellohao.mapper.ImgAndAlbumMapper">
 
 
-    <select id="selectImgAndAlbum" parameterType="string" resultType="cn.hellohao.entity.ImgAndAlbum">
+    <select id="selectImgAndAlbum" parameterType="string" resultType="cn.hellohao.model.entity.ImgAndAlbum">
         SELECT
         *
         FROM
@@ -15,7 +15,7 @@
         </where>
     </select>
 
-    <select id="getAlbumForImgname" resultType="cn.hellohao.entity.ImgAndAlbum" parameterType="string">
+    <select id="getAlbumForImgname" resultType="cn.hellohao.model.entity.ImgAndAlbum" parameterType="string">
         SELECT
         *
         FROM
@@ -33,7 +33,7 @@
 
 
 
-    <select id="selectImgForAlbumkey" parameterType="string" resultType="cn.hellohao.entity.Images">
+    <select id="selectImgForAlbumkey" parameterType="string" resultType="cn.hellohao.model.entity.Images">
 
         select * from img_data
                           LEFT JOIN img_and_album    on img_data.img_name = img_and_album.img_name

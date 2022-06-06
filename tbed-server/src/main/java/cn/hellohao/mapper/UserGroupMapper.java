@@ -1,6 +1,6 @@
 package cn.hellohao.mapper;
 
-import cn.hellohao.entity.UserGroup;
+import cn.hellohao.model.entity.UserGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -1,6 +1,6 @@
 package cn.hellohao.mapper;
 
-import cn.hellohao.entity.Imgreview;
+import cn.hellohao.model.entity.Imgreview;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

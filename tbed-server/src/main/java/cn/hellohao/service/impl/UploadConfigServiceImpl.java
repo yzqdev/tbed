@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
 import cn.hellohao.mapper.UploadConfigMapper;
-import cn.hellohao.entity.UploadConfig;
+import cn.hellohao.model.entity.UploadConfig;
 import cn.hellohao.service.UploadConfigService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

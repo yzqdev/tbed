@@ -1,8 +1,7 @@
 package cn.hellohao.auth.token;
 
-import cn.hellohao.entity.SysUser;
+import cn.hellohao.model.entity.SysUser;
 import cn.hutool.core.lang.Console;
-import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;

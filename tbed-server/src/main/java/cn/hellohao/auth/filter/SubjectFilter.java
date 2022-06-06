@@ -2,9 +2,9 @@ package cn.hellohao.auth.filter;
 
 import cn.hellohao.auth.token.JWTUtil;
 import cn.hellohao.auth.token.UserClaim;
-import cn.hellohao.entity.SysUser;
+import cn.hellohao.model.entity.SysUser;
 import cn.hellohao.service.impl.UserServiceImpl;
-import cn.hellohao.utils.SpringContextHolder;
+import cn.hellohao.util.SpringContextHolder;
 import cn.hutool.core.lang.Console;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;

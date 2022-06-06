@@ -1,6 +1,6 @@
 package cn.hellohao.mapper;
 
-import cn.hellohao.entity.UploadConfig;
+import cn.hellohao.model.entity.UploadConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
