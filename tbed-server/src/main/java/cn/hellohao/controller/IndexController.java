@@ -1,6 +1,7 @@
 package cn.hellohao.controller;
 
 import cn.hellohao.auth.token.JWTUtil;
+import cn.hellohao.auth.token.UserClaim;
 import cn.hellohao.entity.*;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
@@ -152,10 +153,10 @@ public class IndexController {
         Msg msg = new Msg();
         String token = request.getHeader("Authorization");
         if(token != null) {
-            JSONObject tokenJson = JWTUtil.checkToken(token);
-            if(tokenJson.getBoolean("check")){
+            UserClaim tokenJson = JWTUtil.checkToken(token);
+            if(Boolean.TRUE.equals(tokenJson.getCheck())){
                 Subject subject = SecurityUtils.getSubject();
-                UsernamePasswordToken tokenOBJ = new UsernamePasswordToken(tokenJson.getString("email"),tokenJson.getString("password"));
+                UsernamePasswordToken tokenOBJ = new UsernamePasswordToken(tokenJson.getEmail(),tokenJson.getPassword());
                 tokenOBJ.setRememberMe(true);
                 try {
                     subject.login(tokenOBJ);

@@ -43,7 +43,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken tokenOBJ) throws AuthenticationException {
-        UsernamePasswordToken userToken = null;
+        UsernamePasswordToken userToken  ;
         userToken = (UsernamePasswordToken)tokenOBJ;
         SysUser sysUser = new SysUser();
         sysUser.setEmail(userToken.getUsername());

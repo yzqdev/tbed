@@ -8,12 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.auth.token.JWTUtil;
+import cn.hellohao.auth.token.UserClaim;
 import cn.hellohao.config.SysName;
 import cn.hellohao.entity.*;
 import cn.hellohao.entity.dto.UserLoginDto;
 import cn.hellohao.service.*;
 import cn.hellohao.utils.*;
+import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.HexUtil;
+import cn.hutool.log.StaticLog;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -130,7 +133,7 @@ public class UserController {
         return msg;
     }
 
-    @PostMapping("/login")//new
+    @PostMapping("/login")
     @ResponseBody
     public Msg login(@RequestBody UserLoginDto userLoginDto) {
         Msg msg = new Msg();
@@ -155,7 +158,8 @@ public class UserController {
             tokenOBJ.setRememberMe(true);
             try {
                 subject.login(tokenOBJ);
-                SecurityUtils.getSubject().getSession().setTimeout(3600000);//一小时
+                //一小时
+                SecurityUtils.getSubject().getSession().setTimeout(3600000);
                 JSONObject jsonObject = new JSONObject();
                 SysUser sysUser = (SysUser) SecurityUtils.getSubject().getPrincipal();
                 if(sysUser.getIsok()==0){
@@ -168,7 +172,11 @@ public class UserController {
                     msg.setCode("110403");
                     return msg;
                 }
+                StaticLog.warn(sysUser.toString());
                 String token = JWTUtil.createToken(sysUser);
+
+                UserClaim u=JWTUtil.checkToken(token);
+                Console.error(u);
                 Subject su = SecurityUtils.getSubject();
                 System.out.println("当前用户角色：admin:"+su.hasRole("admin"));
                 msg.setInfo("登录成功");

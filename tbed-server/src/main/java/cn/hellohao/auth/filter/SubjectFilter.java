@@ -1,14 +1,17 @@
 package cn.hellohao.auth.filter;
 
 import cn.hellohao.auth.token.JWTUtil;
+import cn.hellohao.auth.token.UserClaim;
 import cn.hellohao.entity.SysUser;
 import cn.hellohao.service.impl.UserServiceImpl;
 import cn.hellohao.utils.SpringContextHolder;
+import cn.hutool.core.lang.Console;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -23,19 +26,27 @@ import javax.servlet.http.HttpServletResponse;
 public class SubjectFilter extends BasicHttpAuthenticationFilter {
 
     public static String[] WEBHOST = null;
-    private String CODE ="000";
+    private String CODE = "000";
 
+    /**
+     * 是访问允许
+     *
+     * @param request     请求
+     * @param response    响应
+     * @param mappedValue 映射值
+     * @return boolean
+     */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         UserServiceImpl userService = SpringContextHolder.getBean(UserServiceImpl.class);
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse =(HttpServletResponse) response;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String serviceName = httpServletRequest.getServletPath();
         String Users_Origin = httpServletRequest.getHeader("usersOrigin");
 
         //验证前端域名
-        if(httpServletRequest.getMethod().equals("POST") && !serviceName.contains("/api") && !serviceName.contains("/verifyCode")){
-            try{
+        if (httpServletRequest.getMethod().equals("POST") && !serviceName.contains("/api") && !serviceName.contains("/verifyCode")) {
+            try {
 
                 //todo 这里禁止其他网站使用我们的api
                 //for (String item:  WEBHOST) {
@@ -50,50 +61,51 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
                 //}
 
 
-
-
-
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 this.CODE = "500";
                 return false;
             }
         }
+
         String token = httpServletRequest.getHeader("Authorization");
-        JSONObject jsonObject = JWTUtil.checkToken(token);
-        if(!jsonObject.getBoolean("check")){
-            if(!serviceName.contains("admin")){
+        Console.error("从filter获取token {}",token);
+       UserClaim jsonObject = JWTUtil.checkToken(token);
+       Console.error(jsonObject.toString());
+        if (Boolean.FALSE.equals(jsonObject.getCheck())) {
+            if (!serviceName.contains("admin")) {
                 return true;
-            }else{
+            } else {
                 this.CODE = "403";
                 return false;
             }
-        }else{
+        } else {
             Subject subject = SecurityUtils.getSubject();
             SysUser sysUser = (SysUser) subject.getPrincipal();
-            if(sysUser ==null){
-                UsernamePasswordToken tokenOBJ = new UsernamePasswordToken(jsonObject.getString("email"),jsonObject.getString("password"));
+            if (sysUser == null) {
+                UsernamePasswordToken tokenOBJ = new UsernamePasswordToken(jsonObject.getEmail(), jsonObject.getPassword());
                 tokenOBJ.setRememberMe(true);
                 try {
                     subject.login(tokenOBJ);
-                    SecurityUtils.getSubject().getSession().setTimeout(3600000);//一小时
+                    //一小时
+                    SecurityUtils.getSubject().getSession().setTimeout(3600000);
                 } catch (Exception e) {
 //                    System.err.println("拦截器，登录失败，false");
                     this.CODE = "403";
                     return false;
                 }
-            }else{
-                if(null!= sysUser){
-                    try{
-                        if(null != sysUser.getId()){
-                            if(userService.getUsers(sysUser).getIsok()<1){
+            } else {
+                if (null != sysUser) {
+                    try {
+                        if (null != sysUser.getId()) {
+                            if (userService.getUsers(sysUser).getIsok() < 1) {
                                 subject.logout();
                                 this.CODE = "403";
                                 return false;
                             }
                         }
-                    }catch (Exception e){
-                        System.out.println("拦截器判断用户isOK的时候报错了");
+                    } catch (Exception e) {
+                        Console.log("拦截器判断用户isOK的时候报错了");
                         e.printStackTrace();
                     }
                 }
@@ -102,24 +114,31 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
         return true;
     }
 
-    protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue)  {
+    /**
+     * 在访问被拒绝
+     *
+     * @param request     请求
+     * @param response    响应
+     * @param mappedValue 映射值
+     * @return boolean
+     */
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) {
         String info = "未知错误";
         try {
-            if(this.CODE.equals("406")){
-                info = "前端域名配置不正确";
-            }else if(this.CODE.equals("403")){
-                info = "当前用户无权访问该请求";
-            }else if(this.CODE.equals("402")){
-                info = "当前web请求不合规";
+            switch (this.CODE) {
+                case "406" -> info = "前端域名配置不正确";
+                case "403" -> info = "当前用户无权访问该请求";
+                case "402" -> info = "当前web请求不合规";
+                default -> info = "default";
             }
-            System.err.println("拦截器False-"+info);
+            Console.log("拦截器False-" + info);
             response.setContentType("application/json;charset=UTF-8");
             final JSONObject jsonObject = new JSONObject();
-            jsonObject.put("code",this.CODE);
-            jsonObject.put("info",info);
+            jsonObject.put("code", this.CODE);
+            jsonObject.put("info", info);
             response.getWriter().write(jsonObject.toJSONString());
         } catch (Exception e) {
-            System.out.println("返回token验证失败403请求，报异常了");
+            Console.log("返回token验证失败403请求，报异常了");
         }
 
         return false;
