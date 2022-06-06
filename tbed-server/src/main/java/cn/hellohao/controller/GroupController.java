@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +29,7 @@ public class GroupController {
     @ResponseBody
     public Msg getGrouplistForUsers() {
         Msg msg = new Msg();
-        Page<SiteGroup> siteGroupList = groupService.grouplist(new Page<>(0,20),0);
+        Page<SiteGroup> siteGroupList = groupService.groupList(new Page<>(0,20),0);
         msg.setData(siteGroupList.getRecords());
         return msg;
     }
@@ -46,7 +45,7 @@ public class GroupController {
 //todo 添加分页
         Page<SiteGroup> rolePageInfo = null;
         try {
-            rolePageInfo = groupService.grouplist( page,null);
+            rolePageInfo = groupService.groupList( page,null);
 
             map.put("code", 200);
             map.put("info", "");

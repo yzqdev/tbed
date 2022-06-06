@@ -1,19 +1,40 @@
 package cn.hellohao.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
 
 public interface IRedisService   {
 
-    // 加入元素
+    /**
+     * 加入元素
+     * @param key
+     * @param value
+     */
     void setValue(String key, Map<String, Object> value);
-    // 加入元素
+
+    /**
+     * 设置值
+     *
+     * @param key   关键
+     * @param value 价值
+     */
     void setValue(String key, String value);
-    // 加入元素
+
     void setValue(String key, Object value);
-    // 获取元素
+
+    /**
+     * 获得地图价值
+     *
+     * @param key 关键
+     * @return {@link Object}
+     */
     Object getMapValue(String key);
-    // 获取元素
+
+    /**
+     * 获得价值
+     *
+     * @param key 关键
+     * @return {@link Object}
+     */
     Object getValue(String key);
 }

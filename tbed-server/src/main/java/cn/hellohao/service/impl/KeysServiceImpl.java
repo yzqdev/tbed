@@ -4,7 +4,7 @@ import cn.hellohao.entity.Msg;
 import cn.hellohao.entity.StorageKey;
 import cn.hellohao.utils.Print;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import cn.hellohao.mapper.KeysMapper;
@@ -13,25 +13,26 @@ import cn.hellohao.service.KeysService;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class KeysServiceImpl extends ServiceImpl<KeysMapper, StorageKey> implements KeysService {
 
-    @Autowired
-    private KeysMapper keysMapper;
+   
+    private final KeysMapper keysMapper;
 
-    @Autowired
-    private NOSImageupload nOSImageupload;
-    @Autowired
-    private OSSImageupload ossImageupload;
-    @Autowired
-    private USSImageupload ussImageupload;
-    @Autowired
-    private KODOImageupload kodoImageupload;
-    @Autowired
-    private COSImageupload cosImageupload;
-    @Autowired
-    private FTPImageupload ftpImageupload;
-    @Autowired
-    private UFileImageupload uFileImageupload;
+   
+    private final NOSImageupload nOSImageupload;
+   
+    private final OSSImageupload ossImageupload;
+   
+    private final USSImageupload ussImageupload;
+   
+    private final KODOImageupload kodoImageupload;
+   
+    private final COSImageupload cosImageupload;
+   
+    private final FTPImageupload ftpImageupload;
+   
+    private final UFileImageupload uFileImageupload;
 
 
     @Override

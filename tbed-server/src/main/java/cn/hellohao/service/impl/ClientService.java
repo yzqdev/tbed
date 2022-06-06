@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.contentcensor.AipContentCensor;
 import com.baidu.aip.contentcensor.EImgType;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,37 +28,38 @@ import java.util.*;
  * @date 2021/10/28 16:38
  */
 @Service
+@RequiredArgsConstructor
 public class ClientService {
 
-    @Autowired
-    private ImgAndAlbumService imgAndAlbumService;
-    @Autowired
-    private NOSImageupload nOSImageupload;
-    @Autowired
-    private OSSImageupload ossImageupload;
-    @Autowired
-    private USSImageupload ussImageupload;
-    @Autowired
-    private KODOImageupload kodoImageupload;
-    @Autowired
-    private COSImageupload cosImageupload;
-    @Autowired
-    private SysConfigService sysConfigService;
-    @Autowired
-    private FTPImageupload ftpImageupload;
-    @Autowired
-    private UFileImageupload uFileImageupload;
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private KeysMapper keysMapper;
-    @Autowired
-    private ConfigMapper configMapper;
-    @Autowired
-    private UploadConfigMapper uploadConfigMapper;
-    @Autowired
-    private ImgMapper imgMapper;
-    @Autowired
+    
+    private final ImgAndAlbumService imgAndAlbumService;
+    
+    private final NOSImageupload nOSImageupload;
+    
+    private final OSSImageupload ossImageupload;
+    
+    private final USSImageupload ussImageupload;
+    
+    private final KODOImageupload kodoImageupload;
+    
+    private final COSImageupload cosImageupload;
+    
+    private final SysConfigService sysConfigService;
+    
+    private final FTPImageupload ftpImageupload;
+    
+    private final UFileImageupload uFileImageupload;
+    
+    private final UserMapper userMapper;
+    
+    private final KeysMapper keysMapper;
+    
+    private final ConfigMapper configMapper;
+    
+    private final UploadConfigMapper uploadConfigMapper;
+    
+    private final ImgMapper imgMapper;
+    
     ImgreviewMapper imgreviewMapper;
 
 
@@ -221,7 +223,7 @@ public class ClientService {
     public static String updatePath="tourist";
 
     //判断用户 或 游客 当前上传图片的一系列校验
-    private Msg updateImgCheck(SysUser sysUser, UploadConfig uploadConfig){
+     Msg updateImgCheck(SysUser sysUser, UploadConfig uploadConfig){
         final Msg msg = new Msg();
         DateTimeFormatter dateFormat =DateTimeFormatter.ofPattern("yyyy/MM/dd");
         try {
@@ -263,7 +265,7 @@ public class ClientService {
 
     //图片鉴黄
 
-    private synchronized void LegalImageCheck(Images images){
+      synchronized void LegalImageCheck(Images images){
         System.out.println("非法图像鉴别进程启动");
         Imgreview imgreview = null;
         try {
@@ -275,7 +277,7 @@ public class ClientService {
         LegalImageCheckForBaiDu(imgreview,images);
     }
 
-    private void LegalImageCheckForBaiDu(Imgreview imgreview,Images images){
+      void LegalImageCheckForBaiDu(Imgreview imgreview,Images images){
         if(imgreview.getUsing()==1){
             try {
                 AipContentCensor client = new AipContentCensor(imgreview.getAppId(), imgreview.getApiKey(), imgreview.getSecretKey());

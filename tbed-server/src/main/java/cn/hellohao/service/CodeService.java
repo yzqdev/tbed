@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author Hellohao
  * @version 1.0
@@ -16,7 +14,7 @@ import java.util.List;
 public interface CodeService extends IService<Code> {
     //查询扩容码
     Page<Code> selectCode(String value);
-    Code selectCodekey(String code);
+    Code selectCodeKey(String code);
 
     /**
      * 添加代码

@@ -65,7 +65,7 @@ public class IndexController {
     
     public Msg webInfo() {
         final Msg msg = new Msg();
-        Config config = configService.getSourceype();
+        Config config = configService.getSourceType();
         UploadConfig updateConfig = uploadConfigService.getUpdateConfig();
         SysConfig sysConfig = sysConfigService.getstate();
         JSONObject jsonObject = new JSONObject();

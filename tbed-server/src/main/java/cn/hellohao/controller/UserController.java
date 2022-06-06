@@ -112,7 +112,7 @@ public class UserController {
             sysUser.setPassword(password);
             sysUser.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
             sysUser.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
-            Config config = configService.getSourceype();
+            Config config = configService.getSourceType();
             Integer type = 0;
             if(emailConfig!=null&&emailConfig.getUsing()==1){
                 sysUser.setIsok(0);
@@ -215,7 +215,7 @@ public class UserController {
 
     @RequestMapping(value = "/activation", method = RequestMethod.GET)
     public String activation(Model model, HttpServletRequest request, HttpSession session, String activation, String username) {
-        Config config = configService.getSourceype();
+        Config config = configService.getSourceType();
         Integer ret = 0;
         SysUser u2 = new SysUser();
         u2.setUid(activation);
@@ -284,7 +284,7 @@ public class UserController {
                         msg.setInfo("当前用户已被冻结，禁止操作");
                         return msg;
                     }
-                    Config config = configService.getSourceype();
+                    Config config = configService.getSourceType();
                     Thread thread = new Thread(() -> {
                         Integer a = NewSendEmail.sendEmailFindPass(emailConfig, sysUser.getUsername(), sysUser.getUid(), sysUser.getEmail(),config);//SendEmail.sendEmailT(message, sysUser.getUsername(), sysUser.getUid(), sysUser.getEmail(),emailConfig,config);
                     });

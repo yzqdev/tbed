@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ConfigService extends IService<Config> {
-    Config getSourceype();
-    Integer setSourceype(Config config);
+    Config getSourceType();
+    Integer setSourceType(Config config);
 }

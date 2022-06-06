@@ -7,7 +7,7 @@
         SELECT
         *
         FROM
-        "code"
+        code
             <where>
                 <if test="code != null">
                     and expand_code = #{code}
@@ -20,17 +20,17 @@
         SELECT
         *
         FROM
-            "code"
+            code
          where expand_code = #{code}
 
     </select>
 
     <insert id="addCode" parameterType="cn.hellohao.entity.Code">
-        insert into  "code" values (#{id}, #{value},#{expandCode})
+        insert into  code values (#{id}, #{value},#{expandCode})
     </insert>
 
     <delete id="deleteCode" parameterType="string">
-        delete from  "code" where expand_code=#{code}
+        delete from  code where expand_code=#{code}
     </delete>
 
 

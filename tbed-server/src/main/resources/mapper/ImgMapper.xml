@@ -51,11 +51,11 @@
                         <choose>
                             <when test="img.selecttype==1">
                                 and
-                                a.user_id in ( SELECT id  from sysUser where username LIKE '%${img.username}%')
+                                a.user_id in ( SELECT id  from sys_user where username LIKE '%${img.username}%')
                             </when>
                             <otherwise>
                                 and
-                                a.user_id not in ( SELECT id  from sysUser where username LIKE '%${img.username}%')
+                                a.user_id not in ( SELECT id  from sys_user where username LIKE '%${img.username}%')
                             </otherwise>
                         </choose>
                     </if>

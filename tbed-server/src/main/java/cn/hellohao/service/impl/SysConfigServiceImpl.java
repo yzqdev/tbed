@@ -18,11 +18,11 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper,SysConfig>
     private SysConfigMapper sysConfigMapper;
     @Override
     public SysConfig getstate() {
-        return sysConfigMapper.getstate();
+        return sysConfigMapper.getDefaultSysConfig();
     }
 
     @Override
     public Integer setstate(SysConfig sysConfig) {
-        return sysConfigMapper.setstate(sysConfig);
+        return sysConfigMapper.setDefaultSysConfig(sysConfig);
     }
 }

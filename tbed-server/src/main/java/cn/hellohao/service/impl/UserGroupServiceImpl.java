@@ -18,31 +18,31 @@ public class UserGroupServiceImpl implements UserGroupService {
 
     @Override
     public UserGroup useridgetusergroup(Integer userid) {
-        return userGroupMapper.useridgetusergroup(userid);
+        return userGroupMapper.getUserGroupByUserId(userid);
     }
 
     @Override
     public UserGroup idgetusergroup(Integer id) {
-        return userGroupMapper.idgetusergroup(id);
+        return userGroupMapper.getUserGroupById(id);
     }
 
     @Override
     public Integer addusergroup(UserGroup userGroup) {
-        return userGroupMapper.addusergroup(userGroup);
+        return userGroupMapper.addUserGroup(userGroup);
     }
 
     @Override
     public Integer updateusergroup(UserGroup userGroup) {
-        return userGroupMapper.updateusergroup(userGroup);
+        return userGroupMapper.updateUserGroup(userGroup);
     }
 
     @Override
     public Integer updateusergroupdefault(Integer groupid) {
-        return userGroupMapper.updateusergroupdefault(groupid);
+        return userGroupMapper.setDefaultUserGroup(groupid);
     }
 
     @Override
     public Integer deleusergroup(Integer userid) {
-        return userGroupMapper.deleusergroup(userid);
+        return userGroupMapper.delUserGroup(userid);
     }
 }

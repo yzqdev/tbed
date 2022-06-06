@@ -253,7 +253,7 @@ public class AdminRootController {
         SysUser u = (SysUser) subject.getPrincipal();
         try {
             UploadConfig uploadConfig = uploadConfigService.getUpdateConfig();
-            Config config = configService.getSourceype();
+            Config config = configService.getSourceType();
             SysConfig sysConfig = sysConfigService.getstate();
             uploadConfig.setUserStorage(Long.valueOf(uploadConfig.getUserStorage())/1024/1024);
             uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())/1024/1024));
@@ -272,6 +272,12 @@ public class AdminRootController {
     }
 
 
+    /**
+     * 更新配置
+     *
+     * @param configDto 配置dto
+     * @return {@link Msg}
+     */
     @PostMapping("/updateConfig")//new
     @ResponseBody
     public Msg updateConfig(@RequestBody ConfigDto configDto) {
@@ -280,25 +286,25 @@ public class AdminRootController {
 
             UploadConfig uploadConfig = configDto.getUploadConfig();
             String vm =  uploadConfig.getVisitorStorage();
-            if((Long.valueOf(vm)<-1) || Long.valueOf(vm) > 104857600 || Long.valueOf(uploadConfig.getFileSizeTourists())<0 || Long.valueOf(uploadConfig.getFileSizeTourists()) > 5120
-                    || Long.valueOf(uploadConfig.getUserStorage())<0 || Long.valueOf(uploadConfig.getUserStorage())>1048576
-                    || Long.valueOf(uploadConfig.getFileSizeUser())<0 || Long.valueOf(uploadConfig.getFileSizeUser())>5120 ){
+            if((Long.parseLong(vm)<-1) || Long.parseLong(vm) > 104857600 || Long.parseLong(uploadConfig.getFileSizeTourists())<0 || Long.parseLong(uploadConfig.getFileSizeTourists()) > 5120
+                    || uploadConfig.getUserStorage()<0 || uploadConfig.getUserStorage()>1048576
+                    || Long.parseLong(uploadConfig.getFileSizeUser())<0 || Long.parseLong(uploadConfig.getFileSizeUser())>5120 ){
                 msg.setInfo("你输入的值不正确");
                 msg.setCode("500");
                 return  msg;
             }
             Config config =configDto.getConfig();
             SysConfig sysConfig = configDto.getSysConfig();
-            if(Integer.valueOf(vm)==-1){
+            if(Integer.parseInt(vm)==-1){
                 uploadConfig.setVisitorStorage("-1");
             }else{
-                uploadConfig.setVisitorStorage(Long.toString(Long.valueOf(uploadConfig.getVisitorStorage())*1024*1024));
+                uploadConfig.setVisitorStorage(Long.toString(Long.parseLong(uploadConfig.getVisitorStorage())*1024*1024));
             }
-            uploadConfig.setFileSizeTourists(Long.toString(Long.valueOf(uploadConfig.getFileSizeTourists())*1024*1024));
-            uploadConfig.setUserStorage( Long.valueOf(uploadConfig.getUserStorage())*1024*1024);
-            uploadConfig.setFileSizeUser(Long.toString(Long.valueOf(uploadConfig.getFileSizeUser())*1024*1024));
+            uploadConfig.setFileSizeTourists(Long.toString(Long.parseLong(uploadConfig.getFileSizeTourists())*1024*1024));
+            uploadConfig.setUserStorage( uploadConfig.getUserStorage() *1024*1024);
+            uploadConfig.setFileSizeUser(Long.toString(Long.parseLong(uploadConfig.getFileSizeUser())*1024*1024));
             uploadConfigService.setUpdateConfig(uploadConfig);
-            configService.setSourceype(config);
+            configService.setSourceType(config);
             sysConfigService.setstate(sysConfig);
             msg.setInfo("配置保存成功");
         }catch (Exception e){
@@ -351,7 +357,7 @@ public class AdminRootController {
                 msg.setInfo("各参数不能为空");
                 return msg;
             }
-            emailConfigService.updateemail(emailConfig);
+            emailConfigService.updateEmail(emailConfig);
             msg.setInfo("保存成功");
         } catch (Exception e) {
             e.printStackTrace();

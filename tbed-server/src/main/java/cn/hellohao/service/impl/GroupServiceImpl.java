@@ -28,20 +28,20 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     private UserMapper userMapper;
 
     @Override
-    public Page<SiteGroup> grouplist(Page<SiteGroup> page,Integer usertype) {
+    public Page<SiteGroup> groupList(Page<SiteGroup> page, Integer usertype) {
         return groupMapper.grouplist(page,usertype);
     }
 
     @Override
     public SiteGroup idgrouplist(String id) {
-        return groupMapper.idgrouplist(id);
+        return groupMapper.idGroupList(id);
     }
 
     @Override
     public Msg addgroup(SiteGroup siteGroup) {
         final Msg msg = new Msg();
         if(siteGroup.getUserType()!=0){
-            Integer count = groupMapper.GetCountFroUserType(siteGroup.getUserType());
+            Integer count = groupMapper.getUserTypeCount(siteGroup.getUserType());
             if(count==0){
                 groupMapper.addgroup(siteGroup);
                 msg.setInfo("添加成功");
@@ -58,7 +58,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
 
     @Override
     public Integer GetCountFroUserType(Integer usertype) {
-        return groupMapper.GetCountFroUserType(usertype);
+        return groupMapper.getUserTypeCount(usertype);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     public Msg delegroup(String id) {
         Msg msg = new Msg();
         Integer ret = 0;
-        ret = groupMapper.delegroup(id);
+        ret = groupMapper.deleteGroup(id);
         if(ret>0){
             List<SysUser> sysUserList = userMapper.getUserListFromGroupId(id);
             for (SysUser sysUser : sysUserList) {
@@ -88,7 +88,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     public Msg setgroup(SiteGroup siteGroup) {
         Msg msg = new Msg();
         if(siteGroup.getUserType()!=0){
-            SiteGroup siteGroupFroUserType = groupMapper.getGroupFroUserType(siteGroup.getUserType());
+            SiteGroup siteGroupFroUserType = groupMapper.getGroupByUserType(siteGroup.getUserType());
             if(siteGroupFroUserType !=null){
                 if(siteGroupFroUserType.getUserType().equals(siteGroup.getUserType())){
                     if(siteGroupFroUserType.getId().equals(siteGroup.getId())){
@@ -99,7 +99,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
                         msg.setInfo("分配的该用户组已存在。请勿重复分配。");
                     }
                 }else{
-                    if(groupMapper.GetCountFroUserType(siteGroup.getUserType())>0){
+                    if(groupMapper.getUserTypeCount(siteGroup.getUserType())>0){
                         msg.setCode("110401");
                         msg.setInfo("分配的该用户组已存在。请勿重复分配。");
                     }else{
@@ -120,7 +120,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
 
     @Override
     public SiteGroup getGroupFroUserType(Integer usertype) {
-        return groupMapper.getGroupFroUserType(usertype);
+        return groupMapper.getGroupByUserType(usertype);
     }
 
 }

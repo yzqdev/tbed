@@ -18,11 +18,21 @@ import java.util.List;
 public interface ImgAndAlbumMapper extends BaseMapper<ImgAndAlbum> {
 
 
+    /**
+     * 得到imgname专辑
+     *
+     * @param imgname imgname
+     * @return {@link List}<{@link ImgAndAlbum}>
+     */
     List<ImgAndAlbum> getAlbumForImgname(@Param("imgname") String imgname);
 
 
-
-
-
+    /**
+     * 选择img albumkey
+     *
+     * @param page     页面
+     * @param albumKey 专辑关键
+     * @return {@link Page}<{@link Images}>
+     */
     Page<Images> selectImgForAlbumkey(@Param("page")Page<Images> page,@Param("albumKey") String albumKey);
 }

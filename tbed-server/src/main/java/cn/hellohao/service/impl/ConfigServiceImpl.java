@@ -12,12 +12,12 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper,Config> implemen
     @Autowired
     private ConfigMapper configMapper;
     @Override
-    public Config getSourceype() {
+    public Config getSourceType() {
         return configMapper.getSourceype();
     }
 
     @Override
-    public Integer setSourceype(Config config) {
+    public Integer setSourceType(Config config) {
         return configMapper.setSourceype(config);
     }
 }

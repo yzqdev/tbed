@@ -58,13 +58,26 @@ public interface UserMapper extends BaseMapper<SysUser> {
 
     Integer countmail(@Param("email") String email);
 
-    Integer uiduser(@Param("uid") String uid);
+    /**
+     * 获取用户uid
+     *
+     * @param uid uid
+     * @return {@link Integer}
+     */
+    Integer getUserByUid(@Param("uid") String uid);
 
     SysUser getUsersMail(@Param("uid") String uid);
-    Integer setisok (SysUser sysUser);
+    Integer setIsok(SysUser sysUser);
 
     Integer setmemory(SysUser sysUser);
-    SysUser getUsersid(@Param("id") String id);
+
+    /**
+     * 得到用户id
+     *
+     * @param id id
+     * @return {@link SysUser}
+     */
+    SysUser getUserById(@Param("id") String id);
 
     List<SysUser> getUserListFromGroupId(@Param("groupid") String groupid);
 

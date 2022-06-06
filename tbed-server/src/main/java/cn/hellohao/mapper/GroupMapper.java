@@ -14,9 +14,37 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface GroupMapper extends BaseMapper<SiteGroup> {
     Page<SiteGroup> grouplist(@Param("page")Page<SiteGroup> page, Integer usertype);
-    SiteGroup idgrouplist(@Param("id") String id);
+
+    /**
+     * id组列表
+     *
+     * @param id id
+     * @return {@link SiteGroup}
+     */
+    SiteGroup idGroupList(@Param("id") String id);
     Integer addgroup(SiteGroup siteGroup);
-    Integer GetCountFroUserType(@Param("usertype") Integer usertype);
-    Integer delegroup(@Param("id") String id);
-    SiteGroup getGroupFroUserType(@Param("usertype") Integer usertype);
+
+    /**
+     * 得到用户类型数
+     *
+     * @param usertype usertype
+     * @return {@link Integer}
+     */
+    Integer getUserTypeCount(@Param("usertype") Integer usertype);
+
+    /**
+     * 删除组
+     *
+     * @param id id
+     * @return {@link Integer}
+     */
+    Integer deleteGroup(@Param("id") String id);
+
+    /**
+     * 被用户类型组
+     *
+     * @param usertype usertype
+     * @return {@link SiteGroup}
+     */
+    SiteGroup getGroupByUserType(@Param("usertype") Integer usertype);
 }

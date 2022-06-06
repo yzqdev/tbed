@@ -3,40 +3,40 @@
 <mapper namespace="cn.hellohao.mapper.UserGroupMapper">
 
 
-    <select id="useridgetusergroup" parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
+    <select id="getUserGroupByUserId" parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
         SELECT
         *
         FROM
-        usergroup
+        user_group
             where 1=1
         <if test="userid != null">
-            and userid = #{userid}
+            and user_id = #{userid}
         </if>
     </select>
 
-    <select id="idgetusergroup"  parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
+    <select id="getUserGroupById" parameterType="integer" resultType="cn.hellohao.entity.UserGroup">
         SELECT
         *
         FROM
-        usergroup
+        user_group
          where id = #{id}
 
     </select>
 
-    <insert id="addusergroup" parameterType="cn.hellohao.entity.UserGroup">
-        insert into usergroup (id,userid,groupid) values (null,#{userid},#{groupid})
+    <insert id="addUserGroup" parameterType="cn.hellohao.entity.UserGroup">
+        insert into user_group (id,user_id,group_id) values (null,#{userid},#{groupid})
     </insert>
 
-    <update id="updateusergroup" parameterType="cn.hellohao.entity.UserGroup">
-        UPDATE usergroup SET  groupid = #{groupid} where userid = #{userid}
+    <update id="updateUserGroup" parameterType="cn.hellohao.entity.UserGroup">
+        UPDATE user_group SET  group_id = #{groupid} where user_id = #{userid}
     </update>
 
-    <update id="updateusergroupdefault" parameterType="integer">
-        UPDATE usergroup SET  groupid = 1 where groupid =  #{groupid}
+    <update id="setDefaultUserGroup" parameterType="integer">
+        UPDATE user_group SET  group_id = 1 where group_id =  #{groupid}
     </update>
 
-    <delete id="deleusergroup" parameterType="integer">
-        delete from usergroup where userid=#{userid}
+    <delete id="delUserGroup" parameterType="integer">
+        delete from user_group where user_id=#{userid}
     </delete>
 
 

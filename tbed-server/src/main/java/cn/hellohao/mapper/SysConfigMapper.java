@@ -16,7 +16,7 @@ public interface SysConfigMapper extends BaseMapper<SysConfig> {
      *
      * @return {@link SysConfig}
      */
-    SysConfig getstate();
+    SysConfig getDefaultSysConfig();
 
     /**
      * 设置状态
@@ -24,5 +24,5 @@ public interface SysConfigMapper extends BaseMapper<SysConfig> {
      * @param sysConfig 系统配置
      * @return {@link Integer}
      */
-    Integer setstate(SysConfig sysConfig);
+    Integer setDefaultSysConfig(SysConfig sysConfig);
 }

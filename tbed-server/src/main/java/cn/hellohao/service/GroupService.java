@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author Hellohao
  * @version 1.0
@@ -15,7 +13,7 @@ import java.util.List;
  */
 @Service
 public interface GroupService extends IService<SiteGroup> {
-    Page<SiteGroup> grouplist(Page<SiteGroup> page,Integer usertype);
+    Page<SiteGroup> groupList(Page<SiteGroup> page, Integer usertype);
     SiteGroup idgrouplist(String id);
     Msg addgroup(SiteGroup siteGroup);
     Integer GetCountFroUserType(Integer usertype);

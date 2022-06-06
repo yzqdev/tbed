@@ -63,7 +63,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
 @Override
     @Transactional
     public Integer addAlbumForImgAndAlbumMapper(ImgAndAlbum imgAndAlbum) {
-        Integer tem = 0;
+        int tem;
         int r2 = andAlbumMapper.insert(imgAndAlbum);
         if (r2 > 0) {
             tem = 1;
@@ -103,7 +103,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
 @Override
     @Transactional
     public Integer deleteAll(String[] albumkeyArr) {
-        Integer ret1 = 0;
+        int ret1 = 0;
         for (String s : albumkeyArr) {
             ret1 = albumMapper.delete(new LambdaQueryWrapper<Album>().eq(Album::getAlbumKey, s));
             if (ret1 > 0) {

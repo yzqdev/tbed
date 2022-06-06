@@ -26,7 +26,7 @@ public class CodeServiceImpl extends ServiceImpl<CodeMapper,Code> implements Cod
     }
 
     @Override
-    public Code selectCodekey(String code) {
+    public Code selectCodeKey(String code) {
         return codeMapper.selectCodekey(code);
     }
 

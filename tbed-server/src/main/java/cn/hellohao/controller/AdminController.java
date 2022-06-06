@@ -161,7 +161,7 @@ public class AdminController {
             return msg;
         } else {
             long sizes = 0;
-            Code code = codeService.selectCodekey(codeStr);
+            Code code = codeService.selectCodeKey(codeStr);
             if (null == code) {
                 msg.setCode("100404");
                 msg.setInfo("扩容码不存在,请重新填写");

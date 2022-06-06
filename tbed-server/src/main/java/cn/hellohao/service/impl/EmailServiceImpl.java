@@ -17,7 +17,7 @@ public class EmailServiceImpl extends ServiceImpl<EmailConfigMapper,EmailConfig>
     }
 
     @Override
-    public Integer updateemail(EmailConfig emailConfig) {
+    public Integer updateEmail(EmailConfig emailConfig) {
         return emailConfigMapper.updateEmail(emailConfig);
     }
 }

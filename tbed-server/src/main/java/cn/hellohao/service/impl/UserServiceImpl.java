@@ -86,7 +86,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
 
     @Override
     public Integer uiduser(String uid) {
-        return userMapper.uiduser(uid);
+        return userMapper.getUserByUid(uid);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
 
     @Override
     public Integer setisok(SysUser sysUser) {
-        return userMapper.setisok(sysUser);
+        return userMapper.setIsok(sysUser);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
 
     @Override
     public SysUser getUsersid(String id) {
-        return userMapper.getUsersid(id);
+        return userMapper.getUserById(id);
     }
 
     @Override

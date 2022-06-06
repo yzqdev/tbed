@@ -10,16 +10,16 @@
         UPDATE  upload_config
         <set>
             <if test="filesizetourists != null">
-                filesizetourists = #{filesizetourists},
+                file_size_tourists = #{filesizetourists},
             </if>
             <if test="filesizeuser != null">
-                filesizeuser = #{filesizeuser},
+                file_size_user = #{filesizeuser},
             </if>
             <if test="imgcounttourists != null">
-                imgcounttourists = #{imgcounttourists},
+                img_count_tourists = #{imgcounttourists},
             </if>
             <if test="imgcountuser != null">
-                imgcountuser = #{imgcountuser},
+                img_count_user = #{imgcountuser},
             </if>
             <if test="suffix != null">
                 suffix = #{suffix},
@@ -28,7 +28,7 @@
                 url_type = #{urlType},
             </if>
             <if test="isupdate != null">
-                isupdate = #{isupdate},
+                is_update = #{isupdate},
             </if>
             <if test="api != null">
                 api = #{api},

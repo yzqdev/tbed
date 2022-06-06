@@ -4,7 +4,7 @@
 
     <!-- 用户注册 -->
     <insert id="register" parameterType="cn.hellohao.entity.SysUser">
-        INSERT INTO sys_user (id, username, PASSWORD, email, birthday, LEVEL,uid,isok,memory,group_id)
+        INSERT INTO sys_user (id, username, password, email, birthday, level,uid,isok,memory,group_id)
         VALUES (#{id}, #{username}, #{password}, #{email}, #{birthday}, #{level},#{uid},#{isok},#{memory},#{groupId}   )
     </insert>
     <!--  查询是否有username  -->
@@ -21,7 +21,7 @@
 
     </select>
     <!--  uid查询用户并修改  -->
-    <update id="uiduser" parameterType="cn.hellohao.entity.SysUser">
+    <update id="getUserByUid" parameterType="cn.hellohao.entity.SysUser">
         <!-- UPDATE sys_user set username=#{username},password=#{password} where email=#{email} -->
         UPDATE sys_user set isok=1 where uid=#{uid}
     </update>
@@ -73,7 +73,7 @@
         </where>
     </select>
     <!-- 查询当前用户:根据id -->
-    <select id="getUsersid" parameterType="integer" resultType="cn.hellohao.entity.SysUser">
+    <select id="getUserById" parameterType="integer" resultType="cn.hellohao.entity.SysUser">
         SELECT id,
                username,
                email,
@@ -196,7 +196,7 @@
         DELETE FROM sysUser WHERE id=#{id}
     </delete>
 
-    <update id="setisok" parameterType="cn.hellohao.entity.SysUser">
+    <update id="setIsok" parameterType="cn.hellohao.entity.SysUser">
         <!-- UPDATE sys_user set username=#{username},password=#{password} where email=#{email} -->
         UPDATE sysUser set isok=#{isok} where id=#{id}
     </update>
