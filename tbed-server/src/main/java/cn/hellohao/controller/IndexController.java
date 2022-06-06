@@ -51,7 +51,7 @@ public class IndexController {
     @Autowired
     private FTPImageupload ftpImageupload;
     @Autowired
-    AlbumServiceImpl albumService;
+    AlbumService albumService;
     @Autowired
     private KeysService keysService;
     @Autowired
@@ -321,7 +321,6 @@ public class IndexController {
 
     //认证失败
     @PostMapping("/jurisError")
-    
     public Msg jurisError(HttpServletRequest request){
         Msg msg = new Msg();
         msg.setCode("4031");

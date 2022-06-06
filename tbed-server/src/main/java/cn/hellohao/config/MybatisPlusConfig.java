@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 //Spring boot方式
 @Configuration
-@MapperScan("cn.hellohao.dao")
+@MapperScan("cn.hellohao.mapper")
 public class MybatisPlusConfig {
 
 

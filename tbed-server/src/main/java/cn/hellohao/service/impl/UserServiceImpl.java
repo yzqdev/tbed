@@ -1,25 +1,26 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.dao.CodeMapper;
-import cn.hellohao.dao.UserMapper;
+import cn.hellohao.mapper.CodeMapper;
+import cn.hellohao.mapper.UserMapper;
 import cn.hellohao.entity.SysUser;
 import cn.hellohao.exception.CodeException;
 import cn.hellohao.service.UserService;
 import cn.hellohao.utils.Print;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements UserService {
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private CodeMapper codeMapper;
+
+    private final UserMapper userMapper;
+
+    private final CodeMapper codeMapper;
     @Override
     public Integer register(SysUser sysUser) {
         // TODO Auto-generated method stub

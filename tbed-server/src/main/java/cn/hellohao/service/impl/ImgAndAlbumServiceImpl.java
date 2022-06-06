@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.dao.ImgAndAlbumMapper;
+import cn.hellohao.mapper.ImgAndAlbumMapper;
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.ImgAndAlbumService;
@@ -9,8 +9,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author Hellohao

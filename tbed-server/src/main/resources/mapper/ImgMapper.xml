@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.hellohao.dao.ImgMapper">
+<mapper namespace="cn.hellohao.mapper.ImgMapper">
 
     <!-- 查询-->
     <select id="selectImageData" parameterType="cn.hellohao.entity.dto.ImgSearchDto" resultType="cn.hellohao.entity.Images">

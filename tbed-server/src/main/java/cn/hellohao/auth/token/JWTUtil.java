@@ -25,14 +25,13 @@ public class JWTUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND,604800 );//单位秒，604800 为7天
         Algorithm algorithm = Algorithm.HMAC256(SECRET);
-        String token = JWT.create()
+        return JWT.create()
                 .withClaim("email", sysUser.getEmail())
                 .withClaim("username", sysUser.getUsername())
                 .withClaim("uid", sysUser.getUid())
                 .withClaim("password", sysUser.getPassword())
                 .withExpiresAt(calendar.getTime())
                 .sign(algorithm);
-        return token;
     }
 
     public static JSONObject checkToken(String token){

@@ -2,6 +2,8 @@ package cn.hellohao.auth.shiro;
 
 import cn.hellohao.auth.filter.SubjectFilter;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,27 +21,37 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
-
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager){
+    ShiroFilterChainDefinition shiroFilterChainDefinition() {
+        DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
+        //definition.addPathDefinition("/doLogin", "anon");
+
+        definition.addPathDefinition("/verifyCode","anon");
+        definition.addPathDefinition("/verifyCodeForRegister","anon");
+        definition.addPathDefinition("/verifyCodeForRetrieve","anon");
+        definition.addPathDefinition("/api/**","anon");
+        definition.addPathDefinition("/user/**","anon");
+        definition.addPathDefinition("/ota/**","anon");
+        definition.addPathDefinition("/admin/root/**","roles[admin]");
+        definition.addPathDefinition("/**","JWT");
+        definition.addPathDefinition("/swagger-ui/**", "anon");
+        return definition;
+    }
+    @Bean
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager,ShiroFilterChainDefinition shiroFilterChainDefinition){
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(defaultWebSecurityManager);
+        Map<String, String> map = shiroFilterChainDefinition.getFilterChainMap();
+        //添加filterchainmap
+        bean.setFilterChainDefinitionMap(map);
+
         Map<String, Filter> filters = bean.getFilters();
         filters.put("JWT",new SubjectFilter());
         bean.setFilters(filters);
-        Map<String,String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/verifyCode","anon");
-        filterMap.put("/verifyCodeForRegister","anon");
-        filterMap.put("/verifyCodeForRetrieve","anon");
-        filterMap.put("/api/**","anon");
-        filterMap.put("/user/**","anon");
-        filterMap.put("/ota/**","anon");
-        filterMap.put("/admin/root/**","roles[admin]");
-        filterMap.put("/**","JWT");
-        filterMap.put("/swagger-ui/**", "anon");
+
         bean.setLoginUrl("/jurisError");
         bean.setUnauthorizedUrl("/authError");
-        bean.setFilterChainDefinitionMap(filterMap);
+
         return bean;
 
     }

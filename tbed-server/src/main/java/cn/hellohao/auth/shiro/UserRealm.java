@@ -13,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
-/*
+/**
  * @author Hellohao
  * @version 1.0
- * @date 2021/6/3 10:39
+ * @date  2021/6/3 10:39
  * 自定义UserRealm
 
-*/
+ */
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired

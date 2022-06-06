@@ -2,15 +2,16 @@ package cn.hellohao.quartz.job;
 
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.StorageKey;
+import cn.hellohao.service.ImgService;
 import cn.hellohao.service.ImgTempService;
 import cn.hellohao.service.KeysService;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.utils.LocUpdateImg;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -20,25 +21,25 @@ import java.util.List;
 @EnableScheduling
 public class FirstJob {
 
-	@Autowired
-	private ImgServiceImpl imgService;
-	@Autowired
+	@Resource
+	private ImgService imgService;
+	@Resource
 	private NOSImageupload nosImageupload;
-	@Autowired
+	@Resource
 	private OSSImageupload ossImageupload;
-	@Autowired
+	@Resource
 	private COSImageupload cosImageupload;
-	@Autowired
+	@Resource
 	private KODOImageupload kodoImageupload;
-	@Autowired
+	@Resource
 	private USSImageupload ussImageupload;
-	@Autowired
+	@Resource
 	private UFileImageupload uFileImageupload;
-	@Autowired
+	@Resource
 	private FTPImageupload ftpImageupload;
-	@Autowired
+	@Resource
 	ImgTempService imgTempService;
-	@Autowired
+	@Resource
 	KeysService keysService;
 
 	private static FirstJob firstJob;

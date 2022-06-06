@@ -52,8 +52,7 @@ public class AdminController {
     private ImgAndAlbumService imgAndAlbumService;
     @Resource
     private AlbumService albumService;
-    @Resource
-    AlbumServiceImpl albumServiceI;
+
 
     @Resource
     private NOSImageupload nosImageupload;

@@ -1,12 +1,10 @@
-package cn.hellohao.dao;
+package cn.hellohao.mapper;
 
 import cn.hellohao.entity.SiteGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * @author Hellohao

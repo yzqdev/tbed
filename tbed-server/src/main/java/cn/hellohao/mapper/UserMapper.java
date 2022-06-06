@@ -1,4 +1,4 @@
-package cn.hellohao.dao;
+package cn.hellohao.mapper;
 
 import cn.hellohao.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

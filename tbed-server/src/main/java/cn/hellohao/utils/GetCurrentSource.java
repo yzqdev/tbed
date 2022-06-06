@@ -2,6 +2,9 @@ package cn.hellohao.utils;
 
 import cn.hellohao.entity.SiteGroup;
 import cn.hellohao.entity.SysUser;
+import cn.hellohao.service.GroupService;
+import cn.hellohao.service.UserGroupService;
+import cn.hellohao.service.UserService;
 import cn.hellohao.service.impl.GroupServiceImpl;
 import cn.hellohao.service.impl.UserGroupServiceImpl;
 import cn.hellohao.service.impl.UserServiceImpl;
@@ -18,15 +21,15 @@ import javax.annotation.PostConstruct;
 @Component
 public class GetCurrentSource {
     @Autowired
-    private GroupServiceImpl groupServiceImpl;
+    private GroupService groupServiceImpl;
     @Autowired
-    private UserGroupServiceImpl userGroupServiceImpl;
+    private UserGroupService userGroupServiceImpl;
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    private static GroupServiceImpl groupService;
-    private static UserGroupServiceImpl userGroupService;
-    private static UserServiceImpl userService;
+    private static GroupService  groupService;
+    private static UserGroupService  userGroupService;
+    private static UserService userService;
 
     @PostConstruct
     public void init() {

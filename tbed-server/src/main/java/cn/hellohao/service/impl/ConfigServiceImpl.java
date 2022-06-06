@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.dao.ConfigMapper;
+import cn.hellohao.mapper.ConfigMapper;
 import cn.hellohao.entity.Config;
 import cn.hellohao.service.ConfigService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

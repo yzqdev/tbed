@@ -1,4 +1,4 @@
-package cn.hellohao.dao;
+package cn.hellohao.mapper;
 
 import java.util.List;
 

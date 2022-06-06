@@ -1,7 +1,7 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.dao.GroupMapper;
-import cn.hellohao.dao.UserMapper;
+import cn.hellohao.mapper.GroupMapper;
+import cn.hellohao.mapper.UserMapper;
 import cn.hellohao.entity.SiteGroup;
 import cn.hellohao.entity.SysUser;
 import cn.hellohao.exception.CodeException;

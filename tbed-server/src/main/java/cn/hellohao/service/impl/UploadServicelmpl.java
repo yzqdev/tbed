@@ -1,6 +1,6 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.dao.*;
+import cn.hellohao.mapper.*;
 import cn.hellohao.entity.*;
 import cn.hellohao.entity.vo.UploadImgVo;
 import cn.hellohao.service.ImgTempService;

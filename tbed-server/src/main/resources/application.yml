@@ -16,6 +16,7 @@ mybatis-plus:
 server:
   port: 8089
 spring:
+
   http:
     multipart:
       location: /data/upload_tmp

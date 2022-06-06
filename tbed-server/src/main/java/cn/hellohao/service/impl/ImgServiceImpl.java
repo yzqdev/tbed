@@ -37,7 +37,7 @@ import com.netease.cloud.services.nos.model.Bucket;
 import com.netease.cloud.services.nos.model.CannedAccessControlList;
 import com.netease.cloud.services.nos.transfer.TransferManager;
 
-import cn.hellohao.dao.ImgMapper;
+import cn.hellohao.mapper.ImgMapper;
 import cn.hellohao.entity.Images;
 import cn.hellohao.service.ImgService;
 

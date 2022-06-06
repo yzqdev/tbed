@@ -1,24 +1,22 @@
 package cn.hellohao.service.impl;
 
-import cn.hellohao.dao.AlbumMapper;
-import cn.hellohao.dao.ConfigMapper;
-import cn.hellohao.dao.ImgAndAlbumMapper;
-import cn.hellohao.dao.ImgMapper;
+import cn.hellohao.mapper.AlbumMapper;
+import cn.hellohao.mapper.ConfigMapper;
+import cn.hellohao.mapper.ImgAndAlbumMapper;
+import cn.hellohao.mapper.ImgMapper;
 import cn.hellohao.entity.dto.AlbumDto;
-import cn.hellohao.entity.dto.ImgSearchDto;
 import cn.hellohao.exception.CodeException;
 import cn.hellohao.entity.Album;
 import cn.hellohao.entity.Images;
 import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.service.AlbumService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +27,13 @@ import java.util.List;
  */
 @Service
 public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements AlbumService {
-    @Autowired
+    @Resource
     AlbumMapper albumMapper;
-    @Autowired
+    @Resource
     ImgAndAlbumMapper andAlbumMapper;
-    @Autowired
+    @Resource
     ConfigMapper configMapper;
-    @Autowired
+    @Resource
     ImgMapper imgMapper;
 
 
@@ -53,7 +51,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
 
     @Override
     public Album selectAlbum(AlbumDto album) {
-        //todo 不知道albumKey是不是唯一的
+
         return albumMapper.selectOne(new LambdaQueryWrapper<Album>().eq(Album::getAlbumKey, album.getAlbumKey()) );
 
     }
@@ -62,7 +60,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
     public Integer addAlbum(Album album) {
         return albumMapper.insert(album);
     }
-
+@Override
     @Transactional
     public Integer addAlbumForImgAndAlbumMapper(ImgAndAlbum imgAndAlbum) {
         Integer tem = 0;
@@ -102,7 +100,7 @@ public class AlbumServiceImpl extends ServiceImpl<AlbumMapper, Album> implements
         }
         return ret1;
     }
-
+@Override
     @Transactional
     public Integer deleteAll(String[] albumkeyArr) {
         Integer ret1 = 0;

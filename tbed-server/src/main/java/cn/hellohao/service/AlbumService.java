@@ -2,6 +2,7 @@ package cn.hellohao.service;
 
 import cn.hellohao.entity.Album;
 import cn.hellohao.entity.Images;
+import cn.hellohao.entity.ImgAndAlbum;
 import cn.hellohao.entity.dto.AlbumDto;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -29,4 +30,6 @@ public interface AlbumService extends IService<Album> {
     Page<Album> selectAlbumURLList(Page<Album> page,AlbumDto albumDto);
 
     Integer selectAlbumCount(String userid);
+    Integer addAlbumForImgAndAlbumMapper(ImgAndAlbum imgAndAlbum);
+   Integer deleteAll(String[] albumkeyArr);
 }

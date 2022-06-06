@@ -3,15 +3,15 @@ package cn.hellohao.controller;
 import cn.hellohao.entity.*;
 import cn.hellohao.entity.dto.AlbumDto;
 import cn.hellohao.entity.vo.PageResultBean;
+import cn.hellohao.service.AlbumService;
 import cn.hellohao.service.ImgAndAlbumService;
 import cn.hellohao.service.UserService;
-import cn.hellohao.service.impl.AlbumServiceImpl;
 import com.alibaba.fastjson.JSONObject;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,13 +27,12 @@ import java.util.*;
  * @date 2019/12/17 11:25
  */
 @Controller
+@RequiredArgsConstructor
 public class AlbumController {
-    @Autowired
-    AlbumServiceImpl albumServiceImpl;
-    @Autowired
-    ImgAndAlbumService imgAndAlbumService;
-    @Autowired
-    private UserService userService;
+
+   private final AlbumService albumService;
+    private final  ImgAndAlbumService imgAndAlbumService;
+    private final    UserService userService;
 
     @PostMapping("/admin/getGalleryList") //new
     @ResponseBody
@@ -53,7 +52,7 @@ public class AlbumController {
         Page<Album> page=new Page<>(pageNum,pageSize);
 
         try {
-         Page<Album>   albums = albumServiceImpl.selectAlbumURLList(page,albumDto);
+         Page<Album>   albums = albumService.selectAlbumURLList(page,albumDto);
 
             map.put("code", 200);
             map.put("info", "");
@@ -79,13 +78,13 @@ public class AlbumController {
 
             for (String s : albumkeyList) {
                 if (subject.hasRole("admin")) {
-                    albumServiceImpl.deleteAlbum(s);
+                    albumService.deleteAlbum(s);
                 } else {
                     AlbumDto album = new AlbumDto();
                     album.setAlbumKey(s);
-                    final Album alb = albumServiceImpl.selectAlbum(album);
+                    final Album alb = albumService.selectAlbum(album);
                     if (alb.getUserId().equals(sysUser.getId())) {
-                        albumServiceImpl.deleteAlbum(s);
+                        albumService.deleteAlbum(s);
                     }
                 }
             }
@@ -111,7 +110,7 @@ public class AlbumController {
         Msg msg = new Msg();
 
 
-       Page<Images> json = albumServiceImpl.getAlbumList(data);
+       Page<Images> json = albumService.getAlbumList(data);
         msg.setData(json.getRecords());
         return msg;
     }
@@ -154,14 +153,14 @@ public class AlbumController {
             }else{
                 album.setUserId(u.getId());
             }
-            albumServiceImpl.addAlbum(album);
+            albumService.addAlbum(album);
             for (int i = 0; i < albumList.size(); i++) {
                 Images img =albumList.get(i);
                 ImgAndAlbum imgAndAlbum = new ImgAndAlbum();
                 imgAndAlbum.setImgName(img.getImgName());
                 imgAndAlbum.setAlbumKey(uuid);
                 imgAndAlbum.setNotes(img.getNotes());
-                albumServiceImpl.addAlbumForImgAndAlbumMapper(imgAndAlbum);
+                albumService.addAlbumForImgAndAlbumMapper(imgAndAlbum);
             }
             final JSONObject json = new JSONObject();
             json.put("url",uuid);
@@ -190,7 +189,7 @@ public class AlbumController {
             String key = jsonObject.get("key");
             AlbumDto album=new AlbumDto();
             album.setAlbumKey(key);
-            Album a =  albumServiceImpl.selectAlbum(album);
+            Album a =  albumService.selectAlbum(album);
             if(a!=null){
                 json.put("album",a);
                 json.put("exist",true);
@@ -227,7 +226,7 @@ public class AlbumController {
         }
 
 
-        Album a =  albumServiceImpl.selectAlbum(albumDto);
+        Album a =  albumService.selectAlbum(albumDto);
         if(a==null){
             msg.setCode("110404");
             msg.setInfo("画廊地址不存在");
