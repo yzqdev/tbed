@@ -7,13 +7,12 @@ import cn.hellohao.model.dto.UserSearchDto;
 import cn.hellohao.service.*;
 import cn.hellohao.service.impl.*;
 import cn.hellohao.util.*;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,23 +22,24 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/root")
+@RequiredArgsConstructor
 public class AdminRootController {
-    @Autowired
-    private ConfigService configService;
-    @Autowired
-    private KeysService keysService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private EmailConfigService emailConfigService;
-    @Autowired
-    private UploadConfigService uploadConfigService;
-    @Autowired
-    private SysConfigService sysConfigService;
-    @Autowired
-    private ImgService imgService;
-    @Autowired
-    private ImgreviewService imgreviewService;
+    
+    private final ConfigService configService;
+    
+    private final KeysService keysService;
+    
+    private final UserService userService;
+    
+    private final EmailConfigService emailConfigService;
+    
+    private final UploadConfigService uploadConfigService;
+    
+    private final SysConfigService sysConfigService;
+    
+    private final ImgService imgService;
+    
+    private final ImgreviewService imgreviewService;
 
 
     @PostMapping(value = "/getUserList")//new
@@ -49,7 +49,7 @@ public class AdminRootController {
         Integer pageSize =userSearchDto.getPageSize();
         String queryText = userSearchDto.getQueryText();
         Page<SysUser> page =new Page<>(pageNum,pageSize);
-        Page<SysUser> users = userService.getuserlist(page,queryText);
+        Page<SysUser> users = userService.getUserListByName(page,queryText);
 
         Map<String, Object> map = new HashMap<>(2);
         map.put("count", users.getTotal());
@@ -59,7 +59,13 @@ public class AdminRootController {
     }
 
 
-    @PostMapping(value = "/updateUserInfo")//new
+    /**
+     * 更新用户信息
+     *
+     * @param userUpdateDto 用户更新dto
+     * @return {@link Msg}
+     */
+    @PostMapping(value = "/updateUserInfo")
     @ResponseBody
     public Msg updateUserInfo(@RequestBody SysUserUpdateDto userUpdateDto) {
         final Msg msg = new Msg();
@@ -99,20 +105,25 @@ public class AdminRootController {
     }
 
 
-    @PostMapping("/disableUser")//new
+    /**
+     * 禁用用户
+     *
+     * @param userIdList 用户id列表
+     * @return {@link Msg}
+     */
+    @PostMapping("/disableUser")
     @ResponseBody
-    public Msg disableUser(@RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg disableUser(@RequestBody String[] userIdList)   {
         Msg msg = new Msg();
         try {
-            JSONObject jsonObj = JSONObject.parseObject(data);
-            JSONArray userIdList = jsonObj.getJSONArray("arr");
-            for (int i = 0; i < userIdList.size(); i++) {
+
+            for (String s : userIdList) {
                 SysUser u = new SysUser();
-                u.setId(userIdList.getString(i));
+                u.setId(s);
                 SysUser u2 = userService.getUsers(u);
-                if(u2.getLevel()==1){
+                if (u2.getLevel() == 1) {
                     SysUser sysUser = new SysUser();
-                    sysUser.setId(userIdList.getString(i));
+                    sysUser.setId(s);
                     sysUser.setIsok(-1);
                     userService.changeUser(sysUser);
                 }
@@ -139,7 +150,7 @@ public class AdminRootController {
                 u.setId(userIdList[i]);
                 SysUser sysUser = userService.getUsers(u);
                 if(sysUser.getLevel()==1){
-                    userService.deleuser(userIdList[i]);
+                    userService.deleteUserById(userIdList[i]);
                 }else{
                     b = true;
                 }
@@ -157,7 +168,7 @@ public class AdminRootController {
         return msg;
     }
 
-    @PostMapping("/getKeysList") //new
+    @PostMapping("/getKeysList")
     @ResponseBody
     public Msg getKeysList() {
         Msg msg = new Msg();
@@ -191,7 +202,7 @@ public class AdminRootController {
             }else if(key.getStorageType()==8){
                 ret = UFileImageupload.Initialize(key);
             }
-            Long l = imgService.getsourcememory(keyId);
+            Long l = imgService.getSourceMemory(keyId);
             jsonObject.put("isok",ret);
             jsonObject.put("storagetype",key.getStorageType());
             if(l==null){

@@ -33,12 +33,12 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     }
 
     @Override
-    public SiteGroup idgrouplist(String id) {
+    public SiteGroup getGroupListById(String id) {
         return groupMapper.idGroupList(id);
     }
 
     @Override
-    public Msg addgroup(SiteGroup siteGroup) {
+    public Msg addGroup(SiteGroup siteGroup) {
         final Msg msg = new Msg();
         if(siteGroup.getUserType()!=0){
             Integer count = groupMapper.getUserTypeCount(siteGroup.getUserType());
@@ -57,13 +57,13 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     }
 
     @Override
-    public Integer GetCountFroUserType(Integer usertype) {
+    public Integer getCountFroUserType(Integer usertype) {
         return groupMapper.getUserTypeCount(usertype);
     }
 
     @Override
     @Transactional//默认遇到throw new RuntimeException(“…”);会回滚
-    public Msg delegroup(String id) {
+    public Msg deleteGroup(String id) {
         Msg msg = new Msg();
         Integer ret = 0;
         ret = groupMapper.deleteGroup(id);
@@ -85,7 +85,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, SiteGroup> implem
     }
 
     @Override
-    public Msg setgroup(SiteGroup siteGroup) {
+    public Msg setGroup(SiteGroup siteGroup) {
         Msg msg = new Msg();
         if(siteGroup.getUserType()!=0){
             SiteGroup siteGroupFroUserType = groupMapper.getGroupByUserType(siteGroup.getUserType());

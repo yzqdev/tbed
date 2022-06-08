@@ -65,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
     }
 
     @Override
-    public Integer deleuser(String id) {
+    public Integer deleteUserById(String id) {
         return userMapper.deleuser(id);
     }
 
@@ -80,12 +80,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
     }
 
     @Override
-    public Page<SysUser> getuserlist(Page<SysUser> page, String username) {
+    public Page<SysUser> getUserListByName(Page<SysUser> page, String username) {
         return userMapper.getUserList(page,username);
     }
 
     @Override
-    public Integer uiduser(String uid) {
+    public Integer getUserByUid(String uid) {
         return userMapper.getUserByUid(uid);
     }
 

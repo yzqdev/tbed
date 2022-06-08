@@ -49,35 +49,35 @@ public class GetCurrentSource {
         SiteGroup siteGroup =null;
         if(sysUser ==null){
             //游客
-            Integer count = groupService.GetCountFroUserType(1);
+            Integer count = groupService.getCountFroUserType(1);
             if(count>0){
                 siteGroup = groupService.getGroupFroUserType(1);
             }else{
-                siteGroup = groupService.idgrouplist("1");
+                siteGroup = groupService.getGroupListById("1");
             }
         }else{
             //用户
             if(sysUser.getGroupId()!="1"){
                 //说明自定义过的优先
-                siteGroup = groupService.idgrouplist(sysUser.getGroupId());
+                siteGroup = groupService.getGroupListById(sysUser.getGroupId());
             }else{
                 //默认的，用的是group主键为1的  但是还需要看看用户组有没有设置，比如管理员 用户
                 if(sysUser.getLevel()>1){
                     //先查询管理员用户组有没有 如果有就用 没有就默认
-                    Integer count = groupService.GetCountFroUserType(3);
+                    Integer count = groupService.getCountFroUserType(3);
                     if(count>0){
                         siteGroup = groupService.getGroupFroUserType(3);
                     }else{
-                        siteGroup = groupService.idgrouplist("1");
+                        siteGroup = groupService.getGroupListById("1");
                     }
                 }else{
                     //先查询普通用户组有没有 如果有就用 没有就默认
-                    Integer count = groupService.GetCountFroUserType(2);
+                    Integer count = groupService.getCountFroUserType(2);
                     if(count>0){
                         siteGroup = groupService.getGroupFroUserType(2);
 
                     }else{
-                        siteGroup = groupService.idgrouplist("1");
+                        siteGroup = groupService.getGroupListById("1");
                     }
                 }
             }

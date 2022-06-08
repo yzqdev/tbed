@@ -68,7 +68,7 @@ public class GroupController {
         siteGroup.setKeyID(jsonObject.getString("keyid"));
         siteGroup.setUserType(jsonObject.getInteger("usertype"));
         siteGroup.setCompress(jsonObject.getBoolean("compress")?1:0);
-        Msg msg = groupService.addgroup(siteGroup);
+        Msg msg = groupService.addGroup(siteGroup);
         return msg;
     }
 
@@ -93,7 +93,7 @@ public class GroupController {
         else {
             siteGroup.setCompress(0);
         }
-        Msg msg = groupService.setgroup(siteGroup);
+        Msg msg = groupService.setGroup(siteGroup);
         return msg;
     }
 
@@ -104,7 +104,7 @@ public class GroupController {
         String id = jsonObject.getString("id");
         Msg msg = null;
         if(id!="1"){
-            msg = groupService.delegroup(id);
+            msg = groupService.deleteGroup(id);
             return msg;
         }else{
             final Msg msg2 = new Msg();

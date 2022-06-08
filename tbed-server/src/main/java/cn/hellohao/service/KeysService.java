@@ -10,11 +10,11 @@ import java.util.List;
 
 @Service
 public interface KeysService extends IService<StorageKey> {
-    //查询密钥
+
     StorageKey selectKeys(String id);
     List<StorageKey> getStorageName();
     List<StorageKey> getStorage();
-    //修改key
+
     Msg updateKey(StorageKey key);
     List<StorageKey> getKeys();
 }

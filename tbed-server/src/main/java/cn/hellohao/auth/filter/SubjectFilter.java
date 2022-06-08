@@ -7,6 +7,7 @@ import cn.hellohao.service.impl.UserServiceImpl;
 import cn.hellohao.util.SpringContextHolder;
 import cn.hutool.core.lang.Console;
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @date 2021/6/16 17:43
  */
-
+@Slf4j
 public class SubjectFilter extends BasicHttpAuthenticationFilter {
 
     public static String[] WEBHOST = null;
@@ -90,7 +91,7 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
                     //一小时
                     SecurityUtils.getSubject().getSession().setTimeout(3600000);
                 } catch (Exception e) {
-//                    System.err.println("拦截器，登录失败，false");
+log.info("拦截器，登录失败");
                     this.CODE = "403";
                     return false;
                 }
@@ -122,6 +123,7 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
      * @param mappedValue 映射值
      * @return boolean
      */
+    @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) {
         String info = "未知错误";
         try {

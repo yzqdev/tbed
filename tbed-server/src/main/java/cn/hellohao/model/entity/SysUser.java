@@ -23,10 +23,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SysUser extends Model<SysUser> {
-@TableId(value="id",type = IdType.ASSIGN_ID)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private String id;
     //@NotBlank(message = "用户名不能为空")
-   // @Length(min = 6, max = 20, message = "用户名需要为 6 - 20 个字符")
+    // @Length(min = 6, max = 20, message = "用户名需要为 6 - 20 个字符")
     private String username;
     /**
      * 密码
@@ -46,7 +46,7 @@ public class SysUser extends Model<SysUser> {
     /**
      * 内存
      */
-    private  Long memory;
+    private Long memory;
     /**
      * 组id
      */
@@ -59,7 +59,7 @@ public class SysUser extends Model<SysUser> {
     // * 用户照片数量
     // */
     //private Long counts;
-private Timestamp createTime;
-private Timestamp updateTime;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 
 }

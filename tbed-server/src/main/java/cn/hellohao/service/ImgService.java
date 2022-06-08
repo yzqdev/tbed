@@ -27,7 +27,7 @@ public interface ImgService extends IService<Images> {
      */
     List<Images> selectImages(ImgSearchDto  imgSearchDto);
 
-    Integer deleimg(String id);
+    Integer deleteImgById(String id);
 
     Integer deleimgForImgUid(String imguid);
 
@@ -45,17 +45,17 @@ public interface ImgService extends IService<Images> {
 
     List<Images> gettimeimg(String time);
 
-    Long getusermemory(String userid);
+    Long getUserMemory(String userid);
 
-    Long getsourcememory(String source);
+    Long getSourceMemory(String source);
 
     Integer md5Count(Images images);
 
     Images selectImgUrlByMD5(String md5key);
 
-    List<Images> RecentlyUploaded(String userid);
+    List<Images> recentlyUploaded(String userid);
 
-    List<RecentUserVo> RecentlyUser();
+    List<RecentUserVo> recentlyUser();
 
     List<String> getyyyy(String useriVo);
 

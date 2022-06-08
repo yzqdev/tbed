@@ -30,16 +30,16 @@ public interface UserService extends IService<SysUser> {
 
     Integer getUserTotal();
 
-    Page<SysUser> getuserlist(Page<SysUser> page, String username);
+    Page<SysUser> getUserListByName(Page<SysUser> page, String username);
 
-    Integer deleuser(String id);
+    Integer deleteUserById(String id);
 
     //查询用户名或者邮箱是否存在
     Integer countusername(String username);
 
     Integer countmail(String email);
 
-    Integer uiduser(String uid);
+    Integer getUserByUid(String uid);
 
     SysUser getUsersMail(String uid);
     Integer setisok (SysUser sysUser);

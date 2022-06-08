@@ -290,7 +290,7 @@ public class IndexController {
             try {
                 imgAndAlbumService.deleteImgAndAlbum(imgname);
                 imgTempService.delImgAndExp(image.getImgUid());
-                imgService.deleimg(image.getId());
+                imgService.deleteImgById(image.getId());
             } catch (Exception e) {
                 e.printStackTrace();
                 msg.setInfo("图片记录时发生错误");
@@ -301,7 +301,7 @@ public class IndexController {
         }else{
             imgAndAlbumService.deleteImgAndAlbum(imgname);
             imgTempService.delImgAndExp(image.getImgUid());
-            imgService.deleimg(image.getId());
+            imgService.deleteImgById(image.getId());
             msg.setInfo("图片记录已删除，但是图片源删除失败");
             msg.setCode("500");
         }

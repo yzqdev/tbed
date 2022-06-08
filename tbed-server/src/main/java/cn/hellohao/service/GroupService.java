@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface GroupService extends IService<SiteGroup> {
     Page<SiteGroup> groupList(Page<SiteGroup> page, Integer usertype);
-    SiteGroup idgrouplist(String id);
-    Msg addgroup(SiteGroup siteGroup);
-    Integer GetCountFroUserType(Integer usertype);
-    Msg delegroup(String id);
-    Msg setgroup(SiteGroup siteGroup);
+    SiteGroup getGroupListById(String id);
+    Msg addGroup(SiteGroup siteGroup);
+    Integer getCountFroUserType(Integer usertype);
+    Msg deleteGroup(String id);
+    Msg setGroup(SiteGroup siteGroup);
     SiteGroup getGroupFroUserType(Integer usertype);
 }

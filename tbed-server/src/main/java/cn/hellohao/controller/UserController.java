@@ -1,6 +1,5 @@
 package cn.hellohao.controller;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -110,8 +109,8 @@ public class UserController {
             sysUser.setEmail(email);
             sysUser.setUsername(username);
             sysUser.setPassword(password);
-            sysUser.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
-            sysUser.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
+            sysUser.setCreateTime( LocalDateTime.now());
+            sysUser.setUpdateTime( LocalDateTime.now());
             Config config = configService.getSourceType();
             Integer type = 0;
             if(emailConfig!=null&&emailConfig.getUsing()==1){
@@ -222,7 +221,7 @@ public class UserController {
         SysUser sysUser = userService.getUsers(u2);
         model.addAttribute("webhost",SubjectFilter.WEBHOST);
         if (sysUser != null && sysUser.getIsok() == 0) {
-            userService.uiduser(activation);
+            userService.getUserByUid(activation);
             model.addAttribute("title","激活成功");
             model.addAttribute("name","Hi~"+username);
             model.addAttribute("note","您的账号已成功激活看");

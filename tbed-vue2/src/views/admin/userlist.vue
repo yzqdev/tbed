@@ -439,13 +439,13 @@ export default {
 
     senddisableUser() {
       this.loading = true;
-      var paramJson = {};
+      
       if (this.userIdList.length == 0) {
         this.$Message.warning("所选数据丢失，不可操作");
         return false;
       }
-      paramJson.arr = this.userIdList;
-      request("/admin/root/disableUser", paramJson)
+
+      request("/admin/root/disableUser", this.userIdList)
         .then((res) => {
           if (res.status == 200) {
             if (res.data.code == "200") {

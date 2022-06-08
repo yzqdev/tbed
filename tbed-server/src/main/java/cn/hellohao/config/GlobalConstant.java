@@ -18,8 +18,8 @@ import java.util.Properties;
 
 public class GlobalConstant {
 
-    public static String SYSTYPE = "LINUX";
+    public static    String SYSTYPE = "LINUX";
 static Properties props=System.getProperties();
-    public static String LOCPATH =props.getProperty("user.home")+ File.separator + "HellohaoData";
+    public static   String LOCPATH =props.getProperty("user.home")+ File.separator + "HellohaoData";
 
 }

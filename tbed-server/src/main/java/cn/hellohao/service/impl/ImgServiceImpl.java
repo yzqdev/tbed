@@ -54,7 +54,7 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public Integer deleimg(String id) {
+    public Integer deleteImgById(String id) {
 
         return imgMapper.deleteById(id);
     }
@@ -223,12 +223,12 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public Long getusermemory(String userid) {
+    public Long getUserMemory(String userid) {
         return imgMapper.getUserMemory(userid);
     }
 
     @Override
-    public Long getsourcememory(String source) {
+    public Long getSourceMemory(String source) {
         return imgMapper.getSourceMemory(source);
     }
 
@@ -243,13 +243,13 @@ public class ImgServiceImpl extends ServiceImpl<ImgMapper, Images> implements Im
     }
 
     @Override
-    public List<Images> RecentlyUploaded(String userid) {
+    public List<Images> recentlyUploaded(String userid) {
 
         return imgMapper.recentlyUploaded(userid);
     }
 
     @Override
-    public List<RecentUserVo> RecentlyUser() {
+    public List<RecentUserVo> recentlyUser() {
         return imgMapper.recentlyUser();
     }
 

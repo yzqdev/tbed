@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -92,7 +91,7 @@ public class AdminController {
         jsonObject.put("myImgTotal", imgService.countimg(sysUser.getId())); //我的图片数
         jsonObject.put("myAlbumTitle", albumService.selectAlbumCount(sysUser.getId()));//我的画廊数量
         long memory = sysUser.getMemory();//分配量
-        Long usermemory = imgService.getusermemory(sysUser.getId()) == null ? 0L : imgService.getusermemory(sysUser.getId());
+        Long usermemory = imgService.getUserMemory(sysUser.getId()) == null ? 0L : imgService.getUserMemory(sysUser.getId());
         if (memory == 0) {
             jsonObject.put("myMemory", "无容量");
         } else {
@@ -118,7 +117,7 @@ public class AdminController {
                 jsonObject.put("VisitorProportion", 100.00);//游客用量%占比
                 jsonObject.put("VisitorMemory", "禁用");//访客共大小
             } else {
-                Long temp = imgService.getusermemory("0") == null ? 0 : imgService.getusermemory("0");
+                Long temp = imgService.getUserMemory("0") == null ? 0 : imgService.getUserMemory("0");
                 jsonObject.put("UsedMemory", (temp == null ? 0 : SetFiles.readableFileSize(temp)));//访客已用大小
                 if (Long.valueOf(uploadConfig.getVisitorStorage()) == 0) {
                     jsonObject.put("VisitorProportion", 100.00);//游客用量%占比
@@ -189,10 +188,10 @@ public class AdminController {
             SysUser sysUser = (SysUser) subject.getPrincipal();
             sysUser = userService.getUsers(sysUser);
             if (sysUser.getLevel() > 1) {
-                jsonObject.put("RecentlyUser", imgService.RecentlyUser());
-                jsonObject.put("RecentlyUploaded", imgService.RecentlyUploaded(sysUser.getId()));
+                jsonObject.put("RecentlyUser", imgService.recentlyUser());
+                jsonObject.put("RecentlyUploaded", imgService.recentlyUploaded(sysUser.getId()));
             } else {
-                jsonObject.put("RecentlyUploaded", imgService.RecentlyUploaded(sysUser.getId()));
+                jsonObject.put("RecentlyUploaded", imgService.recentlyUploaded(sysUser.getId()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -416,7 +415,7 @@ public class AdminController {
                 sysUser.setPassword(Base64Encryption.encryptBASE64(password.getBytes()));
                 sysUser.setUid(u.getUid());
             }
-            sysUser.setUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
+            sysUser.setUpdateTime(LocalDateTime.now());
             userService.change(sysUser);
             msg.setInfo("信息修改成功，请重新登录");
         } catch (Exception e) {
@@ -485,7 +484,7 @@ public class AdminController {
             if (isDele) {
                 try {
                     imgTempService.delImgAndExp(image.getImgUid());
-                    imgService.deleimg(imgid);
+                    imgService.deleteImgById(imgid);
                     imgAndAlbumService.deleteImgAndAlbum(imgname);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -496,7 +495,7 @@ public class AdminController {
                 msg.setInfo("删除成功");
             } else {
                 imgTempService.delImgAndExp(image.getImgUid());
-                imgService.deleimg(imgid);
+                imgService.deleteImgById(imgid);
                 imgAndAlbumService.deleteImgAndAlbum(imgname);
                 msg.setInfo("图片记录已删除，但是图片源删除失败");
             }
