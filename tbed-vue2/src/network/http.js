@@ -4,7 +4,7 @@ import axios from "axios";
 import md5 from "js-md5";
 
 const instance = axios.create({
-  baseURL: "http://www.yzqdev.top:8089", //接口统一域名
+  baseURL: "http://localhost:8100", //接口统一域名
   timeout: 6000, //设置超时
 });
 

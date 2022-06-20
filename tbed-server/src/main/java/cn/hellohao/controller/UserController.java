@@ -16,6 +16,7 @@ import cn.hellohao.util.*;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.log.StaticLog;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -81,7 +82,7 @@ public class UserController {
         if((redis_verifyCodeForRegister.toString().toLowerCase()).compareTo((verifyCodeForRegister.toLowerCase()))==0){
             SysUser sysUser = new SysUser();
             UploadConfig updateConfig = uploadConfigService.getUpdateConfig();
-            EmailConfig emailConfig = emailConfigService.getEmail();
+            EmailConfig emailConfig = emailConfigService.getOne(new LambdaQueryWrapper<EmailConfig>().eq(EmailConfig::getId,"1"));
             Integer countusername = userService.countusername(username);
             Integer countmail = userService.countmail(email);
             SysConfig sysConfig = sysConfigService.getstate();
@@ -113,7 +114,8 @@ public class UserController {
             sysUser.setUpdateTime( LocalDateTime.now());
             Config config = configService.getSourceType();
             Integer type = 0;
-            if(emailConfig!=null&&emailConfig.getUsing()==1){
+            Console.log("email=>{}",emailConfig);
+            if(emailConfig!=null&&emailConfig.getEnable() ){
                 sysUser.setIsok(0);
                 Thread thread = new Thread(() -> {
                     Integer a = NewSendEmail.sendEmail(emailConfig, sysUser.getUsername(), uid, sysUser.getEmail(),config);
@@ -274,7 +276,7 @@ public class UserController {
 
             Integer ret = userService.countmail(email);
             if(ret>0){
-                if(emailConfig.getUsing()==1){
+                if(emailConfig.getEnable() ){
                     SysUser u2 = new SysUser();
                     u2.setEmail(email);
                     SysUser sysUser = userService.getUsers(u2);

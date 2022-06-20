@@ -439,7 +439,7 @@ export default {
 
     senddisableUser() {
       this.loading = true;
-      
+
       if (this.userIdList.length == 0) {
         this.$Message.warning("所选数据丢失，不可操作");
         return false;

@@ -13,8 +13,7 @@ multipart:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-server:
-  port: 8089
+
 spring:
   datasource:
     driver-class-name: ort.postgresql.Driver

@@ -122,20 +122,20 @@
         }
 
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+    <script src="https://unpkg.com/less"></script>
     <title></title>
 </head>
 <body>
 <div class="wrap">
     <div class="main">
         <div class="main-content">
-            <h3><span>亲爱的<b>{{ username }}</b>, 欢迎加入 {{webname}} !<i></i></span></h3>
+            <h3><span>亲爱的<b>${username}</b>, 欢迎加入 ${webname} !<i></i></span></h3>
             <p>您离正常登录只有一步之遥啦。</p>
             <p>请点击一下链接验证并激活账号: </p>
-            <p class="link"><a href='{{url}}'>{{url}}</a></p>
+            <p class="link"><a href='${url}'>${url}</a></p>
             <p>如果您的 email 程序不支持链接点击，请将上面的地址拷贝至您的浏览器(如IE)的地址栏进入。</p>
             <p>若非本人操作，请勿理会!</p>
-            <p>希望您在 {{webname}} 系统度过快乐的时光!</p>
+            <p>希望您在 ${webname} 系统度过快乐的时光!</p>
             <p></p>
             <p>-----------------------</p>
             <p></p>

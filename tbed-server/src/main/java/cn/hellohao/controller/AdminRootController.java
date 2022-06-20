@@ -361,7 +361,7 @@ public class AdminRootController {
         try {
 
             if(null==emailConfig.getId() || null==emailConfig.getEmailName()  || null==emailConfig.getEmailUrl() || null==emailConfig.getEmails()
-                    || null==emailConfig.getEmailKey()  || null==emailConfig.getPort() || null==emailConfig.getUsing()
+                    || null==emailConfig.getEmailKey()  || null==emailConfig.getPort() || null==emailConfig.getEnable()
                     || emailConfig.getEmailName().equals("")  || emailConfig.getEmailUrl().equals("")  || emailConfig.getEmails().equals("")
                     || emailConfig.getEmailKey().equals("")   || emailConfig.getPort().equals("")){
                 msg.setCode("110400");

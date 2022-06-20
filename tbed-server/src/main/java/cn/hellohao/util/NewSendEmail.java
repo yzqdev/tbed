@@ -5,20 +5,24 @@ import cn.hellohao.model.entity.EmailConfig;
 import cn.hellohao.model.entity.Msg;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
+import cn.hutool.extra.spring.SpringUtil;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import org.springframework.core.io.ResourceLoader;
 
 import javax.annotation.Resource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.*;
 
 public class NewSendEmail {
-    @Resource
-    private static TemplateEngine templateEngine;
+
     public static MimeMessage emailMessage(EmailConfig emailConfig) {
         Properties p = new Properties();
         p.setProperty("mail.smtp.auth", "true");
@@ -39,15 +43,29 @@ public class NewSendEmail {
         session.setDebug(true);
         return new MimeMessage(session);
     }
+
     /**
      * 获取html中的内容
      */
     private static String build(String template,Map<String, Object> mapMsg) {
-        Context context = new Context();
-        context.setVariables(mapMsg);
-        String result = templateEngine.process(template, context);
-        System.out.println(result);
-        return result;
+       try {
+           //创建一个Configuration对象
+           Configuration configuration = new Configuration(Configuration.getVersion());
+           // 告诉config对象模板文件存放的路径。
+           var resource= SpringUtil.getBean(ResourceLoader.class);
+           configuration.setDirectoryForTemplateLoading(resource.getResource("templates").getFile());
+           // 设置config的默认字符集。一般是utf-8
+           configuration.setDefaultEncoding("utf-8");
+           //从config对象中获得模板对象。需要制定一个模板文件的名字。
+           Template templateEngin = configuration.getTemplate("emailTemplate/emailReg.html");
+           StringWriter stringWriter = new StringWriter();
+            templateEngin.process(mapMsg, stringWriter);
+
+           return  stringWriter.toString();
+       }catch (IOException |TemplateException e){
+           e.printStackTrace();
+       }
+        return null;
     }
     public static Integer sendEmail(EmailConfig emailConfig, String username, String uid, String toEmail, Config config) {
 //
@@ -79,7 +97,7 @@ public class NewSendEmail {
             context.put("webname", webname);
             context.put("url", domain + "/user/activation?activation=" + uid + "&username=" + username);
 
-            String output = build("emailTemplate/emailRegister.html",context);
+            String output = build("emailTemplate/emailReg.html",context);
             MimeMessage message = emailMessage(emailConfig);
             message.setFrom(new InternetAddress(emailConfig.getEmails(), emailConfig.getEmailName(), "UTF-8"));
             // 收件人和抄送人
