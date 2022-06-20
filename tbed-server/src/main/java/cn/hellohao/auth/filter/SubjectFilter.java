@@ -3,6 +3,7 @@ package cn.hellohao.auth.filter;
 import cn.hellohao.auth.token.JWTUtil;
 import cn.hellohao.auth.token.UserClaim;
 import cn.hellohao.model.entity.SysUser;
+import cn.hellohao.service.UserService;
 import cn.hellohao.service.impl.UserServiceImpl;
 import cn.hellohao.util.SpringContextHolder;
 import cn.hutool.core.lang.Console;
@@ -39,7 +40,7 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        UserServiceImpl userService = SpringContextHolder.getBean(UserServiceImpl.class);
+        UserService userService = SpringContextHolder.getBean(UserService.class);
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String serviceName = httpServletRequest.getServletPath();
@@ -68,11 +69,15 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
                 return false;
             }
         }
-
+        Console.log("service-name=>{}",serviceName);
+        Console.print("http=>{}",httpServletRequest.getParameter("username"));
+if (serviceName.contains("/user/activation")){
+    return  true;
+}
         String token = httpServletRequest.getHeader("Authorization");
-        Console.error("从filter获取token {}",token);
-       UserClaim jsonObject = JWTUtil.checkToken(token);
-       Console.error(jsonObject.toString());
+        Console.error("从filter获取token {}", token);
+        UserClaim jsonObject = JWTUtil.checkToken(token);
+        Console.error(jsonObject.toString());
         if (Boolean.FALSE.equals(jsonObject.getCheck())) {
             if (!serviceName.contains("admin")) {
                 return true;
@@ -91,7 +96,7 @@ public class SubjectFilter extends BasicHttpAuthenticationFilter {
                     //一小时
                     SecurityUtils.getSubject().getSession().setTimeout(3600000);
                 } catch (Exception e) {
-log.info("拦截器，登录失败");
+                    log.info("拦截器，登录失败");
                     this.CODE = "403";
                     return false;
                 }

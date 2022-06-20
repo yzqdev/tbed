@@ -5,7 +5,6 @@ import cn.hellohao.model.entity.SysUser;
 import cn.hellohao.service.GroupService;
 import cn.hellohao.service.UserGroupService;
 import cn.hellohao.service.UserService;
-import cn.hellohao.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +22,7 @@ public class GetCurrentSource {
     @Autowired
     private UserGroupService userGroupServiceImpl;
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private UserService  userServiceImpl;
 
     private static GroupService  groupService;
     private static UserGroupService  userGroupService;

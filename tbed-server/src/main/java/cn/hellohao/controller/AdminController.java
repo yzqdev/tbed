@@ -38,7 +38,7 @@ public class AdminController {
     @Resource
     private KeysService keysService;
     @Resource
-    private UserServiceImpl userService;
+    private UserService  userService;
     @Resource
     private ImgreviewService imgreviewService;
     @Resource

@@ -1,6 +1,7 @@
 package cn.hellohao.auth.shiro;
 
 import cn.hellohao.auth.filter.SubjectFilter;
+import cn.hutool.core.lang.Console;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
@@ -31,6 +32,7 @@ public class ShiroConfig {
         definition.addPathDefinition("/verifyCodeForRetrieve","anon");
         definition.addPathDefinition("/api/**","anon");
         definition.addPathDefinition("/user/**","anon");
+        definition.addPathDefinition("/user/activation","anon");
         definition.addPathDefinition("/ota/**","anon");
         definition.addPathDefinition("/admin/root/**","roles[admin]");
         definition.addPathDefinition("/**","JWT");
@@ -43,9 +45,11 @@ public class ShiroConfig {
         bean.setSecurityManager(defaultWebSecurityManager);
         Map<String, String> map = shiroFilterChainDefinition.getFilterChainMap();
         //添加filterchainmap
+        Console.log("maps=>{}",map);
         bean.setFilterChainDefinitionMap(map);
 
         Map<String, Filter> filters = bean.getFilters();
+
         filters.put("JWT",new SubjectFilter());
         bean.setFilters(filters);
 

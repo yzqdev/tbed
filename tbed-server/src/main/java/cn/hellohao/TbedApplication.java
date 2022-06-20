@@ -13,26 +13,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.unit.DataSize;
 
 @SpringBootApplication
-@Configuration
 @EnableScheduling
-@ServletComponentScan
-@EnableTransactionManagement(proxyTargetClass = true)
+//@ServletComponentScan
+//@EnableTransactionManagement(proxyTargetClass = true)
 public class TbedApplication {
 
 public static void main(String[] args) {
     SpringApplication.run(TbedApplication.class, args);
-    }
-    /**
-     * 文件上传配置
-     * @return
-     */
-    @Bean
-    public MultipartConfigElement multipartConfigElement() {
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        //  单个数据大小
-        factory.setMaxFileSize(DataSize.parse("102400KB")); // KB,MB
-        /// 总上传数据大小
-        return factory.createMultipartConfig();
     }
 
 }

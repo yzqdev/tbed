@@ -2,6 +2,7 @@ package cn.hellohao.controller;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import cn.hellohao.auth.filter.SubjectFilter;
 import cn.hellohao.auth.token.JWTUtil;
 import cn.hellohao.auth.token.UserClaim;
 import cn.hellohao.config.SysName;
+import cn.hellohao.model.dto.UserFind;
 import cn.hellohao.model.entity.*;
 import cn.hellohao.model.dto.UserLoginDto;
 import cn.hellohao.service.*;
@@ -22,7 +24,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.alibaba.fastjson.JSONObject;
@@ -32,19 +34,19 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
+    @Resource
     private UserService userService;
-    @Autowired
+    @Resource
     private EmailConfigService emailConfigService;
-    @Autowired
+    @Resource
     private ConfigService configService;
-    @Autowired
+    @Resource
     private UploadConfigService uploadConfigService;
-    @Autowired
+    @Resource
     private SysConfigService sysConfigService;
-    @Autowired
-    private UserGroupService userGroupService;
-    @Autowired
+  @Value("${webhost}")
+  String webhost;
+    @Resource
     IRedisService iRedisService;
 
     @PostMapping("/register")
@@ -214,27 +216,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/activation", method = RequestMethod.GET)
-    public String activation(Model model, HttpServletRequest request, HttpSession session, String activation, String username) {
-        Config config = configService.getSourceType();
-        Integer ret = 0;
-        SysUser u2 = new SysUser();
-        u2.setUid(activation);
-        SysUser sysUser = userService.getUsers(u2);
-        model.addAttribute("webhost",SubjectFilter.WEBHOST);
-        if (sysUser != null && sysUser.getIsok() == 0) {
-            userService.getUserByUid(activation);
-            model.addAttribute("title","激活成功");
-            model.addAttribute("name","Hi~"+username);
-            model.addAttribute("note","您的账号已成功激活看");
-            return "msg";
-        } else {
-            model.addAttribute("title","操作无效");
-            model.addAttribute("name","该页面为无效页面");
-            model.addAttribute("note","请返回首页");
-            return "msg";
-        }
-    }
+
 
     @PostMapping(value = "/logout")//new
     @ResponseBody
@@ -249,12 +231,12 @@ public class UserController {
 
     @PostMapping("/retrievePass") //new
     @ResponseBody
-    public Msg retrievePass(HttpServletRequest request, @RequestParam(value = "data", defaultValue = "") String data) {
+    public Msg retrievePass(HttpServletRequest request, @RequestBody UserFind userFind) {
         Msg msg = new Msg();
         try {
-            JSONObject jsonObj = JSONObject.parseObject(data);
-            String email = jsonObj.getString("email");
-            String retrieveCode = jsonObj.getString("retrieveCode");
+
+            String email =userFind.getEmail();
+            String retrieveCode = userFind.getRetrieveCode();
             String userIP = GetIPS.getIpAddr(request);
             Object redis_verifyCodeForEmailRetrieve = iRedisService.getValue(userIP+"_hellohao_verifyCodeForEmailRetrieve");
 
@@ -307,37 +289,6 @@ public class UserController {
         return msg;
     }
 
-    @RequestMapping(value = "/retrieve", method = RequestMethod.GET) //new
-    public String retrieve(Model model, String activation,String cip) {
-        Integer ret = 0;
-        try {
-            SysUser u2 = new SysUser();
-            u2.setUid(activation);
-            SysUser sysUser = userService.getUsers(u2);
-            sysUser.setIsok(1);
-            String new_pass = HexUtil.decodeHexStr(cip);//解密密码
-            sysUser.setPassword(Base64Encryption.encryptBASE64(new_pass.getBytes()));
-            String uid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-            sysUser.setUid(uid);
-            if (sysUser != null) {
-                Integer r = userService.changeUser(sysUser);
-                model.addAttribute("title","成功");
-                model.addAttribute("name","新密码:"+new_pass);//
-                model.addAttribute("note","密码已被系统重置，请即使登录修改你的新密码");
-            } else {
-                model.addAttribute("title","抱歉");
-                model.addAttribute("name","为获取到用户信息");
-                model.addAttribute("note","操作失败");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            model.addAttribute("title","抱歉");
-            model.addAttribute("name","系统操作过程中发生错误");
-            model.addAttribute("note","操作失败");
-        }
-        model.addAttribute("webhost", SubjectFilter.WEBHOST);
-        return "msg";
-    }
 
 
 

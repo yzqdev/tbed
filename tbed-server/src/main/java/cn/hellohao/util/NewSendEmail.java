@@ -3,9 +3,11 @@ package cn.hellohao.util;
 import cn.hellohao.model.entity.Config;
 import cn.hellohao.model.entity.EmailConfig;
 import cn.hellohao.model.entity.Msg;
+import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import cn.hutool.http.server.HttpServerRequest;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -52,12 +54,12 @@ public class NewSendEmail {
            //创建一个Configuration对象
            Configuration configuration = new Configuration(Configuration.getVersion());
            // 告诉config对象模板文件存放的路径。
-           var resource= SpringUtil.getBean(ResourceLoader.class);
-           configuration.setDirectoryForTemplateLoading(resource.getResource("templates").getFile());
+           configuration.setDirectoryForTemplateLoading(new File("src/main/resources/templates"));
+           Console.log(configuration);
            // 设置config的默认字符集。一般是utf-8
            configuration.setDefaultEncoding("utf-8");
            //从config对象中获得模板对象。需要制定一个模板文件的名字。
-           Template templateEngin = configuration.getTemplate("emailTemplate/emailReg.html");
+           Template templateEngin = configuration.getTemplate(template);
            StringWriter stringWriter = new StringWriter();
             templateEngin.process(mapMsg, stringWriter);
 

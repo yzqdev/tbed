@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface UserService extends IService<SysUser> {
     //注册
     Integer register(SysUser sysUser);
@@ -44,6 +44,6 @@ public interface UserService extends IService<SysUser> {
     SysUser getUsersMail(String uid);
     Integer setisok (SysUser sysUser);
     Integer setmemory(SysUser sysUser);
-    SysUser getUsersid(String id);
+    SysUser getUsersid(String id);Integer usersetmemory(SysUser sysUser, String codestring);
     List<SysUser> getuserlistforgroupid(String groupid);
 }

@@ -138,10 +138,10 @@ export default {
       verifyCodeURL: null,
       userToken: null,
       formInline: {
-        username: "",
-        email: "",
-        password: "",
-        passwordtow: "",
+        username: "yzqdev",
+        email: "1826814987@qq.com",
+        password: "123456",
+        passwordtow: "123456",
         verifyCode: "", //verifyCodeForRegister
       },
       ruleInline: {
